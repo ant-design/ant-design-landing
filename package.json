@@ -64,7 +64,7 @@
   ],
   "scripts": {
     "start": "cross-env NODE_ENV=development bisheng start -c ./site/bisheng.config.js --no-livereload",
-    "build": "npm run build",
+    "build": "npm run bisheng-build",
     "bisheng-build": "cross-env NODE_ENV=production bisheng build -c ./site/bisheng.config.js",
     "site": "rm -rf _site && npm run bisheng-build && gh-pages -d _site",
     "deploy": "npm run re-site && npm run site && bisheng gh-pages --push-only",

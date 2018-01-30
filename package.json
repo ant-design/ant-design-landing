@@ -15,7 +15,8 @@
     "github-api": "^3.0.0",
     "react-document-title": "^2.0.1",
     "react-intl": "^2.3.0",
-    "react-redux": "^5.0.6"
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",

@@ -1,3 +1,4 @@
+/* eslint-disable */
 const ghpages = require('gh-pages');
 const through = require('through2');
 const gutil = require('gulp-util');
@@ -24,7 +25,9 @@ function generatorData(fileName) {
     try {
       const parsed = JSON.parse(file.contents.toString(encode));
       list.push(parsed);
-    } catch (err) { }
+    } catch (err) {
+      console.log(err);
+    }
     callback();
   }
   function endStream() {

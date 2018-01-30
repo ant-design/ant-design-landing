@@ -2,11 +2,9 @@ import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import PropTypes from 'prop-types';
 import { Link } from 'bisheng/router';
-import { Row, Col, Icon, Menu, Button, Popover, Select } from 'antd';
+import { Row, Col, Menu } from 'antd';
 
 import { getLocalizedPathname } from '../utils';
-
-const { Option, OptGroup } = Select;
 
 class Header extends React.Component {
   static contextTypes = {

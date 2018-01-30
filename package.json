@@ -55,7 +55,9 @@
     "rc-scroll-anim": "^2.2.1",
     "rc-tween-one": "^1.7.3",
     "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "react-dom": "^16.0.0",
+    "stylelint": "^8.4.0",
+    "stylelint-config-standard": "^17.0.0"
   },
   "pre-commit": [
     "lint"

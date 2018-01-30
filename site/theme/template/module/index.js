@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-function todos(state = [], action) {
+function todos(state = []) {
   console.log(state);
   return [
     { list: 1 },

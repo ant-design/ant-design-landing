@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'bisheng/router';
 // import * as utils from './utils';
 
-export default function NotFound({ location }) {
+export default function NotFound() {
   return (
     <div id="page-404">
       <section>

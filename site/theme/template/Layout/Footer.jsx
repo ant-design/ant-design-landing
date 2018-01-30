@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { Row, Col, Button } from 'antd';

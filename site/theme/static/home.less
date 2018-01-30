@@ -1,0 +1,114 @@
+
+
+.home {
+  .header {
+    box-shadow: 0 0 0 rgba(138, 166, 195, 0);
+    position: absolute;
+    width: 100%;
+    background: transparent;
+    z-index: 999;
+  }
+  .button {
+    min-width: 136px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 20px;
+    display: inline-block;
+    box-shadow: 0 0 0 fade(@home-button-shadow-color, 0);
+    transition: box-shadow .3s @ease-out, transform .3s @ease-out;
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 12px fade(@home-button-shadow-color, 55);
+    }
+  }
+}
+.banner{
+  background: @primary-color;
+  color: #fff;
+  position: relative;
+  height: 682px;
+  .banner-anim-elem {
+    height: 100%;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    .text-wrapper{
+      .logo-wrapper {
+        width: 160px;
+        height: 160px;
+        margin: auto;
+        position: relative;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+        i {
+          background: #fff;
+          position: absolute;
+          transform-origin: top left;
+        }
+        .vertical {
+          height: 264px;
+          width: 1px;
+          top: -52px;
+        }
+        .horizontal {
+          width: 264px;
+          height: 1px;
+          left: -52px;
+        }
+        .left {
+          left: 31px;
+        }
+        .right {
+          left: 55px;
+        }
+        .top {
+          top: 130px;
+        }
+        .bottom {
+          bottom: 4px;
+        }
+      }
+      .introduce {
+        font-size: 16px;
+        line-height: 32px;
+        font-weight: 400;
+        max-width: 557px;
+        margin: 80px auto 64px;
+      }
+      .button-wrapper {
+        .btn-temp {
+          background: #fff;
+          color: @primary-color;
+        }
+        .btn-editor {
+          border: 1px solid #fff;
+          color: #fff;
+          margin-left: 24px;
+          transition: box-shadow .3s @ease-out, 
+            transform .3s @ease-out, 
+            color .3s @ease-out, 
+            border .3s @ease-out,
+            background .3s @ease-out;
+          &:hover {
+            background: #fff;
+            color: @primary-color;
+            border-color: transparent;
+          }
+        }
+      }
+    }
+    .bg-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+  }
+}

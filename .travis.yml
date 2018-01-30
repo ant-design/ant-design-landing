@@ -1,0 +1,21 @@
+language: generic # don't install any environment
+
+before_install:
+ - chmod +x ./scripts/compile.sh
+script:
+  - |
+    if [ "$TEST_TYPE" = lint ]; then
+      npm run lint
+    elif [ "$TEST_TYPE" = deploy ]; then
+      bash ./scripts/deploy.sh
+    fi
+env:
+  global:
+    - ENCRYPTION_LABEL: "ffda7dbc26ad"
+    - COMMIT_AUTHOR_EMAIL: "surgesoft@gmail.com"
+  matrix:
+    - TEST_TYPE=lint
+    - TEST_TYPE=deploy
+language: node_js
+node_js:
+  - stable

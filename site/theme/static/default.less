@@ -2,3 +2,13 @@
 @menu-item-border: 2px;
 // 首页按钮投影色
 @home-button-shadow-color: darken(@primary-color, 20%);
+
+.mouseHover(@color, @x: 0, @y: 4px, @blur: 12px) {
+  transform: translateY(0px);
+  box-shadow: 0 0 0 fade(@color, 0);
+  transition: box-shadow .3s @ease-in-out, transform .3s @ease-in-out;
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: @x @y @blur fade(@color, 55);
+  }
+}

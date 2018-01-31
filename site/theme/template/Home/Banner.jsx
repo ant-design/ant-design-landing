@@ -2,6 +2,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import QueueAnim from 'rc-queue-anim';
 import TweenOne from 'rc-tween-one';
+import Link from 'rc-scroll-anim/lib/ScrollLink';
 import BannerAnim, { Element } from 'rc-banner-anim';
 
 const { BgElement } = Element;
@@ -118,7 +119,9 @@ export default function Banner() {
             <FormattedMessage id="app.home.introduce" />
           </p>
           <div className="button-wrapper" key="button">
-            <a className="btn-temp button"><FormattedMessage id="app.home.select-template" /></a>
+            <Link component="a" toHash={false} to="page1" className="btn-temp button">
+              <FormattedMessage id="app.home.select-template" />
+            </Link>
             <a className="btn-editor button"><FormattedMessage id="app.home.enter-editor" /></a>
           </div>
         </QueueAnim>

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { connect } from 'react-redux';
+
 import PropTypes from 'prop-types';
 import { addLocaleData, IntlProvider } from 'react-intl';
 import { LocaleProvider } from 'antd';
@@ -39,7 +39,6 @@ class Layout extends React.PureComponent {
 
   constructor(props) {
     super(props);
-    console.log(props);
     const { pathname } = props.location;
     const appLocale = utils.isZhCN(pathname) ? cnLocale : enLocale;
     addLocaleData(appLocale.data);
@@ -59,11 +58,9 @@ class Layout extends React.PureComponent {
   }
 
   render() {
-    console.log(this.props);
     const { children, ...restProps } = this.props;
     const { pathname } = this.props.location;
     const { appLocale } = this.state;
-
     return (
       <IntlProvider locale={appLocale.locale} messages={appLocale.messages}>
         <LocaleProvider locale={enUS}>
@@ -78,10 +75,4 @@ class Layout extends React.PureComponent {
   }
 }
 
-const getListData = (state) => {
-  console.log(state);
-  return {
-    list: 2,
-  };
-};
-export default connect(getListData)(Layout);
+export default Layout;

@@ -13,10 +13,13 @@
     "antd": "next",
     "enquire-js": "^0.1.1",
     "github-api": "^3.0.0",
+    "leancloud-storage": "^3.5.0",
     "react-document-title": "^2.0.1",
     "react-intl": "^2.3.0",
     "react-redux": "^5.0.6",
-    "redux": "^3.7.2"
+    "redux": "^3.7.2",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
@@ -50,11 +53,6 @@
     "eslint-plugin-markdown": "^1.0.0-beta.6",
     "eslint-plugin-react": "^7.0.1",
     "eslint-tinker": "^0.4.1",
-    "gulp": "^3.9.1",
-    "gulp-beautify": "^2.0.1",
-    "gulp-merge-json": "^1.0.0",
-    "gulp-util": "^3.0.8",
-    "gulp-yaml": "^1.0.1",
     "pre-commit": "1.x",
     "rc-banner-anim": "^1.0.1",
     "rc-queue-anim": "^1.4.1",

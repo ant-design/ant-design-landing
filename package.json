@@ -12,7 +12,6 @@
   "dependencies": {
     "antd": "next",
     "enquire-js": "^0.1.1",
-    "github-api": "^3.0.0",
     "leancloud-storage": "^3.5.0",
     "react-document-title": "^2.0.1",
     "react-intl": "^2.3.0",

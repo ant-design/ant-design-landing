@@ -1,6 +1,5 @@
 import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import { Link } from 'bisheng/router';
 import { Row, Col, Button } from 'antd';
 import * as utils from '../utils';
 

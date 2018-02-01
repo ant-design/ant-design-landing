@@ -28,10 +28,15 @@ class Footer extends React.Component {
           <Row>
             <Col lg={6} sm={24} xs={24}>
               <div className="footer-center">
-                <h2>Landings</h2>
+                <h2>Ant Design Landings</h2>
                 <div>
                   <a target="_blank " href="https://github.com/ant-design/landings">
-                    Landings GitHub
+                    <FormattedMessage id="app.footer.repo" />
+                  </a>
+                </div>
+                <div>
+                  <a target="_blank " href="https://github.com/ant-motion">
+                    <FormattedMessage id="app.footer.template" />
                   </a>
                 </div>
               </div>

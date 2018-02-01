@@ -16,6 +16,7 @@ module.exports = {
     'app.home.edit-slogen': '所有模板都基于 Ant Design 设计规范设计，如不能满足你的业务需求，也可使用我们的编辑器，快速搭建一个属于你的专属首页',
     'app.home.slogan': 'Ant Design Landings 模板与规范',
     'app.footer.repo': '源码仓库',
+    'app.footer.template': '模板仓库',
     'app.footer.awesome': 'Awesome Ant Design',
     'app.footer.customize-theme': '定制主题',
     'app.footer.scaffold': '脚手架',

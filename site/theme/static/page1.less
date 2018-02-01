@@ -53,13 +53,25 @@
       }
       .tween-group {
         transition: height .45s @ease-in-out;
-        >.tween-one-entering, >.tween-one-leaving {
+        >.tween-one-entering,
+        >.tween-one-leaving {
           position: absolute;
           width: ~"calc(100% + 48px)";
           top: 0;
           left: 0;
         }
       }
+    }
+  }
+  .bg {
+    width: 1401px;
+    height: 1843px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: -700px;
+    svg {
+      overflow: initial;
     }
   }
 }

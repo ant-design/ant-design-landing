@@ -5,6 +5,7 @@ import QueueAnim from 'rc-queue-anim';
 import ScrollOverPack from 'rc-scroll-anim/lib/ScrollOverPack';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
+import ImageLoadComp from './ImageLoadComp';
 import { fetchListData, postType } from '../../module/actions';
 import { getURLData, setURLData } from '../../utils';
 
@@ -47,7 +48,7 @@ class Templates extends React.PureComponent {
             <div className="item-wrapper">
               <div className="img-wrapper">
                 <a href={item.preview} target="_blank">
-                  <img alt="img" src={item.image} />
+                  <ImageLoadComp src={item.image} />
                 </a>
               </div>
               <p>{item.name}</p>
@@ -62,7 +63,7 @@ class Templates extends React.PureComponent {
     const lineNum = Math.ceil((data.length - prePaging) / 3);
     return (
       <Spin spinning={type === postType.POST_DEFAULT}>
-        <ScrollOverPack playScale="0.3" id="page1">
+        <ScrollOverPack playScale="0.3">
           <QueueAnim key="qeu" type="bottom" className="page1-content-wrapper">
             <div key="a">
               <TweenOneGroup

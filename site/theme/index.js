@@ -23,16 +23,8 @@ module.exports = {
     return nodePath.endsWith('/demo');
   },
   pick: {
-    components(markdownData) {
-      const filename = markdownData.meta.filename;
-      if (!/^scaffold\/src\/components/.test(filename) ||
-        /[/\\]demo$/.test(path.dirname(filename))) return;
-
-      return {
-        meta: markdownData.meta,
-      };
-    },
-    docs: pickerGenerator(),
+    'docs/spec': pickerGenerator('spec'),
+    'docs/instructions': pickerGenerator('instructions'),
   },
   plugins: [
     'bisheng-plugin-description',
@@ -50,7 +42,7 @@ module.exports = {
         component: homeTmpl,
       },
       {
-        path: '/docs/:children',
+        path: '/docs/:children/:child',
         component: contentTmpl,
       },
     ],

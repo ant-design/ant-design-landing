@@ -86,9 +86,9 @@
   {{ content | safe }}
 </div>
 {% if isDev %}
-  <script src="https://as.alipayobjects.com/g/component/??react/15.6.1/react.js,react/15.6.1/react-dom.js"></script>
+  <script src="https://as.alipayobjects.com/g/component/??react/16.2.0/react.development.js,react/16.2.0/react-dom.development.js"></script>
 {% else %}
-  <script src="https://as.alipayobjects.com/g/component/??react/15.6.1/react.min.js,react/15.6.1/react-dom.min.js"></script>
+  <script src="https://as.alipayobjects.com/g/component/??react/16.2.0/react.production.min.js,react/16.2.0/react-dom.production.min.js"></script>
 {% endif %}
 <script src="{{ root }}common.js"></script>
 <script src="{{ root }}index.js"></script>

@@ -13,15 +13,9 @@ class Header extends React.Component {
   getMenuToRender = () => {
     const { isMobile, location, intl } = this.props;
     const isZhCN = intl.locale === 'zh-CN';
-    const path = location.pathname;
     const menuMode = isMobile ? 'inline' : 'horizontal';
     const module = location.pathname.replace(/(^\/|\/$)/g, '').split('/').slice(0, -1).join('/');
-    let activeMenuItem = module || 'home';
-    if (/docs/.test(path)) {
-      activeMenuItem = 'docs';
-    } else if (path === '/') {
-      activeMenuItem = 'home';
-    }
+    const activeMenuItem = module || 'home';
     return (
       <Menu mode={menuMode} selectedKeys={[activeMenuItem]} id="nav" key="nav">
         <Menu.Item key="home">
@@ -29,31 +23,35 @@ class Header extends React.Component {
             <FormattedMessage id="app.header.menu.home" />
           </Link>
         </Menu.Item>
-        <Menu.Item key="language">
-          <Link to={getLocalizedPathname('/language/index', isZhCN)}>
+        <Menu.Item key="docs/spec">
+          <Link to={getLocalizedPathname('/docs/spec/introduce', isZhCN)}>
             <FormattedMessage id="app.header.menu.language" />
           </Link>
         </Menu.Item>
-        <Menu.Item key="docs">
-          <Link to={getLocalizedPathname('/docs/index', isZhCN)}>
+        <Menu.Item key="docs/instructions">
+          <Link to={getLocalizedPathname('/docs/instructions/use-witch-ant-design-pro', isZhCN)}>
             <FormattedMessage id="app.header.menu.docs" />
           </Link>
         </Menu.Item>
         <Menu.Item key="edit">
-          <Link to={getLocalizedPathname('/edit/index', isZhCN)}>
+          <a
+            target="_blank"
+            href="https://motion.ant.design/edit/#t%3Dnav_0_0%2Ccontent_0_0%2Ccontent_2_0%2Ccontent_3_0%2Ccontent_4_0%2Cfooter_0_0"
+          >
             <FormattedMessage id="app.header.menu.edit" />
-          </Link>
+          </a>
         </Menu.Item>
       </Menu>
     );
   }
   render() {
     const menu = this.getMenuToRender();
+    const isZhCN = this.props.intl.locale === 'zh-CN';
     return (
       <div id="header" className="header page-wrapper">
         <Row className="page">
           <Col md={6} sm={24}>
-            <Link className="logo">
+            <Link className="logo" to={getLocalizedPathname('/', isZhCN)}>
               <img alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/SVDdpZEbAlWBFuRGIIIL.svg" />
               <span>LANDINGS</span>
             </Link>

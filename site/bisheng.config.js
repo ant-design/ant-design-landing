@@ -21,6 +21,14 @@ module.exports = {
   htmlTemplate: './site/theme/static/template.html',
   themeConfig: {
     root: '/',
+    categoryOrder: {
+      介绍: 0,
+      样式规范: 1,
+      响应式规范: 2,
+      Introduce: 0,
+      'Style Spec': 1,
+      Response: 2,
+    },
   },
   filePathMapper(filePath) {
     if (filePath === '/index.html') {

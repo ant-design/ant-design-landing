@@ -1,0 +1,34 @@
+@import './markdown.less';
+@import './highlight.less';
+@import './page-nav.less';
+@import './toc.less';
+.main-wrapper {
+  background: #fff;
+  margin: 0;
+  border-radius: @border-radius-base;
+  padding: 40px 0 0;
+  position: relative;
+  &.landings-move-leave {
+    margin-top: 64px;
+  }
+}
+
+.main-container {
+  padding: 0 194px 144px 64px;
+  margin-left: -1px;
+  background: #fff;
+  min-height: 800px;
+  border-left: 1px solid #e9e9e9;
+  position: relative;
+  .markdown {
+    background: #fff;
+  }
+}
+
+.main-menu {
+  z-index: 1;
+}
+.main-animate-wraper {
+  position: relative;
+  padding-top: 1px;
+}

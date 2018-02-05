@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'bisheng/router';
 import { Row, Col, Menu } from 'antd';
 
+import PhoneNav from './PhoneNav';
 import { getLocalizedPathname } from '../utils';
 
 class Header extends React.Component {
@@ -33,22 +34,26 @@ class Header extends React.Component {
             <FormattedMessage id="app.header.menu.docs" />
           </Link>
         </Menu.Item>
-        <Menu.Item key="edit">
-          <a
-            target="_blank"
-            href="https://motion.ant.design/edit/#t%3Dnav_0_0%2Ccontent_0_0%2Ccontent_2_0%2Ccontent_3_0%2Ccontent_4_0%2Cfooter_0_0"
-          >
-            <FormattedMessage id="app.header.menu.edit" />
-          </a>
-        </Menu.Item>
+        {!isMobile && (
+          <Menu.Item key="edit">
+            <a
+              target="_blank"
+              href="https://motion.ant.design/edit/#t%3Dnav_0_0%2Ccontent_0_0%2Ccontent_2_0%2Ccontent_3_0%2Ccontent_4_0%2Cfooter_0_0"
+            >
+              <FormattedMessage id="app.header.menu.edit" />
+            </a>
+          </Menu.Item>
+        )}
       </Menu>
     );
   }
   render() {
     const menu = this.getMenuToRender();
-    const isZhCN = this.props.intl.locale === 'zh-CN';
+    const { isMobile, intl } = this.props;
+    const isZhCN = intl.locale === 'zh-CN';
     return (
       <div id="header" className="header page-wrapper">
+        {isMobile && (<PhoneNav>{menu}</PhoneNav>)}
         <Row className="page">
           <Col md={6} sm={24}>
             <Link className="logo" to={getLocalizedPathname('/', isZhCN)}>
@@ -56,19 +61,23 @@ class Header extends React.Component {
               <span>LANDINGS</span>
             </Link>
           </Col>
-          <Col md={18} sm={0}>
-            <div className="menu">
-              {menu}
-              <a
-                href="https://github.com/ant-design/landings"
-                alt="git"
-                target="_blank"
-                className="gitbtn"
-              >
-                Github
-              </a>
-            </div>
-          </Col>
+          {
+            !isMobile && (
+              <Col md={18} sm={0} >
+                <div className="menu">
+                  {menu}
+                  <a
+                    href="https://github.com/ant-design/landings"
+                    alt="git"
+                    target="_blank"
+                    className="gitbtn"
+                  >
+                    Github
+                  </a>
+                </div>
+              </Col>
+            )
+          }
         </Row>
       </div>
     );

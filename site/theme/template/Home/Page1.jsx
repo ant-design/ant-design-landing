@@ -2,7 +2,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import Templates from './component/Templates';
-import svgBgToParallax from './utils';
+import { svgBgToParallax } from './utils';
 
 function setBgToParallax(item) {
   const { props } = item;
@@ -34,9 +34,6 @@ const svgBgChild = setBgToParallax((
 ));
 
 export default class Page1 extends React.PureComponent {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
       <div className="page-wrapper page1" id="page1">
@@ -45,7 +42,7 @@ export default class Page1 extends React.PureComponent {
           <div className="bg">
             {svgBgChild}
           </div>
-          <Templates isMoblie={this.props.isMoblie} />
+          <Templates isMobile={this.props.isMobile} />
         </div>
       </div>);
   }

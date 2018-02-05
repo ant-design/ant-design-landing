@@ -52,6 +52,7 @@
     "eslint-plugin-markdown": "^1.0.0-beta.6",
     "eslint-plugin-react": "^7.0.1",
     "eslint-tinker": "^0.4.1",
+    "extract-text-webpack-plugin": "^3.0.2",
     "pre-commit": "1.x",
     "rc-animate": "^2.4.4",
     "rc-banner-anim": "^1.0.1",

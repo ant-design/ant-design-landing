@@ -3,7 +3,7 @@ import QueueAnim from 'rc-queue-anim';
 import ScrollOverPack from 'rc-scroll-anim/lib/ScrollOverPack';
 import { FormattedMessage } from 'react-intl';
 
-import svgBgToParallax from './utils';
+import { svgBgToParallax } from './utils';
 
 const svgBg = [
   <circle id="Oval-8" stroke="#13C2C2" cx="530" cy="195" r="5" />,
@@ -27,8 +27,8 @@ export default function Page2() {
           {svgChildren}
         </svg>
       </div>
-      <ScrollOverPack playScale="0.3">
-        <QueueAnim className="page" type="bottom" key="queue">
+      <ScrollOverPack playScale="0.3" className="page">
+        <QueueAnim type="bottom" key="queue" leaveReverse>
           <p key="p"><FormattedMessage id="app.home.edit-slogen" /></p>
           <div key="a">
             <a className="button"><FormattedMessage id="app.home.enter-editor" /></a>

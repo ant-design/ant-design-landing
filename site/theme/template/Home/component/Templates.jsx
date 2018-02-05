@@ -8,6 +8,7 @@ import { FormattedMessage } from 'react-intl';
 import ImageLoadComp from './ImageLoadComp';
 import { fetchListData, postType } from '../../module/actions';
 import { getURLData, setURLData } from '../../utils';
+import { scrollTo } from '../utils';
 
 class Templates extends React.PureComponent {
   constructor(props) {
@@ -18,6 +19,7 @@ class Templates extends React.PureComponent {
     };
   }
   componentDidMount() {
+    this.pageDom = document.getElementById('page1');
     const { dispatch } = this.props;
     dispatch(fetchListData());
   }
@@ -25,6 +27,7 @@ class Templates extends React.PureComponent {
     this.setState({
       paging: v,
     }, () => {
+      scrollTo(this.pageDom.offsetTop);
       setURLData('paging', v);
     });
   }
@@ -32,9 +35,10 @@ class Templates extends React.PureComponent {
     const { listData, isMobile } = this.props;
     const { type, data } = listData;
     const { paging } = this.state;
-    const prePaging = (paging - 1) * 9;
+    const num = isMobile ? 5 : 9;
+    const prePaging = (paging - 1) * num;
     const children = data.map((item, ii) => {
-      if (ii < paging * 9 && ii >= prePaging) {
+      if (ii < paging * num && ii >= prePaging) {
         const i = ii - prePaging;
         const delay = isMobile ? i * 50 : (Math.floor(i / 3) * 50) + ((i % 3) * 50);
         const animation = { y: 30, opacity: 0, type: 'from', delay };
@@ -76,9 +80,9 @@ class Templates extends React.PureComponent {
                   {children}
                 </Row>
               </TweenOneGroup>
-              {data.length > 9 && <Pagination
+              {data.length > num && <Pagination
                 current={paging}
-                pageSize={9}
+                pageSize={num}
                 total={data.length}
                 className="pagination"
                 onChange={this.onPagingChange}
@@ -86,7 +90,6 @@ class Templates extends React.PureComponent {
             </div>
           </QueueAnim>
         </ScrollOverPack>
-
       </Spin>
     );
   }

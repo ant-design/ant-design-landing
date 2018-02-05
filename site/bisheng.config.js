@@ -47,6 +47,20 @@ module.exports = {
     `bisheng-plugin-react?${JSON.stringify(pluginAntdConfig)}`,
   ],
   webpackConfig(config) {
+    config.babel.plugins.push([
+      require.resolve('babel-plugin-transform-runtime'),
+      {
+        polyfill: false,
+        regenerator: false,
+      },
+    ], [
+      'babel-plugin-import',
+      {
+        libraryName: 'antd',
+        libraryDirectory: 'lib',
+        style: true,
+      },
+    ]);
     config.resolve.alias = {
       'react-router': 'react-router/umd/ReactRouter',
     };
@@ -56,7 +70,6 @@ module.exports = {
       react: 'React',
       'react-dom': 'ReactDOM',
     });
-
     return config;
   },
   htmlTemplateExtraData: {

@@ -57,11 +57,11 @@ class Layout extends React.PureComponent {
         <LocaleProvider locale={enUS}>
           <div className={(pathname === '/' || pathname === 'index-cn') ? 'home' : ''}>
             <div className="header-placeholder" />
-            <Header {...restProps} />
+            <Header {...restProps} isMobile={this.state.isMobile} />
             <Animate component="div" transitionName="landings-move">
               {childrenToRender}
             </Animate>
-            <Footer {...restProps} />
+            <Footer {...restProps} isMobile={this.state.isMobile} />
           </div>
         </LocaleProvider>
       </IntlProvider>

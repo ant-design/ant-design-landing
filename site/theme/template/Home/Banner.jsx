@@ -36,7 +36,7 @@ function TweenOneYG(props) {
     </TweenOne>
   );
 }
-export default function Banner() {
+export default function Banner({ isMobile }) {
   return (
     <BannerAnim className="banner">
       <Element
@@ -56,7 +56,7 @@ export default function Banner() {
       >
         <BgElement className="bg-wrapper" key="bg">
           <TweenOne component="" animation={{ opacity: 0, type: 'from', delay: 300 }} key="tween">
-            <svg width="100%" height="100%" viewBox="0 0 1440 451" preserveAspectRatio="xMaxYMid meet">
+            <svg width="100%" height="100%" viewBox={isMobile ? '0 0 500 760' : '0 0 1440 451'} >
               <g transform="translate(-30, 0)" id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                 <g id="Group-9" opacity="0.3">
                   <TweenOneYG>
@@ -66,7 +66,7 @@ export default function Banner() {
                   </TweenOneYG>
                   <TweenOneYG>
                     <g id="p-1">
-                      <polygon id="Polygon" stroke="#FFFFFF" strokeWidth="2" transform="translate(139.000000, 17.500000) rotate(45.000000) translate(-139.000000, -17.500000) " points="139 6 152 29 126 29" />
+                      <polygon id="Polygon" stroke="#FFFFFF" strokeWidth="2" transform="translate(139.000000, 17.500000) rotate(45.000000) translate(-139.000000, -17.500000) " points="139 77 152 100 126 100" />
                     </g>
                   </TweenOneYG>
                   <TweenOneYG>
@@ -122,13 +122,15 @@ export default function Banner() {
             <Link component="a" toHash={false} to="page1" className="btn-temp button">
               <FormattedMessage id="app.home.select-template" />
             </Link>
-            <a
-              className="btn-editor button"
-              target="_blank"
-              href="https://motion.ant.design/edit/#t%3Dnav_0_0%2Ccontent_0_0%2Ccontent_2_0%2Ccontent_3_0%2Ccontent_4_0%2Cfooter_0_0"
-            >
-              <FormattedMessage id="app.home.enter-editor" />
-            </a>
+            {!isMobile && (
+              <a
+                className="btn-editor button"
+                target="_blank"
+                href="https://motion.ant.design/edit/#t%3Dnav_0_0%2Ccontent_0_0%2Ccontent_2_0%2Ccontent_3_0%2Ccontent_4_0%2Cfooter_0_0"
+              >
+                <FormattedMessage id="app.home.enter-editor" />
+              </a>
+            )}
           </div>
         </QueueAnim>
 

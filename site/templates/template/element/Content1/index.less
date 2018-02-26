@@ -1,0 +1,123 @@
+@import '../../../static/custom.less';
+
+@banner1: banner1;
+.@{banner1} {
+  width: 100%;
+  // 如果在第一屏且导航位置为 relative, 一屏为 height: calc(~"100vh - 64px");
+  height: 100vh;
+  position: relative;
+  border-color: #666;
+  background: #fff;
+  &-wrapper, .banner-anim {
+    height: 100%;
+  }
+  & .queue-anim-leaving {
+    position: relative !important;
+    width: auto;
+  }
+  .banner-user-elem {
+    height: 100%;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .bg0 {
+    background: url("https://zos.alipayobjects.com/rmsportal/hzPBTkqtFpLlWCi.jpg") center;
+  }
+  .bg1{
+    background: url("https://zos.alipayobjects.com/rmsportal/xHxWkcvaIcuAdQl.jpg") center;
+  }
+  .bg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    background-size: cover;
+  }
+  .banner-user-elem .banner-user-title {
+    font-size: 22px;
+    top: 40%;
+  }
+  .banner-user-elem .banner-user-text {
+    top: 40%;
+  }
+  &-title {
+    display: block;
+    position: relative;
+    top: 20%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    font-size: 14px;
+    color: @template-text-color-light;
+    width: 550px;
+    text-align: center;
+    & .logo {
+      width: 350px;
+      left: 30px;
+      margin: auto;
+      display: inline-block;
+      position: relative;
+    }
+    & p {
+      margin-bottom: 20px;
+      word-wrap: break-word;
+    }
+    & button {
+      border: 1px solid #fff;
+      color: #fff;
+      background: transparent;
+      box-shadow: 0 0 0 transparent;
+      transition: background .45s @ease-out, box-shadow .45s @ease-out;
+      line-height: 36px;
+      font-size: 16px;
+      height: 36px;
+      & span {
+        text-shadow: 0 0 0 rgba(0, 0, 0, 0);
+        transition: text-shadow .45s @ease-out;
+      }
+      &:hover {
+        color: #fff;
+        border-color: #fff;
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 10px rgba(50, 250, 255, 0.75);
+        & span {
+          text-shadow: 1px 1px 3px rgba(0, 0, 0, .35);
+        }
+      }
+    }
+  }
+  &-icon {
+    bottom: 20px;
+    font-size: 24px;
+    position: absolute;
+    z-index: 10;
+    left: 50%;
+    margin-left: -12px;
+    color: @template-text-color-light;
+  }
+}
+
+.banner-anim-thumb-default span {
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, .5);
+}
+
+@media screen and (max-width: 414px) {
+  .@{banner1}{
+    &-title{
+      width: 90%;
+      .logo{
+        width: 90%;
+        left: 0;
+      }
+    }
+    .bg {
+      background-attachment: inherit;
+    }
+  }
+}

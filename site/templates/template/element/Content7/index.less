@@ -1,0 +1,83 @@
+@import '../../../static/custom.less';
+
+@content5: content5;
+.@{content5} {
+  &-text {
+    width: 35%;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    top: 15%;
+    left: 5%;
+    & > *.queue-anim-leaving {
+      position: relative !important;
+    }
+    & > h1 {
+      position: relative;
+    }
+    & > p {
+      position: relative;
+      margin-top: 10px;
+    }
+    & ul {
+      position: relative;
+      margin-top: 10%;
+      display: inline-block;
+      & li {
+        margin-top: 8%;
+        & span {
+          display: inline-block;
+          width: 30px;
+          height: 30px;
+          position: absolute;
+        }
+        & h2, & p {
+          margin-left: 45px;
+        }
+        & h2 {
+          font-size: 14px;
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+  &-img {
+    width: 50%;
+    display: inline-block;
+    position: relative;
+    float: right;
+    top: 15%;
+    right: 5%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .@{content5}-wrapper {
+    height: 800px;
+    overflow: hidden;
+    .@{content5} {
+      width: 90%;
+      max-width: 100%;
+      &-img, &-text {
+        display: block;
+        width: 100%;
+        top: auto;
+        left: auto;
+        right: auto;
+      }
+      &-text {
+        height: 430px;
+        > h1 {
+          margin: 40px auto 20px;
+          font-size: 24px;
+        }
+        > h1, > p {
+          text-align: center;
+        }
+      }
+      &-img {
+        margin-top: 20px;
+      }
+    }
+  }
+}

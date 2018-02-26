@@ -1,0 +1,169 @@
+@import '../../../static/custom.less';
+
+@header: header1;
+.@{header} {
+  height: 64px;
+  background: @template-nav-bg-color;
+  width: 100%;
+  z-index: 970;
+  box-shadow: 0 5px 8px fade(#000, 15);
+  position: relative;
+  top: 0;
+  &-logo {
+    display: inline-block;
+    position: absolute;
+    left: 4%;
+    width: 150px;
+    line-height: 64px;
+    & img {
+      vertical-align: middle;
+      display: inline-block;
+    }
+    & a {
+      display: block;
+    }
+  }
+  &-nav {
+    float: right;
+    line-height: 64px;
+    position: relative;
+    margin-right: 4%;
+    & .ant-menu-horizontal {
+      border-bottom-color: transparent;
+    }
+    .ant-menu {
+      background: transparent;
+      color: @template-text-color-light;
+      line-height: 62px;
+      li {
+        float: left;
+        text-align: center;
+        min-width: 100px;
+        i {
+          transition: none;
+        }
+      }
+      .ant-menu-sub {
+        background: #fff;
+        color: fade(#666, 75);
+        overflow: hidden;
+        li {
+          width: 100%;
+          padding: 0 20px;
+        }
+        &menu-title:hover {
+          color: inherit;
+        }
+      }
+      .ant-menu-vertical, .ant-menu-vertical .ant-menu-item {
+        border-right: none;
+      }
+    }
+    & .ant-menu-horizontal > .ant-menu-item-active {
+      color: @link-hover-color;
+      border-bottom-color: @link-hover-color;
+
+    }
+  }
+  &-nav, &-phone-nav {
+    .ant-menu {
+      li i {
+        transition: none;
+      }
+    }
+    .help {
+      border-left: 1px solid fade(@line-color, 5) !important;
+      .anticon {
+        font-size: 16px;
+        vertical-align: middle;
+      }
+      span {
+        display: inline-block;
+        margin-left: 5px;
+        font-size: 12px;
+      }
+    }
+    .user {
+      font-size: 14px;
+      border-left: 1px solid fade(@line-color, 5) !important;
+      .img {
+        margin-left: 0;
+        img {
+          vertical-align: middle;
+        }
+      }
+      span {
+        margin-left: 10px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .@{header} {
+    &-logo {
+      z-index: 101;
+    }
+    &-phone-nav {
+      width: 16px;
+      height: 14px;
+      cursor: pointer;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      right: 20px;
+      &-bar {
+        position: relative;
+        z-index: 100;
+        em {
+          display: block;
+          width: 100%;
+          height: 2px;
+          background: #FFF;
+          margin-top: 4px;
+          transition: transform .3s @ease-in-out, opacity .3s @ease-in-out;
+        }
+        :first-child {
+          margin-top: 0;
+        }
+      }
+      &.open {
+        .@{header}-phone-nav-bar {
+          em {
+            &:nth-child(1) {
+              transform: translateY(6px) rotate(45deg);
+            }
+            &:nth-child(2) {
+              opacity: 0;
+            }
+            &:nth-child(3) {
+              transform: translateY(-6px) rotate(-45deg);
+            }
+          }
+        }
+        .@{header}-phone-nav-text {
+          opacity: 1;
+          pointer-events: auto;
+          transition-timing-function: @ease-out;
+        }
+      }
+
+      &-text {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        padding-top: 64px;
+        opacity: 0;
+        transition: opacity .3s @ease-in;
+        pointer-events: none;
+        background: #404040;
+        .ant-menu-item-selected {
+          border: none;
+        }
+      }
+    }
+  }
+}

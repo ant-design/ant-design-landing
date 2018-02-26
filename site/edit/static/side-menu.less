@@ -1,0 +1,86 @@
+.edit-side-menu {
+  width: 100%;
+  height: 100%;
+  border-right: 1px solid @edit-line-color;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  background: @edit-bg-color;
+  &-wrapper {
+    width: 40px;
+    height: 100%;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    z-index: 100;
+    .drawer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 320px;
+      z-index: 0;
+      &-bg {
+        display: none;
+      }
+      &-content-wrapper{
+        padding-left: 40px;
+        background: @edit-bg-color;
+      }
+      &-content {
+        background: transparent;
+        padding: 40px 16px;
+      }
+    }
+  }
+  .add {
+    padding: 16px 12px;
+    border-bottom: 1px solid @edit-line-color;
+    cursor: pointer;
+    line-height: 18px;
+    >i {
+      margin: 0 0 8px;
+    }
+  }
+  .other {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    >li {
+      padding: 10px 0;
+      border-top: 1px solid @edit-line-color;
+      cursor: pointer;
+    }
+  }
+  
+}
+.edit-side-drawer{
+  .title {
+    color: fade(#fff, 75);
+    margin-bottom: 8px;
+  }
+  .img-wrapper {
+    width: 50%;
+    display: inline-block;
+    padding: 0 8px;
+    margin-bottom: 16px;
+    vertical-align: top;
+    p {
+      font-size: 12px;
+      line-height: 32px;
+      color: fade(#fff, 60);
+    }
+    .img {
+      height: 64px;
+      line-height: 60px;
+      background: #4A4A4A;
+      border: 1px solid #666;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      img {
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+  }
+}

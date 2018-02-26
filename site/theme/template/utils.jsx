@@ -90,10 +90,14 @@ export function setURLData(name, value, url) {
   let myUrl = (url || window.location.hash || '').replace('#', '');
   const reg = new RegExp(`(^|&)${name}=([^&]*)(&|$)`, 'i');
   const r = myUrl.match(reg);
-  if (r) {
-    myUrl = myUrl.replace(r[0], `${r[1]}${name}=${value}${r[3]}`);
+  if (value) {
+    if (r) {
+      myUrl = myUrl.replace(r[0], `${r[1]}${name}=${value}${r[3]}`);
+    } else {
+      myUrl = myUrl ? `${myUrl}&${name}=${value}` : `#${name}=${value}`;
+    }
   } else {
-    myUrl = myUrl ? `${myUrl}&${name}=${value}` : `#${name}=${value}`;
+    myUrl = myUrl ? `${myUrl.replace(reg, '')}` : '';
   }
   window.location.hash = myUrl;
 }

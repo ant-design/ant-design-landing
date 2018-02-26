@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Ant Motion - Ant Design 的动效规范与组件</title>
+  <meta name="Description" content="Ant Motion 是以 React 组件来实现动画效果，用 Ant Design 实现页面后，可以轻松的增加页面里的动画效果。" />
+  <link rel="stylesheet" type="text/css" href="edit.css" />
+  <link rel="icon" href="https://zos.alipayobjects.com/rmsportal/HzvPfCGNCtvGrdk.png" type="image/x-icon">
+  <link rel="shortcut icon" href="https://zos.alipayobjects.com/rmsportal/HzvPfCGNCtvGrdk.png" type="image/x-icon">
+  <!--[if lt IE 10]>
+  <script
+    src="https://as.alipayobjects.com/g/component/??console-polyfill/0.2.2/index.js,es5-shim/4.1.14/es5-shim.min.js,es5-shim/4.1.14/es5-sham.min.js,html5shiv/3.7.2/html5shiv.min.js,media-match/2.0.2/media.match.min.js"></script>
+  <![endif]-->
+  <script>
+    if (window.location.port) {
+      document.domain = document.domain;
+    }
+  </script>
+  <script src="https://a.alipayobjects.com/jquery/jquery/1.11.1/jquery.js"></script>
+  <style>
+    #ant-motion-load {
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      -webkit-filter: url("#goo");
+      filter: url("#goo");
+      opacity: 0;
+      transition: opacity .5s;
+    }
+
+    #ant-motion-load ul {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+
+    }
+
+    #ant-motion-load ul li {
+      width: 18px;
+      height: 18px;
+      border-radius: 100%;
+      background: #019BF0;
+      position: absolute;
+      transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transform: scale(1);
+    }
+
+    #react-content:empty + #ant-motion-load {
+      opacity: 1;
+    }
+
+
+  </style>
+</head>
+<body>
+<div id="react-content"></div>
+<div id="ant-motion-load">
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+    <defs>
+      <filter id="goo">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
+        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
+          result="goo" />
+        <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+      </filter>
+    </defs>
+  </svg>
+  <ul />
+</div>
+<script>
+  var w = 100, h = 113, r = 18,
+    wx = w / 2, wy = h / 2 - r, angle = 45, liArray = [];
+  for (var i = 0; i < 74; i++) {
+    var li = $('<li/>').appendTo($('#ant-motion-load ul'));
+    liArray.push(li);
+    var _left = 110, _top = 110, _x, _y;
+    if (i < 25) {
+      _left = -wx;
+      _top = wy - r / 5 * i;
+    } else if (i < 41) {
+      angle = 45 * Math.PI / 180;
+      _left = -wx + (i - 24) * (r / 5) * Math.cos(angle);
+      _top = wy - r / 5 * 24 + (i - 24) * (r / 5) * Math.sin(angle);
+    } else if (i < 57) {
+      _x = -wx + 16 * (r / 5) * Math.cos(45 * Math.PI / 180);
+      _y = wy - r / 5 * 24 + 16 * (r / 5) * Math.sin(45 * Math.PI / 180);
+      angle = -45 * Math.PI / 180;
+      _left = _x + (i - 40) * (r / 5) * Math.cos(angle);
+      _top = _y + (i - 40) * (r / 5) * Math.sin(angle);
+    } else if (i < 73) {
+      _left = _x + 16 * (r / 5) * Math.cos(-45 * Math.PI / 180);
+      _top = ( wy - r / 5 * 24) + r / 5 * (i - 56);
+    } else {
+      _left = -25;
+      _top = 10;
+      r = 14;
+    }
+    li.css({ left: _left, top: _top, width: r, height: r });
+  }
+
+  var load = $('#ant-motion-load');
+
+  function animationStart() {
+    if (!load || load.css('opacity') === '0') {
+      load.remove();
+      return;
+    }
+    setTimeout(function () {
+      if (load.css('opacity') === '0') {
+        load.remove();
+        return;
+      }
+      liArray.forEach(function (item, i) {
+        item.css({
+          transform: 'scale(0)',
+          transitionDelay: (i === liArray.length - 1 ? 10 : i) * .007 + 's',
+          transitionTimingFunction: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+        });
+      });
+      setTimeout(function () {
+        if (load.css('opacity') === '0') {
+          load.remove();
+          return;
+        }
+        liArray.forEach(function (item, i) {
+          item.css({
+            transform: 'scale(1)',
+            transitionDelay: (i === liArray.length - 1 ? 10 : i) * .007 + 's',
+            transitionTimingFunction: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+          });
+        });
+        setTimeout(animationStart, 1300);
+      }, 1300);
+    }, 100);
+  }
+  animationStart();
+</script>
+<script>
+  // Enable Google Analytics
+  if (!location.port) {
+    /* eslint-disable */
+    (function (i, s, o, g, r, a, m) {
+      i['GoogleAnalyticsObject'] = r;
+      i[r] = i[r] || function () {
+          (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+      a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+      a.async = 1;
+      a.src = g;
+      m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-83857924-1', 'auto');
+    ga('send', 'pageview');
+    /* eslint-enable */
+  }
+</script>
+</body>
+{% if isDev %}
+  <script src="https://as.alipayobjects.com/g/component/??react/16.2.0/react.development.js,react/16.2.0/react-dom.development.js"></script>
+{% else %}
+  <script src="https://as.alipayobjects.com/g/component/??react/16.2.0/react.production.min.js,react/16.2.0/react-dom.production.min.js"></script>
+{% endif %}
+<script src="common.js"></script>
+<script src="edit.js"></script>
+</html>

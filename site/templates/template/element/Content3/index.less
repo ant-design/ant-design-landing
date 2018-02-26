@@ -1,0 +1,93 @@
+@import '../../../static/custom.less';
+
+@content1: content1;
+
+.@{content1} {
+  &-img {
+    height: 100%;
+    width: 40%;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    span {
+      display: block;
+      position: absolute;
+      width: 55%;
+      left: 10%;
+      line-height: 50vh;
+      height: 50vh;
+      margin: auto;
+      top: 0;
+      bottom: 0;
+      img {
+        vertical-align: middle;
+      }
+    }
+  }
+  &-text {
+    display: block;
+    width: 55%;
+    height: 150px;
+    vertical-align: top;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    & p, & h1 {
+      position: relative !important;
+      width: 75%;
+      float: right;
+    }
+    & h1 {
+      font-size: 32px;
+      font-weight: normal;
+      color: #404040;
+    }
+    & p {
+      margin-top: 20px;
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .@{content1}-wrapper {
+    height: 400px;
+    .@{content1} {
+      overflow: hidden;
+      width: 90%;
+      margin: auto;
+      &-img, &-text {
+        width: 100%;
+        display: block;
+        position: relative;
+        text-align: center;
+      }
+      &-img {
+        margin: 20px auto;
+        height: 200px;
+        span {
+          right: 0;
+          left: 0;
+          margin: auto;
+          width: 180px;
+          height: 200px;
+          line-height: 200px;
+        }
+      }
+      &-text {
+        height: 140px;
+        margin-top: 20px;
+        p, h1 {
+          width: 100%;
+          top: auto;
+        }
+        p {
+          margin-top: 20px;
+        }
+        h1 {
+          font-size: 24px;
+        }
+      }
+    }
+  }
+}

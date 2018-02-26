@@ -1,0 +1,37 @@
+
+@import '../../templates/static/global.less';
+
+@import './common.less';
+@import './custom.less';
+@import './content.less';
+@import './nav-controller.less';
+@import './side-menu.less';
+@import './edit-stage.less';
+@import './edit-list.less';
+
+.edit{
+  &-wrapper {
+    width: 100%;
+    position: relative;
+    height: 100vh;
+    background: @edit-bg-color;
+    overflow: hidden;
+    /** {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }*/
+    > div {
+      height: 100%;
+      float: left;
+    }
+  }
+  &-left-view {
+    width: ~"calc(100% - 280px)";
+  }
+  &-right-view {
+    width: 280px;
+    border-left: 1px solid @edit-line-color;
+  }
+}

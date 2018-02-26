@@ -1,0 +1,24 @@
+@import '../../../static/custom.less';
+
+@footer: footer0;
+.@{footer} {
+  background-color: @template-bg-color;
+  text-align: center;
+  height: 80px;
+  color: @template-footer-text-color;
+  overflow: hidden;
+  position: relative;
+  span {
+    display: block;
+    margin: 20px auto 0;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .@{footer} {
+    > div {
+      width: 90%;
+      margin: auto;
+    }
+  }
+}

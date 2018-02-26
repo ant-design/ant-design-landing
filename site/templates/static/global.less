@@ -1,0 +1,73 @@
+@import '~antd/lib/style/v2-compatible-reset.less';
+// @import '~antd/dist/antd.less';
+
+@import "~antd/lib/style/mixins/motion.less";
+@import "~antd/lib/style/themes/default.less";
+
+@text-color-light: #fff;
+@text-color-dark: #3E3E3E;
+
+@bg-color: #F6F7F8;
+@nav-color: #070B20;
+@nav-link-active-color: @text-color-light;
+@nav-link-color: #656669;
+@bar-color: #FBFBFB;
+@footer-bg-color: @bar-color;
+@footer-link-color: #8A8A8A;
+
+@link-color             : @primary-color;
+@link-hover-color       : tint(@link-color, 20%);
+@link-active-color      : shade(@link-color, 5%);
+@link-hover-decoration  : none;
+
+@line-color: #E8E8E8;
+@line-deep-color: #979797;
+@disabled-color: #5B5B5B;
+@list-disabled-color: #ccc;
+
+@page-bg-color: @text-color-light;
+
+@shadow-color: rgba(0, 0, 0, 0.15);
+
+@title-color: @text-color-dark;
+@title-bg-color: #364768;
+@title-color-exhibition: #666;
+
+@scrollbar-color: #E2E2E2;
+
+@demo-text-color: #8A8A8A;
+
+@demo-title-color: #636F84;
+@demo-color: fade(#4FA9FB, 60);
+
+@template-bg-color: #333;
+@template-bg-color-light: #ECECEC;
+@template-nav-bg-color: fade(@template-bg-color, 95%);
+@template-text-color: #CCC;
+@template-text-title-color: #BCBCBC;
+@template-text-color-light: #FFF;
+
+// markdown 样式颜色;
+
+@markdown-title-color: #404040;
+@markdown-fonts-color: #404040;
+
+@animate-duration: .45s;
+
+// 详细页图片或框框的样式;
+.page-shadow() {
+  box-shadow: 0 5px 10px @shadow-color;
+}
+
+.page-pro() {
+  border-radius: 6px;
+  border: 1px solid @line-color;
+  transform: translateY(0px);
+  position: relative;
+  will-change: transform, box-shadow;
+  transition: transform .3s @ease-out, box-shadow .3s @ease-out;
+  &:hover {
+    .page-shadow();
+    transform: translateY(-4px);
+  }
+}

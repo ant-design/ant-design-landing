@@ -1,0 +1,59 @@
+import React from 'react';
+import TweenOne from 'rc-tween-one';
+import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';
+import VideoPlay from 'react-sublime-video';
+
+class Content extends React.Component {
+
+  static defaultProps = {
+    className: 'content3',
+  };
+
+  render() {
+    const props = { ...this.props };
+    const isMode = props.isMode;
+    delete props.isMode;
+    const animation = { y: '+=30', opacity: 0, type: 'from', ease: 'easeOutQuad' };
+    const videoChildren = '&content5_video-children&'
+    return (
+      <div {...props} className={`content-template-wrapper ${props.className}-wrapper`}>
+        <OverPack
+          className={`content-template ${props.className}`}
+          location={props.id}
+        >
+          <TweenOne
+            animation={animation}
+            component="h1"
+            key="h1"
+            reverseDelay={300}
+            id={`${props.id}-title`}
+          >
+            &content5_title-children&
+          </TweenOne>
+          <TweenOne
+            animation={{ ...animation, delay: 200 }}
+            component="p"
+            key="p"
+            reverseDelay={200}
+            id={`${props.id}-content`}
+          >
+            &content5_content-children&
+          </TweenOne>
+          <TweenOne
+            key="video"
+            animation={{ ...animation, delay: 300 }}
+            className={`${props.className}-video`}
+            id={`${props.id}-video`}
+          >
+            {isMode ?
+              (<video src={videoChildren} width="100%" loop />) :
+              (<VideoPlay loop src={videoChildren} width="100%" />)}
+          </TweenOne>
+        </OverPack>
+      </div>
+    );
+  }
+}
+
+
+export default Content;

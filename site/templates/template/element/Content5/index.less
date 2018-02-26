@@ -1,0 +1,49 @@
+@import '../../../static/custom.less';
+
+@content3: content3;
+.@{content3}-wrapper {
+  .@{content3} {
+    & > h1, & > p {
+      position: relative;
+      top: 10%;
+      text-align: center;
+    }
+    > h1 {
+      line-height: 48px;
+    }
+    > p {
+      max-width: 600px;
+      line-height: 24px;
+    }
+    &-video {
+      border-radius: 6px;
+      overflow: hidden;
+      width: 90%;
+      max-width: 800px;
+      position: relative;
+      top: 20%;
+      margin: auto;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, .2);
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .@{content3}-wrapper {
+    height: 350px;
+    .@{content3} {
+      overflow: hidden;
+      width: 90%;
+      margin: auto;
+      h1 {
+        font-size: 24px;
+      }
+      &-video{
+        top: 15%;
+        background: url("https://zos.alipayobjects.com/rmsportal/HZgzhugQZkqUwBVeNyfz.jpg") no-repeat center;
+        background-size: cover;
+      }
+    }
+  }
+
+}

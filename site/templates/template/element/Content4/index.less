@@ -1,0 +1,71 @@
+@import '../../../static/custom.less';
+
+@content2: content2;
+.@{content2} {
+  > h1, > p {
+    text-align: center;
+    position: relative;
+    top: 15%;
+  }
+  &-contentWrapper {
+    position: relative;
+    top: 20%;
+    height: 60%;
+    ul {
+      > li {
+        display: inline-block;
+        width: 33.33%;
+        padding: 6% 5% 0;
+        vertical-align: top;
+        .img {
+          display: inline-block;
+          width: 15%;
+          vertical-align: top;
+        }
+        .text {
+          width: 85%;
+          display: inline-block;
+          padding-left: 8%;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .@{content2}-wrapper {
+    height: 920px;
+    .@{content2} {
+      overflow: hidden;
+      width: 90%;
+      margin: auto;
+      > h1, > p {
+        position: relative;
+        top: auto;
+      }
+      > h1 {
+        margin: 40px auto 20px;
+        font-size: 24px;
+      }
+      &-contentWrapper {
+        top: auto;
+        margin: 20px auto;
+        height: auto;
+        ul {
+          > li {
+            position: relative;
+            width: 90%;
+            margin: auto;
+            display: block;
+            h1 {
+              font-size: 20px;
+            }
+            &.queue-anim-leaving {
+              position: relative !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}

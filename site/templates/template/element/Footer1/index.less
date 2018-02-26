@@ -1,0 +1,93 @@
+@import '../../../static/custom.less';
+
+@footer: footer1;
+.@{footer} {
+  background: @template-bg-color;
+  height: 400px;
+  overflow: hidden;
+  position: relative;
+  color: @template-footer-text-color;
+  & > ul {
+    width: 95%;
+    max-width: 1200px;
+    margin: 40px auto 0;
+    overflow: inherit;
+    & > li {
+      float: left;
+      width: 20%;
+      padding: 10px;
+      position: relative !important; // 强制去除 queue-anim-leaving 的 absolute;
+      & h2 {
+        font-weight: normal;
+        color: @template-text-color;
+        margin-bottom: 20px;
+      }
+
+      & .icon {
+        width: 20px;
+        display: inline-block;
+        margin-left: 10px;
+        opacity: .35;
+        transition: opacity .3s @ease-out;
+        &:first-child {
+          margin-left: 0;
+        }
+        &:hover {
+          opacity: 1;
+        }
+      }
+
+      & a {
+        color: #666;
+        display: block;
+        &:hover {
+          color: @template-text-color;
+        }
+      }
+
+      & .logo {
+        width: 80%;
+        max-width: 150px;
+        display: block;
+      }
+    }
+  }
+  & .copyright {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    text-align: center;
+    border-top: 1px solid fade(@line-color, 10);
+    span{
+      display: block;
+      margin: 20px auto 0;
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .@{footer} {
+    height: 550px;
+    > ul {
+      width: 90%;
+      margin: 20px auto 0;
+      padding: 10px 0;
+      > li {
+        width: 100%;
+        h2 {
+          margin-bottom: 10px;
+        }
+        li {
+          display: inline-block;
+          margin-right: 10px;
+        }
+      }
+    }
+    .copyright {
+      span {
+        width: 90%;
+      }
+    }
+  }
+}

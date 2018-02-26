@@ -1,0 +1,137 @@
+@import '../../../static/custom.less';
+
+@banner2: banner2;
+.@{banner2} {
+  width: 100%;
+  // 如果在第一屏且导航位置为 relative, 一屏为 height: calc(100vh - 64px);
+  height: calc(~"100vh - 64px");
+  position: relative;
+  border-color: #666;
+  background: #fff;
+  .banner-anim {
+    height: 100%;
+  }
+  & .queue-anim-leaving {
+    position: relative !important;
+    width: auto;
+  }
+  .banner-user-elem {
+    height: 100%;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .bg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    background-size: cover;
+  }
+  .bg0 {
+    background: url("https://zos.alipayobjects.com/rmsportal/bXNBIyzSLHaycUGDzwLG.jpg") center;
+    // scrollParallax
+    transform: translateY(-100px);
+    height: calc(~"100% + 200px");
+    top: -100px;
+    // followParallax
+    width: calc(~"100% + 30px");
+    left: -15px;
+    &:before {
+      width: 100%;
+      height: 100%;
+      content: '';
+      background: fade(#000, 35);
+      display: block;
+    }
+  }
+  .banner-user-elem .banner-user-title {
+    font-size: 22px;
+    top: 40%;
+  }
+  .banner-user-elem .banner-user-text {
+    top: 40%;
+  }
+  &-title {
+    display: inline-block;
+    position: relative;
+    top: 25%;
+    left: 10%;
+    font-size: 14px;
+    color: @template-text-color-light;
+    width: 400px;
+    text-align: left;
+    padding: 20px;
+    & .logo {
+      width: 350px;
+      left: 0;
+      margin: auto;
+      display: inline-block;
+      position: relative;
+      font-size: 56px;
+    }
+    & p {
+      word-wrap: break-word;
+      margin: auto auto 20px auto;
+      font-weight: lighter;
+    }
+    & button {
+      border: 1px solid #fff;
+      color: #fff;
+      background: transparent;
+      transition: background .45s @ease-in, border .45s @ease-in;
+      line-height: 36px;
+      font-size: 16px;
+      height: 36px;
+      & span {
+        text-shadow: 0 0 0 rgba(0, 0, 0, 0);
+        transition: text-shadow .45s @ease-out;
+      }
+      &:hover {
+        color: #fff;
+        border-color: @primary-color;
+        background: @primary-color;
+        transition: background .45s @ease-out, border .45s @ease-out;
+        & span {
+          text-shadow: 1px 1px 3px rgba(0, 0, 0, .35);
+        }
+      }
+    }
+  }
+  &-icon {
+    bottom: 20px;
+    font-size: 24px;
+    position: absolute;
+    z-index: 10;
+    left: 50%;
+    margin-left: -12px;
+    color: @template-text-color-light;
+  }
+}
+
+.banner-anim-thumb-default span {
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, .5);
+}
+
+@media screen and (max-width: 414px) {
+  .@{banner2} {
+    &-title {
+      width: 90%;
+      left: 0;
+      margin: auto;
+      padding: 0;
+      text-align: center;
+      display: block;
+      .logo {
+        width: 90%;
+        left: 0;
+      }
+    }
+  }
+}

@@ -48,7 +48,11 @@ const eslintrc = {
     'object-curly-newline': 0,
     'no-restricted-globals': 0,
     'jsx-a11y/mouse-events-have-key-events': 0,
-    'react/jsx-no-target-blank': 0
+    'react/jsx-no-target-blank': 0,
+    'react/no-find-dom-node': 0,
+    'react/no-unescaped-entities': 0,
+    'react/prefer-stateless-function': 0,
+    'import/no-webpack-loader-syntax': 0,
   },
 };
 

@@ -1,0 +1,74 @@
+.edit-stage {
+  position: absolute;
+  top: 16px;
+  left: 40px;
+  height: ~"calc(100% - 16px)";
+  overflow-x: auto;
+  overflow-y: scroll;
+  cursor: pointer;
+  .mouse-catcher {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    pointer-events: none;
+    box-sizing: content-box;
+    > div {
+      position: absolute;
+    }
+    .hover {
+      border: 1px dashed #666;
+      background: fade(#666, 25);
+    }
+    .select {
+      border: 2px solid @primary-color;
+      * {
+        pointer-events: auto;
+      }
+    }
+    .ant-btn-group {
+      position: absolute;
+      top: -26px;
+      right: -2px;
+      > .ant-btn{
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
+    .edit-text-wrapper {
+      position: absolute;
+      left: -2px;
+      top: -2px;
+      margin: 0;
+      width: ~"calc(100% + 4px)";
+      height: ~"calc(100% + 4px)";
+      > div {
+        height: 100%;
+        width: 100%;
+        min-height: auto;
+        outline: none;
+      }
+    }
+  }
+  .overlay {
+    position: relative;
+    &.drag {
+      .drag-hints {
+        display: none;
+      }
+    }
+    .drag-hints {
+      height: 16px;
+      font-size: 12px;
+      line-height: 16px;
+      background: fade(@primary-color, 55);
+      text-align: center;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .3s @ease-out;
+    }
+    > div:hover .drag-hints {
+      opacity: 1;
+    }
+  }
+}

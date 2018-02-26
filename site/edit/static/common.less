@@ -1,0 +1,46 @@
+
+html, body {
+  background: #fff;
+  color: #fff;
+}
+
+.gu-mirror {
+  position: fixed !important;
+  margin: 0 !important;
+  z-index: 9999 !important;
+  opacity: 0.8;
+  background: fade(#666, 70);
+  pointer-events: none;
+  > p {
+    display: none;
+  }
+  &.img-wrapper {
+    background: none;
+  }
+}
+.gu-hide {
+  display: none !important;
+}
+.gu-unselectable {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+.gu-transit {
+  background: fade(#666, 35);
+  > p {
+    display: none;
+  }
+}
+
+.placeholder {
+  background: @primary-color;
+  text-align: center;
+  color: #fff;
+  font-size: 12px;
+  line-height: 12px;
+  position: absolute;
+  width: 100%;
+  
+}

@@ -1,0 +1,46 @@
+@import "~antd/lib/style/themes/default.less";
+
+@link-color             : #019BF0;
+@link-hover-color       : tint(@link-color, 20%);
+@link-active-color      : shade(@link-color, 5%);
+@link-hover-decoration  : none;
+
+@line-color: #e9e9e9;
+@line-deep-color: #979797;
+@disabled-color: #5B5B5B;
+@list-disabled-color: #ccc;
+
+@page-bg-color: #fff;
+
+@shadow-color: rgba(0, 0, 0, 0.15);
+
+@title-color: #404040;
+
+
+@template-bg-color: #333;
+@template-bg-color-light: #ECECEC;
+@template-nav-bg-color: fade(@template-bg-color, 95%);
+@template-text-color: #CCC;
+@template-text-title-color: #BCBCBC;
+@template-text-color-light: #FFF;
+@template-footer-text-color: #666;
+
+@animate-duration: .45s;
+
+// 详细页图片或框框的样式;
+.page-shadow() {
+  box-shadow: 0 5px 8px @shadow-color;
+}
+
+.page-pro() {
+  border-radius: 6px;
+  border: 1px solid @line-color;
+  transform: translateY(0px);
+  transition: transform .3s @ease-out, box-shadow .3s @ease-out;
+  &:hover {
+    .page-shadow();
+    transform: translateY(-5px);
+  }
+}
+
+

@@ -1,0 +1,47 @@
+@content: content-template;
+.@{content}-wrapper {
+  width: 100%;
+  background: #fff;
+  height: 100vh;
+  border-color: #666;
+  position: relative;
+  // min-height: 685px;
+  // align-items: center;
+  // display: flex;
+  .@{content} {
+    width: 100%;
+    max-width: 1200px;
+    height: 100%;
+    margin: auto;
+    position: relative;
+    h1 {
+      font-size: 32px;
+      font-weight: normal;
+      color: #404040;
+      line-height: 48px;
+    }
+    > p {
+      font-size: 12px;
+      margin: 20px auto;
+    }
+  }
+}
+
+.content-half-wrapper {
+  height: 50vh;
+  // min-height: 342px;
+}
+
+@media screen and (max-width: 767px) {
+  .@{content}-wrapper {
+    .@{content} {
+      // width: 90%;
+      h1 {
+        font-size: 24px;
+      }
+      /*h1, > p {
+        text-align: center;
+      }*/
+    }
+  }
+}

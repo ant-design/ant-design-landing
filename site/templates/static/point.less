@@ -1,0 +1,36 @@
+@import './custom.less';
+
+@point: templates-list;
+.@{point}-wrapper {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  right: 20px;
+  width: 8px;
+  display: flex;
+  height: 100%;
+  align-items: center;
+  pointer-events: none
+}
+
+.@{point} {
+  width: 8px;
+  height: 8px;
+  background: @primary-color;
+  border-radius: 6px;
+  float: left;
+  margin: 4px auto;
+  opacity: .5;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: opacity .3s;
+  &.active{
+    opacity: 1;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .@{point}-wrapper {
+    display: none;
+  }
+}

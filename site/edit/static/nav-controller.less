@@ -1,0 +1,52 @@
+.edit-nav {
+  width: 100%;
+  top: 0;
+  z-index: 981;
+  height: 64px;
+  color: #fff;
+  line-height: 64px;
+  border-bottom: 1px solid @edit-line-color;
+  .logo {
+    width: 80px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    float: left;
+    &:before{
+      content: '';
+      display: block;
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      background: @primary-color;
+      border-radius: 4px;
+    }
+    img {
+      position: relative;
+      z-index: 1;;
+    }
+  }
+  .menu {
+    float: left;
+    border-left: 1px solid @edit-line-color;
+    > li {
+      padding: 0 24px;
+      display: inline-block;
+      border-right: 1px solid @edit-line-color;
+      cursor: pointer;
+      > i {
+        margin-right: 8px;
+        font-size: 16px;
+        vertical-align: middle;
+      }
+    }
+  }
+  .new {
+    padding: 0 24px;
+    float: right;
+    font-size: 16px;
+    cursor: pointer;
+    border-left: 1px solid @edit-line-color;
+  }
+}

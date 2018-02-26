@@ -1,0 +1,98 @@
+@import '../../../static/custom.less';
+
+@content4: content4;
+
+.@{content4} {
+
+  &-wrapper {
+    background-color: #f3f3f3;
+  }
+  & > h1, & > p {
+    position: relative;
+    top: 10%;
+    text-align: center;
+  }
+  &-img-wrapper {
+    width: 98%;
+    position: absolute;
+    top: 25%;
+    margin: auto;
+    left: 0;
+    right: 0;
+    padding: 20px 0;
+    & li {
+      width: 25%;
+      padding: 1%;
+      float: left;
+      & .content-wrapper {
+        border: 1px solid @line-color;
+        display: block;
+        background: #fff;
+        border-radius: 6px;
+        padding: 10px;
+        text-align: center;
+        height: 220px;
+        position: relative;
+        overflow: hidden;
+        .page-pro();
+        transition: box-shadow .3s @ease-out, transform .3s @ease-out;
+        & > span {
+          height: 100%;
+          display: block;
+          background: @line-color;
+          padding: 5%;
+        }
+        & p {
+          position: absolute;
+          width: 100%;
+          background: fade(@primary-color, 75);
+          left: 0;
+          bottom: -30px;
+          line-height: 30px;
+          color: #fff;
+          transition: bottom .3s @ease-out, background .3s @ease-out, color .3s @ease-out, line-height .3s @ease-out;
+        }
+        &:hover {
+          & p {
+            bottom: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .@{content4}-wrapper {
+    height: 2000px;
+    overflow: hidden;
+    .@{content4} {
+      width: 90%;
+      > h1, > p {
+        position: relative;
+        top: 0;
+      }
+      > h1 {
+        font-size: 24px;
+        margin: 40px auto 20px;
+      }
+
+      ul {
+        top: 80px;
+        li {
+          display: block;
+          width: 100%;
+          padding: 2%;
+          span {
+            height: 168px;
+          }
+          p {
+            position: relative;
+            bottom: 0;
+          }
+        }
+      }
+    }
+  }
+
+}

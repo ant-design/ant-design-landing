@@ -1,12 +1,13 @@
 import React from 'react';
 import { Tabs, Icon, Tooltip } from 'antd';
+import EditorComp from './ListComponents/EditorComp';
 
 const TabPane = Tabs.TabPane;
 
 class EditListController extends React.PureComponent {
   render() {
     return (
-      <Tabs className="edit-list-wrapper">
+      <Tabs className="edit-list-tabs">
         <TabPane
           key="1"
           tab={
@@ -14,8 +15,9 @@ class EditListController extends React.PureComponent {
               <Icon type="edit" />
             </Tooltip>
           }
+          className="edit-list-tab"
         >
-          1
+          <EditorComp />
         </TabPane>
         <TabPane
           key="2"
@@ -24,6 +26,7 @@ class EditListController extends React.PureComponent {
               <Icon type="bars" />
             </Tooltip>
           }
+          className="edit-list-tab"
         >
           1
         </TabPane>
@@ -34,6 +37,7 @@ class EditListController extends React.PureComponent {
               <Icon type="appstore-o" />
             </Tooltip>
           }
+          className="edit-list-tab"
         >
           3
         </TabPane>

@@ -43,7 +43,7 @@
   .banner-user-elem .banner-user-text {
     top: 40%;
   }
-  &-title {
+  &-text-wrapper {
     display: block;
     position: relative;
     top: 20%;
@@ -54,38 +54,39 @@
     color: @template-text-color-light;
     width: 550px;
     text-align: center;
-    & .logo {
-      width: 350px;
-      left: 30px;
-      margin: auto;
-      display: inline-block;
-      position: relative;
+  }
+  &-title {
+    width: 350px;
+    left: 30px;
+    margin: auto;
+    display: inline-block;
+    font-size: 40px;
+    position: relative;
+  }
+  &-content {
+    margin-bottom: 20px;
+    word-wrap: break-word;
+  }
+  &-button {
+    border: 1px solid #fff;
+    color: #fff;
+    background: transparent;
+    box-shadow: 0 0 0 transparent;
+    transition: background .45s @ease-out, box-shadow .45s @ease-out;
+    line-height: 36px;
+    font-size: 16px;
+    height: 36px;
+    & span {
+      text-shadow: 0 0 0 rgba(0, 0, 0, 0);
+      transition: text-shadow .45s @ease-out;
     }
-    & p {
-      margin-bottom: 20px;
-      word-wrap: break-word;
-    }
-    & button {
-      border: 1px solid #fff;
+    &:hover {
       color: #fff;
-      background: transparent;
-      box-shadow: 0 0 0 transparent;
-      transition: background .45s @ease-out, box-shadow .45s @ease-out;
-      line-height: 36px;
-      font-size: 16px;
-      height: 36px;
+      border-color: #fff;
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 10px rgba(50, 250, 255, 0.75);
       & span {
-        text-shadow: 0 0 0 rgba(0, 0, 0, 0);
-        transition: text-shadow .45s @ease-out;
-      }
-      &:hover {
-        color: #fff;
-        border-color: #fff;
-        background: rgba(255, 255, 255, 0.1);
-        box-shadow: 0 0 10px rgba(50, 250, 255, 0.75);
-        & span {
-          text-shadow: 1px 1px 3px rgba(0, 0, 0, .35);
-        }
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, .35);
       }
     }
   }

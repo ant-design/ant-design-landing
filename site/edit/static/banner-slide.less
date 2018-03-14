@@ -1,0 +1,99 @@
+.banner-slide {
+  background: fade(@primary-color, 55);
+  border-radius: 4px 4px 0 0;
+  overflow: hidden;
+  display: inline-block;
+  padding: 4px 8px 0;
+  &-wrapper {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    cursor: auto;
+    opacity: 0;
+  }
+  .ant-pagination {
+    display: inline-block;
+    margin-right: 8px;
+  }
+  & .ant-pagination.mini .ant-pagination-item-link {
+    border-radius: 100%;
+    background: @primary-color;
+    color: #fff;
+    &:hover,
+    &:focus {
+      background: #597ef7
+    }
+    &:active {
+      background: #1d39c4;
+    }
+  }
+  .ant-pagination-disabled a {
+    background: rgb(218, 218, 218) !important;
+    color: rgba(0, 0, 0, 0.25) !important;
+  }
+  .ant-pagination-simple-pager {
+    color: #fff;
+    margin: 0 8px;
+    input {
+      background: transparent;
+      padding: 0;
+      margin: 0;
+      &:hover {
+        border-color: #fff;
+      }
+    }
+    .ant-pagination-slash {
+      margin: 0 5px;
+    }
+  }
+  .ant-btn {
+    vertical-align: top;
+  }
+  &-manage {
+    height: 48px;
+    display: flex;
+    align-items: center;
+    transition: background .45s @ease-in-out, box-shadow .45s @ease-in-out, transform .45s @ease-in-out;
+    &:hover {
+      background: #e6f7ff;
+    }
+    .manage-icon {
+      width: 48px;
+      text-align: center;
+      cursor: pointer;
+      &[disabled] {
+        color: rgba(0, 0, 0, 0.25) !important;
+        pointer-events: none;
+      }
+    }
+    .manage-delete{
+      text-align: center;
+      width: 48px;;
+    }
+    .manage-name {
+      width: ~"calc(100% - 80px)";
+    }
+  }
+}
+
+.manage-wrapper {
+  width: 300px;
+  .ant-popover-inner-content {
+    padding: 12px 0;
+    position: relative;
+  }
+  .manage-list {
+    position: relative;
+  }
+  .manage-button {
+    text-align: center;
+    margin: 16px 0;
+  }
+}
+
+.list-drag-selected {
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25);
+  transform: scale(1.1) !important;
+}

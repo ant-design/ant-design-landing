@@ -1,0 +1,61 @@
+@font: editor-font;
+.@{editorList} {
+  .@{font} {
+    &-align {
+      .left,
+      .center,
+      .right,
+      .justify {
+        &:after,
+        &:before {
+          background: @edit-list-text-color;
+          box-shadow: 0 6px 0 @edit-list-text-color;
+        }
+      }
+      .left,
+      .center,
+      .right,
+      .justify {
+        &:after,
+        &:before {
+          content: '';
+          display: block;
+          margin: auto;
+          height: 1px;
+        }
+        &:before {
+          margin-top: 5px;
+        }
+        &:after {
+          margin-top: 2px;
+        }
+      }
+      .left,
+      .center,
+      .right {
+        &:after {
+          width: 13px;
+        }
+        &:before {
+          width: 100%;
+        }
+      }
+      .left {
+        &:after {
+          margin-left: 0;
+        }
+      }
+      .right {
+        &:after {
+          margin-right: 0;
+        }
+      }
+      .justify {
+        &:after,
+        &:before {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

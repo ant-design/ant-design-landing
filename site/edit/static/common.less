@@ -9,11 +9,15 @@ html, body {
   margin: 0 !important;
   z-index: 9999 !important;
   opacity: 0.8;
-  background: fade(#666, 70);
+  background: fade(@primary-color, 70);
   pointer-events: none;
-  > p {
+  > div, > p  {
     display: none;
   }
+  >.img {
+    display: block;
+  }
+  
   &.img-wrapper {
     background: none;
   }
@@ -28,7 +32,7 @@ html, body {
   user-select: none !important;
 }
 .gu-transit {
-  background: fade(#666, 35);
+  background: fade(@primary-color, 35);
   > p {
     display: none;
   }
@@ -41,6 +45,5 @@ html, body {
   font-size: 12px;
   line-height: 12px;
   position: absolute;
-  width: 100%;
-  
+  width: 100%; 
 }

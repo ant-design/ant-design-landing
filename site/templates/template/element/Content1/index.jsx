@@ -10,80 +10,122 @@ import './index.less';
 
 const BgElement = Element.BgElement;
 class Banner extends React.Component {
+  static defaultProps = {
+    className: 'banner1',
+  };
+  /* edit-replace start */
+  state = {
+    current: 1,
+  }
   componentWillReceiveProps(nextProps) {
-    const dataSource = nextProps.dataSource;
-    const names = nextProps.id.split('_');
-    const name = `${names[0]}${names[1]}`;
-    const func = dataSource[name].func;
-    if (func && this.banner) {
-      this.banner.slickGoTo(func.page - 1);
+    const { func } = nextProps;
+    if (func) {
+      if (this.banner) {
+        this.banner.slickGoTo(func.currentPage - 1);
+      }
+      this.setState({
+        current: func.currentPage,
+      });
     }
   }
+  /* edit-replace end */
 
   render() {
-    const props = { ...this.props };
-    const dataSource = this.props.dataSource;
-    const names = this.props.id.split('_');
-    const name = `${names[0]}${names[1]}`;
+    const { ...props } = this.props;
+    /* edit-dataSource start */
+    const dataId = props['data-id'];
+    const dataSource = props.dataSource;
     delete props.dataSource;
+    /* edit-dataSource end */
     delete props.isMode;
-    const childrenData = [];
-    Object.keys(dataSource).filter(key => key.match('Block')).forEach((key) => {
-      const keys = key.split('Block');
-      const i = keys[1];
-      childrenData[i] = childrenData[i] || {};
-      const t = childrenData[i];
-      t[key] = dataSource[key];
-    });
-    const childrenToRender = childrenData.map((item, i) => {
-      const title = item[`${name}_titleBlock${i}`];
-      const content = item[`${name}_contentBlock${i}`];
-      const button = item[`${name}_buttonBlock${i}`];
-      const isImg = title.children
-        .match(/\.(gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/);
-      return (<Element
-        key={i}
-        prefixCls="banner-user-elem"
-      >
-        <BgElement
-          className={`bg bg${i}`}
-          key="bg"
-        />
-        <QueueAnim
-          type={['bottom', 'top']}
-          delay={200}
-          className={`${props.className}-title`}
-          key="text"
-          id={`${props.id}-wrapperBlock${i}`}
+    const childrenToRender = dataSource.bannerAnim.children.map((item, i) => {
+      const elem = item.elem;
+      const bg = item.bg;
+      const textWrapper = item.textWrapper;
+      const title = item.title;
+      const content = item.content;
+      const button = item.button;
+      return (
+        <Element
+          key={i.toString()}
+          /* edit-elem start */
+          {...elem}
+          data-id={`${dataId}-bannerAnim&children&${i}&elem`}
+          prefixCls={elem.className}
+          data-edit="BannerElement"
+          /* edit-elem end */
         >
-          <span
-            className="logo"
-            key="logo"
-            id={`${props.id}-titleBlock${i}`}
+          <BgElement
+            key="bg"
+            /* edit-bg start */
+            {...bg}
+            data-id={`${dataId}-bannerAnim&children&${i}&bg`}
+            /* edit-bg end */
+          />
+          <QueueAnim
+            type={['bottom', 'top']}
+            delay={200}
+            key="text"
+            /* edit-wrapper start */
+            {...textWrapper}
+            data-id={`${dataId}-bannerAnim&children&${i}&textWrapper`}
+          /* edit-wrapper end */
           >
-            {isImg ?
-              (<img width="100%" src={title.children} />) :
-              title.children}
-          </span>
-          <p
-            key="content"
-            id={`${props.id}-contentBlock${i}`}
-          >
-            {content.children}
-          </p>
-          <Button
-            type="ghost"
-            key="button"
-            id={`${props.id}-buttonBlock${i}`}
-          >
-            {button.children}
-          </Button>
-        </QueueAnim>
-      </Element>);
+            <div
+              key="logo"
+              /* edit-title start */
+              {...title}
+              data-id={`${dataId}-bannerAnim&children&${i}&title`}
+              data-edit="text,image"
+            /* edit-title end */
+            >
+              {
+                /* edit-replace start */
+                title.children.match(/\.(gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/) ? (
+                  <img src={title.children} width="100%" alt="img" />
+                ) :
+                  /* eidt-replace end */
+                  React.createElement('span', { dangerouslySetInnerHTML: { __html: title.children } })
+              }
+            </div>
+            <p
+              key="content"
+              /* edit-content start */
+              data-id={`${dataId}-bannerAnim&children&${i}&content`}
+              {...content}
+              data-edit="text"
+            /* edit-content end */
+            >
+              {
+                React.createElement('span', { dangerouslySetInnerHTML: { __html: content.children } })
+              }
+            </p>
+            <Button
+              type="ghost"
+              key="button"
+              /* edit-button start */
+              data-id={`${dataId}-bannerAnim&children&${i}&button`}
+              {...button}
+              data-edit="text"
+            /* edit-button end */
+            >
+              {
+                React.createElement('span', { dangerouslySetInnerHTML: { __html: button.children } })
+              }
+            </Button>
+          </QueueAnim>
+        </Element>);
     });
     return (
       <OverPack
         {...props}
+        /* edit-OverPack start */
+        {...dataSource.wrapper}
+        data-id={`${dataId}-wrapper`}
+        data-comp={[`banner-switch={ "current": ${
+          this.state.current}, "total": ${dataSource.bannerAnim.children.length} }`]}
+        data-edit={['OverPack']}
+      /* edit-OverPack end */
       >
         <TweenOneGroup
           key="bannerGroup"
@@ -91,13 +133,17 @@ class Banner extends React.Component {
           leave={{ opacity: 0 }}
           component=""
         >
-          <div className={`${props.className}-wrapper`}>
+          <div className={`${props.className}-wrapper`} key="wrapper">
             <BannerAnim
               key="banner"
+              /* edit-replace start */
+              {...dataSource.bannerAnim.props}
               ref={(c) => {
-                // 用到 ref 不能直接在 tween-one-group 组件里。 group 子级默认替换成 tween-one，，所以需套个 dom .
                 this.banner = c;
               }}
+              data-id={`${dataId}-bannerAnim`}
+              data-edit={['BannerAnim']}
+              /* edit-replace end */
             >
               {childrenToRender}
             </BannerAnim>
@@ -117,15 +163,5 @@ class Banner extends React.Component {
     );
   }
 }
-
-Banner.propTypes = {
-  className: PropTypes.string,
-  dataSource: PropTypes.object,
-  id: PropTypes.string,
-};
-
-Banner.defaultProps = {
-  className: 'banner1',
-};
 
 export default Banner;

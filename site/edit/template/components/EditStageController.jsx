@@ -1,16 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import { Icon } from 'antd';
+import { Icon, Button } from 'antd';
 import deepEql from 'deep-eql';
 import dragula from 'dragula';
 import Editor from 'react-medium-editor';
-import { setTemplateData } from '../../../edit-module/actions';
-import { getData, getChildRect, getCurrentDom, isImg } from '../utils';
-import { mergeURLDataToDefault } from '../../../templates/template/utils';
+import { setTemplateData, setCurrentData } from '../../../edit-module/actions';
+import { getData, getChildRect, getCurrentDom, isImg, getDataSourceValue } from '../utils';
+import { mergeEditDataToDefault, deepCopy } from '../../../templates/template/utils';
 import webData from '../template.config';
 import tempData from '../../../templates/template/element/template.config';
-import EditButtton from './EditButtonView';
+import EditButtton from './StateComponents/EditButtonView';
+import BannerSlideFunc from './StateComponents/BannerSlideFunc';
 
 const $ = window.$ || {};
 // const domElem = document.createElement('div');
@@ -42,12 +43,16 @@ class EditStateController extends React.PureComponent {
 
     const t = dragula([this.side, this.stage], {
       copy: (el, source) => source === this.side,
+      moves: (el, container, handle) => (
+        handle.classList.contains('drag-hints') || handle.tagName.toLocaleLowerCase() === 'img'
+      ),
       accepts: (el, source) => {
         if (source === this.stage) {
           const elKey = el.getAttribute('data-key');
           const data = this.state.data;
-          const length = Object.keys(data).filter(key => key.split('_')[0] === elKey).length;
-          newId = `${elKey}_${length}`;
+          const dArr = Object.keys(data).filter(key => key.split('_')[0] === elKey)
+            .map(key => parseFloat(key.split('_')[1])).sort();
+          newId = `${elKey}_${dArr[dArr.length - 1] + 1}`;
         }
         return source === this.stage;
       },
@@ -55,14 +60,10 @@ class EditStateController extends React.PureComponent {
     t.on('drag', () => {
       newId = '';
       this.isDrap = true;
-      this.setState({
-        rect: {},
-        currentRect: {},
-      });
+      this.reRect();
       $(this.stage).addClass('drag');
     })
       .on('dragend', () => {
-        this.isDrap = false;
         $(this.stage).removeClass('drag');
       })
       .on('drop', (el) => {
@@ -81,19 +82,21 @@ class EditStateController extends React.PureComponent {
         }
       })
       .on('out', (el, source) => {
-        if (el.className === 'placeholder' || !el.className) {
-          const children = Array.prototype.slice.call(source.children);
-          const template = children.map(item => item.getAttribute('id')).filter(id => id);
-          const { templateData } = this.props;
-          if (el.className) {
-            el.remove();
+        if (source === this.stage) {
+          if (el.className === 'placeholder' || el.className === 'overlay-elem') {
+            const children = Array.prototype.slice.call(source.children);
+            const template = children.map(item => item.getAttribute('id')).filter(id => id);
+            const { templateData } = this.props;
+            if (el.className === 'placeholder') {
+              el.remove();
+            }
+            templateData.data = {
+              ...templateData.data,
+              template,
+            };
+            const { dispatch } = this.props;
+            dispatch(setTemplateData(templateData));
           }
-          templateData.data = {
-            ...templateData.data,
-            template,
-          };
-          const { dispatch } = this.props;
-          dispatch(setTemplateData(templateData));
         }
       })
       .on('cloned', (clone, original, type) => {
@@ -114,6 +117,8 @@ class EditStateController extends React.PureComponent {
     this.setState({
       rect: {},
       currentRect: {},
+    }, () => {
+      this.props.dispatch(setCurrentData());
     });
   }
 
@@ -125,27 +130,26 @@ class EditStateController extends React.PureComponent {
   }
 
   wrapperMove = (e) => {
-    if (!this.isDrap) {
-      const dom = e.target;
+    const dom = e.target;
+    if (!this.isDrap && dom.getAttribute('data-key')) {
       const id = dom.getAttribute('id');
-      this.currentData = this.state.data[id];
+      const currentData = this.state.data[id];
       // 获取 data 里的 rect;
-      const dataRect = this.currentData.item.getBoundingClientRect();
+      const dataRect = currentData.item.getBoundingClientRect();
       // 重置数据里的 rect，滚动条发生变化会随着变化。
-      this.currentData.rect = {
+      currentData.rect = {
         width: dataRect.width,
         height: dataRect.height,
         x: dataRect.x,
         y: dataRect.y + this.scrollTop,
       };
       // 获取子级带 data-id 的 rect; 由于有动画组件，所以时时获取
-      const rect = getChildRect(this.currentData);
+      const rect = getChildRect(currentData);
       const pos = {
         x: e.pageX - 40, // 40 为左侧距离
         y: e.pageY - 80, // 80 为顶部距离
       };
-      this.mouseCurrentData = getCurrentDom(pos, rect, this.scrollTop) || this.currentData;
-
+      this.mouseCurrentData = getCurrentDom(pos, rect, this.scrollTop) || currentData;
       if (!deepEql(this.mouseCurrentData.rect, this.state.rect)) {
         this.setState({
           rect: this.mouseCurrentData.rect,
@@ -173,21 +177,16 @@ class EditStateController extends React.PureComponent {
     });
   }
 
-  getEditButton = () => {
-
-  }
-
   setTemplateConfigData = (text) => {
-    const id = this.currentIdArray[0];
-    const data = this.props.templateData;
-    data.data.config[id] = data.data.config[id] || {};
-    data.data.config[id].dataSource = data.data.config[id].dataSource || {};
-    // domElem.innerHTML = text.replace(/<\/?[a-zA-Z]+[^><]*>/g, '');
-    data.data.config[id].dataSource[this.editChildId] = text;// domElem.innerText;
+    const data = deepCopy(this.props.templateData);
+    const ids = this.currentData.dataId.split('-');
+    const t = getDataSourceValue(ids[1], data.data.config, [ids[0], 'dataSource']);
+    t.children = text;
     this.props.dispatch(setTemplateData(data));
+
     setTimeout(() => {
       // 等子级刷新。
-      const rect = this.currentDom.getBoundingClientRect();
+      const rect = this.currentData.item.getBoundingClientRect();
       this.setState({
         currentRect: {
           x: rect.x,
@@ -209,13 +208,23 @@ class EditStateController extends React.PureComponent {
     });
   }
 
+  getDataSourceChildren = (_t, id) => {
+    const ids = id.split('&');
+    let t = _t;
+    ids.forEach((key) => {
+      t = t[key];
+    });
+    return t;
+  }
+
   getCatcherDom = (rect, css) => {
     if (rect.width) {
       let editText;
       if (css === 'select') {
-        this.currentConfigData = mergeURLDataToDefault(
+        const currentConfigDataSource = mergeEditDataToDefault(
           this.props.templateData.data.config[this.currentIdArray[0]], tempData[this.editId]);
-        editText = this.currentConfigData.dataSource[this.editChildId];
+        editText = this.getDataSourceChildren(currentConfigDataSource,
+          this.editChildId).children;
       }
       return (
         <div className={css}
@@ -231,6 +240,10 @@ class EditStateController extends React.PureComponent {
             closeEditText={this.closeEditText}
             openEditTextFunc={this.editTextFunc}
             editButtonArray={this.state.editButton}
+            currentData={this.currentData}
+            parent={this.currentData.parent}
+            scrollTop={this.scrollTop}
+            onParentChange={this.onEditSelectChange}
             editText={editText}
           />}
           {css === 'select' && this.state.openEditText ? (
@@ -255,7 +268,8 @@ class EditStateController extends React.PureComponent {
               />
               <style
                 dangerouslySetInnerHTML={{
-                  __html: `.edit-text-wrapper{${this.state.editTextStyle}}`,
+                  __html: `.edit-text-wrapper{${
+                    document.defaultView.getComputedStyle(this.currentData.item).cssText}}`,
                 }}
               />
             </div>) : null}
@@ -264,45 +278,142 @@ class EditStateController extends React.PureComponent {
     }
   }
 
-  onClick = () => {
-    this.currentIdArray = this.mouseCurrentData.dataId.split('-');
-    this.editId = this.currentIdArray[0].split('_')[0];
-    this.editChildId = this.currentIdArray[1];
-    this.currentDom = this.mouseCurrentData.item;
-    const editData = this.currentDom.getAttribute('data-edit');
+  selectSteState = (currentRect, editData, dom, id) => {
     this.setState({
-      currentRect: this.state.rect,
+      rect: currentRect,
+      currentRect,
       editButton: editData && editData.split(','), // 文字与图片按钮配置
       openEditText: false,
       isInput: false,
+    }, () => {
+      this.props.dispatch(setCurrentData(
+        {
+          dom,
+          id,
+        }
+      ));
     });
   }
 
+  onClick = (e) => {
+    const dom = e.target;
+    if (!this.isDrap && dom.getAttribute('data-key')) {
+      this.currentIdArray = this.mouseCurrentData.dataId.split('-');
+      this.editId = this.currentIdArray[0].split('_')[0];
+      this.editChildId = this.currentIdArray[1];
+      this.currentData = this.mouseCurrentData;
+      const currentDom = this.currentData.item;
+      const editData = currentDom.getAttribute('data-edit');
+
+      this.selectSteState(this.state.rect, editData, currentDom, this.mouseCurrentData.dataId);
+    }
+    this.isDrap = false;
+  }
+
+  onEditSelectChange = (v) => {
+    this.currentIdArray = v.dataId.split('-');
+    this.editId = this.currentIdArray[0].split('_')[0];
+    this.editChildId = this.currentIdArray[1];
+    this.currentData = v;
+    const currentDom = v.item;
+    const editData = currentDom.getAttribute('data-edit');
+    this.selectSteState(v.rect, editData, currentDom, v.dataId);
+  }
+
   editTextFunc = () => {
-    this.currentConfigData = mergeURLDataToDefault(
+    const currentConfigDataSource = mergeEditDataToDefault(
       this.props.templateData.data.config[this.currentIdArray[0]], tempData[this.editId]);
-    let editText = this.currentConfigData.dataSource[this.editChildId];
+    let editText = this.getDataSourceChildren(currentConfigDataSource, this.editChildId).children;
     editText = editText.match(isImg) ? '请输入...' : editText;
     this.setState({
       editText,
       openEditText: true,
       isInput: false,
-      editTextStyle: document.defaultView.getComputedStyle(this.currentDom).cssText,
     });
   }
 
-  onDoubleClick = () => {
-    this.currentDom = this.mouseCurrentData.item;
-    const editData = this.currentDom.getAttribute('data-edit');
-    if (editData && editData.indexOf('text') >= 0) {
-      this.editTextFunc();
+  onDoubleClick = (e) => {
+    const dom = e.target;
+    if (dom.getAttribute('data-key')) {
+      this.currentData = this.mouseCurrentData;
+      const editData = this.currentData.item.getAttribute('data-edit');
+      if (editData && editData.indexOf('text') >= 0) {
+        this.editTextFunc();
+      }
+    }
+  }
+
+  onFuncClick = (type, key) => {
+    this.reRect();
+    const { templateData } = this.props;
+    const template = templateData.data.template;
+    const current = template.indexOf(key);
+    switch (type) {
+      case 'up':
+        template[current] = template.splice(current - 1, 1, template[current])[0];
+        break;
+      case 'down':
+        template[current] = template.splice(current + 1, 1, template[current])[0];
+        break;
+      default:
+        template.splice(current, 1);
+        break;
+    }
+    this.props.dispatch(setTemplateData(templateData));
+  }
+
+  getFuncIconChild = (i, dataArray, key) => {
+    return ['up', 'down', 'delete'].map((type) => {
+      let disabled = false;
+      switch (type) {
+        case 'up':
+          disabled = !i;
+          break;
+        case 'down':
+          disabled = i === dataArray.length - 1;
+          break;
+        default:
+          disabled = dataArray.length === 1;
+          break;
+      }
+      return (
+        <Button
+          type="primary"
+          disabled={disabled}
+          key={type}
+          onClick={(e) => { this.onFuncClick(type, key, e); }}
+        >
+          <Icon type={type} />
+        </Button>
+      );
+    });
+  }
+
+  getFuncCompChild = (comp, dataId) => {
+    const compArray = comp.split('=');
+    const name = compArray[0];
+    const data = JSON.parse(compArray[1] || '{}');
+    switch (name) {
+      case 'banner-switch':
+        return (
+          <BannerSlideFunc
+            {...this.props}
+            data={data}
+            dataId={dataId}
+            iframe={this.state.iframe}
+            reRect={this.reRect}
+          />
+        );
+      default:
+        return null;
     }
   }
 
   render() {
     const { className } = this.props;
     const { data, rect, currentRect, iframe, openEditText } = this.state;
-    const overlayChild = data && Object.keys(data).map((key) => {
+    const dataArray = data ? Object.keys(data) : [];
+    const overlayChild = dataArray.map((key, i) => {
       const item = data[key];
       const itemRect = item.rect;
       return (
@@ -312,10 +423,16 @@ class EditStateController extends React.PureComponent {
           data-key={key.split('_')[0]}
           style={{ width: itemRect.width, height: itemRect.height }}
           onMouseMove={this.wrapperMove}
+          onMouseEnter={this.wrapperMove}
           onClick={this.onClick}
           onDoubleClick={this.onDoubleClick}
+          className="overlay-elem"
         >
-          <p className="drag-hints"><Icon type="bars" /> 拖拽加中键滚动可更换位置</p>
+          <div className="drag-hints"><Icon type="bars" /> 拖拽此处加中键滚动或点击右侧按钮可更换位置</div>
+          <div className="func-wrapper">
+            {this.getFuncIconChild(i, dataArray, key)}
+          </div>
+          {item.comp && this.getFuncCompChild(item.comp, key)}
         </div>);
     });
     const overlayHeight = iframe && iframe.document.getElementById('react-content').offsetHeight;
@@ -338,4 +455,3 @@ class EditStateController extends React.PureComponent {
   }
 }
 export default connect(getData)(EditStateController);
-

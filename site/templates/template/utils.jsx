@@ -14,8 +14,9 @@ export function deepCopy(data) {
       } else {
         obj[key] = deepCopy(data[key]);
       }
+    } else {
+      obj[key] = data[key];
     }
-    obj[key] = data[key];
   });
   return obj;
 }
@@ -26,7 +27,13 @@ function mergeDataToChild(newData, _data) {
   const data = _data;
   Object.keys(newData).forEach((key) => {
     if (typeof newData[key] === 'object') {
-      mergeDataToChild(data[key], newData[key]);
+      data[key] = mergeDataToChild(newData[key], deepCopy(data[key]) ||
+        (Array.isArray(newData[key]) ? [] : {}));
+      if (Array.isArray(newData[key])) {
+        data[key] = data[key].filter(c => c || c === 0);
+      }
+    } else if (newData[key] === 'delete') {
+      delete data[key];
     } else {
       data[key] = newData[key];
     }
@@ -34,26 +41,21 @@ function mergeDataToChild(newData, _data) {
   return data;
 }
 
-export function mergeURLDataToDefault(urlData, defaultData) {
-  const dataSource = deepCopy(defaultData.dataSource);
-  const dataProps = deepCopy(defaultData.dataProps);
-  if (!urlData) {
-    return {
-      dataSource,
-      dataProps,
-    };
+export function mergeEditDataToDefault(newData, defaultData) {
+  const dataSource = deepCopy(defaultData.dataSource) || {};
+  if (!newData) {
+    return dataSource;
   }
-  const data = {};
-  data.dataSource = mergeDataToChild(urlData.dataSource, dataSource);
-  data.dataProps = mergeDataToChild(urlData.dataProps, dataProps);
-  return data;
+  return mergeDataToChild(newData.dataSource, dataSource);
 }
+// console.log(mergeEditDataToDefault({ dataSource: { a: ['delete', 0] } }, { dataSource: { a: [1, 2] } }));
 
 export function getEditDomData(children) {
   const data = {};
   const doms = Array.prototype.slice.call(children);
   doms.forEach((item) => {
     const dataId = item.getAttribute('data-id');
+    const comp = item.getAttribute('data-comp');
     const tempNames = dataId.split('-');
     let tempData = data[tempNames[0]] || {};
     if (tempNames[1] === 'wrapper') {
@@ -65,6 +67,7 @@ export function getEditDomData(children) {
         // style,
         dataId,
         item,
+        comp,
       };
       data[tempNames[0]] = tempData;
     }

@@ -53,6 +53,7 @@ const eslintrc = {
     'react/no-unescaped-entities': 0,
     'react/prefer-stateless-function': 0,
     'import/no-webpack-loader-syntax': 0,
+    'react/forbid-prop-types': 0
   },
 };
 

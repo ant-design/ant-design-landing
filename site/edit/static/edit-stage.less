@@ -13,12 +13,12 @@
     width: 100%;
     pointer-events: none;
     box-sizing: content-box;
-    > div {
+    >div {
       position: absolute;
     }
     .hover {
       border: 1px dashed #666;
-      background: fade(#666, 25);
+      background: fade(#666, 10);
     }
     .select {
       border: 2px solid @primary-color;
@@ -30,9 +30,19 @@
       position: absolute;
       top: -26px;
       right: -2px;
-      > .ant-btn{
+      &.inside {
+        top: 0;
+        >.ant-btn {
+          border-top-right-radius: 0;
+          border-top-left-radius: 0;
+          border-bottom-right-radius: 0;
+          border-bottom-left-radius: 4px;
+        }
+      }
+      >.ant-btn {
         border-bottom-right-radius: 0;
         border-bottom-left-radius: 0;
+        line-height: 24px;
       }
     }
     .edit-text-wrapper {
@@ -42,7 +52,7 @@
       margin: 0;
       width: ~"calc(100% + 4px)";
       height: ~"calc(100% + 4px)";
-      > div {
+      >div {
         height: 100%;
         width: 100%;
         min-height: auto;
@@ -51,10 +61,22 @@
     }
   }
   .overlay {
-    position: relative;
+    &-elem {
+      position: relative;
+      >div {
+        transition: opacity .3s @ease-out;
+      }
+      &:hover {
+        >div {
+          opacity: 1;
+        }
+      }
+    }
     &.drag {
-      .drag-hints {
-        display: none;
+      .overlay-elem {
+        >div {
+          opacity: 0;
+        }
       }
     }
     .drag-hints {
@@ -63,12 +85,27 @@
       line-height: 16px;
       background: fade(@primary-color, 55);
       text-align: center;
-      pointer-events: none;
       opacity: 0;
-      transition: opacity .3s @ease-out;
     }
-    > div:hover .drag-hints {
-      opacity: 1;
+    .func-wrapper {
+      width: 24px;
+      height: 84px;
+      border-radius: 4px 0 0 4px;
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      text-align: center;
+      overflow: hidden;
+      opacity: 0;
+      >.ant-btn {
+        line-height: 28px;
+        height: 28px;
+        width: 24px;
+        border-radius: 0;
+        padding: 0;
+      }
     }
   }
 }

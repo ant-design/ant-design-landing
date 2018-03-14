@@ -1,7 +1,11 @@
 import React from 'react';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import { postType } from '../../edit-module/actions';
+import parseJs from 'prettier/src/parser-babylon';
+import parseCss from 'prettier/src/parser-postcss';
+import { printAstToDoc } from 'prettier/src/printer';
+import { printDocToString } from 'prettier/src/doc-printer';
+
 // import { createLogger } from 'redux-logger';
 import rootReducer from '../../edit-module/reducers';
 
@@ -25,45 +29,6 @@ export function toArrayChildren(children) {
   return ret;
 }
 
-export function getEditID(editId) {
-  const ids = editId.split('-');
-  const id = ids[0];
-  const bIds = ids[0].split('_');
-  let childId = ids[1] || '';
-  childId = childId ? `_${childId}` : '';
-  childId = `${bIds[0]}${bIds[1]}${childId}`;
-  return { id, childId };
-}
-
-export function createChildrenObject(object, keys) {
-  const obj = object;
-  let t = {};
-  keys.forEach((key, i) => {
-    if (i) {
-      t[key] = t[key] || {};
-      t = t[key];
-    } else {
-      obj[key] = obj[key] || {};
-      t = obj[key];
-    }
-  });
-  return t;
-}
-
-export function getChildrenObject(object, keys) {
-  const obj = object;
-  let t;
-  keys.forEach((key, i) => {
-    if (i) {
-      t = t[key] || {};
-    } else {
-      t = obj[key] || {};
-    }
-  });
-  return t;
-}
-
-// new
 export const isImg = /\.(gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/;
 
 export const getData = (state) => {
@@ -78,9 +43,32 @@ export const getData = (state) => {
       },
     };
   } */
-  return state;
+  return {
+    templateData: state.templateData,
+  };
 };
 
+const getParentRect = (item) => {
+  const p = [];
+  let i = 0;
+  function parentNode(parent) {
+    const dataId = parent.getAttribute('data-id');
+    if (dataId) {
+      p.push({
+        dataId,
+        item: parent,
+        rect: parent.getBoundingClientRect(),
+        parent: getParentRect(parent),
+      });
+      i += 1;
+    }
+    if (i < 3 && parent.parentNode && parent.parentNode.tagName.toLocaleLowerCase() !== 'body') {
+      parentNode(parent.parentNode);
+    }
+  }
+  parentNode(item.parentNode);
+  return p;
+};
 
 export const getChildRect = (data) => {
   const array = [];
@@ -92,6 +80,7 @@ export const getChildRect = (data) => {
           dataId,
           item,
           rect: item.getBoundingClientRect(),
+          parent: getParentRect(item),
         });
       }
       if (item.children) {
@@ -111,8 +100,7 @@ export const getCurrentDom = (pos, data, scrollTop) => {
     if (pos.x >= rect.x && pos.y >= rect.y &&
       pos.x <= rect.x + rect.width && pos.y <= rect.y + rect.height) {
       return {
-        item: item.item,
-        dataId: item.dataId,
+        ...item,
         rect: {
           x: rect.x,
           y: rect.y + scrollTop,
@@ -121,7 +109,43 @@ export const getCurrentDom = (pos, data, scrollTop) => {
         },
       };
     }
+    return null;
   }).filter(item => item);
   return t[t.length - 1];
 };
 
+export const getDataSourceValue = (id, templateData, parent) => {
+  const array = parent || [];
+  const childIds = id.split('&');
+  let t = templateData;
+  array.concat(childIds).forEach((key) => {
+    const isArray = key === 'children' && childIds.length > 1;
+    t[key] = t[key] || (isArray ? [] : {});
+    t = t[key];
+  });
+  return t;
+};
+
+export function format(code, parser) {
+  const opts = {
+    cursorOffset: -1,
+    rangeStart: 0,
+    rangeEnd: Infinity,
+    useTabs: false,
+    tabWidth: 2,
+    printWidth: 100,
+    singleQuote: true,
+    trailingComma: 'es5',
+    bracketSpacing: true,
+    jsxBracketSameLine: false,
+    parser: parser || 'babylon',
+    insertPragma: false,
+    requirePragma: false,
+    semi: true,
+    originalText: code,
+  };
+  const ast = parser ? parseCss(code, null, opts) : parseJs(code);
+  const doc = printAstToDoc(ast, opts);
+  const result = printDocToString(doc, opts);
+  return result.formatted;
+}

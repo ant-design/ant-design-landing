@@ -1,0 +1,84 @@
+.@{editorList} {
+  .ant-collapse {
+    .box-model-wrapper {
+      width: 145px;
+      height: 60px;
+      margin: 20px auto;
+      border: 1px solid @edit-list-text-color;
+    }
+    .box-model {
+      position: relative;
+      height: 100%;
+      .top,
+      .right,
+      .bottom,
+      .left,
+      .center,
+      .top-left,
+      .top-right,
+      .bottom-right,
+      .bottom-left {
+        position: absolute;
+        margin: auto;
+        width: 56px;
+        height: 22px;
+        .ant-select-selection {
+          background: @bgColor;
+          .ant-input,
+          .ant-select-selection__placeholder {
+            text-align: center;
+          }
+        }
+      }
+      .top {
+        top: -11px;
+        left: 0;
+        right: 0;
+        .editor-color-picker {
+          left: -85px
+        }
+      }
+      .right {
+        right: -28px;
+        top: 0;
+        bottom: 0;
+        .editor-color-picker {
+          right: -13px;
+          left: auto;
+        }
+      }
+      .bottom {
+        bottom: -11px;
+        left: 0;
+        right: 0;
+      }
+      .left {
+        left: -28px;
+        top: 0;
+        bottom: 0;
+      }
+      .center {
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+      .top-left {
+        top: -11px;
+        left: -28px;
+      }
+      .top-right {
+        top: -11px;
+        right: -28px;
+      }
+      .bottom-left {
+        bottom: -11px;
+        left: -28px;
+      }
+      .bottom-right {
+        bottom: -11px;
+        right: -28px;
+      }
+    }
+  }
+}

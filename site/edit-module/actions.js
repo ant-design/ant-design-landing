@@ -19,6 +19,7 @@ export const postType = {
   POST_ERROR: 'error',
   POST_RE: 'reload',
   SET_TEMPLATE: 'setTemplate',
+  SET_EDIT: 'setEdit',
 };
 export const getUserData = () => (dispatch) => {
   // 获取 url 上是否有 user id;
@@ -28,7 +29,6 @@ export const getUserData = () => (dispatch) => {
   if (!hash && uid) {
     setURLData('uid', uid);
   }
-  console.log('uid:', uid);
   let tempData;
   if (!uid) {
     // 如果没有，创建个新的；
@@ -37,10 +37,11 @@ export const getUserData = () => (dispatch) => {
     tempData.set('template', [
       /* 'nav_0_0', 'content_0_0', 'content_2_0',
       'content_3_0', 'content_4_0', 'footer_0_0', */
+      'Content1_0',
       'Content0_0',
-      'Content0_1',
     ]);
     tempData.set('config', {});
+    tempData.set('style', {});
     tempData.set('other', {});
     tempData.save().then((obj) => {
       setURLData('uid', obj.id);
@@ -61,7 +62,6 @@ export const getUserData = () => (dispatch) => {
       });
     }, (error) => {
       console.log(JSON.stringify(error));
-      console.error(error);
       if (error.code === 101) {
         window.localStorage.setItem(userName, '');
         setURLData('uid');
@@ -102,5 +102,13 @@ export const setTemplateData = (data) => {
   return {
     type: postType.SET_TEMPLATE,
     data: data.data,
+  };
+};
+
+// 编辑 props
+export const setCurrentData = (data) => {
+  return {
+    type: postType.SET_EDIT,
+    data,
   };
 };

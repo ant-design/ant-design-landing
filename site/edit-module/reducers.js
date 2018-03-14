@@ -19,6 +19,8 @@ function templateData(state, aciton) {
         uid: state.uid,
         data: aciton.data,
       };
+    case postType.SET_EDIT:
+      return state || null;
     default:
       return {
         type: postType.POST_DEFAULT,
@@ -27,8 +29,20 @@ function templateData(state, aciton) {
   }
 }
 
+function currentEditData(state, aciton) {
+  switch (aciton.type) {
+    case postType.SET_EDIT:
+      return aciton.data ? {
+        ...aciton.data,
+      } : null;
+    default:
+      return state || null;
+  }
+}
+
 const reducer = combineReducers({
   templateData,
+  currentEditData,
 });
 
 export default reducer;

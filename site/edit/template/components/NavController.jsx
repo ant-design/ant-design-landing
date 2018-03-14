@@ -1,15 +1,13 @@
 import React from 'react';
-import { Button, Icon, Modal, message, Tooltip } from 'antd';
-import CopyToClipboard from 'react-copy-to-clipboard';
+import { Icon } from 'antd';
+import { connect } from 'react-redux';
+import { getData } from '../utils';
 
 
-class NavController extends React.Component {
+class NavController extends React.PureComponent {
   static defaultProps = {
     className: 'edit-nav',
   };
-  constructor(props) {
-    super(props);
-  }
 
   saveCode = () => {
     if (!location.port && window.ga) {
@@ -24,7 +22,7 @@ class NavController extends React.Component {
       { name: '生成预览', icon: 'eye-o' },
       { name: '生成代码', icon: 'code-o' },
     ].map((item, i) => (
-      <li key={i.toString()}>
+      <li key={i.toString()} onClick={item.onClick}>
         <Icon type={item.icon} />
         {item.name}
       </li>
@@ -44,4 +42,4 @@ class NavController extends React.Component {
     );
   }
 }
-export default NavController;
+export default connect(getData)(NavController);

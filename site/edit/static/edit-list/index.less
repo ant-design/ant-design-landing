@@ -1,0 +1,63 @@
+@import '~antd/lib/style/index.css';
+@import '~antd/lib/grid/style/index.css';
+@import '~antd/lib/select/style/index.css';
+@import '~antd/lib/input/style/index.css';
+@import '~antd/lib/input-number/style/index.css';
+@import '~antd/lib/radio/style/index.css';
+@import '~antd/lib/tooltip/style/index.css';
+@import '~antd/lib/switch/style/index.css';
+@import '~antd/lib/dropdown/style/index.css';
+@import '~antd/lib/collapse/style/index.css';
+
+@import "custom";
+@import "common";
+@import "editor-color";
+@import "collapse";
+@import "editor-font";
+@import "box-model";
+
+.edit-list-tab {
+  height: 100%;
+  overflow: auto;
+  position: relative;
+  &s {
+    height: 100%;
+    .ant-tabs {
+      &-bar {
+        height: 48px;
+        border-color: @edit-line-color;
+      }
+      &-content {
+        height: ~"calc(100% - 64px)";
+      }
+      &-ink-bar {
+        display: none !important;
+      }
+      &-tab {
+        margin-right: 0;
+        border-right: 1px solid @edit-line-color;
+        padding: 0 24px;
+        line-height: 48px;
+        font-size: 16px;
+        color: fade(#fff, 60);
+        height: 49px;
+        transition: color 0.3s @ease-in-out, background .3s @ease-in-out;
+        &-active {
+          color: #fff;
+          background: @edit-bg-color;
+        }
+        &:hover {
+          color: #fff;
+        }
+        .anticon {
+          margin: 0;
+        }
+      }
+    }
+  }
+  .props-explain {
+    color: #fff;
+    padding: 0 16px;
+    font-size: 12px;
+  }
+}

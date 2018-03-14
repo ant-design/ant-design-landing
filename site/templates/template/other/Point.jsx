@@ -1,15 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import ScrollAnim from 'rc-scroll-anim';
 
 const Link = ScrollAnim.Link;
 export default class Point extends React.Component {
-  static propTypes = {
-    className: PropTypes.string,
-    style: PropTypes.object,
-    data: PropTypes.array,
-  };
-
   static defaultProps = {
     className: 'templates-list',
   };
@@ -35,6 +28,6 @@ export default class Point extends React.Component {
       <div>
         {children}
       </div>
-    </div>);
+            </div>);
   }
 }

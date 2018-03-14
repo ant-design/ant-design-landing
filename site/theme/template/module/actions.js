@@ -9,18 +9,6 @@ AV.init({
   appKey,
 });
 
-/* const ListData = AV.Object.extend('List_data');
-const list = new ListData();
-list.set('name', 'seeconf 官网');
-list.set('image', 'https://gw.alipayobjects.com/zos/rmsportal/AUIbyJxfwerASkPBwFmD.jpg');
-list.set('preview', 'https://seeconf-pre.site.alipay.net/');
-list.set('git', 'https://github.com/ant-motion/seeconf-landing-page');
-list.save().then((obj) => {
-  console.log(obj);
-}, (error) => {
-  console.log(error);
-}); */
-
 export const postType = {
   POST_DEFAULT: 'default',
   POST_SET: 'set',

@@ -13,8 +13,8 @@ export default class EditButtonView extends React.PureComponent {
   }
 
   onParentDropdonw = (e) => {
-    const { parent, onParentChange } = this.props;
-    const select = parent.filter(item => item.dataId === e.key)[0];
+    const { currentData, onParentChange } = this.props;
+    const select = currentData.parent.filter(item => item.dataId === e.key)[0];
     onParentChange(select);
   }
 
@@ -34,7 +34,8 @@ export default class EditButtonView extends React.PureComponent {
   }
 
   render() {
-    const { editButtonArray, editText, parent, currentData, scrollTop } = this.props;
+    const { editButtonArray, editText, currentData, scrollTop } = this.props;
+    const parent = currentData.parent;
     let parentChild;
     if (parent && parent.length) {
       const str = currentData.dataId.split('&');
@@ -82,7 +83,7 @@ export default class EditButtonView extends React.PureComponent {
     }).filter(c => c);
     const top = currentData.item.getBoundingClientRect().top;
     return (
-      <ButtonGroup key="group" className={(scrollTop + top) < 24 ? 'inside' : ''}>
+      <ButtonGroup key="group" className={top < 24 ? 'inside' : ''}>
         {parentChild}
         {buttons}
       </ButtonGroup>

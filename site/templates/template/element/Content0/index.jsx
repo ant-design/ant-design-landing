@@ -3,71 +3,77 @@ import { Button, Icon } from 'antd';
 import QueueAnim from 'rc-queue-anim';
 import TweenOne from 'rc-tween-one';
 import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';
+/* replace-start */
 import './index.less';
-
+/* replace-end */
 function Content(props) {
-  const { ...currentProps } = props;
-  /* edit-dataSource start */
+  const { ...currentProps } = props;/* replace-start */
   const dataId = currentProps['data-id'];
-  const dataSource = props.dataSource;
+  /* replace-end */
+  const { dataSource } = currentProps;
   delete currentProps.dataSource;
-  /* edit-dataSource end */
   delete currentProps.isMode;
   return (
     <OverPack
       {...currentProps}
-      /* edit-OverPack start */
       {...dataSource.wrapper}
+      /* replace-start */
       data-id={`${dataId}-wrapper`}
       data-edit={['OverPack']}
-    /* edit-OverPack end */
+    /* replace-end */
     >
       <QueueAnim
+        key="text"
         type={['bottom', 'top']}
         delay={200}
-        key="text"
-        /* edit-wrapper start */
         {...dataSource.textWrapper}
+        /* replace-start */
         data-id={`${dataId}-textWrapper`}
-      /* edit-wrapper end */
+      /* replace-end */
       >
         <div
           key="title"
-          /* edit-title start */
           {...dataSource.title}
+          /* replace-start */
           data-id={`${dataId}-title`}
           data-edit="text,image"
-        /* edit-title end */
+        /* replace-end */
         >
           {
-            /* edit-replace start */
+            /* replace-start */
             dataSource.title.children.match(/\.(gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/) ? (
               <img src={dataSource.title.children} width="100%" alt="img" />
             ) :
-            /* eidt-replace end */
-            React.createElement('span', { dangerouslySetInnerHTML: { __html: dataSource.title.children } })
+              /* replace-end */
+              /* replace-start-value = dataSource.title.children */
+              React.createElement('span', { dangerouslySetInnerHTML: { __html: dataSource.title.children } })
+            /* replace-end-value */
           }
         </div>
         <p
           key="content"
-          /* edit-content start */
-          data-id={`${dataId}-content`}
           {...dataSource.content}
+          /* replace-start */
+          data-id={`${dataId}-content`}
           data-edit="text"
-        /* edit-content end */
+        /* replace-end */
         >
-          {React.createElement('span', { dangerouslySetInnerHTML: { __html: dataSource.content.children } })}
+          {/* replace-start-value = dataSource.content.children */
+            React.createElement('span', { dangerouslySetInnerHTML: { __html: dataSource.content.children } })
+           /* replace-end-value */}
         </p>
         <Button
           type="ghost"
           key="button"
-          /* edit-button start */
-          data-id={`${dataId}-button`}
           {...dataSource.button}
+          /* replace-start */
+          data-id={`${dataId}-button`}
           data-edit="text"
-          /* edit-button end */
+        /* replace-end */
         >
-          {React.createElement('span', { dangerouslySetInnerHTML: { __html: dataSource.button.children } })}
+          {/* replace-start-value = dataSource.button.children */
+            React.createElement('span', { dangerouslySetInnerHTML: { __html: dataSource.button.children } })
+           /* replace-end-value */}
         </Button>
       </QueueAnim>
       <TweenOne

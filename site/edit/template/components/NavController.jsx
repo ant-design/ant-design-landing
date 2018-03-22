@@ -1,8 +1,9 @@
 import React from 'react';
-import { Icon } from 'antd';
+import { Icon, message } from 'antd';
 import { connect } from 'react-redux';
 import { getData } from '../utils';
-
+import { saveData } from '../../../edit-module/actions';
+import saveJsZip from './saveJsZip';
 
 class NavController extends React.PureComponent {
   static defaultProps = {
@@ -16,11 +17,33 @@ class NavController extends React.PureComponent {
     // saveJsZip(this.props.urlData);
   }
 
+  onPreview = () => {
+    this.onSave();
+    const { templateData } = this.props;
+    const url = `${location.port ? `${location.protocol}//${location.hostname}:7113/`
+      : `${location.origin}/templates/`}#uid=${templateData.uid}`;
+    window.open(url);
+  }
+
+  onSave = () => {
+    saveData(this.props.templateData, (e) => {
+      if (e.code) {
+        message.error('保存出错，请重试。');
+      } else {
+        message.success('保存成功。');
+      }
+    });
+  }
+
+  onSaveCode = () => {
+    saveJsZip(this.props.templateData);
+  }
+
   render() {
     const menuChild = [
-      { name: '保存编辑', icon: 'save' },
-      { name: '生成预览', icon: 'eye-o' },
-      { name: '生成代码', icon: 'code-o' },
+      { name: '保存编辑', icon: 'save', onClick: this.onSave },
+      { name: '生成预览', icon: 'eye-o', onClick: this.onPreview },
+      { name: '生成代码', icon: 'code-o', onClick: this.onSaveCode },
     ].map((item, i) => (
       <li key={i.toString()} onClick={item.onClick}>
         <Icon type={item.icon} />

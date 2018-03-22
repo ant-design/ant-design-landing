@@ -28,12 +28,14 @@ class EditorComp extends React.PureComponent {
     this.setValue('className', inDomClass ?
       currentEditTemplateData.className : `${currentEditTemplateData.className} ${cssName}`,
     newTemplateData.data.config);
-    newTemplateData.data.style[ids[0]] = newTemplateData.data.style[ids[0]] || {};
-    newTemplateData.data.style[ids[0]][cssName] = {
+    const data = {
       className: e.className,
       css: e.css,
       mobileCss: e.mobileCss,
+      id,
     };
+    newTemplateData.data.style = (newTemplateData.data.style || []).filter(c => c.id !== id);
+    newTemplateData.data.style.push(data);
     dispatch(setTemplateData(newTemplateData));
   }
   onPropsChange = (key, value) => {
@@ -56,6 +58,7 @@ class EditorComp extends React.PureComponent {
           key="css"
           editorElem={currentEditData.dom}
           onChange={this.onChange}
+          cssToDom={false}
           defaultActiveKey={['EditorClassName', 'EditorState', 'EditorFont', 'EditorInterface']}
         />,
       ]

@@ -144,7 +144,7 @@ class EditStateController extends React.PureComponent {
         y: dataRect.y + this.scrollTop,
       };
       // 获取子级带 data-id 的 rect; 由于有动画组件，所以时时获取
-      const rect = getChildRect(currentData);
+      const rect = getChildRect(currentData, this.scrollTop);
       const pos = {
         x: e.pageX - 40, // 40 为左侧距离
         y: e.pageY - 80, // 80 为顶部距离
@@ -169,7 +169,6 @@ class EditStateController extends React.PureComponent {
       rect: {},
     });
   }
-
 
   closeEditText = () => {
     this.setState({
@@ -241,7 +240,6 @@ class EditStateController extends React.PureComponent {
             openEditTextFunc={this.editTextFunc}
             editButtonArray={this.state.editButton}
             currentData={this.currentData}
-            parent={this.currentData.parent}
             scrollTop={this.scrollTop}
             onParentChange={this.onEditSelectChange}
             editText={editText}
@@ -317,7 +315,11 @@ class EditStateController extends React.PureComponent {
     this.currentData = v;
     const currentDom = v.item;
     const editData = currentDom.getAttribute('data-edit');
-    this.selectSteState(v.rect, editData, currentDom, v.dataId);
+    const rect = {
+      ...v.rect,
+      y: v.rect.y + this.scrollTop,
+    };
+    this.selectSteState(rect, editData, currentDom, v.dataId);
   }
 
   editTextFunc = () => {

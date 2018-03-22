@@ -85,43 +85,36 @@ class Layout extends React.Component {
   }
 
   setStyleData = (style) => {
-    if (!this.isEdit) {
-      const getCssToString = (css, className) => Object.keys(css).sort((a, b) => (
-        stateSort[a] - stateSort[b]
-      )).map((key) => {
-        switch (key) {
-          case 'default':
-            return css[key].trim() && `${className} {${css[key]}}`;
-          default:
-            return css[key].trim() && `${className}:${key} {${css[key]}}`;
-        }
-      }).filter(c => c);
-      let cssStyle = '';
-      let cssMobileCss = '';
-      Object.keys(style).forEach((key) => {
-        const tempStyle = style[key];
-        Object.keys(tempStyle).forEach((name) => {
-          const item = tempStyle[name];
-          const cssName = item.className;
-          const css = getCssToString(item.css, cssName);
-          const mobileCss = getCssToString(item.mobileCss, cssName);
-          if (css.length) {
-            cssStyle += css.join();
-          }
-          if (mobileCss.length) {
-            cssMobileCss += mobileCss.join();
-          }
-        });
-      });
-      this.styleTag.innerHTML = format(`${cssStyle || ''}${cssMobileCss
-        ? `${mobileTitle}${cssMobileCss}}` : ''}`, 'css');
-    }
+    const getCssToString = (css, className) => Object.keys(css).sort((a, b) => (
+      stateSort[a] - stateSort[b]
+    )).map((key) => {
+      switch (key) {
+        case 'default':
+          return css[key].trim() && `${className} {${css[key]}}`;
+        default:
+          return css[key].trim() && `${className}:${key} {${css[key]}}`;
+      }
+    }).filter(c => c);
+    let cssStyle = '';
+    let cssMobileCss = '';
+    style.forEach((item) => {
+      const cssName = item.className;
+      const css = getCssToString(item.css, cssName);
+      const mobileCss = getCssToString(item.mobileCss, cssName);
+      if (css.length) {
+        cssStyle += css.join();
+      }
+      if (mobileCss.length) {
+        cssMobileCss += mobileCss.join();
+      }
+    });
+    this.styleTag.innerHTML = format(`${cssStyle || ''}${cssMobileCss
+      ? `${mobileTitle}${cssMobileCss}}` : ''}`, 'css');
   }
 
   getDataToChildren = () => {
     const { templateData } = this.state;
-    const { data, funcData } = templateData;
-    const func = { ...funcData };
+    const { data } = templateData;
     const template = data.template;
     this.setStyleData(data.style);
     const otherData = data.other || '';
@@ -136,7 +129,6 @@ class Layout extends React.Component {
         'data-id': key,
         key,
         dataSource,
-        func: func[key],
       });
     });
     return children;

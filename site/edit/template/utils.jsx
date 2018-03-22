@@ -54,10 +54,16 @@ const getParentRect = (item) => {
   function parentNode(parent) {
     const dataId = parent.getAttribute('data-id');
     if (dataId) {
+      const rect = parent.getBoundingClientRect();
       p.push({
         dataId,
         item: parent,
-        rect: parent.getBoundingClientRect(),
+        rect: {
+          x: rect.x,
+          y: rect.y,
+          width: rect.width,
+          height: rect.height,
+        },
         parent: getParentRect(parent),
       });
       i += 1;
@@ -75,11 +81,17 @@ export const getChildRect = (data) => {
   function mapChild(child) {
     Array.prototype.slice.call(child).forEach((item) => {
       const dataId = item.getAttribute('data-id');
+      const rect = item.getBoundingClientRect();
       if (dataId) {
         array.push({
           dataId,
           item,
-          rect: item.getBoundingClientRect(),
+          rect: {
+            x: rect.x,
+            y: rect.y,
+            width: rect.width,
+            height: rect.height,
+          },
           parent: getParentRect(item),
         });
       }

@@ -41,7 +41,7 @@ export const getUserData = () => (dispatch) => {
       'Content0_0',
     ]);
     tempData.set('config', {});
-    tempData.set('style', {});
+    tempData.set('style', []);
     tempData.set('other', {});
     tempData.save().then((obj) => {
       setURLData('uid', obj.id);
@@ -103,6 +103,15 @@ export const setTemplateData = (data) => {
     type: postType.SET_TEMPLATE,
     data: data.data,
   };
+};
+
+export const saveData = (templateData, cb) => {
+  const { uid, data } = templateData;
+  const templateObject = AV.Object.createWithoutData(fileName, uid);
+  Object.keys(data).forEach((key) => {
+    templateObject.set(key, data[key]);
+  });
+  templateObject.save().then(cb, cb);
 };
 
 // 编辑 props

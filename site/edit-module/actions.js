@@ -37,8 +37,8 @@ export const getUserData = () => (dispatch) => {
     tempData.set('template', [
       /* 'nav_0_0', 'content_0_0', 'content_2_0',
       'content_3_0', 'content_4_0', 'footer_0_0', */
-      'Content1_0',
-      'Content0_0',
+      'Banner1_0',
+      'Banner0_0',
     ]);
     tempData.set('config', {});
     tempData.set('style', []);

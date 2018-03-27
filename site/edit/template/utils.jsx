@@ -5,6 +5,7 @@ import parseJs from 'prettier/src/parser-babylon';
 import parseCss from 'prettier/src/parser-postcss';
 import { printAstToDoc } from 'prettier/src/printer';
 import { printDocToString } from 'prettier/src/doc-printer';
+import comments from 'prettier/src/comments';
 
 // import { createLogger } from 'redux-logger';
 import rootReducer from '../../edit-module/reducers';
@@ -137,27 +138,63 @@ export const getDataSourceValue = (id, templateData, parent) => {
   });
   return t;
 };
+function ensureAllCommentsPrinted(astComments) {
+  if (!astComments) {
+    return;
+  }
 
-export function format(code, parser) {
+  for (let i = 0; i < astComments.length; i += 1) {
+    if (astComments[i].value.trim() === 'prettier-ignore') {
+      // If there's a prettier-ignore, we're not printing that sub-tree so we
+      // don't know if the comments was printed or not.
+      return;
+    }
+  }
+
+  astComments.forEach((comment) => {
+    if (!comment.printed) {
+      throw new Error(
+        `Comment "${
+          comment.value.trim()
+        }" was not printed. Please report this error!`
+      );
+    }
+    delete comment.printed;
+  });
+}
+
+function attachComments(text, ast, opts) {
+  const astComments = ast.comments;
+  if (astComments) {
+    delete ast.comments;
+    comments.attach(astComments, ast, text, opts);
+  }
+  ast.tokens = [];
+  opts.originalText = text.trimRight();
+  return astComments;
+}
+
+const cssArray = ['css', 'less', 'scss'];
+export function format(code, parserName) {
   const opts = {
-    cursorOffset: -1,
-    rangeStart: 0,
-    rangeEnd: Infinity,
     useTabs: false,
     tabWidth: 2,
-    printWidth: 100,
+    printWidth: 80,
     singleQuote: true,
     trailingComma: 'es5',
     bracketSpacing: true,
-    jsxBracketSameLine: false,
-    parser: parser || 'babylon',
-    insertPragma: false,
-    requirePragma: false,
+    parser: parserName || 'babylon',
+    arrowParens: 'always',
+    // insertPragma: true,
+    requirePragma: true,
     semi: true,
     originalText: code,
   };
-  const ast = parser ? parseCss(code, null, opts) : parseJs(code);
+  const parser = cssArray.indexOf(parserName) >= 0 ? parseCss : parseJs;
+  const ast = parser(code, null, opts);
+  const astComments = attachComments(code, ast, opts);
   const doc = printAstToDoc(ast, opts);
   const result = printDocToString(doc, opts);
+  ensureAllCommentsPrinted(astComments);
   return result.formatted;
 }

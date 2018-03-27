@@ -35,7 +35,7 @@ class Banner extends React.Component {
     /* replace-end */
     const { dataSource } = props;
     delete props.dataSource;
-    delete props.isMode;
+    delete props.isMobile;
     const childrenToRender = dataSource.bannerAnim.children.map((item, i) => {
       const elem = item.elem;
       const bg = item.bg;
@@ -88,7 +88,7 @@ class Banner extends React.Component {
                   /* replace-end-value */
               }
             </div>
-            <p
+            <div
               key="content"
               {...content}
               /* replace-start */
@@ -101,7 +101,7 @@ class Banner extends React.Component {
                 React.createElement('span', { dangerouslySetInnerHTML: { __html: content.children } })
                 /* replace-end-value */
               }
-            </p>
+            </div>
             <Button
               type="ghost"
               key="button"

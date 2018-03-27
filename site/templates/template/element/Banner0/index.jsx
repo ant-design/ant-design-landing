@@ -12,7 +12,7 @@ function Content(props) {
   /* replace-end */
   const { dataSource } = currentProps;
   delete currentProps.dataSource;
-  delete currentProps.isMode;
+  delete currentProps.isMobile;
   return (
     <OverPack
       {...currentProps}
@@ -50,7 +50,7 @@ function Content(props) {
             /* replace-end-value */
           }
         </div>
-        <p
+        <div
           key="content"
           {...dataSource.content}
           /* replace-start */
@@ -61,7 +61,7 @@ function Content(props) {
           {/* replace-start-value = dataSource.content.children */
             React.createElement('span', { dangerouslySetInnerHTML: { __html: dataSource.content.children } })
            /* replace-end-value */}
-        </p>
+        </div>
         <Button
           type="ghost"
           key="button"

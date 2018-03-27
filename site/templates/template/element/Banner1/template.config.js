@@ -39,7 +39,6 @@ export default {
       className: 'banner1',
     },
     bannerAnim: {
-      props: {},
       children: [
         {
           name: 'elem0',

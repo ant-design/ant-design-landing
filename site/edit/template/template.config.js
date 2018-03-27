@@ -13,9 +13,9 @@ export default {
       },
     ],
   },
-  Content: {
-    name: '内容',
-    order: 2,
+  Banner: {
+    name: 'Banner',
+    order: 1,
     data: [
       {
         src: 'https://zos.alipayobjects.com/rmsportal/gyseCGEPqWjQpYF.jpg',
@@ -30,8 +30,14 @@ export default {
       {
         src: 'https://zos.alipayobjects.com/rmsportal/xLbbmipjHaqSoJSXhIzP.jpg',
         text: '单张背景图Banner2',
-        uid: 10,
+        uid: 3,
       },
+    ],
+  },
+  Content: {
+    name: '内容',
+    order: 2,
+    data: [
       {
         src: 'https://zos.alipayobjects.com/rmsportal/tFEFnHEpyPhRnFCsKjdR.jpg',
         text: '产品介绍',

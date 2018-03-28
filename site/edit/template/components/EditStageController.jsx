@@ -211,7 +211,16 @@ class EditStateController extends React.PureComponent {
     const ids = id.split('&');
     let t = _t;
     ids.forEach((key) => {
-      t = t[key];
+      const nameKey = key.split('=');
+      if (nameKey.length > 1 && nameKey[0] === 'array_name') {
+        t.forEach((item) => {
+          if (item.name === nameKey[1]) {
+            t = item;
+          }
+        });
+      } else {
+        t = t[key];
+      }
     });
     return t;
   }

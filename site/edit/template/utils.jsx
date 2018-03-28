@@ -49,6 +49,10 @@ export const getData = (state) => {
   };
 };
 
+export const getState = (state) => {
+  return state;
+};
+
 const getParentRect = (item) => {
   const p = [];
   let i = 0;
@@ -132,9 +136,17 @@ export const getDataSourceValue = (id, templateData, parent) => {
   const childIds = id.split('&');
   let t = templateData;
   array.concat(childIds).forEach((key) => {
-    const isArray = key === 'children' && childIds.length > 1;
-    t[key] = t[key] || (isArray ? [] : {});
-    t = t[key];
+    const nameKey = key.split('=');
+    if (nameKey.length > 1 && nameKey[0] === 'array_name') {
+      const elem = t.filter((item) => {
+        return item.name === nameKey[1];
+      })[0] || t[t.length - 1];
+      t = elem;
+    } else {
+      const isArray = key === 'children' && childIds.length > 1;
+      t[key] = t[key] || (isArray ? [] : {});
+      t = t[key];
+    }
   });
   return t;
 };

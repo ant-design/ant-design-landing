@@ -1,7 +1,6 @@
 import React from 'react';
-// import ReactDOM from 'react-dom';
-// import { scrollScreen } from 'rc-scroll-anim';
-// import { enquireScreen } from 'enquire-js';
+import { scrollScreen } from 'rc-scroll-anim';
+import { enquireScreen } from 'enquire-js';
 import { connect } from 'react-redux';
 import { mobileTitle } from 'rc-editor-list/lib/utils';
 import webData from './element/template.config';
@@ -13,15 +12,18 @@ import { getData, format } from '../../edit/template/utils';
 import { getURLData } from '../../theme/template/utils';
 import { getUserData } from '../../edit-module/actions';
 
-
-// const Point = require('./other/Point');
+import Point from './other/Point';
 
 const $ = window.$ || {};
 const stateSort = { default: 0, hover: 1, focus: 2, active: 3 };
-
+let isMobile;
+enquireScreen((b) => {
+  isMobile = b;
+});
 class Layout extends React.Component {
   constructor(props) {
     super(props);
+    this.scrollScreen = false;
     this.isEdit = getURLData('isEdit');
     if (!this.isEdit) {
       const { dispatch } = props;
@@ -34,11 +36,17 @@ class Layout extends React.Component {
     this.styleTag = this.createStyle();
     this.state = {
       templateData: props.templateData,
+      isMobile,
     };
   }
   componentDidUpdate() {
     if (this.isEdit) {
       this.setData();
+    }
+    scrollScreen.unMount();
+    if (this.scrollScreen) {
+      const docHeight = this.dom.getBoundingClientRect().height;
+      scrollScreen.init({ docHeight });
     }
   }
 
@@ -46,6 +54,9 @@ class Layout extends React.Component {
     if (this.isEdit) {
       window.addEventListener('message', this.messageHandle);
     }
+    enquireScreen((b) => {
+      this.setState({ isMobile: b });
+    });
   }
   componentWillReceiveProps(nextProps) {
     if (!this.isEdit) {
@@ -114,10 +125,11 @@ class Layout extends React.Component {
 
   getDataToChildren = () => {
     const { templateData } = this.state;
-    const { data } = templateData;
+    const { data, funcData } = templateData;
+    const func = { ...funcData };
     const template = data.template;
     this.setStyleData(data.style);
-    const otherData = data.other || '';
+    const otherData = data.other;
     const configData = data.config || {};
     const children = template.map((key) => {
       const keys = key.split('_');
@@ -128,8 +140,34 @@ class Layout extends React.Component {
       return React.createElement(componentData.component, {
         'data-id': key,
         key,
+        id: key,
         dataSource,
+        func: func[key],
+        isMobile: this.state.isMobile,
       });
+    });
+    this.scrollScreen = false;
+    Object.keys(otherData).forEach((key) => {
+      switch (key) {
+        case 'point':
+        {
+          children.push((
+            <Point
+              key="point"
+              data={template}
+              {...otherData[key]}
+            />
+          ));
+          break;
+        }
+        case 'full':
+          if (!this.isEdit) {
+            this.scrollScreen = true;
+          }
+          break;
+        default:
+          break;
+      }
     });
     return children;
   }

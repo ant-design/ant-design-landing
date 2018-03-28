@@ -6,7 +6,7 @@ import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';
 /* replace-start */
 import './index.less';
 /* replace-end */
-function Content(props) {
+function Banner(props) {
   const { ...currentProps } = props;/* replace-start */
   const dataId = currentProps['data-id'];
   /* replace-end */
@@ -89,4 +89,4 @@ function Content(props) {
   );
 }
 
-export default Content;
+export default Banner;

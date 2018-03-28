@@ -55,6 +55,9 @@ export function getEditDomData(children) {
   const doms = Array.prototype.slice.call(children);
   doms.forEach((item) => {
     const dataId = item.getAttribute('data-id');
+    if (!dataId) {
+      return;
+    }
     const comp = item.getAttribute('data-comp');
     const tempNames = dataId.split('-');
     let tempData = data[tempNames[0]] || {};

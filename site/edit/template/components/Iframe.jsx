@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { getUserData } from '../../../edit-module/actions';
 import { getData } from '../utils';
 
-class Iframe extends React.PureComponent {
+class Iframe extends React.Component {
   componentWillReceiveProps(nextProps) {
     const { templateData } = nextProps;
     const { type } = templateData;

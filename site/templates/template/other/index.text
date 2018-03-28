@@ -1,5 +1,6 @@
+/* eslint no-undef: 0 */
+/* eslint arrow-parens: 0 */
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { enquireScreen } from 'enquire-js';
 &scrollAnim&
 
@@ -22,6 +23,7 @@ export default class Home extends React.Component {
   }
 
   componentDidMount() {
+    &scrollScreen-pragma&
     // 适配手机屏幕;
     enquireScreen((b) => {
       this.setState({ isMobile: !!b });
@@ -34,6 +36,7 @@ export default class Home extends React.Component {
         this.setState({
           show: true,
         });
+        &scrollScreen&
       }, 500);
     }
     /* 如果不是 dva 2.0 请删除 end */
@@ -42,7 +45,7 @@ export default class Home extends React.Component {
   render() {
     &children&
     return (
-      <div className="templates-wrapper">
+      <div className="templates-wrapper" ref={(d) => { this.dom = d; }}>
         {/* 如果不是 dva 2.0 替换成 {children} start */}
         {this.state.show && children}
         {/* 如果不是 dva 2.0 替换成 {children} end */}

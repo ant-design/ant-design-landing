@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import EditorList from 'rc-editor-list';
 import EditorProps from './PropsComp';
 import { getDataSourceValue } from '../../utils';
@@ -46,7 +45,6 @@ class EditorComp extends React.PureComponent {
   }
   render() {
     const { currentEditData } = this.props;
-
     if (!currentEditData) {
       return <p className="props-explain">请选择左侧进行编辑...</p>;
     }
@@ -65,9 +63,4 @@ class EditorComp extends React.PureComponent {
     );
   }
 }
-
-const getState = (state) => {
-  return state;
-};
-export default connect(getState)(EditorComp);
-
+export default EditorComp;

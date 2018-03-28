@@ -18,10 +18,16 @@
 
 .edit-list-tab {
   height: 100%;
-  overflow: auto;
-  position: relative;
+  .tab-scroll {
+    overflow: auto;
+    height: 100%;
+    position: relative;
+  }
   &s {
     height: 100%;
+    &.ant-tabs:not(.ant-tabs-vertical) > .ant-tabs-content > .ant-tabs-tabpane-inactive {
+      height: 100%;
+    }
     .ant-tabs {
       &-bar {
         height: 48px;
@@ -39,15 +45,15 @@
         padding: 0 24px;
         line-height: 48px;
         font-size: 16px;
-        color: fade(#fff, 60);
+        color: fade(@edit-text-color, 60);
         height: 49px;
         transition: color 0.3s @ease-in-out, background .3s @ease-in-out;
         &-active {
-          color: #fff;
+          color: @edit-text-color;
           background: @edit-bg-color;
         }
         &:hover {
-          color: #fff;
+          color: @edit-text-color;
         }
         .anticon {
           margin: 0;
@@ -56,7 +62,7 @@
     }
   }
   .props-explain {
-    color: #fff;
+    color: @edit-text-color;
     padding: 0 16px;
     font-size: 12px;
   }

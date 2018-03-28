@@ -1,7 +1,7 @@
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 import { mobileTitle } from 'rc-editor-list/lib/utils';
-import { format } from '../utils';
+import { format, isImg } from '../utils';
 import { mergeEditDataToDefault } from '../../../templates/template/utils';
 import webData from '../../../templates/template/element/template.config';
 import otherComp from '../../../templates/template/other/otherToString';
@@ -11,7 +11,6 @@ const replaceStr = /\/\*\s+replace-start\s+\*\/([\S\s]*?)\/\*\s+replace-end\s+\*
 const replaceValueStr = /\/\*\s+replace-start-value\s+=\s+(.*)\s+\*\/([\S\s]*?)\/\*\s+replace-end-value\s+\*\//g;
 
 const stateSort = { default: 0, hover: 1, focus: 2, active: 3 };
-const isImg = /\.(gif|jpg|jpeg|png|svg|JPG|PNG|GIF|JPEG|SVG)$/;
 
 const templateStrObj = {
   JS: {},
@@ -24,11 +23,14 @@ const templateStrObj = {
 };
 
 const setScrollScreen = () => {
+  const str = `// 实现整屏滚动
+    const docHeight = this.dom.getBoundingClientRect().height;
+    scrollScreen.init({ docHeight });`;
   templateStrObj.OTHER.index = templateStrObj.OTHER.index
-    .replace('componentDidMount() {', `componentDidMount() {
-    // 实现整屏滚动
-    const docHeight = ReactDOM.findDOMNode(this).getBoundingClientRect().height;
-    scrollScreen.init({ docHeight });`);
+    .replace('&scrollScreen&', str)
+    .replace('&scrollScreen-pragma&', `/* 如果不是 dva 2.0 请使用以下代码
+    ${str}
+    */`);
 };
 
 const getEditCss = (dataArray) => {
@@ -57,7 +59,7 @@ const getEditCss = (dataArray) => {
   });
   return format(`${cssStr}${mobileCssStr ? `${mobileTitle}${mobileCssStr}}` : ''}`, 'css');
 };
-const setChildrenToIndex = () => {
+const setChildrenToIndex = (other) => {
   let importStr = '';
   let childStr = '';
   Object.keys(templateStrObj.JS).forEach((key) => {
@@ -65,7 +67,7 @@ const setChildrenToIndex = () => {
   });
   templateStrObj.TEMPLATE.forEach((key) => {
     const keys = key.split('_');
-    childStr += `<${keys[0]} id="${key}" key="{${key}}" dataSource={${key
+    childStr += `<${keys[0]} id="${key}" key="${key}" dataSource={${key
       .replace('_', '')}DataSource} isMobile={this.state.isMobile}/>,`;
   });
   const dataSourceStr = `import {${templateStrObj.TEMPLATE
@@ -73,10 +75,14 @@ const setChildrenToIndex = () => {
     .join(',')}} from './data.source.js'`;
 
   if (templateStrObj.OTHER.point && templateStrObj.TEMPLATE.length) {
+    let pointProps = '';
+    Object.keys(other.point).forEach((key) => {
+      pointProps += `${key}="${other.point[key]}" `;
+    });
     // 点转换
     importStr += 'import Point from \'./Point\';';
     childStr += '// 导航和页尾不进入锚点区，如果需要，自行添加;\n';
-    childStr += `<Point key="list" ref="list" data={${templateStrObj.TEMPLATE}} />,`;
+    childStr += `<Point key="list" data={${JSON.stringify(templateStrObj.TEMPLATE)}} ${pointProps}/>,`;
   }
   childStr = `const children = [${childStr}]`;
   templateStrObj.OTHER.index = format(templateStrObj.OTHER.index
@@ -101,7 +107,7 @@ const jsToZip = () => {
       default:
         {
           const fileType = key === 'documentation' ? 'md' : 'jsx';
-          fileName = `${key}.${fileType}`;
+          fileName = `${key === 'point' ? 'Point' : key}.${fileType}`;
         }
         break;
     }
@@ -188,7 +194,7 @@ export default function saveJsZip(templateData) {
   Object.keys(other).forEach((key) => {
     switch (key) {
       case 'point':
-        templateStrObj.OTHER[key] = otherComp[key];
+        templateStrObj.OTHER.point = otherComp[key];
         break;
       case 'full':
         setScrollScreen();
@@ -197,7 +203,6 @@ export default function saveJsZip(templateData) {
         break;
     }
   });
-  console.log(templateStrObj);
-  setChildrenToIndex();
+  setChildrenToIndex(other);
   jsToZip();
 }

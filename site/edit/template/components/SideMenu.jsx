@@ -29,12 +29,14 @@ export default class SideMenu extends React.PureComponent {
     };
     Object.keys(webData).sort((a, b) => (webData[a].order > webData[b].order))
       .forEach((key) => {
-        const item = webData[key];
-        children.push((<div className="title" key={key}>{item.name}</div>));
-        item.data // .sort((a, b) => (a.order - b.order))
-          .forEach((child, i) => {
-            pushData(child, i, key);
-          });
+        if (key !== 'Other') {
+          const item = webData[key];
+          children.push((<div className="title" key={key}>{item.name}</div>));
+          item.data // .sort((a, b) => (a.order - b.order))
+            .forEach((child, i) => {
+              pushData(child, i, key);
+            });
+        }
       });
     return children;
   }
@@ -70,7 +72,7 @@ export default class SideMenu extends React.PureComponent {
             <Icon type="plus-circle-o" />
             添加内容
           </div>
-          <ul className="other">
+          <ul className="other" onMouseEnter={this.hideMenu}>
             <Tooltip title="dva-cli 例子" placement="right">
               <li>
                 <Icon type="folder" />

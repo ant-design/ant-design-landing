@@ -34,7 +34,7 @@ export default class EditButtonView extends React.PureComponent {
   }
 
   render() {
-    const { editButtonArray, editText, currentData, scrollTop } = this.props;
+    const { editButtonArray, editText, currentData } = this.props;
     const parent = currentData.parent;
     let parentChild;
     if (parent && parent.length) {

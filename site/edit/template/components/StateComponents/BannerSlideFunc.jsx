@@ -15,6 +15,7 @@ export default class BannerSlideFunc extends React.Component {
   onPaginationChange = (currentPage) => {
     const { iframe, templateData, dataId, reRect } = this.props;
     reRect();
+
     const template = {
       ...templateData,
       funcData: {
@@ -45,7 +46,7 @@ export default class BannerSlideFunc extends React.Component {
   onSlideAdd = (dataSource) => {
     const { dataId } = this.props;
     const defaultData = { ...tempData[dataId.split('_')[0]].defaultData };
-    defaultData.name = `newBannerPage-${this.tagPage}`;
+    defaultData.name = `newBannerPage${this.tagPage}`;
     this.tagPage += 1;
     dataSource.bannerAnim.children.push(defaultData);
     this.setDataToTemplateData(dataSource);

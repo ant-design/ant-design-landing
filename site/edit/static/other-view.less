@@ -1,0 +1,40 @@
+.other {
+  .ant-radio-button-wrapper {
+    vertical-align: top;
+    .point-radio-wrapper {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .point {
+        background: rgba(255, 255, 255, 0.3);
+        border-color: transparent;
+        transition: background .3s @ease-out, border .3s @ease-out;
+        &-stroke {
+          background: transparent;
+          border-color: rgba(255, 255, 255, 0.3);
+        }
+      }
+    }
+  }
+  .ant-radio-button-wrapper-checked {
+    .point-radio-wrapper .point {
+      background: rgba(255, 255, 255, 0.9);
+      border-color: transparent;
+      &-stroke {
+        background: transparent;
+        border-color: rgba(255, 255, 255, 0.9);
+      }
+    }
+  }
+  &-demo {
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    video,
+    img {
+      display: block;
+    }
+  }
+}

@@ -14,8 +14,11 @@ class Banner extends React.Component {
     className: 'banner1',
   };
   /* replace-start */
-  state = {
-    current: 1,
+  constructor(props) {
+    super(props);
+    this.state = {
+      current: props.func ? props.func.currentPage : 1,
+    };
   }
   componentWillReceiveProps(nextProps) {
     const { func } = nextProps;
@@ -48,7 +51,7 @@ class Banner extends React.Component {
           key={i.toString()}
           {...elem}
           /* replace-start */
-          data-id={`${dataId}-bannerAnim&children&${i}&elem`}
+          data-id={`${dataId}-bannerAnim&children&array_name=${item.name}&elem`}
           prefixCls={elem.className}
           data-edit="BannerElement"
           /* replace-end */
@@ -57,7 +60,7 @@ class Banner extends React.Component {
             key="bg"
             {...bg}
             /* replace-start */
-            data-id={`${dataId}-bannerAnim&children&${i}&bg`}
+            data-id={`${dataId}-bannerAnim&children&array_name=${item.name}&bg`}
             /* replace-end */
           />
           <QueueAnim
@@ -66,14 +69,14 @@ class Banner extends React.Component {
             key="text"
             {...textWrapper}
             /* replace-start */
-            data-id={`${dataId}-bannerAnim&children&${i}&textWrapper`}
+            data-id={`${dataId}-bannerAnim&children&array_name=${item.name}&textWrapper`}
           /* replace-end */
           >
             <div
               key="logo"
               {...title}
               /* replace-start */
-              data-id={`${dataId}-bannerAnim&children&${i}&title`}
+              data-id={`${dataId}-bannerAnim&children&array_name=${item.name}&title`}
               data-edit="text,image"
             /* replace-end */
             >
@@ -92,7 +95,7 @@ class Banner extends React.Component {
               key="content"
               {...content}
               /* replace-start */
-              data-id={`${dataId}-bannerAnim&children&${i}&content`}
+              data-id={`${dataId}-bannerAnim&children&array_name=${item.name}&content`}
               data-edit="text"
             /* replace-end */
             >
@@ -107,7 +110,7 @@ class Banner extends React.Component {
               key="button"
               {...button}
               /* replace-start */
-              data-id={`${dataId}-bannerAnim&children&${i}&button`}
+              data-id={`${dataId}-bannerAnim&children&array_name=${item.name}&button`}
               data-edit="text"
             /* replace-end */
             >
@@ -145,6 +148,7 @@ class Banner extends React.Component {
               ref={(c) => {
                 this.banner = c;
               }}
+              initShow={this.state.current - 1}
               data-id={`${dataId}-bannerAnim`}
               data-edit={['BannerAnim']}
               /* replace-end */

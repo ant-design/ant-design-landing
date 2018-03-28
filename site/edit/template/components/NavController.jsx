@@ -10,33 +10,36 @@ class NavController extends React.PureComponent {
     className: 'edit-nav',
   };
 
-  saveCode = () => {
-    if (!location.port && window.ga) {
-      window.ga('send', 'event', 'button', 'click', 'download');
-    }
-    // saveJsZip(this.props.urlData);
-  }
-
-  onPreview = () => {
-    this.onSave();
+  onPreview = (e) => {
+    this.onSave(e, () => {
+      message.success('生成预览成功。');
+    });
     const { templateData } = this.props;
     const url = `${location.port ? `${location.protocol}//${location.hostname}:7113/`
       : `${location.origin}/templates/`}#uid=${templateData.uid}`;
     window.open(url);
   }
 
-  onSave = () => {
-    saveData(this.props.templateData, (e) => {
-      if (e.code) {
+  onSave = (e, cb) => {
+    saveData(this.props.templateData, (b) => {
+      if (b.code) {
         message.error('保存出错，请重试。');
-      } else {
+      } else if (!cb) {
         message.success('保存成功。');
+      } else {
+        cb();
       }
     });
   }
 
-  onSaveCode = () => {
-    saveJsZip(this.props.templateData);
+  onSaveCode = (e) => {
+    /*     if (!location.port && window.ga) {
+      window.ga('send', 'event', 'button', 'click', 'download');
+    } */
+    this.onSave(e, () => {
+      message.success('生成代码成功。');
+      saveJsZip(this.props.templateData);
+    });
   }
 
   render() {

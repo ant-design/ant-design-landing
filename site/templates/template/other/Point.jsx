@@ -2,33 +2,37 @@ import React from 'react';
 import ScrollAnim from 'rc-scroll-anim';
 
 const Link = ScrollAnim.Link;
-export default class Point extends React.Component {
-  static defaultProps = {
-    className: 'templates-list',
-  };
-
-  render() {
-    const children = this.props.data.map((item) => {
-      if (item.match('nav') || item.match('footer')) {
-        return null;
-      }
-      return (
-        <Link
-          key={item}
-          className={this.props.className}
-          to={item}
-          toHash={false}
-        />
-      );
-    }).filter(item => item);
+export default function Point(props) {
+  const { data, size, position, type, stroke } = props;
+  const children = data.map((item) => {
+    if (item.match('nav') || item.match('footer')) {
+      return null;
+    }
+    const className = `point ${type} ${stroke} ${size}`.trim();
     return (
-      <div
-        className={`${this.props.className}-wrapper`}
-        style={this.props.style}
-      >
-        <div>
-          {children}
-        </div>
-      </div>);
-  }
+      <Link
+        key={item}
+        className={className}
+        to={item}
+        toHash={false}
+      />
+    );
+  }).filter(item => item);
+  const wrapperClass = `point-wrapper ${position} ${size}`.trim();
+  return (
+    <div
+      className={wrapperClass}
+    >
+      <div>
+        {children}
+      </div>
+    </div>
+  );
 }
+
+Point.defaultProps = {
+  size: '',
+  position: '',
+  type: '',
+  stroke: '',
+};

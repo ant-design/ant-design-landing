@@ -7,8 +7,7 @@ import {
 } from '../../utils-style';
 
 const component = require('./index');
-const templateStr = require('!raw!./index.text');
-const less = require('!raw!./index.less');
+const less = require('raw-loader!./index.less');
 
 const getBlock = data => (
   {
@@ -79,7 +78,6 @@ const getBlock = data => (
 
 export default {
   component,
-  templateStr,
   less,
   dataSource: {
     content9: {

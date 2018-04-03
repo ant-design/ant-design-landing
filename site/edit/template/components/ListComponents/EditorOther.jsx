@@ -104,33 +104,38 @@ class EditorOther extends React.PureComponent {
         const item = children[key];
         let compChild;
         const t = item.type || type;
+
         switch (t) {
           case 'radio':
+          {
+            let value = (other[name] && other[name][key]) ||
+                item.value.filter((c) => {
+                  return key === 'position' ? c === 'right' : c.indexOf('point') === -1;
+                })[0];
+            value = value === 'point-left' ? 'left' : value;
             compChild = (
               <RadioGroup key={key}
                 size="small"
-                value={(other[name] && other[name][key]) ||
-                  item.value.filter((c) => {
-                    return key === 'position' ? c === 'right' : c.indexOf('point') === -1;
-                  })[0]}
+                value={value}
                 onChange={(e) => {
-                  this.onChange(name, key, e.target.value);
-                }}
+                    this.onChange(name, key, e.target.value);
+                  }}
               >
                 {item.value.map((c) => {
-                  return (
-                    <RadioButton key={c} value={c}>
-                      <div className="point-radio-wrapper">
-                        <span className={!item.isChild ? `point ${c}` : ''}>
-                          {item.isChild ? c : ''}
-                        </span>
-                      </div>
-                    </RadioButton>
-                  );
-                })}
+                    return (
+                      <RadioButton key={c} value={c}>
+                        <div className="point-radio-wrapper">
+                          <span className={!item.isChild ? `point ${c}` : ''}>
+                            {item.isChild ? c : ''}
+                          </span>
+                        </div>
+                      </RadioButton>
+                    );
+                  })}
               </RadioGroup>
             );
             break;
+          }
           case 'switch':
             compChild = (
               <Switch

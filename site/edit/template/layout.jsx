@@ -2,6 +2,7 @@ import React from 'react';
 
 import NavController from './components/NavController';
 import SideMenu from './components/SideMenu';
+import EditInfluence from './components/EditInfluence';
 import Iframe from './components/Iframe';
 import EditStageController from './components/EditStageController';
 import EditListController from './components/EditListController';
@@ -15,7 +16,7 @@ export default class Layout extends React.PureComponent {
           <div className="edit-content-wrapper">
             <SideMenu />
             <div className="edit-stage-wrapper">
-              <div className="edit-influence" />
+              <EditInfluence />
               <Iframe className="edit-preview" />
               <EditStageController />
             </div>

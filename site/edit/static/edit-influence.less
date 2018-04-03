@@ -1,0 +1,37 @@
+.edit-influence {
+  height: 16px;
+  background: black;
+  >div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  .ant-select {
+    line-height: 16px;
+    color: @edit-text-color;
+    &-selection {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      &:focus {
+        box-shadow: none;
+      }
+      &--single {
+        height: 16px;
+      }
+      &__rendered {
+        line-height: 16px;
+      }
+      &-selected-value {
+        padding-right: 16px;
+        span {
+          font-size: 12px;
+        }
+      }
+    }
+    &-arrow {
+      color: fade(@edit-text-color, 55);
+    }
+  }
+}

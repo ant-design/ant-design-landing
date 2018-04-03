@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import TweenOne from 'rc-tween-one';
 import { Menu, Icon } from 'antd';
 import './index.less';
@@ -116,11 +115,6 @@ class Header extends React.Component {
     </TweenOne>);
   }
 }
-
-Header.propTypes = {
-  className: PropTypes.string,
-  id: PropTypes.string,
-};
 
 Header.defaultProps = {
   className: 'header1',

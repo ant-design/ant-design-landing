@@ -17,15 +17,17 @@ export const postType = {
   POST_SET: 'set',
   POST_SUCCESS: 'success',
   POST_ERROR: 'error',
-  POST_RE: 'reload',
   SET_TEMPLATE: 'setTemplate',
   SET_EDIT: 'setEdit',
+  SET_MEDIA: 'setMedia',
 };
 export const getUserData = () => (dispatch) => {
   // 获取 url 上是否有 user id;
   const hash = getURLData('uid');
   // 获取本地是否有数据存在 localStorage;
-  const uid = hash || window.localStorage.getItem(userName);
+  const uid = hash || (window.localStorage.getItem(userName) && window.localStorage.getItem(userName).split(',')[0]);
+  window.localStorage.setItem('abc-test', '');
+  console.log(window.localStorage);
   if (!hash && uid) {
     setURLData('uid', uid);
   }
@@ -118,6 +120,14 @@ export const saveData = (templateData, cb) => {
 export const setCurrentData = (data) => {
   return {
     type: postType.SET_EDIT,
+    data,
+  };
+};
+
+// 编辑 media 状态
+export const setCurrentMediaData = (data) => {
+  return {
+    type: postType.SET_MEDIA,
     data,
   };
 };

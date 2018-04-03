@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
 import { postType } from './actions';
 
-
 function templateData(state, aciton) {
   switch (aciton.type) {
     case postType.POST_GET:
@@ -20,6 +19,7 @@ function templateData(state, aciton) {
         data: aciton.data,
       };
     case postType.SET_EDIT:
+    case postType.SET_MEDIA:
       return state || null;
     default:
       return {
@@ -32,17 +32,27 @@ function templateData(state, aciton) {
 function currentEditData(state, aciton) {
   switch (aciton.type) {
     case postType.SET_EDIT:
-      return aciton.data ? {
-        ...aciton.data,
-      } : null;
+      return aciton.data || null;
+    case postType.SET_MEDIA:
+      return null;
     default:
       return state || null;
+  }
+}
+
+function mediaStateSelect(state, aciton) {
+  switch (aciton.type) {
+    case postType.SET_MEDIA:
+      return aciton.data || 'Desktop';
+    default:
+      return state || 'Desktop';
   }
 }
 
 const reducer = combineReducers({
   templateData,
   currentEditData,
+  mediaStateSelect,
 });
 
 export default reducer;

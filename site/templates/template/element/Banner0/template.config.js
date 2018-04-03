@@ -1,13 +1,13 @@
 const component = require('./index');
-const templateStr = require('!raw!./index');
-const less = require('!raw!./index.less');
+const templateStr = require('raw-loader!./index');
+const less = require('raw-loader!./index.less');
 
 export default {
   component,
   templateStr,
   less,
   dataSource: {
-    wrapper: {
+    OverPack: {
       replay: true,
       playScale: [0.3, 0.1],
       className: 'banner0',

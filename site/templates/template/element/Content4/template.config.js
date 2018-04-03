@@ -7,8 +7,7 @@ import {
 } from '../../utils-style';
 
 const component = require('./index');
-const templateStr = require('!raw!./index.text');
-const less = require('!raw!./index.less');
+const less = require('raw-loader!./index.less');
 
 const getLiBlock = children => ({
   remark: { style: '如需编辑全局请选择外框' },
@@ -101,7 +100,6 @@ const getLiBlock = children => ({
 
 export default {
   component,
-  templateStr,
   less,
   dataSource: {
     content4: {

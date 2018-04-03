@@ -1,4 +1,8 @@
 /* eslint no-param-reassign: 0 */
+const theme = require('../theme.js')();
+
+const replaceLib = require('antd-tools/lib/replaceLib');
+
 const isDev = process.env.NODE_ENV === 'development';
 
 const pluginAntdConfig = {
@@ -11,6 +15,38 @@ const pluginAntdConfig = {
   }),
 };
 
+function alertBabelConfig(rules) {
+  rules.forEach((rule) => {
+    if (Array.isArray(rule.use) && rule.use.indexOf('less-loader') >= 0) {
+      rule.use = rule.use.map((item) => {
+        if (typeof item === 'object') {
+          item.options.sourceMap = true;
+        }
+        return item;
+      });
+      rule.use.splice(rule.use.indexOf('less-loader'), 1, {
+        loader: 'less-loader',
+        options: {
+          sourceMap: true,
+          modifyVars: theme,
+        },
+      });
+      console.log(rule, rule.test, typeof rule.test === 'function' ? rule.test('dsdsf.less') : null);
+
+      // console.log(rule, typeof rule.test === 'function' ? rule.test() : rule.test);
+    }
+    if (rule.loader && rule.loader === 'babel-loader') {
+      if (rule.options.plugins.indexOf(replaceLib) === -1) {
+        rule.options.plugins.push(replaceLib);
+      }
+      /* rule.options.plugins = rule.options.plugins.filter(plugin =>
+        !plugin.indexOf || plugin.indexOf('babel-plugin-add-module-exports') === -1
+      ); */
+    } else if (rule.use) {
+      alertBabelConfig(rule.use);
+    }
+  });
+}
 
 module.exports = {
   filePathMapper(filePath) {
@@ -30,23 +66,11 @@ module.exports = {
     `bisheng-plugin-react?${JSON.stringify(pluginAntdConfig)}`,
   ],
   webpackConfig(config) {
-    config.babel.plugins.push([
-      require.resolve('babel-plugin-transform-runtime'),
-      {
-        polyfill: false,
-        regenerator: false,
-      },
-    ], [
-      'babel-plugin-import',
-      {
-        libraryName: 'antd',
-        libraryDirectory: 'lib',
-        style: true,
-      },
-    ]);
     config.resolve.alias = {
       'react-router': 'react-router/umd/ReactRouter',
     };
+
+    alertBabelConfig(config.module.rules);
     config.externals = config.externals || {};
     config.externals['react-router-dom'] = 'ReactRouterDOM';
     config.externals = Object.assign({}, config.externals, {

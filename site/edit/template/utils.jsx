@@ -32,23 +32,6 @@ export function toArrayChildren(children) {
 
 export const isImg = /\.(gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/;
 
-export const getData = (state) => {
-  /* const templateData = state.templateData;
-  console.log(state);
-  if (templateData.type === postType.POST_SUCCESS) {
-    return {
-      templateData: {
-        type: templateData.type,
-        uid: templateData.data.id,
-        data: templateData.data.attributes,
-      },
-    };
-  } */
-  return {
-    templateData: state.templateData,
-  };
-};
-
 export const getState = (state) => {
   return state;
 };
@@ -63,12 +46,7 @@ const getParentRect = (item) => {
       p.push({
         dataId,
         item: parent,
-        rect: {
-          x: rect.x,
-          y: rect.y,
-          width: rect.width,
-          height: rect.height,
-        },
+        rect,
         parent: getParentRect(parent),
       });
       i += 1;
@@ -91,12 +69,7 @@ export const getChildRect = (data) => {
         array.push({
           dataId,
           item,
-          rect: {
-            x: rect.x,
-            y: rect.y,
-            width: rect.width,
-            height: rect.height,
-          },
+          rect,
           parent: getParentRect(item),
         });
       }
@@ -111,19 +84,14 @@ export const getChildRect = (data) => {
   return array;
 };
 
-export const getCurrentDom = (pos, data, scrollTop) => {
+export const getCurrentDom = (pos, data) => {
   const t = data.map((item) => {
     const rect = item.rect;
     if (pos.x >= rect.x && pos.y >= rect.y &&
       pos.x <= rect.x + rect.width && pos.y <= rect.y + rect.height) {
       return {
         ...item,
-        rect: {
-          x: rect.x,
-          y: rect.y + scrollTop,
-          width: rect.width,
-          height: rect.height,
-        },
+        rect,
       };
     }
     return null;
@@ -131,21 +99,40 @@ export const getCurrentDom = (pos, data, scrollTop) => {
   return t[t.length - 1];
 };
 
-export const getDataSourceValue = (id, templateData, parent) => {
+export const getDataSourceValue = (id, templateData, parent, tempDefaultData) => {
   const array = parent || [];
   const childIds = id.split('&');
   let t = templateData;
+  let tt = tempDefaultData;
   array.concat(childIds).forEach((key) => {
     const nameKey = key.split('=');
     if (nameKey.length > 1 && nameKey[0] === 'array_name') {
-      const elem = t.filter((item) => {
-        return item.name === nameKey[1];
-      })[0] || t[t.length - 1];
-      t = elem;
+      let i;
+      const elem = t.filter((item, ii) => {
+        if (item.name === nameKey[1]) {
+          i = ii;
+          return item;
+        }
+        return null;
+      })[0];
+      if (!elem && tt) {
+        tt.forEach((item, ii) => {
+          if (item.name === nameKey[1]) {
+            i = ii;
+          }
+        });
+      }
+      t[i] = elem || {
+        name: nameKey[1],
+      };
+      t = t[i];
     } else {
       const isArray = key === 'children' && childIds.length > 1;
       t[key] = t[key] || (isArray ? [] : {});
       t = t[key];
+      if (tt) {
+        tt = tt[key];
+      }
     }
   });
   return t;

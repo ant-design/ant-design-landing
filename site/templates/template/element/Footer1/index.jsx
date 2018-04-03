@@ -1,16 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import TweenOne from 'rc-tween-one';
 import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';
 import QueueAnim from 'rc-queue-anim';
 import './index.less';
 
 class Footer extends React.Component {
-  static propTypes = {
-    className: PropTypes.string,
-    id: PropTypes.string,
-  };
-
   static defaultProps = {
     className: 'footer1',
   };

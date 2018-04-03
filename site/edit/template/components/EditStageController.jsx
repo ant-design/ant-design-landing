@@ -6,7 +6,7 @@ import deepEql from 'deep-eql';
 import dragula from 'dragula';
 import Editor from 'react-medium-editor';
 import { setTemplateData, setCurrentData } from '../../../edit-module/actions';
-import { getData, getChildRect, getCurrentDom, isImg, getDataSourceValue } from '../utils';
+import { getState, getChildRect, getCurrentDom, isImg, getDataSourceValue } from '../utils';
 import { mergeEditDataToDefault, deepCopy } from '../../../templates/template/utils';
 import webData from '../template.config';
 import tempData from '../../../templates/template/element/template.config';
@@ -14,7 +14,6 @@ import EditButtton from './StateComponents/EditButtonView';
 import BannerSlideFunc from './StateComponents/BannerSlideFunc';
 
 const $ = window.$ || {};
-// const domElem = document.createElement('div');
 
 class EditStateController extends React.PureComponent {
   static defaultProps = {
@@ -24,10 +23,11 @@ class EditStateController extends React.PureComponent {
   state = {
     data: null,
     iframe: null,
-    rect: {},
     editText: '',
-    currentRect: {},
+    currentHoverRect: {},
+    currentSelectRect: {},
   }
+
   scrollTop = 0;
 
   componentDidMount() {
@@ -113,46 +113,63 @@ class EditStateController extends React.PureComponent {
       });
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.mediaStateSelect !== this.props.mediaStateSelect) {
+      this.reRect();
+    }
+  }
+
   reRect = () => {
+    this.currentData = null;
+    this.mouseCurrentData = null;
     this.setState({
-      rect: {},
-      currentRect: {},
+      currentHoverRect: {},
+      currentSelectRect: {},
     }, () => {
       this.props.dispatch(setCurrentData());
     });
   }
 
   onOverlayScroll = (e) => {
-    const iframeWindow = this.state.iframe;
-    iframeWindow.scrollTo(0, e.target.scrollTop);
-    this.scrollTop = e.target.scrollTop;
+    if (e.target === this.dom) {
+      const iframeWindow = this.state.iframe;
+      iframeWindow.scrollTo(0, e.target.scrollTop);
+      this.scrollTop = e.target.scrollTop;
+    }
     // this.reRect();
   }
 
   wrapperMove = (e) => {
     const dom = e.target;
+    const { data, currentHoverRect } = this.state;
+    let currentSelectRect = this.state.currentSelectRect;
     if (!this.isDrap && dom.getAttribute('data-key')) {
       const id = dom.getAttribute('id');
-      const currentData = this.state.data[id];
-      // 获取 data 里的 rect;
-      const dataRect = currentData.item.getBoundingClientRect();
+      const currentElemData = data[id];
       // 重置数据里的 rect，滚动条发生变化会随着变化。
-      currentData.rect = {
-        width: dataRect.width,
-        height: dataRect.height,
-        x: dataRect.x,
-        y: dataRect.y + this.scrollTop,
-      };
+      currentElemData.rect = currentElemData.item.getBoundingClientRect();
       // 获取子级带 data-id 的 rect; 由于有动画组件，所以时时获取
-      const rect = getChildRect(currentData, this.scrollTop);
+      const rectArray = getChildRect(currentElemData);
+      if (this.currentData) {
+        const currentDataRect = this.currentData.item.getBoundingClientRect();
+        currentSelectRect = {
+          width: currentDataRect.width,
+          height: currentDataRect.height,
+          x: currentDataRect.x,
+          y: currentDataRect.y,
+        };
+        this.currentData.rect = currentSelectRect;
+      }
+      const domRect = this.dom.getBoundingClientRect();
       const pos = {
-        x: e.pageX - 40, // 40 为左侧距离
-        y: e.pageY - 80, // 80 为顶部距离
+        x: e.pageX - domRect.x,
+        y: e.pageY - domRect.y,
       };
-      this.mouseCurrentData = getCurrentDom(pos, rect, this.scrollTop) || currentData;
-      if (!deepEql(this.mouseCurrentData.rect, this.state.rect)) {
+      this.mouseCurrentData = getCurrentDom(pos, rectArray) || currentElemData;
+      if (!deepEql(this.mouseCurrentData.rect, currentHoverRect)) {
         this.setState({
-          rect: this.mouseCurrentData.rect,
+          currentHoverRect: this.mouseCurrentData.rect,
+          currentSelectRect,
         });
       }
     }
@@ -166,7 +183,7 @@ class EditStateController extends React.PureComponent {
   }
   wrapperLeave = () => {
     this.setState({
-      rect: {},
+      currentHoverRect: {},
     });
   }
 
@@ -185,14 +202,8 @@ class EditStateController extends React.PureComponent {
 
     setTimeout(() => {
       // 等子级刷新。
-      const rect = this.currentData.item.getBoundingClientRect();
       this.setState({
-        currentRect: {
-          x: rect.x,
-          y: rect.y + this.scrollTop,
-          width: rect.width,
-          height: rect.height,
-        },
+        currentSelectRect: this.currentData.item.getBoundingClientRect(),
       });
     });
   }
@@ -240,7 +251,7 @@ class EditStateController extends React.PureComponent {
             width: rect.width,
             height: rect.height,
             left: rect.x,
-            top: rect.y,
+            top: rect.y + this.scrollTop,
           }}
         >
           {css === 'select' && <EditButtton
@@ -285,10 +296,10 @@ class EditStateController extends React.PureComponent {
     }
   }
 
-  selectSteState = (currentRect, editData, dom, id) => {
+  selectSteState = (currentSelectRect, editData, dom, id) => {
     this.setState({
-      rect: currentRect,
-      currentRect,
+      currentHoverRect: currentSelectRect,
+      currentSelectRect,
       editButton: editData && editData.split(','), // 文字与图片按钮配置
       openEditText: false,
       isInput: false,
@@ -312,7 +323,8 @@ class EditStateController extends React.PureComponent {
       const currentDom = this.currentData.item;
       const editData = currentDom.getAttribute('data-edit');
 
-      this.selectSteState(this.state.rect, editData, currentDom, this.mouseCurrentData.dataId);
+      this.selectSteState(this.state.currentHoverRect,
+        editData, currentDom, this.mouseCurrentData.dataId);
     }
     this.isDrap = false;
   }
@@ -323,12 +335,10 @@ class EditStateController extends React.PureComponent {
     this.editChildId = this.currentIdArray[1];
     this.currentData = v;
     const currentDom = v.item;
+    const currentDomRect = currentDom.getBoundingClientRect();
+    this.currentData.rect.y = currentDomRect.y;
     const editData = currentDom.getAttribute('data-edit');
-    const rect = {
-      ...v.rect,
-      y: v.rect.y + this.scrollTop,
-    };
-    this.selectSteState(rect, editData, currentDom, v.dataId);
+    this.selectSteState(this.currentData.rect, editData, currentDom, v.dataId);
   }
 
   editTextFunc = () => {
@@ -421,8 +431,8 @@ class EditStateController extends React.PureComponent {
   }
 
   render() {
-    const { className } = this.props;
-    const { data, rect, currentRect, iframe, openEditText } = this.state;
+    const { className, mediaStateSelect } = this.props;
+    const { data, currentHoverRect, currentSelectRect, iframe, openEditText } = this.state;
     const dataArray = data ? Object.keys(data) : [];
     const overlayChild = dataArray.map((key, i) => {
       const item = data[key];
@@ -432,7 +442,7 @@ class EditStateController extends React.PureComponent {
           key={key}
           id={key}
           data-key={key.split('_')[0]}
-          style={{ width: itemRect.width, height: itemRect.height }}
+          style={{ height: itemRect.height }}
           onMouseMove={this.wrapperMove}
           onMouseEnter={this.wrapperMove}
           onClick={this.onClick}
@@ -449,7 +459,7 @@ class EditStateController extends React.PureComponent {
     const overlayHeight = iframe && iframe.document.getElementById('react-content').offsetHeight;
     return (
       <div
-        className={className}
+        className={`${className}${mediaStateSelect === 'Mobile' ? ' mobile' : ''}`}
         onScroll={this.onOverlayScroll}
         onMouseLeave={this.wrapperLeave}
         ref={(c) => { this.dom = c; }}
@@ -458,11 +468,12 @@ class EditStateController extends React.PureComponent {
           {overlayChild}
         </div>
         <div className="mouse-catcher" >
-          {!deepEql(rect, currentRect) && !openEditText && this.getCatcherDom(rect, 'hover')}
-          {this.getCatcherDom(currentRect, 'select')}
+          {!deepEql(currentHoverRect, currentSelectRect) && !openEditText
+            && this.getCatcherDom(currentHoverRect, 'hover')}
+          {this.getCatcherDom(currentSelectRect, 'select')}
         </div>
       </div>
     );
   }
 }
-export default connect(getData)(EditStateController);
+export default connect(getState)(EditStateController);

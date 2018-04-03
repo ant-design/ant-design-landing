@@ -1,12 +1,15 @@
 import React from 'react';
 import { Pagination, Popover, Button, Icon } from 'antd';
+import { getRandomKey } from 'rc-editor-list/lib/utils';
 import { mergeEditDataToDefault } from '../../../../templates/template/utils';
 import tempData from '../../../../templates/template/element/template.config';
 import ListSort from './ListSort';
 import { setTemplateData } from '../../../../edit-module/actions';
 
 export default class BannerSlideFunc extends React.Component {
-  tagPage = 0;
+  componentDidUpdate() {
+    this.pop.tooltip.tooltip.trigger.forcePopupAlign();
+  }
   getCurrentDataSource = (props) => {
     const { templateData, dataId } = props;
     const id = dataId.split('_')[0];
@@ -39,31 +42,41 @@ export default class BannerSlideFunc extends React.Component {
   }
 
   onSlideDelete = (item, dataSource) => {
-    dataSource.bannerAnim.children = dataSource.bannerAnim.children
+    const data = this.getDataSourceChild(dataSource);
+    data.children = data.children
       .map(node => (node === item ? 'delete' : node));
     this.setDataToTemplateData(dataSource);
   }
   onSlideAdd = (dataSource) => {
-    const { dataId } = this.props;
-    const defaultData = { ...tempData[dataId.split('_')[0]].defaultData };
-    defaultData.name = `newBannerPage${this.tagPage}`;
-    this.tagPage += 1;
-    dataSource.bannerAnim.children.push(defaultData);
+    const data = this.getDataSourceChild(dataSource);
+    const defaultData = { ...data.children[data.children.length - 1] };
+    defaultData.name = `elem~${getRandomKey()}`;
+    data.children.push(defaultData);
     this.setDataToTemplateData(dataSource);
   }
 
   onListChange = (e, dataSource) => {
+    const data = this.getDataSourceChild(dataSource);
     const newChildrenArray = e.map((item) => {
-      return dataSource.bannerAnim.children.filter((node) => {
+      return data.children.filter((node) => {
         return node.name === item.key;
       })[0];
     });
-    dataSource.bannerAnim.children = newChildrenArray;
+    data.children = newChildrenArray;
     this.setDataToTemplateData(dataSource);
   }
 
+  getDataSourceChild = (dataSource) => {
+    const { data } = this.props;
+    let c = dataSource;
+    data.childRoute.forEach((key) => {
+      c = c[key];
+    });
+    return c;
+  }
+
   getPopChild = (dataSource) => {
-    const { children } = dataSource.bannerAnim;
+    const { children } = this.getDataSourceChild(dataSource);
     const child = children.filter(item => item !== 'delete');
     const listChild = child.map((item) => {
       return (
@@ -103,7 +116,7 @@ export default class BannerSlideFunc extends React.Component {
 
   render() {
     const { data } = this.props;
-    const popChild = this.getPopChild(this.getCurrentDataSource(this.props));
+    const popChild = this.getPopChild(this.getCurrentDataSource(this.props), data.childRoute);
     return (
       <div className="banner-slide-wrapper">
         <div className="banner-slide">
@@ -120,6 +133,9 @@ export default class BannerSlideFunc extends React.Component {
             title="管理 banner 页数"
             getPopupContainer={triggerNode => triggerNode.parentNode}
             overlayClassName="manage-wrapper"
+            ref={(c) => {
+              this.pop = c;
+            }}
           >
             <Button type="primary" icon="bars" size="small" shape="circle" />
           </Popover>

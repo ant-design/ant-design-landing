@@ -6,12 +6,17 @@ import { setTemplateData } from '../../../../edit-module/actions';
 import { deepCopy } from '../../../../templates/template/utils';
 import tempData from '../../../../templates/template/element/template.config';
 
-class EditorComp extends React.PureComponent {
+class EditorComp extends React.Component {
   setValue = (key, value, newData) => {
     const { currentEditData } = this.props;
     const { id } = currentEditData;
     const ids = id.split('-');
-    const data = getDataSourceValue(ids[1], newData, [ids[0], 'dataSource']);
+    const cid = ids[0].split('_')[0];
+    const data = getDataSourceValue(ids[1], newData, [ids[0], 'dataSource'], {
+      [ids[0]]: {
+        dataSource: tempData[cid].dataSource,
+      },
+    });
     data[key] = value;
   }
   onChange = (e) => {
@@ -44,7 +49,7 @@ class EditorComp extends React.PureComponent {
     dispatch(setTemplateData(newTemplateData));
   }
   render() {
-    const { currentEditData } = this.props;
+    const { currentEditData, mediaStateSelect } = this.props;
     if (!currentEditData) {
       return <p className="props-explain">请选择左侧进行编辑...</p>;
     }
@@ -57,6 +62,7 @@ class EditorComp extends React.PureComponent {
           editorElem={currentEditData.dom}
           onChange={this.onChange}
           cssToDom={false}
+          isMobile={mediaStateSelect === 'Mobile'}
           defaultActiveKey={['EditorClassName', 'EditorState', 'EditorFont', 'EditorInterface']}
         />,
       ]

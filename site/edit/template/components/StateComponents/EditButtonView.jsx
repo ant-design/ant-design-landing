@@ -45,7 +45,7 @@ export default class EditButtonView extends React.PureComponent {
           overlay={this.getMenu(parent)}
           placement="bottomRight"
         >
-          <Button type="primary" size="small" style={{ maxWidth: 120 }}>
+          <Button type="primary" size="small" style={{ maxWidth: 150 }}>
             {str[str.length - 1].split('-')[1] || str[str.length - 1].split('-')[0]}
             <Icon type="down" />
           </Button>

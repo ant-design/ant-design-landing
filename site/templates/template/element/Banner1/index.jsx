@@ -33,14 +33,14 @@ class Banner extends React.Component {
   }
   /* replace-end */
   render() {
-    const { ...props } = this.props;/* replace-start */
-    const dataId = props['data-id'];
-    /* replace-end */
+    const { ...props } = this.props;
     const { dataSource } = props;
     delete props.dataSource;
     delete props.isMobile;
-    const childrenToRender = dataSource.bannerAnim.children.map((item, i) => {
-      const elem = item.elem;
+    const childrenToRender = dataSource.BannerAnim.children.map((item, i) => {
+      const elem = item.BannerElement;
+      const elemClassName = elem.className;
+      delete elem.className;
       const bg = item.bg;
       const textWrapper = item.textWrapper;
       const title = item.title;
@@ -50,33 +50,22 @@ class Banner extends React.Component {
         <Element
           key={i.toString()}
           {...elem}
-          /* replace-start */
-          data-id={`${dataId}-bannerAnim&children&array_name=${item.name}&elem`}
-          prefixCls={elem.className}
-          data-edit="BannerElement"
-          /* replace-end */
+          prefixCls={elemClassName}
         >
           <BgElement
             key="bg"
             {...bg}
-            /* replace-start */
-            data-id={`${dataId}-bannerAnim&children&array_name=${item.name}&bg`}
-            /* replace-end */
           />
           <QueueAnim
             type={['bottom', 'top']}
             delay={200}
             key="text"
             {...textWrapper}
-            /* replace-start */
-            data-id={`${dataId}-bannerAnim&children&array_name=${item.name}&textWrapper`}
-          /* replace-end */
           >
             <div
               key="logo"
               {...title}
               /* replace-start */
-              data-id={`${dataId}-bannerAnim&children&array_name=${item.name}&title`}
               data-edit="text,image"
             /* replace-end */
             >
@@ -88,16 +77,12 @@ class Banner extends React.Component {
                   /* replace-end */
                   /* replace-start-value = title.children */
                   React.createElement('span', { dangerouslySetInnerHTML: { __html: title.children } })
-                  /* replace-end-value */
+                /* replace-end-value */
               }
             </div>
             <div
               key="content"
               {...content}
-              /* replace-start */
-              data-id={`${dataId}-bannerAnim&children&array_name=${item.name}&content`}
-              data-edit="text"
-            /* replace-end */
             >
               {
                 /* replace-start-value = content.children */
@@ -109,10 +94,6 @@ class Banner extends React.Component {
               type="ghost"
               key="button"
               {...button}
-              /* replace-start */
-              data-id={`${dataId}-bannerAnim&children&array_name=${item.name}&button`}
-              data-edit="text"
-            /* replace-end */
             >
               {
                 /* replace-start-value = button.children */
@@ -126,12 +107,11 @@ class Banner extends React.Component {
     return (
       <OverPack
         {...props}
-        {...dataSource.wrapper}
+        {...dataSource.OverPack}
         /* replace-start */
-        data-id={`${dataId}-wrapper`}
         data-comp={[`banner-switch={ "current": ${
-          this.state.current}, "total": ${dataSource.bannerAnim.children.length} }`]}
-        data-edit={['OverPack']}
+          this.state.current}, "total": ${dataSource.BannerAnim.children.length
+          } ,"childRoute": ["BannerAnim"] }`]}
       /* replace-end */
       >
         <TweenOneGroup
@@ -142,16 +122,14 @@ class Banner extends React.Component {
         >
           <div className={`${props.className}-wrapper`} key="wrapper">
             <BannerAnim
-              key="banner"
-              {...dataSource.bannerAnim.props}
+              key="BannerAnim"
+              {...dataSource.BannerAnim}
               /* replace-start */
               ref={(c) => {
                 this.banner = c;
               }}
               initShow={this.state.current - 1}
-              data-id={`${dataId}-bannerAnim`}
-              data-edit={['BannerAnim']}
-              /* replace-end */
+            /* replace-end */
             >
               {childrenToRender}
             </BannerAnim>

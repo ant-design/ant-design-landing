@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Button, Icon } from 'antd';
 import QueueAnim from 'rc-queue-anim';
 import TweenOne, { TweenOneGroup } from 'rc-tween-one';
@@ -10,12 +9,6 @@ import './index.less';
 
 const BgElement = Element.BgElement;
 class Banner extends React.Component {
-  static propTypes = {
-    className: PropTypes.string,
-    dataSource: PropTypes.object,
-    id: PropTypes.string,
-  };
-
   static defaultProps = {
     className: 'banner2',
   };

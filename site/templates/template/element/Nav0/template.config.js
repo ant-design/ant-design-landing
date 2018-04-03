@@ -9,12 +9,10 @@ import {
 } from '../../utils-style';
 
 const component = require('./index');
-const templateStr = require('!raw!./index.text');
-const less = require('!raw!./index.less');
+const less = require('raw-loader!./index.less');
 
 export default {
   component,
-  templateStr,
   less,
   dataSource: {
     nav0: {

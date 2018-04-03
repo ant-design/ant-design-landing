@@ -1,7 +1,7 @@
 import React from 'react';
-import { Icon, message } from 'antd';
+import { Icon, message, Menu, Dropdown } from 'antd';
 import { connect } from 'react-redux';
-import { getData } from '../utils';
+import { getState } from '../utils';
 import { saveData } from '../../../edit-module/actions';
 import saveJsZip from './saveJsZip';
 
@@ -21,6 +21,7 @@ class NavController extends React.PureComponent {
   }
 
   onSave = (e, cb) => {
+    console.log(this.props.templateData);
     saveData(this.props.templateData, (b) => {
       if (b.code) {
         message.error('保存出错，请重试。');
@@ -53,6 +54,18 @@ class NavController extends React.PureComponent {
         {item.name}
       </li>
     ));
+    const menuNewDropdown = (
+      <Menu>
+        <Menu.Item>
+          <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">1st menu item</a>
+        </Menu.Item>
+        <Menu.Item>
+          <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">2nd menu item</a>
+        </Menu.Item>
+        <Menu.Item>
+          <a target="_blank" rel="noopener noreferrer" href="http://www.tmall.com/">3rd menu item</a>
+        </Menu.Item>
+      </Menu>);
     return (
       <div className={this.props.className}>
         <div className="logo">
@@ -61,11 +74,16 @@ class NavController extends React.PureComponent {
         <ul className="menu">
           {menuChild}
         </ul>
-        <div className="new">
-          <Icon type="file-add" />
-        </div>
+        <Dropdown
+          overlay={menuNewDropdown}
+          placement="bottomRight"
+        >
+          <div className="new">
+            <Icon type="file-add" />
+          </div>
+        </Dropdown>
       </div>
     );
   }
 }
-export default connect(getData)(NavController);
+export default connect(getState)(NavController);

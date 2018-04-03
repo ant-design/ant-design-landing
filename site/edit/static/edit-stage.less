@@ -1,11 +1,16 @@
 .edit-stage {
   position: absolute;
+  width: 100%;
   top: 16px;
-  left: 40px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
   height: ~"calc(100% - 16px)";
-  overflow-x: auto;
+  overflow-x: hidden;
   overflow-y: scroll;
   cursor: pointer;
+  transition: width .15s @ease-in-out, max-height .15s @ease-in-out, top .15s @ease-in-out;
   .mouse-catcher {
     position: absolute;
     top: 0;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getUserData } from '../../../edit-module/actions';
-import { getData } from '../utils';
+import { getState } from '../utils';
 
 class Iframe extends React.Component {
   componentWillReceiveProps(nextProps) {
@@ -19,7 +19,7 @@ class Iframe extends React.Component {
     dispatch(getUserData());
   }
   render() {
-    const { templateData, className } = this.props;
+    const { templateData, className, mediaStateSelect } = this.props;
     const { type, uid } = templateData;
     const location = window.location;
     const protocol = location.protocol;
@@ -40,10 +40,10 @@ class Iframe extends React.Component {
         ref={(c) => {
           this.iframe = c;
         }}
-        className={className}
+        className={`${className}${mediaStateSelect === 'Mobile' ? ' mobile' : ''}`}
       />
     );
   }
 }
 
-export default connect(getData)(Iframe);
+export default connect(getState)(Iframe);

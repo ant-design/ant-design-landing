@@ -1,5 +1,5 @@
 import React from 'react';
-import { scrollScreen } from 'rc-scroll-anim';
+import scrollScreen from 'rc-scroll-anim/lib/ScrollScreen';
 import { enquireScreen } from 'enquire-js';
 import { connect } from 'react-redux';
 import { mobileTitle } from 'rc-editor-list/lib/utils';
@@ -7,8 +7,9 @@ import webData from './element/template.config';
 import {
   getEditDomData,
   mergeEditDataToDefault,
+  setDataIdToDataSource,
 } from './utils';
-import { getData, format } from '../../edit/template/utils';
+import { getState, format } from '../../edit/template/utils';
 import { getURLData } from '../../theme/template/utils';
 import { getUserData } from '../../edit-module/actions';
 
@@ -77,9 +78,12 @@ class Layout extends React.Component {
   }
 
   messageHandle = (e) => {
-    this.setState({
-      templateData: e.data,
-    }, this.setScrollToWindow);
+    console.log(e.data);
+    if (e.data.type !== 'webpackOk') {
+      this.setState({
+        templateData: e.data,
+      }, this.setScrollToWindow);
+    }
   }
 
   setScrollToWindow = () => {
@@ -136,9 +140,8 @@ class Layout extends React.Component {
       const componentName = keys[0];
       const componentData = webData[componentName];
       const d = configData[key] || {};
-      const dataSource = mergeEditDataToDefault(d, componentData);
+      const dataSource = setDataIdToDataSource(mergeEditDataToDefault(d, componentData), key);
       return React.createElement(componentData.component, {
-        'data-id': key,
         key,
         id: key,
         dataSource,
@@ -201,4 +204,4 @@ class Layout extends React.Component {
   }
 }
 
-export default connect(getData)(Layout);
+export default connect(getState)(Layout);

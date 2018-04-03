@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import TweenOne from 'rc-tween-one';
 import QueueAnim from 'rc-queue-anim';
 import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';
@@ -7,11 +6,6 @@ import '../../../static/content.less';
 import './index.less';
 
 class Content extends React.Component {
-  static propTypes = {
-    className: PropTypes.string,
-    id: PropTypes.string,
-  };
-
   static defaultProps = {
     className: 'content5',
   };

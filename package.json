@@ -11,17 +11,20 @@
   "license": "MIT",
   "dependencies": {
     "antd": "^3.2.3",
+    "enquire-js": "^0.1.1",
+    "leancloud-storage": "^3.5.0",
+    "raw-js-loader": "^1.4.0",
+    "raw-loader": "^0.5.1",
     "rc-animate": "^2.4.4",
     "rc-banner-anim": "^1.0.1",
     "rc-drawer-menu": "^0.5.4",
     "rc-queue-anim": "^1.4.1",
     "rc-scroll-anim": "^2.3.0",
     "rc-tween-one": "^1.7.3",
-    "enquire-js": "^0.1.1",
-    "leancloud-storage": "^3.5.0",
     "react-document-title": "^2.0.1"
   },
   "devDependencies": {
+    "antd-tools": "^5.1.4",
     "babel-cli": "^6.18.0",
     "babel-eslint": "^7.1.0",
     "babel-jest": "^19.0.0",
@@ -33,10 +36,10 @@
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-0": "^6.16.0",
-    "bisheng": "^0.26.0",
+    "bisheng": "^0.28.3",
     "bisheng-plugin-antd": "^0.15.0",
     "bisheng-plugin-description": "^0.1.1",
-    "bisheng-plugin-react": "^0.5.0",
+    "bisheng-plugin-react": "^0.6.0",
     "bisheng-plugin-toc": "^0.4.0",
     "bluebird": "^3.5.0",
     "classnames": "^2.2.5",
@@ -61,10 +64,8 @@
     "jszip": "^3.1.5",
     "pre-commit": "1.x",
     "prettier": "git://github.com/prettier/prettier.git#1.7.4",
-    "raw-js-loader": "^1.4.0",
-    "raw-loader": "^0.5.1",
     "rc-drawer-menu": "^0.5.4",
-    "rc-editor-list": "^1.0.6",
+    "rc-editor-list": "^1.0.16",
     "react": "^16.0.0",
     "react-color": "^2.13.8",
     "react-dom": "^16.0.0",
@@ -75,16 +76,17 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
     "stylelint": "^8.4.0",
-    "stylelint-config-standard": "^17.0.0"
+    "stylelint-config-standard": "^17.0.0",
+    "webpack-bundle-analyzer": "^2.11.1"
   },
   "pre-commit": [
     "lint"
   ],
   "scripts": {
     "start": "cross-env NODE_ENV=development concurrently \"npm run start-index\" \"npm run start-edit\" \"npm run start-templates\"",
-    "start-index": "bisheng start -c ./site/bisheng.index.config.js --no-livereload",
-    "start-edit": "bisheng start -c ./site/bisheng.edit.config.js --no-livereload",
-    "start-templates": "bisheng start -c ./site/bisheng.templates.config.js --no-livereload",
+    "start-index": "bisheng start -c ./site/bisheng.index.config.js",
+    "start-edit": "bisheng start -c ./site/bisheng.edit.config.js",
+    "start-templates": "bisheng start -c ./site/bisheng.templates.config.js",
     "build-index": "bisheng build -c ./site/bisheng.index.config.js",
     "build-edit": "bisheng build -c ./site/bisheng.edit.config.js",
     "build-templates": "bisheng build -c ./site/bisheng.templates.config.js",
@@ -95,7 +97,8 @@
     "lint:es": "eslint --fix ./ --ext '.js,.jsx,.md'",
     "lint:style": "stylelint \"site/**/*.less\" --syntax less",
     "lint:demo": "cross-env RUN_ENV=DEMO eslint ./ --ext '.md' -c ./.eslintrc.js",
-    "test": "npm run lint"
+    "test": "npm run lint",
+    "analyzer": "webpack-bundle-analyzer bundle/output/path/stats.json"
   },
   "theme": "./theme.js"
 }

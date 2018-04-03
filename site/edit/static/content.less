@@ -2,25 +2,38 @@
   &-content-wrapper {
     height: ~"calc(100% - 64px)";
     position: relative;
-    
   }
   &-stage-wrapper {
     display: inline-block;
-    width: 100%;
+    width: ~"calc(100% - 40px)";
     height: 100%;
     position: absolute;
-    padding-left: 40px;
+    margin-left: 40px;
     left: 0;
     top: 0;
-    .edit-influence {
-      height: 16px;
-      background: black;
-    }
     .edit-preview {
       width: 100%;
       height: ~"calc(100% - 16px)";
+      max-height: 100%;
       border: 0;
       overflow: hidden;
+      display: block;
+      margin: auto;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 16px;
+      bottom: 0;
+      transition: width .15s @ease-in-out, max-height .15s @ease-in-out, top .15s @ease-in-out;
+      &.mobile {
+        box-shadow: 0px 0 0px 1px #000; // border-left: 1px solid @edit-line-color;
+        // border-right: 1px solid @edit-line-color;
+      }
+    }
+    .mobile {
+      width: 375px;
+      max-height: 667px;
+      top: 0;
     }
   }
 }

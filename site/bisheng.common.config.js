@@ -19,21 +19,21 @@ function alertBabelConfig(rules) {
   rules.forEach((rule) => {
     if (Array.isArray(rule.use) && rule.use.indexOf('less-loader') >= 0) {
       rule.use = rule.use.map((item) => {
+        if (item === 'less-loader') {
+          return {
+            loader: 'less-loader',
+            options: {
+              sourceMap: true,
+              modifyVars: theme,
+            },
+          };
+        }
         if (typeof item === 'object') {
           item.options.sourceMap = true;
         }
         return item;
       });
-      rule.use.splice(rule.use.indexOf('less-loader'), 1, {
-        loader: 'less-loader',
-        options: {
-          sourceMap: true,
-          modifyVars: theme,
-        },
-      });
       console.log(rule, rule.test, typeof rule.test === 'function' ? rule.test('dsdsf.less') : null);
-
-      // console.log(rule, typeof rule.test === 'function' ? rule.test() : rule.test);
     }
     if (rule.loader && rule.loader === 'babel-loader') {
       if (rule.options.plugins.indexOf(replaceLib) === -1) {

@@ -151,14 +151,15 @@ class EditStateController extends React.PureComponent {
       // 获取子级带 data-id 的 rect; 由于有动画组件，所以时时获取
       const rectArray = getChildRect(currentElemData);
       if (this.currentData) {
-        const currentDataRect = this.currentData.item.getBoundingClientRect();
-        currentSelectRect = {
-          width: currentDataRect.width,
-          height: currentDataRect.height,
-          x: currentDataRect.x,
-          y: currentDataRect.y,
-        };
-        this.currentData.rect = currentSelectRect;
+        // dom 在 queueAnim 删除后将不再是当前 dom; 当前从新获取；
+        const newCurrentData = rectArray.filter(item => (
+          item.dataId === this.currentData.dataId
+        ))[0];
+        this.currentData = newCurrentData || this.currentData;
+        if (this.currentData) {
+          currentSelectRect = this.currentData.item.getBoundingClientRect();
+          this.currentData.rect = currentSelectRect;
+        }
       }
       const domRect = this.dom.getBoundingClientRect();
       const pos = {

@@ -6,7 +6,6 @@ import '../../../static/content.less';
 import './index.less';
 
 class Content extends React.Component {
-
   static defaultProps = {
     className: 'content7',
   };

@@ -8,7 +8,6 @@ import './index.less';
 const TabPane = Tabs.TabPane;
 
 class Content extends React.Component {
-
   static defaultProps = {
     className: 'content6',
     dataSource: {},

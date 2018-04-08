@@ -33,7 +33,6 @@ function alertBabelConfig(rules) {
         }
         return item;
       });
-      console.log(rule, rule.test, typeof rule.test === 'function' ? rule.test('dsdsf.less') : null);
     }
     if (rule.loader && rule.loader === 'babel-loader') {
       if (rule.options.plugins.indexOf(replaceLib) === -1) {
@@ -66,11 +65,11 @@ module.exports = {
     `bisheng-plugin-react?${JSON.stringify(pluginAntdConfig)}`,
   ],
   webpackConfig(config) {
+    alertBabelConfig(config.module.rules);
     config.resolve.alias = {
       'react-router': 'react-router/umd/ReactRouter',
     };
 
-    alertBabelConfig(config.module.rules);
     config.externals = config.externals || {};
     config.externals['react-router-dom'] = 'ReactRouterDOM';
     config.externals = Object.assign({}, config.externals, {

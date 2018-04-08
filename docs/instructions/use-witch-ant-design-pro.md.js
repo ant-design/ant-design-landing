@@ -1,1 +1,1 @@
-webpackJsonp([2],{823:function(t,e){t.exports={content:["article"],meta:{order:0,title:{"zh-CN":"ant design pro \u91cc\u4f7f\u7528","en-US":"use witch ant design pro"},filename:"docs/instructions/use-witch-ant-design-pro.md"},toc:["ul"]}}});
+webpackJsonp([2],{821:function(t,e){t.exports={content:["article"],meta:{order:0,title:{"zh-CN":"ant design pro \u91cc\u4f7f\u7528","en-US":"use witch ant design pro"},filename:"docs/instructions/use-witch-ant-design-pro.md"},toc:["ul"]}}});

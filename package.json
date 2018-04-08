@@ -91,7 +91,7 @@
     "build-templates": "bisheng build -c ./site/bisheng.templates.config.js",
     "build": "cross-env NODE_ENV=production concurrently \"npm run build-index\" \"npm run build-edit\" \"npm run build-templates\"",
     "site": "rm -rf _site && npm run build",
-    "deploy": "npm run site && bisheng gh-pages --push-only",
+    "deploy": "npm run site && cp CNAME _stie && bisheng gh-pages --push-only",
     "lint": "npm run lint:es && npm run lint:style && npm run lint:demo",
     "lint:es": "eslint --fix ./ --ext '.js,.jsx,.md'",
     "lint:style": "stylelint \"site/**/*.less\" --syntax less",

@@ -1,5 +1,7 @@
 import React from 'react';
-import { Tabs, Icon, Tooltip } from 'antd';
+import Tabs from 'antd/lib/tabs';
+import Icon from 'antd/lib/icon';
+import Tooltip from 'antd/lib/tooltip';
 import { connect } from 'react-redux';
 import { getState } from '../utils';
 import EditorComp from './ListComponents/EditorComp';

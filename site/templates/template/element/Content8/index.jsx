@@ -1,7 +1,7 @@
 import React from 'react';
 import TweenOne from 'rc-tween-one';
 import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';
-import { Tabs } from 'antd';
+import Tabs from 'antd/lib/tabs';
 import '../../../static/content.less';
 import './index.less';
 

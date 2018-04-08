@@ -1,5 +1,12 @@
 import React from 'react';
-import { Collapse, Row, Col, Tooltip, Icon, Switch, Select, InputNumber } from 'antd';
+import Collapse from 'antd/lib/collapse';
+import Row from 'antd/lib/row';
+import Col from 'antd/lib/col';
+import Tooltip from 'antd/lib/tooltip';
+import Icon from 'antd/lib/icon';
+import Switch from 'antd/lib/switch';
+import Select from 'antd/lib/select';
+import InputNumber from 'antd/lib/input-number';
 import InputGroup from './InputGroup';
 import tempData from '../../../../templates/template/element/template.config';
 import compConfig from '../../component.config';

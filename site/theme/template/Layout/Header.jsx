@@ -2,7 +2,9 @@ import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import PropTypes from 'prop-types';
 import { Link } from 'bisheng/router';
-import { Row, Col, Menu } from 'antd';
+import Row from 'antd/lib/row';
+import Col from 'antd/lib/col';
+import Menu from 'antd/lib/menu';
 
 import PhoneNav from './PhoneNav';
 import { getLocalizedPathname } from '../utils';
@@ -17,6 +19,12 @@ class Header extends React.Component {
     const menuMode = isMobile ? 'inline' : 'horizontal';
     const module = location.pathname.replace(/(^\/|\/$)/g, '').split('/').slice(0, -1).join('/');
     const activeMenuItem = module || 'home';
+    const winLocation = window.location;
+    const protocol = winLocation.protocol;
+    const isLocalMode = winLocation.port;
+    const port = isLocalMode ? ':7112' : '';
+    const mainPath = isLocalMode ? '' : '/edit';
+    const href = `${protocol}//${winLocation.hostname}${port}${mainPath}`;
     return (
       <Menu mode={menuMode} selectedKeys={[activeMenuItem]} id="nav" key="nav">
         <Menu.Item key="home">
@@ -38,7 +46,7 @@ class Header extends React.Component {
           <Menu.Item key="edit">
             <a
               target="_blank"
-              href="https://motion.ant.design/edit/#t%3Dnav_0_0%2Ccontent_0_0%2Ccontent_2_0%2Ccontent_3_0%2Ccontent_4_0%2Cfooter_0_0"
+              href={href}
             >
               <FormattedMessage id="app.header.menu.edit" />
             </a>

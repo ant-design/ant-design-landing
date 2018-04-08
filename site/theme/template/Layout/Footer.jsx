@@ -1,6 +1,8 @@
 import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import { Row, Col, Button } from 'antd';
+import Row from 'antd/lib/row';
+import Col from 'antd/lib/col';
+import Button from 'antd/lib/button';
 import * as utils from '../utils';
 
 class Footer extends React.Component {
@@ -26,7 +28,7 @@ class Footer extends React.Component {
       <footer id="footer" className="dark">
         <div className="footer-wrap">
           <Row>
-            <Col lg={6} sm={24} xs={24}>
+            <Col md={6} sm={24} xs={24}>
               <div className="footer-center">
                 <h2>Ant Design Landings</h2>
                 <div>
@@ -41,7 +43,7 @@ class Footer extends React.Component {
                 </div>
               </div>
             </Col>
-            <Col lg={6} sm={24} xs={24}>
+            <Col md={6} sm={24} xs={24}>
               <div className="footer-center">
                 <h2><FormattedMessage id="app.footer.links" /></h2>
                 <div>
@@ -79,7 +81,7 @@ class Footer extends React.Component {
                 </div>
               </div>
             </Col>
-            <Col lg={6} sm={24} xs={24}>
+            <Col md={6} sm={24} xs={24}>
               <div className="footer-center">
                 <h2><FormattedMessage id="app.footer.community" /></h2>
                 <div>
@@ -98,7 +100,7 @@ class Footer extends React.Component {
                 </div>
               </div>
             </Col>
-            <Col lg={6} sm={24} xs={24}>
+            <Col md={6} sm={24} xs={24}>
               <div className="footer-center">
                 <h2>
                   <FormattedMessage id="app.footer.more-product" />
@@ -118,14 +120,14 @@ class Footer extends React.Component {
           </Row>
         </div>
         <Row className="bottom-bar">
-          <Col lg={6} sm={24}>
+          <Col md={6} sm={24}>
             <div className="translate-button">
               <Button ghost size="small" onClick={this.handleLangChange}>
                 <FormattedMessage id="app.footer.lang" />
               </Button>
             </div>
           </Col>
-          <Col lg={18} sm={24}>
+          <Col md={18} sm={24}>
             <span
               style={{ lineHeight: '16px', paddingRight: 12, marginRight: 11, borderRight: '1px solid rgba(255, 255, 255, 0.55)' }}
             >

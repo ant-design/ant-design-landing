@@ -1,6 +1,9 @@
 import React from 'react';
 import TweenOne, { TweenOneGroup } from 'rc-tween-one';
-import { Row, Col, Spin, Pagination } from 'antd';
+import Row from 'antd/lib/row';
+import Col from 'antd/lib/col';
+import Pagination from 'antd/lib/pagination';
+import Spin from 'antd/lib/spin';
 import QueueAnim from 'rc-queue-anim';
 import ScrollOverPack from 'rc-scroll-anim/lib/ScrollOverPack';
 import { connect } from 'react-redux';

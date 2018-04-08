@@ -15,7 +15,7 @@ if (typeof window !== 'undefined') {
   // Expose to iframe
   window.react = React;
   window['react-dom'] = ReactDOM;
-  window.antd = require('antd');
+  // window.antd = require('antd');
   /* eslint-enable global-require */
 }
 

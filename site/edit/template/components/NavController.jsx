@@ -1,5 +1,9 @@
 import React from 'react';
-import { Icon, message, Menu, Dropdown, Button } from 'antd';
+import Icon from 'antd/lib/icon';
+import message from 'antd/lib/message';
+import Menu from 'antd/lib/menu';
+import Dropdown from 'antd/lib/dropdown';
+import Button from 'antd/lib/button';
 import { connect } from 'react-redux';
 import { getState } from '../utils';
 import { getURLData, setURLData } from '../../../theme/template/utils';
@@ -15,14 +19,16 @@ class NavController extends React.PureComponent {
 
   constructor(props) {
     super(props);
+    const user = window.localStorage.getItem(userName) || '';
     this.state = {
-      localStorage: window.localStorage.getItem(userName).split(',').filter(c => c),
+      localStorage: user.split(',').filter(c => c),
     };
   }
 
   componentWillReceiveProps() {
+    const user = window.localStorage.getItem(userName) || '';
     this.setState({
-      localStorage: window.localStorage.getItem(userName).split(',').filter(c => c),
+      localStorage: user.split(',').filter(c => c),
     });
   }
   onPreview = (e) => {

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Icon } from 'antd';
+import Button from 'antd/lib/button';
+import Icon from 'antd/lib/icon';
 import QueueAnim from 'rc-queue-anim';
 import TweenOne from 'rc-tween-one';
 import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';
@@ -50,7 +51,7 @@ class Banner extends React.Component {
            /* replace-end-value */}
           </div>
           <Button
-            type="ghost"
+            ghost
             key="button"
             {...dataSource.button}
           >

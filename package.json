@@ -90,13 +90,12 @@
     "build-edit": "bisheng build -c ./site/bisheng.edit.config.js",
     "build-templates": "bisheng build -c ./site/bisheng.templates.config.js",
     "build": "cross-env NODE_ENV=production concurrently \"npm run build-index\" \"npm run build-edit\" \"npm run build-templates\"",
-    "site": "rm -rf _site && npm run build && gh-pages -d _site",
-    "deploy": "npm run re-site && npm run site && bisheng gh-pages --push-only",
+    "site": "rm -rf _site && npm run build",
+    "deploy": "npm run site && bisheng gh-pages --push-only",
     "lint": "npm run lint:es && npm run lint:style && npm run lint:demo",
     "lint:es": "eslint --fix ./ --ext '.js,.jsx,.md'",
     "lint:style": "stylelint \"site/**/*.less\" --syntax less",
     "lint:demo": "cross-env RUN_ENV=DEMO eslint ./ --ext '.md' -c ./.eslintrc.js",
     "test": "npm run lint"
-  },
-  "theme": "./theme.js"
+  }
 }

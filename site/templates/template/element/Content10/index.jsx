@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Icon } from 'antd';
+import Icon from 'antd/lib/icon';
+import Button from 'antd/lib/button';
 import QueueAnim from 'rc-queue-anim';
 import TweenOne, { TweenOneGroup } from 'rc-tween-one';
 import BannerAnim, { Element } from 'rc-banner-anim';

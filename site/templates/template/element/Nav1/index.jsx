@@ -1,6 +1,7 @@
 import React from 'react';
 import TweenOne from 'rc-tween-one';
-import { Menu, Icon } from 'antd';
+import Menu from 'antd/lib/menu';
+import Icon from 'antd/lib/icon';
 import './index.less';
 
 const Item = Menu.Item;
@@ -31,7 +32,7 @@ class Header extends React.Component {
     const navData = dataSource[`${name}_menu`].children;
     const navChildren = Object.keys(navData).map((key, i) => (<Item key={i}>
       {navData[key]}
-    </Item>));
+                                                              </Item>));
     const userTitle = (<div>
       <span className="img">
         <img
@@ -41,17 +42,17 @@ class Header extends React.Component {
         />
       </span>
       <span>用户名</span>
-    </div>);
+                       </div>);
     navChildren.push(
       (<Item className="help" key="help">
         <Icon type="question-circle-o" />
         <span>帮助</span>
-      </Item>),
+       </Item>),
       (<SubMenu className="user" title={userTitle} key="user">
         <Item key="a">用户中心</Item>
         <Item key="b">修改密码</Item>
         <Item key="c">登出</Item>
-      </SubMenu>)
+       </SubMenu>)
     );
     const func = dataSource[`${name}_menu`].func;
     return (<TweenOne
@@ -112,7 +113,7 @@ class Header extends React.Component {
             </Menu>
           </TweenOne>
         )}
-    </TweenOne>);
+            </TweenOne>);
   }
 }
 

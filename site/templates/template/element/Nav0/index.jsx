@@ -1,6 +1,6 @@
 import React from 'react';
 import TweenOne from 'rc-tween-one';
-import { Menu } from 'antd';
+import Menu from 'antd/lib/menu';
 import './index.less';
 
 const Item = Menu.Item;

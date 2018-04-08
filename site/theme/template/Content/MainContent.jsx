@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'bisheng/router';
-import { Row, Col, Menu, Icon } from 'antd';
+import Row from 'antd/lib/row';
+import Col from 'antd/lib/col';
+import Menu from 'antd/lib/menu';
+import Icon from 'antd/lib/icon';
 import MobileMenu from 'rc-drawer-menu';
 import Animate from 'rc-animate';
 import Article from './Article';
@@ -224,12 +227,12 @@ export default class MainContent extends React.PureComponent {
               </MobileMenu>
             ) :
               (
-                <Col xxl={4} xl={5} lg={6} md={24} sm={24} xs={24} className="main-menu">
+                <Col xxl={4} xl={5} lg={6} md={6} sm={24} xs={24} className="main-menu">
                   {menuChild}
                 </Col>
               )
           }
-          <Col xxl={20} xl={19} lg={18} md={24} sm={24} xs={24} className="main-container">
+          <Col xxl={20} xl={19} lg={18} md={18} sm={24} xs={24} className="main-container">
             <Animate component="div" transitionName="landings-move" className="main-animate-wraper">
               {
                 <Article {...props} content={localizedPageData} key={contentKey} />
@@ -243,7 +246,7 @@ export default class MainContent extends React.PureComponent {
             xxl={{ span: 20, offset: 4 }}
             xl={{ span: 19, offset: 5 }}
             lg={{ span: 18, offset: 6 }}
-            md={24}
+            md={{ span: 18, offset: 6 }}
             sm={24}
             xs={24}
           >

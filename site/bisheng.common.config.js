@@ -1,5 +1,5 @@
 /* eslint no-param-reassign: 0 */
-const theme = require('../theme.js')();
+// const theme = require('../theme.js')();
 
 const replaceLib = require('antd-tools/lib/replaceLib');
 
@@ -17,7 +17,7 @@ const pluginAntdConfig = {
 
 function alertBabelConfig(rules) {
   rules.forEach((rule) => {
-    if (Array.isArray(rule.use) && rule.use.indexOf('less-loader') >= 0) {
+    /* if (Array.isArray(rule.use) && rule.use.indexOf('less-loader') >= 0) {
       rule.use = rule.use.map((item) => {
         if (item === 'less-loader') {
           return {
@@ -33,7 +33,7 @@ function alertBabelConfig(rules) {
         }
         return item;
       });
-    }
+    } */
     if (rule.loader && rule.loader === 'babel-loader') {
       if (rule.options.plugins.indexOf(replaceLib) === -1) {
         rule.options.plugins.push(replaceLib);

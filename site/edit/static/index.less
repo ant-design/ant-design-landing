@@ -1,10 +1,24 @@
 @import '~antd/lib/style/v2-compatible-reset.less';
-// @import '../../templates/static/global';
-@import '../../templates/static/point';
-@import '~antd/dist/antd.less';
-@import './edit-list/index';
+@import "~antd/lib/style/index.less";
+
 @import './common';
 @import './custom';
+@import './edit-list/index';
+/*  antd less */
+@import '~antd/lib/tabs/style/index.less';
+@import '~antd/lib/pagination/style/index.less';
+@import '~antd/lib/popover/style/index.less';
+@import '~antd/lib/button/style/index.less';
+@import '~antd/lib/tooltip/style/index.less';
+@import '~antd/lib/grid/style/index.less';
+@import '~antd/lib/switch/style/index.less';
+@import '~antd/lib/radio/style/index.less';
+@import '~antd/lib/dropdown/style/index.less';
+@import '~antd/lib/menu/style/index.less';
+@import '~antd/lib/select/style/index.less';
+@import '~antd/lib/collapse/style/index.less';
+
+@import '~antd/lib/input/style/index.css';
 
 @import './content';
 @import './edit-influence';
@@ -14,6 +28,9 @@
 @import './banner-slide';
 
 @import './other-view.less';
+
+@import '../../templates/static/point';
+
 .edit{
   &-wrapper {
     width: 100%;

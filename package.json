@@ -76,8 +76,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
     "stylelint": "^8.4.0",
-    "stylelint-config-standard": "^17.0.0",
-    "webpack-bundle-analyzer": "^2.11.1"
+    "stylelint-config-standard": "^17.0.0"
   },
   "pre-commit": [
     "lint"
@@ -97,8 +96,7 @@
     "lint:es": "eslint --fix ./ --ext '.js,.jsx,.md'",
     "lint:style": "stylelint \"site/**/*.less\" --syntax less",
     "lint:demo": "cross-env RUN_ENV=DEMO eslint ./ --ext '.md' -c ./.eslintrc.js",
-    "test": "npm run lint",
-    "analyzer": "webpack-bundle-analyzer bundle/output/path/stats.json"
+    "test": "npm run lint"
   },
   "theme": "./theme.js"
 }

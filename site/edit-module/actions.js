@@ -10,8 +10,9 @@ AV.init({
   appKey,
 });
 
-const userName = 'antd-landings-user-name';
+export const userName = 'antd-landings-user-name';
 let t = 0;
+let localNum = 0;
 export const postType = {
   POST_DEFAULT: 'default',
   POST_SET: 'set',
@@ -21,43 +22,72 @@ export const postType = {
   SET_EDIT: 'setEdit',
   SET_MEDIA: 'setMedia',
 };
+
+export const removeTemplate = (key) => {
+  const TemplateObject = AV.Object.createWithoutData(fileName, key);
+  TemplateObject.destroy().then(() => {
+    console.log('删除成功');
+  });
+};
+export const newTemplate = (cb) => {
+  const TemplateObject = AV.Object.extend(fileName);
+  const tempData = new TemplateObject();
+  tempData.set('template', [
+    /* 'nav_0_0', 'content_0_0', 'content_2_0',
+      'content_3_0', 'content_4_0', 'footer_0_0', */
+    'Banner1_0',
+    'Banner0_0',
+  ]);
+  tempData.set('config', {});
+  tempData.set('style', []);
+  tempData.set('other', {});
+  tempData.save().then((obj) => {
+    setURLData('uid', obj.id);
+    window.localStorage.setItem(userName, `${obj.id},${
+      window.localStorage.getItem(userName) || ''}`);
+    cb(obj);
+  }, (error) => {
+    console.error(error);
+  });
+};
+
+export const switchTemplate = (key) => {
+  setURLData('uid', key);
+  location.reload();
+};
 export const getUserData = () => (dispatch) => {
   // 获取 url 上是否有 user id;
   const hash = getURLData('uid');
+  /**
+   * 进入页面:
+   * 1. 如果 hash 里有值, 请求 hash 里的值，当值没有返回数据，依次往下取 localStorage 里的值，没有将删除再新建。
+   * 2. 空 hash 进入, 依次往下取 localStorage 里的值, 没有将删除再新建。
+   */
   // 获取本地是否有数据存在 localStorage;
-  const uid = hash || (window.localStorage.getItem(userName) && window.localStorage.getItem(userName).split(',')[0]);
-  window.localStorage.setItem('abc-test', '');
-  console.log(window.localStorage);
+  const localStorage = (window.localStorage.getItem(userName) &&
+    window.localStorage.getItem(userName).split(',').filter(c => c)) || [];
+  const uid = hash || localStorage[localNum];
+  localNum += 1;
+  console.log(localStorage);
   if (!hash && uid) {
     setURLData('uid', uid);
   }
-  let tempData;
   if (!uid) {
-    // 如果没有，创建个新的；
-    const TemplateObject = AV.Object.extend(fileName);
-    tempData = new TemplateObject();
-    tempData.set('template', [
-      /* 'nav_0_0', 'content_0_0', 'content_2_0',
-      'content_3_0', 'content_4_0', 'footer_0_0', */
-      'Banner1_0',
-      'Banner0_0',
-    ]);
-    tempData.set('config', {});
-    tempData.set('style', []);
-    tempData.set('other', {});
-    tempData.save().then((obj) => {
-      setURLData('uid', obj.id);
-      window.localStorage.setItem(userName, obj.id);
+    newTemplate((obj) => {
       dispatch({
         type: postType.POST_SUCCESS,
         templateData: obj,
       });
-    }, (error) => {
-      console.error(error);
     });
   } else {
-    tempData = new AV.Query(fileName);
+    const tempData = new AV.Query(fileName);
     tempData.get(uid).then((obj) => {
+      const inLocal = localStorage.some(key => key === uid);
+      let localStr = localStorage.join(',');
+      if (!inLocal) {
+        localStr = `${uid},${localStr}`;
+      }
+      window.localStorage.setItem(userName, localStr);
       dispatch({
         type: postType.POST_SUCCESS,
         templateData: obj,
@@ -65,7 +95,7 @@ export const getUserData = () => (dispatch) => {
     }, (error) => {
       console.log(JSON.stringify(error));
       if (error.code === 101) {
-        window.localStorage.setItem(userName, '');
+        window.localStorage.setItem(userName, localStorage.filter(key => key !== uid).join(','));
         setURLData('uid');
         return getUserData()(dispatch);
       } else if (error.code === -1) {

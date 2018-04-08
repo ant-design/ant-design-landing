@@ -50,3 +50,20 @@
     border-left: 1px solid @edit-line-color;
   }
 }
+.new-list-text, .new-list-remove {
+  display: inline-block;
+  vertical-align: text-top;
+  line-height: 24px;
+}
+.new-list-text {
+  width: ~"calc(100% - 32px)";
+}
+.new-list-remove {
+  width: 32px;
+  text-align: right;
+  .ant-btn-circle.ant-btn-sm {
+    font-size: 12px;
+    width: 18px;
+    height: 18px;
+  }
+}

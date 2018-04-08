@@ -79,7 +79,8 @@ class Layout extends React.Component {
 
   messageHandle = (e) => {
     console.log(e.data);
-    if (e.data.type !== 'webpackOk') {
+
+    if (e.data.type && e.data.type.indexOf('webpack') === -1) {
       this.setState({
         templateData: e.data,
       }, this.setScrollToWindow);

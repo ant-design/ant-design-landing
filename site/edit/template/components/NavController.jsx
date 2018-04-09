@@ -42,7 +42,6 @@ class NavController extends React.PureComponent {
   }
 
   onSave = (e, cb) => {
-    console.log(this.props.templateData);
     saveData(this.props.templateData, (b) => {
       if (b.code) {
         message.error('保存出错，请重试。');
@@ -138,10 +137,20 @@ class NavController extends React.PureComponent {
       </li>
     ));
     const menuNewDropdown = this.getNewMenu();
+    const winLocation = window.location;
+    const protocol = winLocation.protocol;
+    const isLocalMode = winLocation.port;
+    const port = isLocalMode ? ':7111' : '';
+    const href = `${protocol}//${winLocation.hostname}${port}`;
     return (
       <div className={this.props.className}>
         <div className="logo">
-          <img src="https://gw.alipayobjects.com/zos/rmsportal/SVDdpZEbAlWBFuRGIIIL.svg" alt="logo" />
+          <a href={href} target="_blank">
+            <img
+              src="https://gw.alipayobjects.com/zos/rmsportal/SVDdpZEbAlWBFuRGIIIL.svg"
+              alt="logo"
+            />
+          </a>
         </div>
         <ul className="menu">
           {menuChild}

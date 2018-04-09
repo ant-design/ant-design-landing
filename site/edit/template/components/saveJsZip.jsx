@@ -88,7 +88,10 @@ const setChildrenToIndex = (other) => {
   templateStrObj.OTHER.index = format(templateStrObj.OTHER.index
     .replace('&dataSource&', dataSourceStr)
     .replace('&import&', importStr)
-    .replace('&children&', childStr));
+    .replace('&children&', childStr)
+    .replace('&scrollScreen&', '')
+    .replace('&scrollScreen-pragma&', '')
+  );
 };
 const jsToZip = () => {
   const zip = new JSZip();
@@ -181,9 +184,17 @@ export default function saveJsZip(templateData) {
         .replace(/\\"/g, '"')
         .replace(/<br>/g, '<br />')}`;
     templateStrObj.PROPS[key] = format(props);
+    // 转换 antd;
+    const l = templateStr.match(/import\s+(.+?)\s+'antd\/lib\/(.+?)';/g);
+    let newTemplateStr = templateStr.replace(/import\s+(.+?)\s+'antd\/lib\/(.+?)';/g, '&antd&');
+    if (l.length) {
+      const ll = l.map(k => k.split(/\s+/g)[1]).join(',');
+      newTemplateStr = newTemplateStr.replace('&antd&', `import {${ll}} from 'antd';`);
+    }
+    newTemplateStr = newTemplateStr.replace(/(&antd&)/g, '');
     // format(JSON.stringify(imgToTag(dataSource)).replace(/({|,|\n)"(.*?)":/ig, '$1$2:'), 'json')
     // .replace(/"(<.*?>)"/g, '<span>$1</span>').replace('<br>', '<br />').replace(/"/g, '\'');
-    templateStrObj.JS[keys[0]] = format(templateStr
+    templateStrObj.JS[keys[0]] = format(newTemplateStr
       .replace(replaceStr, '')
       .replace(replaceValueStr, '$1'));
     templateStrObj.LESS[keys[0]] = less.replace('../../../static/custom.less', './custom.less');
@@ -191,6 +202,7 @@ export default function saveJsZip(templateData) {
   templateStrObj.OTHER.index = templateStrObj.OTHER.index.replace('&scrollAnim&',
     other.full ? 'import scrollScreen from \'rc-scroll-anim/lib/ScrollScreen\';' : ''
   );
+
   Object.keys(other).forEach((key) => {
     switch (key) {
       case 'point':

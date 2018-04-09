@@ -8,7 +8,7 @@ import {
 } from '../../utils-style';
 
 const component = require('./index');
-const less = require('raw-loader!./index.less');
+const less = require('!raw-loader!./index.less');
 
 export default {
   component,

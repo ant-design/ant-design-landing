@@ -69,7 +69,6 @@ module.exports = {
     config.resolve.alias = {
       'react-router': 'react-router/umd/ReactRouter',
     };
-
     config.externals = config.externals || {};
     config.externals['react-router-dom'] = 'ReactRouterDOM';
     config.externals = Object.assign({}, config.externals, {

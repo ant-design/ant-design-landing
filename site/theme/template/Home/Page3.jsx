@@ -12,16 +12,10 @@ const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 
 export default class Page3 extends React.Component {
-  constructor(props) {
-    super(props);
-    const imgData = {};
-    const type = 'all';
-    this.state = {
-      type,
-      children: this.getChildrenToRender(type, imgData),
-      imgData,
-    };
-  }
+  state = {
+    type: 'all',
+    imgData: {},
+  };
   getHeaderChildrenToRender = () =>
     Object.keys(data).map(key => (
       key !== 'Other' && <RadioButton value={key} key={key}>{key}</RadioButton>
@@ -30,14 +24,13 @@ export default class Page3 extends React.Component {
     const type = v.target.value;
     this.setState({
       type,
-      children: this.getChildrenToRender(type, this.state.imgData),
     });
   }
   loadImage = (src, key) => {
     const img = new Image();
     img.onload = (e) => {
       const target = e.target;
-      const { imgData, type } = this.state;
+      const { imgData } = this.state;
       const scale = 352 / target.naturalWidth;
       imgData[key] = {
         width: 352,
@@ -46,7 +39,6 @@ export default class Page3 extends React.Component {
       if (Object.keys(imgData).length >= this.chidlrenLength) {
         this.setState({
           imgData,
-          children: this.getChildrenToRender(type, imgData),
         });
       }
     };
@@ -83,6 +75,7 @@ export default class Page3 extends React.Component {
     return children;
   }
   render() {
+    const { type, imgData } = this.state;
     return (
       <div className="page-wrapper page3">
         <div className="page" >
@@ -105,7 +98,7 @@ export default class Page3 extends React.Component {
               itemMargin={48}
               gridWidth={8}
             >
-              {this.state.children}
+              {this.getChildrenToRender(type, imgData)}
             </WaterfallLayout>
           </ScrollOverPack>
         </div>

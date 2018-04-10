@@ -1,40 +1,49 @@
+/* eslint-disable */
 import React from 'react';
-import QueueAnim from 'rc-queue-anim';
-import ScrollOverPack from 'rc-scroll-anim/lib/ScrollOverPack';
 import { FormattedMessage } from 'react-intl';
-
+import Templates from './component/Templates';
 import { svgBgToParallax } from './utils';
 
-const svgBg = [
-  <circle id="Oval-8" stroke="#13C2C2" cx="530" cy="195" r="5" />,
-  <circle id="Oval-8" fillOpacity="0.4" fill="#9EE6E6" cx="606" cy="76" r="3" />,
-  <circle id="Oval-8" stroke="#13C2C2" cx="1165" cy="240" r="5" />,
-  <circle id="Oval-8" stroke="#CED4D9" cx="701.5" cy="250" r="3.5" />,
-  <circle id="Oval-8" stroke="#ffffff" cx="1326.5" cy="181.5" r="3.5" />,
-  <circle id="Oval-8" fillOpacity="0.4" fill="#9EE6E6" cx="944" cy="251" r="5" />,
-  <g transform="translate(0, 180)"><path d="M1182.79367,448.230356 L1186.00213,453.787581 C1186.55442,454.744166 1186.22667,455.967347 1185.27008,456.519632 C1184.96604,456.695168 1184.62116,456.787581 1184.27008,456.787581 L1177.85315,456.787581 C1176.74858,456.787581 1175.85315,455.89215 1175.85315,454.787581 C1175.85315,454.436507 1175.94556,454.091619 1176.1211,453.787581 L1179.32957,448.230356 C1179.88185,447.273771 1181.10503,446.946021 1182.06162,447.498305 C1182.36566,447.673842 1182.61813,447.926318 1182.79367,448.230356 Z" id="Polygon-2" stroke="#CED4D9" transform="translate(1181.061784, 452.008801) rotate(40.000000) translate(-1181.061784, -452.008801) " /></g>,
-  <g transform="translate(0, 100)"><path d="M1376.79367,204.230356 L1380.00213,209.787581 C1380.55442,210.744166 1380.22667,211.967347 1379.27008,212.519632 C1378.96604,212.695168 1378.62116,212.787581 1378.27008,212.787581 L1371.85315,212.787581 C1370.74858,212.787581 1369.85315,211.89215 1369.85315,210.787581 C1369.85315,210.436507 1369.94556,210.091619 1370.1211,209.787581 L1373.32957,204.230356 C1373.88185,203.273771 1375.10503,202.946021 1376.06162,203.498305 C1376.36566,203.673842 1376.61813,203.926318 1376.79367,204.230356 Z" id="Polygon-2" stroke="#2F54EB" transform="translate(1375.061784, 208.008801) rotate(40.000000) translate(-1375.061784, -208.008801) " /></g>,
-  <rect id="Rectangle-14" strokeOpacity="0.4" stroke="#ffffff" transform="translate(949.801502, 129.801502) rotate(30.000000) translate(-949.801502, -129.801502) " x="942.626304" y="52.626304" width="14.3503946" height="14.3503946" rx="1" />,
-  <rect id="Rectangle-14" stroke="#CED4D9" transform="translate(111.673081, 158.673081) rotate(30.000000) translate(-111.673081, -158.673081) " x="107.288047" y="254.288047" width="8.77006914" height="8.77006914" rx="1" />,
-];
-const svgChildren = svgBgToParallax(svgBg);
+function setBgToParallax(item) {
+  const { props } = item;
+  return React.cloneElement(item, { children: svgBgToParallax(props.children) });
+}
 
-export default function Page2() {
-  return (
-    <div className="page-wrapper page2" >
-      <div className="bg">
-        <svg width="1440px" height="300px" viewBox="0 0 1440 300" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" >
-          {svgChildren}
-        </svg>
-      </div>
-      <ScrollOverPack playScale="0.3" className="page">
-        <QueueAnim type="bottom" key="queue" leaveReverse>
-          <p key="p"><FormattedMessage id="app.home.edit-slogen" /></p>
-          <div key="a">
-            <a className="button"><FormattedMessage id="app.home.enter-editor" /></a>
+const svgBgChild = setBgToParallax((
+  <svg width="1401" height="1843" viewBox="0 0 1401 1843" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" preserveAspectRatio="xMidYMid slice" >
+    <circle id="Oval-13" stroke="none" fill="#EBEDF0" fillRule="evenodd" cx="-5" cy="50" r="98.5" />
+    <rect id="Rectangle-33" stroke="none" fill="#EBEDF0" fillRule="evenodd" transform="translate(1200, 2000) rotate(45.000000) translate(-1261.132034, -1217.132034) " x="1111.13203" y="1007.13203" width="300" height="300" rx="1" />
+    <circle id="Oval-13" stroke="#EBEDF0" strokeWidth="16" fill="none" cx="1402" cy="151" r="70" />
+    <path d="M385.032144,960.394832 L394.316344,976.475539 C394.868629,977.432124 394.540879,978.655305 393.584293,979.20759 C393.280255,979.383126 392.935367,979.475539 392.584293,979.475539 L374.015893,979.475539 C372.911323,979.475539 372.015893,978.580108 372.015893,977.475539 C372.015893,977.124466 372.108305,976.779577 372.283842,976.475539 L381.568042,960.394832 C382.120327,959.438247 383.343508,959.110497 384.300093,959.662781 C384.604131,959.838318 384.856607,960.090794 385.032144,960.394832 Z" id="Polygon-2" stroke="none" fill="#A3B1BF" fillRule="evenodd" transform="translate(23.300093, 970.709623) rotate(70.000000) translate(-383.300093, -970.709623) " />
+    <path d="M545.537489,211.431472 L552.545207,223.569196 C553.097492,224.525781 552.769741,225.748962 551.813156,226.301246 C551.509118,226.476783 551.164229,226.569196 550.813156,226.569196 L536.79772,226.569196 C535.693151,226.569196 534.79772,225.673765 534.79772,224.569196 C534.79772,224.218122 534.890133,223.873234 535.06567,223.569196 L542.073387,211.431472 C542.625672,210.474887 543.848853,210.147137 544.805438,210.699421 C545.109477,210.874958 545.361952,211.127434 545.537489,211.431472 Z" id="Polygon-2" stroke="none" fill="#A3B1BF" fillRule="evenodd" transform="translate(543.805605, 218.500167) rotate(90.000000) translate(-600.805605, -218.500167) " />
+    <g id="Group-26" transform="translate(46.000000, 250.000000)" fill="#FADB14">
+      <image xlinkHref="https://gw.alipayobjects.com/zos/rmsportal/UtBesTOkoZsBUxPqfDlZ.svg" />
+    </g>
+    <g id="Group-29" transform="translate(200.000000, 1800.000000)" fill="#2F54EB">
+      <image xlinkHref="https://gw.alipayobjects.com/zos/rmsportal/VrADJaRPMnFjmtmIhObV.svg" />
+    </g>
+    <circle id="Oval-8" stroke="#13C2C2" strokeWidth="4" opacity="0.95" cx="996" cy="200" r="11" />
+    <circle id="Oval-8" stroke="#13C2C2" strokeWidth="4" cx="11" cy="667" r="11" />
+    <g id="Group-11" transform="translate(1250.000000, 1019.000000)" fill="#13C2C2">
+      <image xlinkHref="https://gw.alipayobjects.com/zos/rmsportal/MnLEmwjipfhzPUmBJnJE.svg" />
+    </g>
+    <g id="Group-28" transform="translate(800.000000, 1630.000000)" fill="#2F54EB">
+      <image xlinkHref="https://gw.alipayobjects.com/zos/rmsportal/dyNuxLOZtvjoHSVisbhQ.svg" />
+    </g>
+  </svg>
+));
+
+export default class Page1 extends React.PureComponent {
+  render() {
+    return (
+      <div className="page-wrapper page2" id="page2">
+        <div className="page">
+          <h1><FormattedMessage id="app.home.templates" /></h1>
+          <div className="bg">
+            {svgBgChild}
           </div>
-        </QueueAnim>
-      </ScrollOverPack>
-    </div>
-  );
+          <Templates isMobile={this.props.isMobile} />
+        </div>
+      </div>);
+  }
 }

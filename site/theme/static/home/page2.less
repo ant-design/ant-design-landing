@@ -1,26 +1,83 @@
 .page2 {
-  background: @primary-color;
-  color: #fff;
-  min-height: 292px;
-  text-align: center;
-  padding: 96px 0;
-  p {
-    margin: 0 auto 40px;
-    font-size: 14px;
-    line-height: 20px;
-  }
-  .button {
+  background: #EDF1F5;
+  .item-wrapper {
+    position: relative;
+    border-radius: 4px;
+    max-width: 356px;
+    margin: 0 auto 48px;
+    overflow: hidden;
     background: #fff;
-    .mouseHover(#0028CA, 0, 8px, 16px);
-    box-shadow: 0 4px 8px rgba(0, 40, 202, 0.75);
+    .mouseHover(rgb(163, 177, 191), 0, 12px, 24px);
+    box-shadow: 0 8px 24px rgba(163, 177, 191, 0.35);
+    .img-wrapper {
+      height: 356px;
+      overflow: hidden;
+      .img {
+        width: 100%;
+        height: 356px;
+        background-size: cover;
+        background-position: top center;
+      }
+      .ant-spin {
+        height: 356px;
+        max-height: 356px;
+      }
+    }
+    p,
+    .download {
+      line-height: 22px;
+      font-size: 14px;
+      padding: 18px 16px;
+      height: 54px;
+      margin: 0;
+      font-weight: 700;
+    }
+    .download {
+      background: @primary-color;
+      text-align: center;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      transform: translateY(100%);
+      transition: transform .3s @ease-out;
+      color: #fff;
+    }
+    &:hover {
+      .download {
+        transform: translateY(0%);
+      }
+    }
+  }
+  .page1-content {
+    &-wrapper {
+      min-height: 514px;
+      margin: 0 auto 120px;
+      position: relative;
+      .pagination {
+        display: flex;
+        justify-content: center;
+        margin: 24px auto;
+        width: 100%;
+      }
+      .tween-group {
+        transition: height .45s @ease-in-out;
+        >.tween-one-entering,
+        >.tween-one-leaving {
+          position: absolute;
+          width: ~"calc(100% + 48px)";
+          top: 0;
+          left: 0;
+        }
+      }
+    }
   }
   .bg {
-    width: 1440px;
-    height: 558px;
+    width: 1401px;
+    height: 1843px;
     position: absolute;
     top: 0;
     left: 50%;
-    margin-left: -720px;
+    margin-left: -700px;
     svg {
       overflow: initial;
     }

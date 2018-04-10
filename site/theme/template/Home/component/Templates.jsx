@@ -3,15 +3,13 @@ import TweenOne, { TweenOneGroup } from 'rc-tween-one';
 import Row from 'antd/lib/row';
 import Col from 'antd/lib/col';
 import Pagination from 'antd/lib/pagination';
-import Spin from 'antd/lib/spin';
 import QueueAnim from 'rc-queue-anim';
 import ScrollOverPack from 'rc-scroll-anim/lib/ScrollOverPack';
-import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import ImageLoadComp from './ImageLoadComp';
-import { fetchListData, postType } from '../../module/actions';
 import { getURLData, setURLData } from '../../utils';
 import { scrollTo } from '../utils';
+import data from './data.json';
 
 class Templates extends React.PureComponent {
   constructor(props) {
@@ -22,9 +20,7 @@ class Templates extends React.PureComponent {
     };
   }
   componentDidMount() {
-    this.pageDom = document.getElementById('page1');
-    const { dispatch } = this.props;
-    dispatch(fetchListData());
+    this.pageDom = document.getElementById('page2');
   }
   onPagingChange = (v) => {
     this.setState({
@@ -35,8 +31,7 @@ class Templates extends React.PureComponent {
     });
   }
   render() {
-    const { listData, isMobile } = this.props;
-    const { type, data } = listData;
+    const { isMobile } = this.props;
     const { paging } = this.state;
     const num = isMobile ? 5 : 9;
     const prePaging = (paging - 1) * num;
@@ -44,7 +39,7 @@ class Templates extends React.PureComponent {
       if (ii < paging * num && ii >= prePaging) {
         const i = ii - prePaging;
         const delay = isMobile ? i * 50 : (Math.floor(i / 3) * 50) + ((i % 3) * 50);
-        const animation = { y: 30, opacity: 0, type: 'from', delay };
+        const animation = { scale: 0.95, opacity: 0, type: 'from', delay, duration: 300 };
         return (
           <TweenOne
             component={Col}
@@ -69,48 +64,31 @@ class Templates extends React.PureComponent {
     });
     const lineNum = Math.ceil((data.length - prePaging) / 3);
     return (
-      <Spin spinning={type === postType.POST_DEFAULT}>
-        <ScrollOverPack playScale="0.3">
-          <QueueAnim key="qeu" type="bottom" className="page1-content-wrapper">
-            <div key="a">
-              <TweenOneGroup
-                enter={{ opacity: 0, type: 'from', ease: 'easeInOutQuad' }}
-                leave={{ opacity: 0, y: 30, ease: 'easeInQuad' }}
-                className="tween-group"
-                style={{ height: (lineNum > 3 ? 3 : lineNum) * 458 }}
-              >
-                <Row key={paging.toString()} gutter={48} className="page1-content">
-                  {children}
-                </Row>
-              </TweenOneGroup>
-              {data.length > num && <Pagination
-                current={paging}
-                pageSize={num}
-                total={data.length}
-                className="pagination"
-                onChange={this.onPagingChange}
-              />}
-            </div>
-          </QueueAnim>
-        </ScrollOverPack>
-      </Spin>
+      <ScrollOverPack playScale="0.3">
+        <QueueAnim key="qeu" type="bottom" className="page1-content-wrapper">
+          <div key="a">
+            <TweenOneGroup
+              enter={{ opacity: 0, type: 'from', ease: 'easeInOutQuad' }}
+              leave={{ opacity: 0, ease: 'easeInQuad' }}
+              className="tween-group"
+              style={{ height: (lineNum > 3 ? 3 : lineNum) * 458 }}
+            >
+              <Row key={paging.toString()} gutter={48} className="page1-content">
+                {children}
+              </Row>
+            </TweenOneGroup>
+            {data.length > num && <Pagination
+              current={paging}
+              pageSize={num}
+              total={data.length}
+              className="pagination"
+              onChange={this.onPagingChange}
+            />}
+          </div>
+        </QueueAnim>
+      </ScrollOverPack>
     );
   }
 }
-const getListData = (state) => {
-  const listData = state.listData;
-  if (listData.type === postType.POST_SUCCESS) {
-    const data = listData.data.map(item => ({
-      id: item.id,
-      ...item.attributes,
-    }));
-    return {
-      listData: {
-        type: listData.type,
-        data,
-      },
-    };
-  }
-  return state;
-};
-export default connect(getListData)(Templates);
+
+export default Templates;

@@ -11,6 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "antd": "^3.2.3",
+    "autoresponsive-react": "^1.1.31",
     "enquire-js": "^0.2.1",
     "leancloud-storage": "^3.5.0",
     "raw-loader": "^0.5.1",
@@ -63,6 +64,7 @@
     "jszip": "^3.1.5",
     "pre-commit": "1.x",
     "prettier": "git://github.com/prettier/prettier.git#1.7.4",
+    "prop-types": "^15.6.1",
     "rc-drawer-menu": "^0.5.4",
     "rc-editor-list": "^1.0.16",
     "react": "^16.0.0",

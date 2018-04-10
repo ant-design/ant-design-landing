@@ -1,0 +1,42 @@
+.page3 {
+  .page {
+    h1 {
+      margin: 128px auto 64px;
+    }
+  }
+  .rc-autoresponsive {
+    transition: height .6s;
+  }
+  &-content {
+    margin-bottom: 128px;
+    &-header {
+      margin-bottom: 72px;
+      width: 100%;
+      min-height: 32px;
+      .ant-radio-button-wrapper {
+        transition: border-color .3s @ease-out, box-shadow .3s @ease-out, color .3s @ease-out;
+        border-radius: 4px;
+        margin-right: 24px;
+        width: 120px;
+        text-align: center;
+        border: 1px solid @site-home-line;
+        &:before {
+          display: none;
+        }
+      }
+      .ant-radio-button-wrapper-checked {
+        background: @primary-color;
+        border-color: @primary-color;
+        color: #FFFFFF;
+      }
+    }
+    &-item {
+      border: 1px solid @site-home-line;
+      border-radius: 4px;
+      overflow: hidden;
+      img {
+        display: block;
+      }
+    }
+  }
+}

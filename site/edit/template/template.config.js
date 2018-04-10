@@ -1,5 +1,5 @@
 export default {
-  Nav: {
+  Navs: {
     name: '导航',
     order: 0,
     data: [
@@ -13,7 +13,7 @@ export default {
       },
     ],
   },
-  Banner: {
+  Banners: {
     name: 'Banner',
     order: 1,
     data: [
@@ -34,7 +34,7 @@ export default {
       },
     ],
   },
-  Content: {
+  Contents: {
     name: '内容',
     order: 2,
     data: [
@@ -84,17 +84,17 @@ export default {
       { disabled: true, src: 'https://zos.alipayobjects.com/rmsportal/TAvpiZHalFQVewZ.jpg' }, */
     ],
   },
-  Footer: {
+  Footers: {
     name: '页尾',
     order: 3,
     data: [
       {
-        src: 'https://zos.alipayobjects.com/rmsportal/aJutnIvTFWkEAWj.jpg',
+        src: 'https://gw.alipayobjects.com/zos/rmsportal/wEeRbkdWEpxGIQBqqcoM.jpg',
         text: '简单型页尾',
         id: 'footer',
       },
       {
-        src: 'https://zos.alipayobjects.com/rmsportal/PEXAhbheOHVTyfM.jpg',
+        src: 'https://gw.alipayobjects.com/zos/rmsportal/honVGZnoRmMVCNzxiNvy.jpg',
         text: '带信息尾页',
         id: 'footer',
       },

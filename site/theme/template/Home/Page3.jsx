@@ -104,7 +104,7 @@ export default class Page3 extends React.Component {
             </QueueAnim>
             <WaterfallLayout
               key="a"
-              queueAnimProps={{ leaveReverse: true, interval: 50, duration: 300 }}
+              queueAnimProps={{ leaveReverse: true, interval: [80, 0], duration: 300 }}
               itemMargin={48}
               gridWidth={8}
             >

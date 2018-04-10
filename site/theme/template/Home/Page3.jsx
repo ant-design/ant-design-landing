@@ -1,6 +1,5 @@
 import React from 'react';
 import Radio from 'antd/lib/radio';
-import Spin from 'antd/lib/spin';
 import { FormattedMessage } from 'react-intl';
 import ScrollOverPack from 'rc-scroll-anim/lib/ScrollOverPack';
 import QueueAnim from 'rc-queue-anim';
@@ -70,12 +69,10 @@ export default class Page3 extends React.Component {
               style={style}
               key={tKey}
             >
-              <Spin spinning={!imgData[tKey]}>
-                <img src={item.src}
-                  width="100%"
-                  alt="img"
-                />
-              </Spin>
+              <img src={item.src}
+                width="100%"
+                alt="img"
+              />
             </div>
           );
         });

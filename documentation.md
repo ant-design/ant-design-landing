@@ -6,7 +6,7 @@
 
 ### 3. 修改 router.js 里的 IndexPage 的路径: 
 
-```
+```jsx
 import IndexPage from './routes/Home';
 ```
 
@@ -16,7 +16,7 @@ import IndexPage from './routes/Home';
 #### `dva-cli ~0.8.0` 使用了 css-modules 的两个解决方案如下:
 
  1. 关闭 css-modules, 在 .roadhogrc 文件里加上: "disableCSSModules": true,
- 2. 在 antMotion_style.less 里加上 :global, [global 的使用详细查看](https://github.com/css-modules/css-modules#usage-with-preprocessors)，再将 edit.css 改为 edit.less 如下: 
+ 2. 在 antMotion_style.less 里加上 :global, [global 的使用详细查看](https://github.com/css-modules/css-modules#usage-with-preprocessors) 如下: 
 ```less
 :global {
   @import './global.less';
@@ -36,11 +36,7 @@ import IndexPage from './routes/Home';
 ```
 ### 5. 安装依赖:
 ```
-npm install antd --save;
-npm install enquire-js --save;
-npm install rc-queue-anim --save;
-npm install rc-scroll-anim --save;
-npm install rc-tween-one --save;
+npm install antd enquire-js rc-queue-anim rc-scroll-anim rc-tween-one --save;
 npm install rc-banner-anim --save;// 如果用的是多屏滑动型的 banner，加上这条。
 ```
 
@@ -72,13 +68,13 @@ npm install babel-plugin-import --save-dev;
 ### 10. 如果不是 dva-cli 脚手架，去除 index.js 里的 show 相关代码;
 
 ```jsx
-// dva 2.0 样式在组件渲染之后动态加载，导致滚动组件不生效；线上不影响；
-if (location.port) {
-  // 样式 build 时间在 200-300ms 之间;
-  setTimeout(() => {
-    this.setState({
-      show: true,
-    });
-  }, 500);
-}
+    // dva 2.0 样式在组件渲染之后动态加载，导致滚动组件不生效；线上不影响；
+    if (location.port) {
+      // 样式 build 时间在 200-300ms 之间;
+      setTimeout(() => {
+        this.setState({
+          show: true,
+        });
+      }, 500);
+    }
 ```

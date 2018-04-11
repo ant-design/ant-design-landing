@@ -21,7 +21,7 @@ export default class WaterfallLayout extends AutoResponsive {
   };
 
   defaultAnim = { scale: [1, 0.8], opacity: [1, 0] }
-
+  inQueueEnd = {};
   inAnimate = {}
   currrentChildKeys = {};
   state = {
@@ -77,7 +77,8 @@ export default class WaterfallLayout extends AutoResponsive {
       onItemDidLayout,
       onContainerDidLayout,
     } = this.props;
-    return React.Children.map(children, (child, childIndex) => {
+    const childrenToRender = [];
+    React.Children.forEach(children, (child, childIndex) => {
       if (!child) {
         return;
       }
@@ -85,6 +86,7 @@ export default class WaterfallLayout extends AutoResponsive {
       const childHeight = parseInt(child.props.style.height, 10) + itemMargin;
 
       const calculatedPosition = this.sortManager.getPosition(childWidth, childHeight);
+
       if (!this.fixedContainerHeight) {
         if (calculatedPosition[1] + childHeight > this.containerStyle.height) {
           this.containerStyle.height = calculatedPosition[1] + childHeight;
@@ -99,31 +101,32 @@ export default class WaterfallLayout extends AutoResponsive {
         ...child.props.style,
       };
       const animation = {};
+
       if (!this.currrentChildKeys[child.key]) {
         style.transform = `translate(${calculatedPosition[0]}px,${calculatedPosition[1]}px)`;
       } else {
         animation.x = calculatedPosition[0];
         animation.y = calculatedPosition[1];
-        if (!this.inAnimate[child.key]) {
-          animation.onStart = () => {
-            this.inAnimate[child.key] = true;
-          };
-          animation.onComplete = () => {
-            delete this.inAnimate[child.key];
-          };
-          style.transform = `translate(${this.currrentChildKeys[child.key][0]}px,${
-            this.currrentChildKeys[child.key][1]}px)`;
-        }
+        this.inAnimate[child.key] = true;
+        animation.onComplete = () => {
+          this.currrentChildKeys[child.key] = calculatedPosition;
+          delete this.inAnimate[child.key];
+        };
+        style.transform = `translate(${this.currrentChildKeys[child.key][0]}px,${
+          this.currrentChildKeys[child.key][1]}px)`;
       }
-      const childRender = React.createElement(TweenOne, {
+
+      childrenToRender.push(React.createElement(TweenOne, {
         key: child.key,
         ...child.props,
         style,
         animation,
-      });
-      this.currrentChildKeys[child.key] = calculatedPosition;
-      return childRender;
+      }));
+      if (!this.inAnimate[child.key] && this.inQueueEnd[child.key]) {
+        this.currrentChildKeys[child.key] = calculatedPosition;
+      }
     });
+    return childrenToRender;
   }
 
   render() {
@@ -148,6 +151,16 @@ export default class WaterfallLayout extends AutoResponsive {
         animConfig={queueAnimProps.animConfig || this.defaultAnim}
         ref={(c) => {
           this.dom = ReactDOM.findDOMNode(c);
+        }}
+        onEnd={(e) => {
+          if (queueAnimProps.onEnd) {
+            queueAnimProps.onEnd();
+          }
+          if (e.type === 'enter') {
+            this.inQueueEnd[e.key] = true;
+          } else {
+            delete this.inQueueEnd[e.key];
+          }
         }}
         style={this.containerStyle}
       >

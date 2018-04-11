@@ -18,8 +18,8 @@
     "rc-animate": "^2.4.4",
     "rc-banner-anim": "^1.0.1",
     "rc-drawer-menu": "^0.5.4",
-    "rc-queue-anim": "^1.4.1",
-    "rc-scroll-anim": "^2.3.0",
+    "rc-queue-anim": "^1.5.0",
+    "rc-scroll-anim": "^2.4.0",
     "rc-tween-one": "^1.7.3",
     "react-document-title": "^2.0.1"
   },

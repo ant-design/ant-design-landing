@@ -27,6 +27,11 @@ export function svgBgToParallax(children, location, i = 0) {
 export function currentScrollTop() {
   return window.pageYOffset || document.body.scrollTop || document.documentElement.scrollTop;
 }
+export function windowHeight() {
+  return window.innerHeight ||
+    document.documentElement.clientHeight || document.body.clientHeight;
+}
+
 
 export function scrollTo(number, _scrollTop) {
   const scrollTop = _scrollTop || currentScrollTop();

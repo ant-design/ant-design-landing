@@ -9,6 +9,7 @@
   }
   &-content {
     margin-bottom: 128px;
+    min-height: 175px;
     &-header {
       margin-bottom: 72px;
       width: 100%;
@@ -34,6 +35,10 @@
       border: 1px solid @site-home-line;
       border-radius: 4px;
       overflow: hidden;
+      // transition: transform .3s @ease-in-out;
+      &.queue-anim-entering,&.queue-anim-leaving {
+        transition: none !important;
+      }
       img {
         display: block;
       }

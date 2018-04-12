@@ -9,6 +9,7 @@ import EditListController from './components/EditListController';
 
 export default class Layout extends React.PureComponent {
   render() {
+    console.log(121);
     return (
       <div className="edit-wrapper">
         <div className="edit-left-view">

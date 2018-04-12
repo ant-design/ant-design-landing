@@ -32,6 +32,7 @@ class EditStateController extends React.PureComponent {
   scrollTop = 0;
 
   componentDidMount() {
+    console.log(44);
     // 接收子级里传来的 dom 数据;
     // window.addEventListener('message', this.receiveDomData);
     window.receiveDomData = this.receiveDomData;

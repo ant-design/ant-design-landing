@@ -6,7 +6,7 @@
 .mouseHover(@color, @x: 0, @y: 4px, @blur: 12px) {
   transform: translateY(0);
   box-shadow: 0 0 0 fade(@color, 0);
-  transition: box-shadow .3s @ease-in-out, transform .3s @ease-in-out;
+  transition: box-shadow .3s @ease-out, transform .3s @ease-out;
   &:hover {
     transform: translateY(-4px);
     box-shadow: @x @y @blur fade(@color, 55);

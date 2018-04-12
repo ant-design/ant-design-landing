@@ -32,7 +32,7 @@ body {
   .page {
     margin: auto;
     max-width: 100%;
-    transition: padding .45s @ease-in-out, max-width .45s @ease-in-out;
+    transition: padding .45s @ease-out, max-width .45s @ease-out;
     padding: 0 40px;
   }
 }
@@ -45,11 +45,11 @@ body {
   .@{className}-enter,
   .@{className}-appear {
     opacity: 0;
-    animation-timing-function: @ease-in-out;
+    animation-timing-function: @ease-out;
     will-change: transform;
   }
   .@{className}-leave {
-    animation-timing-function: @ease-in-out;
+    animation-timing-function: @ease-out;
     position: absolute !important;
     top: 0;
     left: 0;

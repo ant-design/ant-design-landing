@@ -88,6 +88,7 @@ class NavController extends React.PureComponent {
 
   getNewMenu = () => {
     const { localStorage } = this.state;
+    console.log(localStorage);
     const localChild = localStorage.map(key => (
       <Item
         key={key}
@@ -118,11 +119,11 @@ class NavController extends React.PureComponent {
       </Item>
     ));
     return localChild.length && (
-    <Menu style={{ width: 150, textAlign: 'center' }} onClick={this.onClickItem}>
-      <ItemGroup title="近期所建" key="0">
-        {localChild}
-      </ItemGroup>
-    </Menu>);
+      <Menu style={{ width: 150, textAlign: 'center' }} onClick={this.onClickItem}>
+        <ItemGroup title="近期所建" key="0">
+          {localChild}
+        </ItemGroup>
+      </Menu>);
   }
 
   render() {
@@ -142,6 +143,11 @@ class NavController extends React.PureComponent {
     const isLocalMode = winLocation.port;
     const port = isLocalMode ? ':7111' : '';
     const href = `${protocol}//${winLocation.hostname}${port}`;
+    const newIcon = (
+      <div className="new" onClick={this.onClickNew}>
+        <Icon type="file-add" />
+      </div>
+    );
     return (
       <div className={this.props.className}>
         <div className="logo">
@@ -155,14 +161,13 @@ class NavController extends React.PureComponent {
         <ul className="menu">
           {menuChild}
         </ul>
-        <Dropdown
-          overlay={menuNewDropdown}
-          placement="bottomRight"
-        >
-          <div className="new" onClick={this.onClickNew}>
-            <Icon type="file-add" />
-          </div>
-        </Dropdown>
+        {menuNewDropdown ? (
+          <Dropdown
+            overlay={menuNewDropdown}
+            placement="bottomRight"
+          >
+            {newIcon}
+          </Dropdown>) : newIcon}
       </div>
     );
   }

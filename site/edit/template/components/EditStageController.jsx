@@ -32,7 +32,6 @@ class EditStateController extends React.PureComponent {
   scrollTop = 0;
 
   componentDidMount() {
-    console.log(44);
     // 接收子级里传来的 dom 数据;
     // window.addEventListener('message', this.receiveDomData);
     window.receiveDomData = this.receiveDomData;
@@ -118,6 +117,15 @@ class EditStateController extends React.PureComponent {
   componentWillReceiveProps(nextProps) {
     if (nextProps.mediaStateSelect !== this.props.mediaStateSelect) {
       this.reRect();
+    }
+    if (nextProps.currentEditData) {
+      const dom = nextProps.currentEditData.dom;
+      setTimeout(() => {
+        // 避免使用多次样式，这里使用 setTimeout 等子级刷新
+        this.setState({
+          currentSelectRect: dom.getBoundingClientRect(),
+        });
+      });
     }
   }
 

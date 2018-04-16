@@ -107,7 +107,7 @@ export const getDataSourceValue = (id, templateData, parent, tempDefaultData) =>
   array.concat(childIds).forEach((key) => {
     const nameKey = key.split('=');
     if (nameKey.length > 1 && nameKey[0] === 'array_name') {
-      let i;
+      let i = parseFloat(nameKey[1].replace(/[a-z]/g, ''));
       const elem = t.filter((item, ii) => {
         if (item.name === nameKey[1]) {
           i = ii;

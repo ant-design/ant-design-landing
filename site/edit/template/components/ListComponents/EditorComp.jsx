@@ -61,7 +61,7 @@ class EditorComp extends React.Component {
           key="css"
           editorElem={currentEditData.dom}
           onChange={this.onChange}
-          cssToDom={false}
+          cssToDom={false} // 避免多次样式。
           isMobile={mediaStateSelect === 'Mobile'}
           defaultActiveKey={['EditorClassName', 'EditorState', 'EditorFont', 'EditorInterface']}
         />,

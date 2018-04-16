@@ -2,6 +2,20 @@
 import AV from 'leancloud-storage';
 import { getURLData, setURLData } from '../theme/template/utils';
 
+/* const firebase = window.firebase;
+firebase.initializeApp({
+  apiKey: 'AIzaSyD8iObwfoSImxi4Dg5hw5Y7Yy6x0VgrzTw',
+  authDomain: 'landings-9971b.firebaseapp.com',
+  projectId: 'landings-9971b',
+});
+const db = firebase.firestore();
+async function dsfsdf() {
+  await db.collection('landings').add({ first: 2 });
+  // const tt = await db.collection('landings').doc('4BIuYEh2sIAxZv34y3LH').delete();
+}
+
+dsfsdf(); */
+
 export const appId = 'ogaJShC9qJERt8LqGO80z2pO-gzGzoHsz';
 export const appKey = '8e5H5xBF86hI9vItQI1pt4kP';
 const fileName = 'Edit';

@@ -8,7 +8,6 @@ const Option = Select.Option;
 
 class EditInfluence extends React.PureComponent {
   onChange = (v) => {
-    console.log(v);
     const { dispatch } = this.props;
     dispatch(setCurrentMediaData(v));
   }

@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import { Radio } from 'antd';
 import { FormattedMessage } from 'react-intl';
 import ScrollOverPack from 'rc-scroll-anim/lib/ScrollOverPack';
-import QueueAnim from 'rc-queue-anim';
+import TweenOne from 'rc-tween-one';
 import ticker from 'rc-tween-one/lib/ticker';
 import WaterfallLayout from './component/WaterfallLayout';
 import data from '../../../edit/template/template.config';
@@ -142,17 +142,16 @@ export default class Page3 extends React.Component {
             }}
             onScroll={this.scrollEventListener}
           >
-            <QueueAnim
+            <TweenOne
               key="queue"
-              leaveReverse
               component={RadioGroup}
               componentProps={{ onChange: this.onLabelChange, defaultValue: 'all' }}
               className="page3-content-header"
-              delay={[0, 100]}
+              animation={{ y: 30, opacity: 0, type: 'from' }}
             >
               <RadioButton value="all" key="all">ALL</RadioButton>
               {this.getHeaderChildrenToRender()}
-            </QueueAnim>
+            </TweenOne>
             <WaterfallLayout
               key="a"
               queueAnimProps={{

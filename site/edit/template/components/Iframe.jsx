@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getUserData } from '../../../edit-module/actions';
-import { getState } from '../utils';
+import { getState } from '../../../utils';
 
 class Iframe extends React.Component {
   componentWillReceiveProps(nextProps) {

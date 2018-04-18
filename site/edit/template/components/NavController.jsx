@@ -4,11 +4,16 @@ import message from 'antd/lib/message';
 import Menu from 'antd/lib/menu';
 import Dropdown from 'antd/lib/dropdown';
 import Button from 'antd/lib/button';
+import Modal from 'antd/lib/modal';
 import { connect } from 'react-redux';
-import { getState } from '../utils';
+import CodeMirror from 'rc-editor-list/lib/components/common/CodeMirror';
+import 'codemirror/mode/javascript/javascript.js';
+
+import { formatCode } from '../utils';
+import { getState } from '../../../utils';
 import { getURLData, setURLData } from '../../../theme/template/utils';
-import { saveData, userName, newTemplate, removeTemplate } from '../../../edit-module/actions';
-import saveJsZip from './saveJsZip';
+import { saveData, userName, newTemplate, removeTemplate, setTemplateData } from '../../../edit-module/actions';
+import { saveJsZip, saveJSON } from './saveJsZip';
 
 const { Item, ItemGroup } = Menu;
 
@@ -22,13 +27,24 @@ class NavController extends React.PureComponent {
     const user = window.localStorage.getItem(userName) || '';
     this.state = {
       localStorage: user.split(',').filter(c => c),
+      code: JSON.stringify(props.templateData.data),
     };
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextProps) {
     const user = window.localStorage.getItem(userName) || '';
+    formatCode({
+      code: JSON.stringify(nextProps.templateData.data),
+      cb: (code) => {
+        this.setState({
+          code,
+        });
+      },
+      parser: 'json',
+    });
     this.setState({
       localStorage: user.split(',').filter(c => c),
+      codeModalShow: false,
     });
   }
   onPreview = (e) => {
@@ -58,8 +74,9 @@ class NavController extends React.PureComponent {
       window.ga('send', 'event', 'button', 'click', 'download');
     } */
     this.onSave(e, () => {
-      message.success('生成代码成功。');
-      saveJsZip(this.props.templateData);
+      saveJsZip(this.props.templateData, () => {
+        message.success('生成代码成功。');
+      });
     });
   }
 
@@ -88,7 +105,6 @@ class NavController extends React.PureComponent {
 
   getNewMenu = () => {
     const { localStorage } = this.state;
-    console.log(localStorage);
     const localChild = localStorage.map(key => (
       <Item
         key={key}
@@ -101,11 +117,11 @@ class NavController extends React.PureComponent {
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
           }}
-          className="new-list-text"
+          className="bar-list-text"
         >
           {key}
         </span>
-        <span className="new-list-remove">
+        <span className="bar-list-remove">
           <Button
             onClick={(e) => {
               e.stopPropagation();
@@ -126,11 +142,50 @@ class NavController extends React.PureComponent {
       </Menu>);
   }
 
+  onMoadlOpenClose = () => {
+    this.setState({
+      codeModalShow: !this.state.codeModalShow,
+    });
+  }
+
+  onSaveJSON = () => {
+    const { data } = this.props.templateData;
+    saveJSON(JSON.stringify(data), () => {
+      message.success('保存成功。');
+    });
+  }
+
+  onSaveData = () => {
+    const { code } = this.state;
+    const { templateData, dispatch, currentEditData } = this.props;
+    templateData.data = JSON.parse(code);
+    dispatch(setTemplateData(templateData));
+    setTimeout(() => {
+      if (currentEditData) {
+        currentEditData.reRect();
+      }
+    }, 100);
+  }
+
+  onReData = () => {
+    const { templateData } = this.props;
+    formatCode({
+      code: JSON.stringify(templateData.data),
+      parser: 'json',
+      cb: (code) => {
+        this.setState({
+          code,
+        });
+      },
+    });
+  }
+
   render() {
     const menuChild = [
       { name: '保存编辑', icon: 'save', onClick: this.onSave },
       { name: '生成预览', icon: 'eye-o', onClick: this.onPreview },
       { name: '生成代码', icon: 'code-o', onClick: this.onSaveCode },
+      { name: '编辑数据', icon: 'tool', onClick: this.onMoadlOpenClose },
     ].map((item, i) => (
       <li key={i.toString()} onClick={item.onClick}>
         <Icon type={item.icon} />
@@ -144,7 +199,7 @@ class NavController extends React.PureComponent {
     const port = isLocalMode ? ':7111' : '';
     const href = `${protocol}//${winLocation.hostname}${port}`;
     const newIcon = (
-      <div className="new" onClick={this.onClickNew}>
+      <div className="right-icon" onClick={this.onClickNew}>
         <Icon type="file-add" />
       </div>
     );
@@ -168,6 +223,31 @@ class NavController extends React.PureComponent {
           >
             {newIcon}
           </Dropdown>) : newIcon}
+        <Modal
+          title="当前编辑数据"
+          visible={this.state.codeModalShow}
+          width={800}
+          footer={null}
+          onCancel={this.onMoadlOpenClose}
+        >
+          <p>
+            <Icon type="exclamation-circle" style={{ marginRight: 8 }} />
+            将下载的 JSON 复制到此处，请不要随便改更数据。如果数据出错请刷新。
+          </p>
+          <CodeMirror
+            value={this.state.code}
+            options={{
+              mode: { name: 'javascript', json: true },
+              theme: 'ambiance',
+            }}
+            onChange={(e, metadata, v) => {
+              this.setState({ code: v });
+            }}
+          />
+          <Button type="primary" style={{ marginTop: '1em' }} onClick={this.onSaveData}>保存</Button>
+          <Button key="re" style={{ marginLeft: 8 }} onClick={this.onReData}>重置</Button>
+          <Button onClick={this.onSaveJSON} style={{ marginLeft: 8 }}>下载 JSON</Button>
+        </Modal>
       </div>
     );
   }

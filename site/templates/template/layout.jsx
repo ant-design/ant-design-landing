@@ -6,10 +6,9 @@ import { mobileTitle } from 'rc-editor-list/lib/utils';
 import webData from './element/template.config';
 import {
   getEditDomData,
-  mergeEditDataToDefault,
   setDataIdToDataSource,
 } from './utils';
-import { getState, format } from '../../edit/template/utils';
+import { getState, mergeEditDataToDefault } from '../../utils';
 import { getURLData } from '../../theme/template/utils';
 import { getUserData } from '../../edit-module/actions';
 
@@ -78,8 +77,6 @@ class Layout extends React.Component {
   }
 
   messageHandle = (e) => {
-    console.log(e.data);
-
     if (e.data.type && e.data.type.indexOf('webpack') === -1) {
       this.setState({
         templateData: e.data,
@@ -124,8 +121,8 @@ class Layout extends React.Component {
         cssMobileCss += mobileCss.join();
       }
     });
-    this.styleTag.innerHTML = format(`${cssStyle || ''}${cssMobileCss
-      ? `${mobileTitle}${cssMobileCss}}` : ''}`, 'css');
+    this.styleTag.innerHTML = `${cssStyle || ''}${cssMobileCss
+      ? `${mobileTitle}${cssMobileCss}}` : ''}`;
   }
 
   getDataToChildren = () => {

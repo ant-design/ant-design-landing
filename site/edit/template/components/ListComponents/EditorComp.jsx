@@ -3,7 +3,7 @@ import EditorList from 'rc-editor-list';
 import EditorProps from './PropsComp';
 import { getDataSourceValue } from '../../utils';
 import { setTemplateData } from '../../../../edit-module/actions';
-import { deepCopy } from '../../../../templates/template/utils';
+import { deepCopy } from '../../../../utils';
 import tempData from '../../../../templates/template/element/template.config';
 
 class EditorComp extends React.Component {

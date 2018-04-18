@@ -10,7 +10,7 @@ import InputNumber from 'antd/lib/input-number';
 import InputGroup from './InputGroup';
 import tempData from '../../../../templates/template/element/template.config';
 import compConfig from '../../component.config';
-import { mergeEditDataToDefault } from '../../../../templates/template/utils';
+import { mergeEditDataToDefault } from '../../../../utils';
 import { getDataSourceValue } from '../../utils';
 import CheckboxGroup from './CheckboxGroup';
 

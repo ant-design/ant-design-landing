@@ -52,7 +52,7 @@ export default class Page3 extends React.Component {
   }
   getHeaderChildrenToRender = () =>
     Object.keys(data).map(key => (
-      key !== 'Other' && <RadioButton value={key} key={key}>{key}</RadioButton>
+      key !== 'Other' && <RadioButton value={key} key={key}>{key}s</RadioButton>
     ));
   onLabelChange = (v) => {
     const type = v.target.value;

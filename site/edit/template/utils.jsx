@@ -1,40 +1,27 @@
-import React from 'react';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import parseJs from 'prettier/src/parser-babylon';
-import parseCss from 'prettier/src/parser-postcss';
-import { printAstToDoc } from 'prettier/src/printer';
-import { printDocToString } from 'prettier/src/doc-printer';
-import comments from 'prettier/src/comments';
-
 // import { createLogger } from 'redux-logger';
-import rootReducer from '../../edit-module/reducers';
 
-export const store = createStore(rootReducer, applyMiddleware(thunk));
-
-export function dataToArray(vars) {
-  if (!vars && vars !== 0) {
-    return [];
-  }
-  if (Array.isArray(vars)) {
-    return vars;
-  }
-  return [vars];
-}
-
-export function toArrayChildren(children) {
-  const ret = [];
-  React.Children.forEach(children, (c) => {
-    ret.push(c);
+const worker = new Worker('/worker.js');
+export function formatCode({ code, cb, parser = 'babylon', key }) {
+  const options = {
+    useTabs: false,
+    tabWidth: 2,
+    printWidth: 80,
+    singleQuote: true,
+    trailingComma: 'es5',
+    bracketSpacing: true,
+    parser,
+    arrowParens: 'always',
+    semi: true,
+  };
+  worker.onmessage = (message) => {
+    cb(message.data.formatted, message.data.key);
+  };
+  worker.postMessage({
+    text: code,
+    key,
+    options,
   });
-  return ret;
 }
-
-export const isImg = /\.(gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/;
-
-export const getState = (state) => {
-  return state;
-};
 
 const getParentRect = (item) => {
   const p = [];
@@ -137,63 +124,3 @@ export const getDataSourceValue = (id, templateData, parent, tempDefaultData) =>
   });
   return t;
 };
-function ensureAllCommentsPrinted(astComments) {
-  if (!astComments) {
-    return;
-  }
-
-  for (let i = 0; i < astComments.length; i += 1) {
-    if (astComments[i].value.trim() === 'prettier-ignore') {
-      // If there's a prettier-ignore, we're not printing that sub-tree so we
-      // don't know if the comments was printed or not.
-      return;
-    }
-  }
-
-  astComments.forEach((comment) => {
-    if (!comment.printed) {
-      throw new Error(
-        `Comment "${
-          comment.value.trim()
-        }" was not printed. Please report this error!`
-      );
-    }
-    delete comment.printed;
-  });
-}
-
-function attachComments(text, ast, opts) {
-  const astComments = ast.comments;
-  if (astComments) {
-    delete ast.comments;
-    comments.attach(astComments, ast, text, opts);
-  }
-  ast.tokens = [];
-  opts.originalText = text.trimRight();
-  return astComments;
-}
-
-const cssArray = ['css', 'less', 'scss'];
-export function format(code, parserName) {
-  const opts = {
-    useTabs: false,
-    tabWidth: 2,
-    printWidth: 80,
-    singleQuote: true,
-    trailingComma: 'es5',
-    bracketSpacing: true,
-    parser: parserName || 'babylon',
-    arrowParens: 'always',
-    // insertPragma: true,
-    requirePragma: true,
-    semi: true,
-    originalText: code,
-  };
-  const parser = cssArray.indexOf(parserName) >= 0 ? parseCss : parseJs;
-  const ast = parser(code, null, opts);
-  const astComments = attachComments(code, ast, opts);
-  const doc = printAstToDoc(ast, opts);
-  const result = printDocToString(doc, opts);
-  ensureAllCommentsPrinted(astComments);
-  return result.formatted;
-}

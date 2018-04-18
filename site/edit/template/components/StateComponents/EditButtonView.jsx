@@ -5,7 +5,7 @@ import Popover from 'antd/lib/popover';
 import Input from 'antd/lib/input';
 import Dropdown from 'antd/lib/dropdown';
 import Menu from 'antd/lib/menu';
-import { isImg } from '../../utils';
+import { isImg } from '../../../../utils';
 
 const ButtonGroup = Button.Group;
 

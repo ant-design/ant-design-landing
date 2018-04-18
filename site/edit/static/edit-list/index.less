@@ -21,11 +21,11 @@
       }
       .ant-tabs {
         &-bar {
-          height: 48px;
+          height: 64px;
           border-color: @edit-line-color;
         }
         &-content {
-          height: ~"calc(100% - 64px)";
+          height: ~"calc(100% - 80px)";
         }
         &-ink-bar {
           display: none !important;
@@ -34,10 +34,10 @@
           margin-right: 0;
           border-right: 1px solid @edit-line-color;
           padding: 0 24px;
-          line-height: 48px;
+          line-height: 64px;
           font-size: 16px;
           color: fade(@edit-text-color, 60);
-          height: 49px;
+          height: 65px;
           transition: color 0.3s @ease-in-out, background .3s @ease-in-out;
           &-active {
             color: @edit-text-color;

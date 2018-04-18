@@ -1,8 +1,8 @@
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 import { mobileTitle } from 'rc-editor-list/lib/utils';
-import { format, isImg } from '../utils';
-import { mergeEditDataToDefault } from '../../../templates/template/utils';
+import { formatCode } from '../utils';
+import { isImg, mergeEditDataToDefault } from '../../../utils';
 import webData from '../../../templates/template/element/template.config';
 import otherComp from '../../../templates/template/other/otherToString';
 import lessComp from '../../../templates/static/lessToString';
@@ -57,7 +57,7 @@ const getEditCss = (dataArray) => {
     cssStr += getCssToString(css, className);
     mobileCssStr += getCssToString(mobileCss, className);
   });
-  return format(`${cssStr}${mobileCssStr ? `${mobileTitle}${mobileCssStr}}` : ''}`, 'css');
+  return `${cssStr}${mobileCssStr ? `${mobileTitle}${mobileCssStr}}` : ''}`;
 };
 const setChildrenToIndex = (other) => {
   let importStr = '';
@@ -85,13 +85,12 @@ const setChildrenToIndex = (other) => {
     childStr += `<Point key="list" data={${JSON.stringify(templateStrObj.TEMPLATE)}} ${pointProps}/>,`;
   }
   childStr = `const children = [${childStr}]`;
-  templateStrObj.OTHER.index = format(templateStrObj.OTHER.index
+  return templateStrObj.OTHER.index
     .replace('&dataSource&', dataSourceStr)
     .replace('&import&', importStr)
     .replace('&children&', childStr)
     .replace('&scrollScreen&', '')
-    .replace('&scrollScreen-pragma&', '')
-  );
+    .replace('&scrollScreen-pragma&', '');
 };
 const jsToZip = () => {
   const zip = new JSZip();
@@ -169,11 +168,16 @@ const imgToTag = (data) => {
   return data;
 };
 
-export default function saveJsZip(templateData) {
+export function saveJsZip(templateData, callBack) {
   const { data } = templateData;
   const { config, style, template, other } = data;
   templateStrObj.TEMPLATE = template;
-  templateStrObj.EDITCSS = getEditCss(style);
+  const promiseObject = {};
+  promiseObject.EDITCSS = { type: 'css', value: getEditCss(style) };
+  /* getEditCss(style).then((v) => {
+    templateStrObj.EDITCSS = v;
+  }); */
+
   template.forEach((key) => {
     const keys = key.split('_');
     const { templateStr, less } = webData[keys[0]];
@@ -183,7 +187,11 @@ export default function saveJsZip(templateData) {
         .replace(/"(<.*?>)"/g, '<span>$1</span>')//  to react;
         .replace(/\\"/g, '"')
         .replace(/<br>/g, '<br />')}`;
-    templateStrObj.PROPS[key] = format(props);
+    promiseObject[`PROPS-${key}`] = { value: props };
+    /*  formatCode(props).then((value) => {
+      templateStrObj.PROPS[key] = value;
+    }); */
+
     // 转换 antd;
     const l = templateStr.match(/import\s+(.+?)\s+'antd\/lib\/(.+?)';/g);
     let newTemplateStr = templateStr.replace(/import\s+(.+?)\s+'antd\/lib\/(.+?)';/g, '&antd&');
@@ -192,11 +200,18 @@ export default function saveJsZip(templateData) {
       newTemplateStr = newTemplateStr.replace('&antd&', `import {${ll}} from 'antd';`);
     }
     newTemplateStr = newTemplateStr.replace(/(&antd&)/g, '');
-    // format(JSON.stringify(imgToTag(dataSource)).replace(/({|,|\n)"(.*?)":/ig, '$1$2:'), 'json')
+    // formatCode(JSON.stringify(imgToTag(dataSource)).replace(/({|,|\n)"(.*?)":/ig, '$1$2:'), 'json')
     // .replace(/"(<.*?>)"/g, '<span>$1</span>').replace('<br>', '<br />').replace(/"/g, '\'');
-    templateStrObj.JS[keys[0]] = format(newTemplateStr
+    promiseObject[`JS-${keys[0]}`] = {
+      value: newTemplateStr
+        .replace(replaceStr, '')
+        .replace(replaceValueStr, '$1'),
+    };
+    /* formatCode(newTemplateStr
       .replace(replaceStr, '')
-      .replace(replaceValueStr, '$1'));
+      .replace(replaceValueStr, '$1')).then((v) => {
+      templateStrObj.JS[keys[0]] = v;
+    }); */
     templateStrObj.LESS[keys[0]] = less.replace('../../../static/custom.less', './custom.less');
   });
   templateStrObj.OTHER.index = templateStrObj.OTHER.index.replace('&scrollAnim&',
@@ -215,6 +230,47 @@ export default function saveJsZip(templateData) {
         break;
     }
   });
-  setChildrenToIndex(other);
-  jsToZip();
+  // templateStrObj.OTHER.index = setChildrenToIndex(other);
+  promiseObject['OTHER-index'] = { value: setChildrenToIndex(other) };
+  let i = 0;
+  const promiseArray = Object.keys(promiseObject);
+  function startSvae() {
+    if (i >= promiseArray.length) {
+      jsToZip();
+      callBack();
+    }
+  }
+  promiseArray.forEach((key) => {
+    const item = promiseObject[key];
+    formatCode({
+      code: item.value,
+      parser: item.type,
+      cb: (v, cKey) => {
+        const keys = cKey.split('-');
+        if (keys[1]) {
+          templateStrObj[keys[0]][keys[1]] = v;
+        } else {
+          templateStrObj[cKey] = v;
+        }
+        i += 1;
+        startSvae();
+      },
+      key,
+    });
+  });
+}
+
+export function saveJSON(json, cb) {
+  const zip = new JSZip();
+  formatCode({
+    code: json,
+    parser: 'json',
+    cb: (v) => {
+      zip.file('edit-data.json', v);
+      zip.generateAsync({ type: 'blob' }).then((content) => {
+        saveAs(content, 'edit-data.json.zip');
+        cb();
+      });
+    },
+  });
 }

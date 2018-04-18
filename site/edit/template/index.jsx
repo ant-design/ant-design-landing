@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 
 import Layout from './layout';
 
-import { store } from './utils';
+import { store } from '../../utils';
 import '../static/style';
 
 function Edit() {

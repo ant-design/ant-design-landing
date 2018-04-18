@@ -1,4 +1,4 @@
-import { dataToArray } from '../../edit/template/utils';
+import { dataToArray } from '../../utils';
 
 export function textStyle(_data) {
   const data = _data || {};

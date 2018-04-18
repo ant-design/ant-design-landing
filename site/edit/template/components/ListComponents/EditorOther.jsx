@@ -6,8 +6,7 @@ import Switch from 'antd/lib/switch';
 import Row from 'antd/lib/row';
 import Tooltip from 'antd/lib/tooltip';
 import Icon from 'antd/lib/icon';
-import { isImg } from '../../utils';
-import { deepCopy } from '../../../../templates/template/utils';
+import { isImg, deepCopy } from '../../../../utils';
 import { setTemplateData } from '../../../../edit-module/actions';
 
 const Panel = Collapse.Panel;

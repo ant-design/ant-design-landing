@@ -1,5 +1,5 @@
 export default {
-  Navs: {
+  Nav: {
     name: '导航',
     order: 0,
     data: [
@@ -13,7 +13,7 @@ export default {
       },
     ],
   },
-  Banners: {
+  Banner: {
     name: 'Banner',
     order: 1,
     data: [
@@ -34,7 +34,7 @@ export default {
       },
     ],
   },
-  Contents: {
+  Content: {
     name: '内容',
     order: 2,
     data: [
@@ -84,7 +84,7 @@ export default {
       { disabled: true, src: 'https://zos.alipayobjects.com/rmsportal/TAvpiZHalFQVewZ.jpg' }, */
     ],
   },
-  Footers: {
+  Footer: {
     name: '页尾',
     order: 3,
     data: [

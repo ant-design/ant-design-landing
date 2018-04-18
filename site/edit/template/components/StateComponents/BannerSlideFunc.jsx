@@ -4,7 +4,7 @@ import Popover from 'antd/lib/popover';
 import Button from 'antd/lib/button';
 import Icon from 'antd/lib/icon';
 import { getRandomKey } from 'rc-editor-list/lib/utils';
-import { mergeEditDataToDefault } from '../../../../templates/template/utils';
+import { mergeEditDataToDefault } from '../../../../utils';
 import tempData from '../../../../templates/template/element/template.config';
 import ListSort from './ListSort';
 import { setTemplateData } from '../../../../edit-module/actions';

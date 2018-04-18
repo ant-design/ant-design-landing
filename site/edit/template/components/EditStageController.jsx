@@ -7,8 +7,8 @@ import deepEql from 'deep-eql';
 import dragula from 'dragula';
 import Editor from 'react-medium-editor';
 import { setTemplateData, setCurrentData } from '../../../edit-module/actions';
-import { getState, getChildRect, getCurrentDom, isImg, getDataSourceValue } from '../utils';
-import { mergeEditDataToDefault, deepCopy } from '../../../templates/template/utils';
+import { getChildRect, getCurrentDom, getDataSourceValue } from '../utils';
+import { isImg, getState, deepCopy, mergeEditDataToDefault } from '../../../utils';
 import webData from '../template.config';
 import tempData from '../../../templates/template/element/template.config';
 import EditButtton from './StateComponents/EditButtonView';
@@ -319,6 +319,7 @@ class EditStateController extends React.PureComponent {
         {
           dom,
           id,
+          reRect: this.reRect,
         }
       ));
     });

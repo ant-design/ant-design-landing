@@ -1,8 +1,6 @@
 import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import Row from 'antd/lib/row';
-import Col from 'antd/lib/col';
-import Button from 'antd/lib/button';
+import { Row, Col, Button } from 'antd';
 import * as utils from '../utils';
 
 class Footer extends React.Component {

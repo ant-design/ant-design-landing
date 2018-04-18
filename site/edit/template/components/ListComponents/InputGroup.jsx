@@ -1,6 +1,5 @@
 import React from 'react';
-import Input from 'antd/lib/input';
-import InputNumber from 'antd/lib/input-number';
+import { Input, InputNumber } from 'antd';
 
 const AntInputGroup = Input.Group;
 

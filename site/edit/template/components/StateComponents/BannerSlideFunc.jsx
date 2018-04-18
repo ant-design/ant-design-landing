@@ -1,8 +1,5 @@
 import React from 'react';
-import Pagination from 'antd/lib/pagination';
-import Popover from 'antd/lib/popover';
-import Button from 'antd/lib/button';
-import Icon from 'antd/lib/icon';
+import { Pagination, Popover, Button, Icon } from 'antd';
 import { getRandomKey } from 'rc-editor-list/lib/utils';
 import { mergeEditDataToDefault } from '../../../../utils';
 import tempData from '../../../../templates/template/element/template.config';

@@ -1,10 +1,5 @@
 import React from 'react';
-import Icon from 'antd/lib/icon';
-import Button from 'antd/lib/button';
-import Popover from 'antd/lib/popover';
-import Input from 'antd/lib/input';
-import Dropdown from 'antd/lib/dropdown';
-import Menu from 'antd/lib/menu';
+import { Icon, Button, Popover, Input, Dropdown, Menu } from 'antd';
 import { isImg } from '../../../../utils';
 
 const ButtonGroup = Button.Group;

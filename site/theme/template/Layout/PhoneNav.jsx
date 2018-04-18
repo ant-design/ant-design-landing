@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import Popover from 'antd/lib/popover';
+import { Popover } from 'antd';
 
 export default class PhoneNav extends React.PureComponent {
   state = {

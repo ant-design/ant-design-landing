@@ -1,11 +1,6 @@
 import React from 'react';
-import Collapse from 'antd/lib/collapse';
-import Col from 'antd/lib/col';
-import Radio from 'antd/lib/radio';
-import Switch from 'antd/lib/switch';
-import Row from 'antd/lib/row';
-import Tooltip from 'antd/lib/tooltip';
-import Icon from 'antd/lib/icon';
+import { Collapse, Col, Radio, Switch, Row, Tooltip, Icon } from 'antd';
+
 import { isImg, deepCopy } from '../../../../utils';
 import { setTemplateData } from '../../../../edit-module/actions';
 

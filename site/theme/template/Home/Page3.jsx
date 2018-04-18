@@ -1,8 +1,7 @@
 /* eslint no-underscore-dangle: 0 */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Radio from 'antd/lib/radio';
-import Spin from 'antd/lib/spin';
+import { Radio } from 'antd';
 import { FormattedMessage } from 'react-intl';
 import ScrollOverPack from 'rc-scroll-anim/lib/ScrollOverPack';
 import QueueAnim from 'rc-queue-anim';

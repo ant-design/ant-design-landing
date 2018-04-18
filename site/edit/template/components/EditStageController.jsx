@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import Icon from 'antd/lib/icon';
-import Button from 'antd/lib/button';
+import { Icon, Button } from 'antd';
 import deepEql from 'deep-eql';
 import dragula from 'dragula';
 import Editor from 'react-medium-editor';

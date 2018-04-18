@@ -1,6 +1,5 @@
 import React from 'react';
-import Select from 'antd/lib/select';
-import Icon from 'antd/lib/icon';
+import { Select, Icon } from 'antd';
 import { connect } from 'react-redux';
 import { getState } from '../../../utils';
 import { setCurrentMediaData } from '../../../edit-module/actions';

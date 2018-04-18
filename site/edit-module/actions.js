@@ -36,13 +36,20 @@ export const postType = {
   SET_EDIT: 'setEdit',
   SET_MEDIA: 'setMedia',
 };
-
 export const removeTemplate = (key) => {
   const TemplateObject = AV.Object.createWithoutData(fileName, key);
   TemplateObject.destroy().then(() => {
     console.log('删除成功');
   });
 };
+
+function dataToLocalStorage(obj) {
+  window.localStorage.setItem(obj.id, JSON.stringify({
+    id: obj.id,
+    attributes: obj.attributes,
+  }));
+}
+
 export const newTemplate = (cb) => {
   const TemplateObject = AV.Object.extend(fileName);
   const tempData = new TemplateObject();
@@ -59,6 +66,7 @@ export const newTemplate = (cb) => {
     setURLData('uid', obj.id);
     window.localStorage.setItem(userName, `${obj.id},${
       window.localStorage.getItem(userName) || ''}`);
+    dataToLocalStorage(obj);
     cb(obj);
   }, (error) => {
     console.error(error);
@@ -94,35 +102,44 @@ export const getUserData = () => (dispatch) => {
       });
     });
   } else {
-    const tempData = new AV.Query(fileName);
-    tempData.get(uid).then((obj) => {
-      const inLocal = localStorage.some(key => key === uid);
-      let localStr = localStorage.join(',');
-      if (!inLocal) {
-        localStr = `${uid},${localStr}`;
-      }
-      window.localStorage.setItem(userName, localStr);
+    const storageDataStr = window.localStorage.getItem(uid);
+    if (storageDataStr) {
       dispatch({
         type: postType.POST_SUCCESS,
-        templateData: obj,
+        templateData: JSON.parse(storageDataStr),
       });
-    }, (error) => {
-      console.log(JSON.stringify(error));
-      if (error.code === 101) {
-        window.localStorage.setItem(userName, localStorage.filter(key => key !== uid).join(','));
-        setURLData('uid');
-        return getUserData()(dispatch);
-      } else if (error.code === -1) {
-        t += 1;
-        if (t < 3) {
-          getUserData()(dispatch);
-        } else {
-          console.error('数据请求错误：请检查你的 uid 和网络, 再刷新网页。');
+    } else {
+      const tempData = new AV.Query(fileName);
+      tempData.get(uid).then((obj) => {
+        const inLocal = localStorage.some(key => key === uid);
+        let localStr = localStorage.join(',');
+        if (!inLocal) {
+          localStr = `${uid},${localStr}`;
         }
-      } else if (error.code === 100) {
-        console.error('数据挂了，请稍后。');
-      }
-    });
+        window.localStorage.setItem(userName, localStr);
+        dataToLocalStorage(obj);
+        dispatch({
+          type: postType.POST_SUCCESS,
+          templateData: obj,
+        });
+      }, (error) => {
+        console.log(JSON.stringify(error));
+        if (error.code === 101) {
+          window.localStorage.setItem(userName, localStorage.filter(key => key !== uid).join(','));
+          setURLData('uid');
+          return getUserData()(dispatch);
+        } else if (error.code === -1) {
+          t += 1;
+          if (t < 3) {
+            getUserData()(dispatch);
+          } else {
+            console.error('数据请求错误：请检查你的 uid 和网络, 再刷新网页。');
+          }
+        } else if (error.code === 100) {
+          console.error('数据挂了，请稍后。');
+        }
+      });
+    }
   }
 };
 
@@ -145,6 +162,10 @@ export const fetchData = () => (dispatch, getState) => {
 };
 
 export const setTemplateData = (data) => {
+  dataToLocalStorage({
+    id: data.uid,
+    attributes: data.data,
+  });
   return {
     type: postType.SET_TEMPLATE,
     data: data.data,

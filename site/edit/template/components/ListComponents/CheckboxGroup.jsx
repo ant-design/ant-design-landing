@@ -1,7 +1,5 @@
 import React from 'react';
-import Checkbox from 'antd/lib/checkbox';
-import Row from 'antd/lib/row';
-import Col from 'antd/lib/col';
+import { Checkbox, Row, Col } from 'antd';
 
 const AntCheckboxGroup = Checkbox.Group;
 

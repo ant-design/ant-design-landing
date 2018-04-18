@@ -1,6 +1,5 @@
 import React from 'react';
-import Button from 'antd/lib/button';
-import Icon from 'antd/lib/icon';
+import { Button, Icon } from 'antd';
 import QueueAnim from 'rc-queue-anim';
 import TweenOne from 'rc-tween-one';
 import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';

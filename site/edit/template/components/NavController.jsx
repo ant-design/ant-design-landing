@@ -1,10 +1,5 @@
 import React from 'react';
-import Icon from 'antd/lib/icon';
-import message from 'antd/lib/message';
-import Menu from 'antd/lib/menu';
-import Dropdown from 'antd/lib/dropdown';
-import Button from 'antd/lib/button';
-import Modal from 'antd/lib/modal';
+import { Icon, message, Menu, Dropdown, Button, Modal } from 'antd';
 import { connect } from 'react-redux';
 import CodeMirror from 'rc-editor-list/lib/components/common/CodeMirror';
 import 'codemirror/mode/javascript/javascript.js';
@@ -47,10 +42,11 @@ class NavController extends React.PureComponent {
       codeModalShow: false,
     });
   }
-  onPreview = (e) => {
-    this.onSave(e, () => {
+  onPreview = () => {
+    /* this.onSave(e, () => {
       message.success('生成预览成功。');
-    });
+    }); */
+    message.success('生成预览成功。');
     const { templateData } = this.props;
     const url = `${location.port ? `${location.protocol}//${location.hostname}:7113/`
       : `${location.origin}/templates/`}#uid=${templateData.uid}`;
@@ -69,14 +65,17 @@ class NavController extends React.PureComponent {
     });
   }
 
-  onSaveCode = (e) => {
+  onSaveCode = () => {
     /*     if (!location.port && window.ga) {
       window.ga('send', 'event', 'button', 'click', 'download');
     } */
-    this.onSave(e, () => {
+    /* this.onSave(e, () => {
       saveJsZip(this.props.templateData, () => {
         message.success('生成代码成功。');
       });
+    }); */
+    saveJsZip(this.props.templateData, () => {
+      message.success('生成代码成功。');
     });
   }
 

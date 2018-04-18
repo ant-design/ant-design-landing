@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { addLocaleData, IntlProvider } from 'react-intl';
-import LocaleProvider from 'antd/lib/locale-provider';
+import { LocaleProvider } from 'antd';
 import enUS from 'antd/lib/locale-provider/en_US';
 import { enquireScreen } from 'enquire-js';
 import Animate from 'rc-animate';

@@ -2,9 +2,7 @@ import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import PropTypes from 'prop-types';
 import { Link } from 'bisheng/router';
-import Row from 'antd/lib/row';
-import Col from 'antd/lib/col';
-import Menu from 'antd/lib/menu';
+import { Row, Col, Menu } from 'antd';
 
 import PhoneNav from './PhoneNav';
 import { getLocalizedPathname } from '../utils';

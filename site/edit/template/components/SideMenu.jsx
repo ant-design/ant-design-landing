@@ -1,6 +1,5 @@
 import React from 'react';
-import Icon from 'antd/lib/icon';
-import Tooltip from 'antd/lib/tooltip';
+import { Icon, Tooltip } from 'antd';
 import DrawerMenu from 'rc-drawer-menu';
 import webData from '../template.config';
 

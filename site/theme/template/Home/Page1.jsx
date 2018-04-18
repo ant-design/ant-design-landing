@@ -3,8 +3,7 @@ import { TweenOneGroup } from 'rc-tween-one';
 import { FormattedMessage } from 'react-intl';
 import ScrollOverPack from 'rc-scroll-anim/lib/ScrollOverPack';
 import QueueAnim from 'rc-queue-anim';
-import Row from 'antd/lib/row';
-import Col from 'antd/lib/col';
+import { Row, Col } from 'antd';
 
 const page1 = [
   {

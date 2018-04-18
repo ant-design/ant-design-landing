@@ -1,6 +1,5 @@
 import React from 'react';
-import Tooltip from 'antd/lib/tooltip';
-import Icon from 'antd/lib/icon';
+import { Tooltip, Icon } from 'antd';
 
 export default function EditButton({
   title,

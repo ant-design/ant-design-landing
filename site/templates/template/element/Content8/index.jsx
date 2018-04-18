@@ -1,7 +1,7 @@
 import React from 'react';
 import TweenOne from 'rc-tween-one';
 import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';
-import Tabs from 'antd/lib/tabs';
+import { Tabs } from 'antd';
 import '../../../static/content.less';
 import './index.less';
 
@@ -47,7 +47,7 @@ class Content extends React.Component {
         >
           <i><img src={tag.children.icon} width="100%" /></i>
           {tag.children.tag}
-        </span>)}
+              </span>)}
       >
         <TweenOne.TweenOneGroup
           enter={{

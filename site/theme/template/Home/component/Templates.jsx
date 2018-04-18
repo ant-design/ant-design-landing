@@ -1,8 +1,6 @@
 import React from 'react';
 import TweenOne, { TweenOneGroup } from 'rc-tween-one';
-import Row from 'antd/lib/row';
-import Col from 'antd/lib/col';
-import Pagination from 'antd/lib/pagination';
+import { Row, Col, Pagination } from 'antd';
 import QueueAnim from 'rc-queue-anim';
 import ScrollOverPack from 'rc-scroll-anim/lib/ScrollOverPack';
 import { FormattedMessage } from 'react-intl';

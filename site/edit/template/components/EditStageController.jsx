@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { connect } from 'react-redux';
 import { Icon, Button } from 'antd';
 import deepEql from 'deep-eql';
 import dragula from 'dragula';
 import Editor from 'react-medium-editor';
 import { setTemplateData, setCurrentData } from '../../../edit-module/actions';
 import { getChildRect, getCurrentDom, getDataSourceValue } from '../utils';
-import { isImg, getState, deepCopy, mergeEditDataToDefault } from '../../../utils';
+import { isImg, deepCopy, mergeEditDataToDefault } from '../../../utils';
 import webData from '../template.config';
 import tempData from '../../../templates/template/element/template.config';
 import EditButtton from './StateComponents/EditButtonView';
@@ -442,8 +441,9 @@ class EditStateController extends React.PureComponent {
   }
 
   render() {
-    const { className, mediaStateSelect } = this.props;
+    const { className, mediaStateSelect, templateData } = this.props;
     const { data, currentHoverRect, currentSelectRect, iframe, openEditText } = this.state;
+
     const dataArray = data ? Object.keys(data) : [];
     const overlayChild = dataArray.map((key, i) => {
       const item = data[key];
@@ -487,4 +487,4 @@ class EditStateController extends React.PureComponent {
     );
   }
 }
-export default connect(getState)(EditStateController);
+export default EditStateController;

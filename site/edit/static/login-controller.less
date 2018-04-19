@@ -1,0 +1,45 @@
+.login-controller {
+  background: @edit-bg-color;
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: @edit-text-color;
+  .login-view {
+    width: 360px;
+    height: 280px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    padding: 24px;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.35);
+    .header {
+      font-size: 46px;
+      color: @text-color;
+      display: block;
+      margin: 0px auto 32px;
+      width: 60px;
+      height: 60px;
+      line-height: 60px;
+      border-radius: 100%;
+      color: @edit-text-color;
+      background: @primary-color;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    p {
+      margin-bottom: 16px;
+    }
+    &.password-no {
+      animation: antSwingIn .5s linear;
+    }
+  }
+}

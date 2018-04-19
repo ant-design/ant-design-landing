@@ -13,7 +13,7 @@
     justify-content: center;
     align-items: center;
     float: left;
-    &:before{
+    &:before {
       content: '';
       display: block;
       position: absolute;
@@ -24,19 +24,20 @@
     }
     img {
       position: relative;
-      z-index: 1;;
+      z-index: 1;
+      ;
     }
   }
   .menu {
     float: left;
     border-left: 1px solid @edit-line-color;
     margin: 0;
-    > li {
+    >li {
       padding: 0 16px;
       display: inline-block;
       border-right: 1px solid @edit-line-color;
       cursor: pointer;
-      > i {
+      >i {
         margin-right: 8px;
         font-size: 16px;
         vertical-align: middle;
@@ -51,14 +52,18 @@
     border-left: 1px solid @edit-line-color;
   }
 }
-.bar-list-text, .bar-list-remove {
+
+.bar-list-text,
+.bar-list-remove {
   display: inline-block;
   vertical-align: text-top;
   line-height: 24px;
 }
+
 .bar-list-text {
   width: ~"calc(100% - 32px)";
 }
+
 .bar-list-remove {
   width: 32px;
   text-align: right;
@@ -66,5 +71,6 @@
     font-size: 12px;
     width: 18px;
     height: 18px;
+   
   }
 }

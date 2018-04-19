@@ -15,8 +15,12 @@ class Iframe extends React.Component {
     }
   }
   getData = () => {
-    const { dispatch } = this.props;
-    dispatch(getUserData());
+    const { dispatch, templateData } = this.props;
+    if (templateData.type === 'success') {
+      this.componentWillReceiveProps(this.props);
+    } else {
+      dispatch(getUserData());
+    }
   }
   render() {
     const { templateData, className, mediaStateSelect } = this.props;
@@ -37,6 +41,7 @@ class Iframe extends React.Component {
         title="template"
         onLoad={this.getData}
         id="myIframe"
+        style={this.props.style}
         ref={(c) => {
           this.iframe = c;
         }}

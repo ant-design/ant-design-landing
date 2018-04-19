@@ -19,12 +19,14 @@ dsfsdf(); */
 export const appId = 'ogaJShC9qJERt8LqGO80z2pO-gzGzoHsz';
 export const appKey = '8e5H5xBF86hI9vItQI1pt4kP';
 const fileName = 'Edit';
+const userAvName = 'EditUser';
 AV.init({
   appId,
   appKey,
 });
 
 export const userName = 'antd-landings-user-name';
+
 let t = 0;
 let localNum = 0;
 export const postType = {
@@ -35,6 +37,8 @@ export const postType = {
   SET_TEMPLATE: 'setTemplate',
   SET_EDIT: 'setEdit',
   SET_MEDIA: 'setMedia',
+  SET_USER: 'setUser',
+  SET_USERTEMPLATE: 'setUserTemplate',
 };
 export const removeTemplate = (key) => {
   const TemplateObject = AV.Object.createWithoutData(fileName, key);
@@ -42,7 +46,6 @@ export const removeTemplate = (key) => {
     console.log('删除成功');
   });
 };
-
 function dataToLocalStorage(obj) {
   window.localStorage.setItem(obj.id, JSON.stringify({
     id: obj.id,
@@ -86,14 +89,15 @@ export const getUserData = () => (dispatch) => {
    * 2. 空 hash 进入, 依次往下取 localStorage 里的值, 没有将删除再新建。
    */
   // 获取本地是否有数据存在 localStorage;
-  const localStorage = (window.localStorage.getItem(userName) &&
+  const userId = (window.localStorage.getItem(userName) &&
     window.localStorage.getItem(userName).split(',').filter(c => c)) || [];
-  const uid = hash || localStorage[localNum];
+  const uid = hash || userId[localNum];
   localNum += 1;
-  console.log(localStorage);
+  console.log(userId);
   if (!hash && uid) {
     setURLData('uid', uid);
   }
+  let userIsLogin;
   if (!uid) {
     newTemplate((obj) => {
       dispatch({
@@ -104,28 +108,37 @@ export const getUserData = () => (dispatch) => {
   } else {
     const storageDataStr = window.localStorage.getItem(uid);
     if (storageDataStr) {
+      const obj = JSON.parse(storageDataStr);
+      userIsLogin = obj.attributes.user &&
+        obj.attributes.user.userId &&
+        window.localStorage.getItem(`antd-landings-login-${obj.attributes.user.userId}`);
       dispatch({
         type: postType.POST_SUCCESS,
-        templateData: JSON.parse(storageDataStr),
+        templateData: obj,
+        userIsLogin,
       });
     } else {
       const tempData = new AV.Query(fileName);
       tempData.get(uid).then((obj) => {
-        const inLocal = localStorage.some(key => key === uid);
-        let localStr = localStorage.join(',');
+        const inLocal = userId.some(key => key === uid);
+        let localStr = userId.join(',');
         if (!inLocal) {
           localStr = `${uid},${localStr}`;
         }
         window.localStorage.setItem(userName, localStr);
         dataToLocalStorage(obj);
+        userIsLogin = obj.attributes.user &&
+          obj.attributes.user.userId &&
+          window.localStorage.getItem(`antd-landings-login-${obj.attributes.user.userId}`);
         dispatch({
           type: postType.POST_SUCCESS,
           templateData: obj,
+          userIsLogin,
         });
       }, (error) => {
         console.log(JSON.stringify(error));
         if (error.code === 101) {
-          window.localStorage.setItem(userName, localStorage.filter(key => key !== uid).join(','));
+          window.localStorage.setItem(userName, userId.filter(key => key !== uid).join(','));
           setURLData('uid');
           return getUserData()(dispatch);
         } else if (error.code === -1) {
@@ -143,24 +156,6 @@ export const getUserData = () => (dispatch) => {
   }
 };
 
-const getData = () => (dispatch) => {
-  const query = new AV.Query(fileName);
-  return query.find().then(
-    tempData => (dispatch({
-      type: postType.POST_SUCCESS,
-      tempData,
-    })),
-    error => (dispatch({ type: postType.POST_ERROR, error }))
-  );
-};
-
-export const fetchData = () => (dispatch, getState) => {
-  const state = getState();
-  if (state.templateData.type !== postType.POST_SUCCESS) {
-    return dispatch(getData());
-  }
-};
-
 export const setTemplateData = (data) => {
   dataToLocalStorage({
     id: data.uid,
@@ -172,13 +167,107 @@ export const setTemplateData = (data) => {
   };
 };
 
-export const saveData = (templateData, cb) => {
+export const saveData = (templateData, dispatch, cb) => {
   const { uid, data } = templateData;
-  const templateObject = AV.Object.createWithoutData(fileName, uid);
-  Object.keys(data).forEach((key) => {
-    templateObject.set(key, data[key]);
+  const { user } = data;
+  const saveFile = (d) => {
+    const templateObject = AV.Object.createWithoutData(fileName, uid);
+    Object.keys(data).forEach((key) => {
+      templateObject.set(key, data[key]);
+    });
+    templateObject.save().then((e) => {
+      dispatch(setTemplateData(d));
+      cb(e);
+    }, cb);
+  };
+  if (user) {
+    let userData;
+    if (!user.userId) {
+      const password = user.password;
+      delete user.password;
+      const UserObject = AV.Object.extend(userAvName);
+      userData = new UserObject();
+      userData.set('username', templateData.uid);
+      userData.set('password', password);
+      userData.save().then((obj) => {
+        user.userId = obj.id;
+        window.localStorage.setItem(`antd-landings-login-${obj.id}`, 'true');
+        saveFile(templateData);
+      }, (error) => {
+        console.log(JSON.stringify(error));
+      });
+    } else if (user.userId && user.password) {
+      userData = AV.Object.createWithoutData(userAvName, user.userId);
+      userData.set('password', user.password);
+      delete user.password;
+      userData.save().then(() => {
+        saveFile(templateData);
+      });
+    } else if (user.delete) {
+      userData = AV.Object.createWithoutData(userAvName, user.userId);
+      userData.destroy().then(() => {
+        window.localStorage.setItem(`antd-landings-login-${user.userId}`, '');
+        delete templateData.data.user;
+        saveFile(templateData);
+      }, (error) => {
+        console.log(JSON.stringify(error));
+      });
+    }
+  } else {
+    saveFile(templateData);
+  }
+};
+
+export const setUserData = (data) => {
+  return {
+    type: postType.SET_USER,
+    data,
+  };
+};
+
+export const setUserAndTemplateData = (data) => {
+  dataToLocalStorage({
+    id: data.templateData.uid,
+    attributes: data.templateData.data,
   });
-  templateObject.save().then(cb, cb);
+  return {
+    type: postType.SET_USERTEMPLATE,
+    data,
+  };
+};
+
+export const signUpUser = (templateData, password, dispatch, cb) => {
+  templateData.data.user = templateData.data.user || {
+    username: templateData.uid,
+    userId: null,
+  };
+  templateData.data.user.password = password;
+  delete templateData.data.user.delete;
+  cb();
+  dispatch(setUserAndTemplateData({ userIsLogin: true, templateData }));
+};
+
+export const removeUser = (templateData, dispatch, cb) => {
+  if (templateData.data.user && templateData.data.user.userId) {
+    templateData.data.user.delete = true;
+  } else {
+    delete templateData.data.user;
+  }
+  cb();
+  dispatch(setUserAndTemplateData({ userIsLogin: false, templateData }));
+};
+
+export const loginIn = (password, id, dispatch, cb) => {
+  const user = AV.Object.createWithoutData(userAvName, id);
+  user.fetch().then(() => {
+    if (password === user.get('password')) {
+      window.localStorage.setItem(`antd-landings-login-${id}`, 'true');
+      dispatch(setUserData(true));
+      cb(true);
+    } else {
+      cb();
+    }
+  });
 };
 
 // 编辑 props

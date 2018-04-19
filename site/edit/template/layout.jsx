@@ -1,31 +1,145 @@
 import React from 'react';
-
+import { Icon, message, Button, Input, Form } from 'antd';
+import { connect } from 'react-redux';
+import QueueAnim from 'rc-queue-anim';
 import NavController from './components/NavController';
 import SideMenu from './components/SideMenu';
 import EditInfluence from './components/EditInfluence';
 import Iframe from './components/Iframe';
 import EditStageController from './components/EditStageController';
 import EditListController from './components/EditListController';
+import { getState } from '../../utils';
+import { getNewHref, hasErrors } from './utils';
+import { getUserData, loginIn } from '../../edit-module/actions';
 
-export default class Layout extends React.PureComponent {
+const FormItem = Form.Item;
+
+class Layout extends React.PureComponent {
+  state = {
+    loading: false,
+  }
+  componentWillMount() {
+    const { dispatch } = this.props;
+    dispatch(getUserData());
+  }
+
+  componentDidUpdate() {
+    if (!this.validateForm && this.props.templateData.data) {
+      this.props.form.validateFields();
+      this.validateForm = true;
+    }
+  }
+
+  onLogin = () => {
+    const { templateData, dispatch, form } = this.props;
+    const id = templateData.data.user.userId;
+    this.setState({
+      loading: true,
+    }, () => {
+      form.validateFields((error, values) => {
+        if (!error) {
+          loginIn(values.password, id, dispatch, (e) => {
+            this.setState({
+              loading: false,
+            }, () => {
+              if (e) {
+                message.success('登入成功。');
+              } else {
+                form.setFields({
+                  password: {
+                    value: values.password,
+                    errors: [new Error('password error')],
+                  },
+                });
+              }
+            });
+          });
+        }
+      });
+    });
+  }
   render() {
+    const { templateData, userIsLogin, form } = this.props;
+    if (!templateData.data) {
+      return <div>加载中。。。</div>;
+    }
+    if (templateData.data.user && templateData.data.user.userId && !templateData.data.user.delete && !userIsLogin) {
+      const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = form;
+      const passwordError = isFieldTouched('password') && getFieldError('password');
+      const passwordNo = (getFieldError('password') || []).indexOf('password error') >= 0;
+      return (
+        <div className="login-controller" key="1">
+          <div className={`login-view${passwordNo ? ' password-no' : ''}`}>
+            <a href={getNewHref()} target="_blank" className="header">
+              <img
+                src="https://gw.alipayobjects.com/zos/rmsportal/SVDdpZEbAlWBFuRGIIIL.svg"
+                alt="logo"
+                width="20"
+              />
+            </a>
+            <Form onSubmit={this.onLogin} >
+              <p>
+                <Icon type="exclamation-circle" style={{ marginRight: 8 }} />
+                此页面已加锁，请输入密码。
+              </p>
+              <FormItem
+                validateStatus={passwordError ? 'error' : ''}
+                help={passwordError || ''}
+              >
+                {
+                  getFieldDecorator('password', {
+                    rules: [
+                      { required: true, message: 'Password must be at least 6 characters.' },
+                      { min: 6, message: 'Password must be at least 6 characters.' },
+                    ],
+                  })(
+                    <Input
+                      prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                      type="password"
+                      placeholder="Password"
+                    />
+                  )
+                }
+              </FormItem>
+              <FormItem>
+                <Button
+                  loading={this.state.loading}
+                  disabled={hasErrors(getFieldsError())}
+                  type="primary"
+                  htmlType="submit"
+                  style={{ width: '100%' }}
+                >
+                  确定
+                </Button>
+              </FormItem>
+            </Form>
+          </div>
+        </div >
+      );
+    }
     return (
-      <div className="edit-wrapper">
+      <div className="edit-wrapper" key="2">
         <div className="edit-left-view">
-          <NavController />
-          <div className="edit-content-wrapper">
+          <NavController {...this.props} />
+          <div className="edit-content-wrapper" >
             <SideMenu />
             <div className="edit-stage-wrapper">
-              <EditInfluence />
-              <Iframe className="edit-preview" />
-              <EditStageController />
+              <EditInfluence {...this.props} />
+              <Iframe
+                className="edit-preview"
+              />
+              <EditStageController {...this.props} />
             </div>
           </div>
         </div>
         <div className="edit-right-view" >
-          <EditListController />
+          <EditListController {...this.props} />
         </div>
       </div>
     );
   }
 }
+
+
+export default connect(getState)(Form.create()(Layout));
+

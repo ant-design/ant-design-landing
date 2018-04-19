@@ -69,6 +69,9 @@ module.exports = {
     return filePath;
   },
   doraConfig: {},
+  devServerConfig: {
+    hot: false,
+  },
   plugins: [
     `bisheng-plugin-react?${JSON.stringify(pluginAntdConfig)}`,
   ],

@@ -1,7 +1,5 @@
 import React from 'react';
 import { Select, Icon } from 'antd';
-import { connect } from 'react-redux';
-import { getState } from '../../../utils';
 import { setCurrentMediaData } from '../../../edit-module/actions';
 
 const Option = Select.Option;
@@ -26,5 +24,5 @@ class EditInfluence extends React.PureComponent {
   }
 }
 
-export default connect(getState)(EditInfluence);
+export default EditInfluence;
 

@@ -73,11 +73,17 @@ class Layout extends React.Component {
     const editData = getEditDomData(this.dom.children);
     // Uncaught DOMException: Failed to execute 'postMessage' on 'Window': HTMLDivElement object could not be cloned.
     // window.parent.postMessage(editData, '*');
-    window.parent.receiveDomData(editData, window);
+    if (window.parent.receiveDomData) {
+      window.parent.receiveDomData(editData, window);
+    }
   }
 
   messageHandle = (e) => {
     if (e.data.type && e.data.type.indexOf('webpack') === -1) {
+      window.localStorage.setItem(e.data.uid, JSON.stringify({
+        id: e.data.uid,
+        attributes: e.data.data,
+      }));
       this.setState({
         templateData: e.data,
       }, this.setScrollToWindow);

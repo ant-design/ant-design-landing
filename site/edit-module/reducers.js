@@ -12,6 +12,10 @@ function templateData(state, aciton) {
         uid: aciton.templateData.id,
         data: aciton.templateData ? { ...aciton.templateData.attributes } : null,
       };
+    case postType.SET_USERTEMPLATE:
+      return {
+        ...aciton.data.templateData,
+      };
     case postType.SET_TEMPLATE:
       return {
         type: state.type,
@@ -20,6 +24,7 @@ function templateData(state, aciton) {
       };
     case postType.SET_EDIT:
     case postType.SET_MEDIA:
+    case postType.SET_USER:
       return state || null;
     default:
       return {
@@ -49,10 +54,24 @@ function mediaStateSelect(state, aciton) {
   }
 }
 
+function userIsLogin(state, aciton) {
+  switch (aciton.type) {
+    case postType.SET_USER:
+      return aciton.data || false;
+    case postType.SET_USERTEMPLATE:
+      return aciton.data.userIsLogin || false;
+    case postType.POST_SUCCESS:
+      return aciton.userIsLogin || false;
+    default:
+      return state || false;
+  }
+}
+
 const reducer = combineReducers({
   templateData,
   currentEditData,
   mediaStateSelect,
+  userIsLogin,
 });
 
 export default reducer;

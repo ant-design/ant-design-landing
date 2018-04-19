@@ -1,7 +1,5 @@
 import React from 'react';
 import { Tabs, Icon, Tooltip } from 'antd';
-import { connect } from 'react-redux';
-import { getState } from '../../../utils';
 import EditorComp from './ListComponents/EditorComp';
 import EditorOther from './ListComponents/EditorOther';
 
@@ -76,4 +74,4 @@ class EditListController extends React.PureComponent {
   }
 }
 
-export default connect(getState)(EditListController);
+export default EditListController;

@@ -1,18 +1,16 @@
 import React from 'react';
-import { Icon, message, Menu, Dropdown, Button, Modal, Input, Form, Tooltip } from 'antd';
+import { Icon, message, Menu, Dropdown, Button, Modal } from 'antd';
 import CodeMirror from 'rc-editor-list/lib/components/common/CodeMirror';
 import 'codemirror/mode/javascript/javascript.js';
 
-import { formatCode, getNewHref, hasErrors } from '../utils';
+import { formatCode, getNewHref } from '../utils';
 import { getURLData, setURLData } from '../../../theme/template/utils';
 import {
-  saveData, userName, newTemplate, removeTemplate, setTemplateData, signUpUser,
-  removeUser,
+  saveData, userName, newTemplate, removeTemplate, setTemplateData,
 } from '../../../edit-module/actions';
 import { saveJsZip, saveJSON } from './saveJsZip';
 
 const { Item, ItemGroup } = Menu;
-const FormItem = Form.Item;
 
 class NavController extends React.PureComponent {
   static defaultProps = {
@@ -186,76 +184,7 @@ class NavController extends React.PureComponent {
     });
   }
 
-  onLockData = () => {
-    this.setState({
-      lockModalShow: !this.state.lockModalShow,
-    });
-  }
-
-  onSignUp = () => {
-    const { templateData, dispatch } = this.props;
-    signUpUser(templateData, this.password, dispatch, () => {
-      this.onLockData();
-      message.success('加密成功，请保存。');
-    });
-  }
-
-  oonUnLockData = () => {
-    const { templateData, dispatch } = this.props;
-    removeUser(templateData, dispatch, () => {
-      message.success('解除密码成功，请保存');
-    });
-  }
-
-  getPasswordChild = () => {
-    const { form } = this.props;
-    const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = form;
-
-    const passwordError = isFieldTouched('password') && getFieldError('password');
-    return (
-      <Form onSubmit={this.onSignUp} >
-        <p style={{ marginBottom: '1em' }}>
-          <Icon type="exclamation-circle" style={{ marginRight: 8 }} />
-          设定密码后，编辑此页面需要输入密码才可以编辑。
-        </p>
-        <FormItem
-          validateStatus={passwordError ? 'error' : ''}
-          help={passwordError || ''}
-        >
-          {
-            getFieldDecorator('password', {
-              rules: [{ min: 6, message: 'Password must be at least 6 characters.' }],
-            })(
-              <Input
-                prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                type="password"
-                placeholder="Password"
-                onChange={(e) => {
-                  this.password = e.target.value;
-                }}
-              />
-            )
-          }
-        </FormItem>
-        <FormItem>
-          <Button
-            disabled={hasErrors(getFieldsError())}
-            type="primary"
-            htmlType="submit"
-          >
-            确定
-          </Button>
-        </FormItem>
-      </Form>
-    );
-  }
-
   render() {
-    const { templateData } = this.props;
-    const isLock = templateData.data
-      && templateData.data.user
-      && templateData.data.user.username
-      && !templateData.data.user.delete;
     const menuChild = [
       { name: '保存', icon: 'save', onClick: this.onSave },
       { name: '预览', icon: 'eye-o', onClick: this.onPreview },
@@ -268,13 +197,11 @@ class NavController extends React.PureComponent {
       </li>
     ));
     const menuNewDropdown = this.getNewMenu();
-
     const newIcon = (
       <div className="right-icon" onClick={this.onClickNew}>
         <Icon type="file-add" />
       </div>
     );
-    const passwordChild = this.getPasswordChild();
     return (
       <div className={this.props.className}>
         <div className="logo">
@@ -296,11 +223,6 @@ class NavController extends React.PureComponent {
           >
             {newIcon}
           </Dropdown>) : newIcon}
-        <Tooltip placement="bottom" title={isLock ? '取消加密' : '编辑加密'}>
-          <div className="right-icon" onClick={isLock ? this.oonUnLockData : this.onLockData}>
-            <Icon type={isLock ? 'lock' : 'unlock'} />
-          </div>
-        </Tooltip>
         <Modal
           title="当前编辑数据"
           visible={this.state.codeModalShow}
@@ -326,18 +248,8 @@ class NavController extends React.PureComponent {
           <Button key="re" style={{ marginLeft: 8 }} onClick={this.onReData}>重置</Button>
           <Button onClick={this.onSaveJSON} style={{ marginLeft: 8 }}>下载 JSON</Button>
         </Modal>
-        <Modal
-          title="编辑加密"
-          visible={this.state.lockModalShow}
-          width={400}
-          footer={null}
-          onCancel={this.onLockData}
-          wrapClassName="password-modal"
-        >
-          {passwordChild}
-        </Modal>
       </div>
     );
   }
 }
-export default Form.create()(NavController);
+export default NavController;

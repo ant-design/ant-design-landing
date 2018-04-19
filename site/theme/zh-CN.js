@@ -18,7 +18,7 @@ module.exports = {
     'app.home.fatures.responsive': '响应式布局',
     'app.home.templates': '丰富的模板',
     'app.home.download': '下载模板',
-    'app.home.edit-slogen': '所有模板都基于 Ant Design 设计规范设计，如不能满足你的业务需求，也可使用我们的编辑器，快速搭建一个属于你的专属首页',
+    'app.home.edit-slogen': '所有模板与模块都基于 Ant Design 设计规范设计，你可以直接下载我们的模板和源文件，也可使用我们的编辑器，快速搭建一个属于你的专属首页',
     'app.home.slogan': 'Ant Design Landings 模板与规范',
     'app.content.edit-page': '在 Github 上编辑此页！',
     'app.footer.repo': '源码仓库',

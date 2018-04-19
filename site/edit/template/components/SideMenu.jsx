@@ -1,11 +1,19 @@
 import React from 'react';
-import { Icon, Tooltip } from 'antd';
+import { Icon, Tooltip, Modal, Form, Button, Input, message } from 'antd';
 import DrawerMenu from 'rc-drawer-menu';
 import webData from '../template.config';
+import {
+  signUpUser,
+  removeUser,
+} from '../../../edit-module/actions';
+import { hasErrors } from '../utils';
 
-export default class SideMenu extends React.PureComponent {
+const FormItem = Form.Item;
+
+class SideMenu extends React.PureComponent {
   state = {
     editMenuOpen: false,
+    lockModalShow: false,
   }
   getDrawer = () => {
     const children = [];
@@ -50,8 +58,78 @@ export default class SideMenu extends React.PureComponent {
       editMenuOpen: false,
     });
   }
+
+  onLockData = () => {
+    this.setState({
+      lockModalShow: !this.state.lockModalShow,
+    });
+  }
+
+  onSignUp = () => {
+    const { templateData, dispatch } = this.props;
+    signUpUser(templateData, this.password, dispatch, () => {
+      this.onLockData();
+      message.success('加密成功，请保存。');
+    });
+  }
+
+  oonUnLockData = () => {
+    const { templateData, dispatch } = this.props;
+    removeUser(templateData, dispatch, () => {
+      message.success('解除密码成功，请保存');
+    });
+  }
+
+  getPasswordChild = () => {
+    const { form } = this.props;
+    const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = form;
+    const passwordError = isFieldTouched('password') && getFieldError('password');
+    return (
+      <Form onSubmit={this.onSignUp} >
+        <p style={{ marginBottom: '1em' }}>
+          <Icon type="exclamation-circle" style={{ marginRight: 8 }} />
+          设定密码后，编辑此页面需要输入密码才可以编辑。
+        </p>
+        <FormItem
+          validateStatus={passwordError ? 'error' : ''}
+          help={passwordError || ''}
+        >
+          {
+            getFieldDecorator('password', {
+              rules: [{ min: 6, message: 'Password must be at least 6 characters.' }],
+            })(
+              <Input
+                prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                type="password"
+                placeholder="Password"
+                onChange={(e) => {
+                  this.password = e.target.value;
+                }}
+              />
+            )
+          }
+        </FormItem>
+        <FormItem>
+          <Button
+            disabled={hasErrors(getFieldsError())}
+            type="primary"
+            htmlType="submit"
+          >
+            确定
+          </Button>
+        </FormItem>
+      </Form>
+    );
+  }
+
   render() {
     const drawerChild = this.getDrawer();
+    const { templateData } = this.props;
+    const isLock = templateData.data
+      && templateData.data.user
+      && templateData.data.user.username
+      && !templateData.data.user.delete;
+    const passwordChild = this.getPasswordChild();
     return (
       <div
         className="edit-side-menu-wrapper"
@@ -73,6 +151,11 @@ export default class SideMenu extends React.PureComponent {
             添加内容
           </div>
           <ul className="other" onMouseEnter={this.hideMenu}>
+            <Tooltip title={isLock ? '取消加密' : '编辑加密'} placement="right">
+              <li onClick={isLock ? this.oonUnLockData : this.onLockData}>
+                <Icon type={isLock ? 'lock' : 'unlock'} />
+              </li>
+            </Tooltip>
             <Tooltip title="dva-cli 例子" placement="right">
               <li>
                 <a href="https://github.com/ant-motion/ant-motion-dva-cli-example" target="_blank">
@@ -92,7 +175,19 @@ export default class SideMenu extends React.PureComponent {
             </Tooltip>
           </ul>
         </div>
+        <Modal
+          title="编辑加密"
+          visible={this.state.lockModalShow}
+          width={400}
+          footer={null}
+          onCancel={this.onLockData}
+          wrapClassName="password-modal"
+        >
+          {passwordChild}
+        </Modal>
       </div>
     );
   }
 }
+export default Form.create()(SideMenu);
+

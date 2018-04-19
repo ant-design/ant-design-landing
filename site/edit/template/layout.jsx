@@ -122,7 +122,7 @@ class Layout extends React.PureComponent {
         <div className="edit-left-view">
           <NavController {...this.props} />
           <div className="edit-content-wrapper" >
-            <SideMenu />
+            <SideMenu {...this.props} />
             <div className="edit-stage-wrapper">
               <EditInfluence {...this.props} />
               <Iframe

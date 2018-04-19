@@ -1,45 +1,3 @@
-.toc {
-  font-size: 12px;
-  margin: 16px 0;
-  border-left: 1px solid #ebedf0;
-  list-style: none;
-}
-
-ul.toc > li {
-  list-style: none;
-  margin-left: 0;
-  padding-left: 0;
-  &:not(:last-child) {
-    margin-bottom: 16px;
-  }
-}
-
-.toc li > ul {
-  text-indent: 8px;
-  font-size: 12px;
-  display: none;
-}
-
-.toc a {
-  padding-left: 16px;
-  display: block;
-  transition: all 0.3s ease;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: @site-text-color;
-  width: 110px;
-}
-
-.toc a:hover {
-  color: @primary-color;
-}
-
-.toc a.current {
-  border-color: @primary-color;
-  color: @primary-color;
-}
-
 .toc-affix {
   position: absolute;
   top: 8px;
@@ -47,7 +5,34 @@ ul.toc > li {
   .ant-affix {
     background: #fff;
   }
+  .ant-anchor {
+    font-size: 12px;
+    margin: 16px 0;
+    border-left: 1px solid #ebedf0;
+    list-style: none;
+    a {
+      padding-left: 16px;
+      display: block;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: @site-text-color;
+      width: 110px;
+    }
+    .ant-anchor-link-active a {
+      border-color: @primary-color;
+      color: @primary-color;
+    }
+    .ant-anchor-ink:before {
+      display: none;
+    }
+    .ant-anchor-link-title {
+      padding: 0;
+    }
+  }
 }
+
 .toc-affix-bottom {
   position: absolute;
   bottom: 88px;

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import DocumentTitle from 'react-document-title';
 import { getChildren } from 'jsonml.js/lib/utils';
-import { Alert, Affix } from 'antd';
+import { Alert, Anchor } from 'antd';
 import delegate from 'delegate';
 import EditButton from './EditButton';
 import { ping } from '../utils';
@@ -41,6 +41,13 @@ export default class Article extends React.PureComponent {
     }
   }
 
+  getAnchor = node =>
+    React.Children.map(node.props.children, (item) => {
+      const children = item.props.children[0];
+      return React.createElement(Anchor.Link, { ...children.props, title: children.props.children }, null);
+    });
+
+
   render() {
     const props = this.props;
     const content = props.content;
@@ -49,6 +56,10 @@ export default class Article extends React.PureComponent {
     const { title, subtitle, filename } = meta;
     const locale = this.context.intl.locale;
     const isNotTranslated = locale === 'en-US' && typeof title === 'object';
+    const anchorChild = this.getAnchor(props.utils.toReactComponent(
+      ['ul', { className: 'toc' }].concat(getChildren(content.toc))
+    ));
+    console.log(anchorChild);
     return (
       <DocumentTitle title={`${title[locale] || title} - Ant Design Landings`}>
         <article className="markdown" ref={(node) => { this.node = node; }}>
@@ -85,13 +96,9 @@ export default class Article extends React.PureComponent {
           }
           {
             (!content.toc || content.toc.length <= 1 || meta.toc === false) ? null :
-            <Affix className="toc-affix" offsetTop={16}>
-              {
-                props.utils.toReactComponent(
-                  ['ul', { className: 'toc' }].concat(getChildren(content.toc))
-                )
-              }
-            </Affix>
+            <Anchor className="toc-affix" offsetTop={16}>
+              {anchorChild}
+            </Anchor>
           }
           {
             props.utils.toReactComponent(

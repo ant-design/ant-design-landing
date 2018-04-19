@@ -75,7 +75,9 @@ export default class SideMenu extends React.PureComponent {
           <ul className="other" onMouseEnter={this.hideMenu}>
             <Tooltip title="dva-cli 例子" placement="right">
               <li>
-                <Icon type="folder" />
+                <a href="https://github.com/ant-motion/ant-motion-dva-cli-example" target="_blank">
+                  <Icon type="folder" />
+                </a>
               </li>
             </Tooltip>
             <Tooltip title="视频教程" placement="right">

@@ -5,7 +5,7 @@ import rootReducer from './edit-module/reducers';
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));
 
-export const isImg = /\.(gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/;
+export const isImg = /\.(gif|jpg|jpeg|png|svg|JPG|PNG|GIF|JPEG|SVG)$/;
 
 export const getState = (state) => {
   return state;
@@ -30,17 +30,17 @@ export function toArrayChildren(children) {
 }
 
 export function deepCopy(data) {
-  if (typeof data !== 'object') {
+  if (typeof data !== 'object' || !data) {
     return data;
   }
   if (Array.isArray(data)) {
-    return [].concat(data);
+    return data.map(item => deepCopy(item));
   }
   const obj = {};
   Object.keys(data).forEach((key) => {
     if (typeof data[key] === 'object') {
       if (Array.isArray(data[key])) {
-        obj[key] = [].concat(data[key]);
+        obj[key] = data[key].map(item => deepCopy(item));
       } else {
         obj[key] = deepCopy(data[key]);
       }
@@ -52,7 +52,7 @@ export function deepCopy(data) {
 }
 
 
-function mergeDataToChild(newData, _data) {
+function mergeDataToChild(newData, _data, useDelete) {
   if (!newData) {
     return _data;
   }
@@ -60,23 +60,24 @@ function mergeDataToChild(newData, _data) {
   Object.keys(newData).forEach((key) => {
     if (typeof newData[key] === 'object') {
       data[key] = mergeDataToChild(newData[key], deepCopy(data[key]) ||
-        (Array.isArray(newData[key]) ? [] : {}));
+        (Array.isArray(newData[key]) ? [] : {}), useDelete);
       if (Array.isArray(newData[key])) {
         data[key] = data[key].filter(c => c || c === 0);
       }
-    } else if (newData[key] === 'delete') {
-      delete data[key];
     } else {
       data[key] = newData[key];
+    }
+    if (useDelete && data[key].delete) {
+      delete data[key];
     }
   });
   return data;
 }
 
-export function mergeEditDataToDefault(newData, defaultData) {
+export function mergeEditDataToDefault(newData, defaultData, useDelete) {
   const dataSource = deepCopy(defaultData.dataSource) || {};
   if (!newData) {
     return dataSource;
   }
-  return mergeDataToChild(newData.dataSource, dataSource);
+  return mergeDataToChild(newData.dataSource, dataSource, useDelete);
 }

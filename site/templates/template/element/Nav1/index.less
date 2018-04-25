@@ -2,7 +2,6 @@
 
 @header: header1;
 .@{header} {
-  height: 64px;
   background: @template-nav-bg-color;
   width: 100%;
   z-index: 970;
@@ -11,8 +10,7 @@
   top: 0;
   &-logo {
     display: inline-block;
-    position: absolute;
-    left: 4%;
+    position: relative;
     width: 150px;
     line-height: 64px;
     & img {
@@ -23,41 +21,36 @@
       display: block;
     }
   }
-  &-nav {
+  &-menu {
     float: right;
-    line-height: 64px;
+    line-height: 62px;
     position: relative;
-    margin-right: 4%;
-    & .ant-menu-horizontal {
-      border-bottom-color: transparent;
+    background: transparent;
+    color: @template-text-color-light;
+    height: 64px;
+    border-bottom-color: transparent;
+    li {
+      float: left;
+      text-align: center;
+      min-width: 100px;
+      i {
+        transition: none;
+      }
     }
-    .ant-menu {
-      background: transparent;
-      color: @template-text-color-light;
-      line-height: 62px;
+    .ant-menu-sub {
+      background: #fff;
+      color: fade(#666, 75);
+      overflow: hidden;
       li {
-        float: left;
-        text-align: center;
-        min-width: 100px;
-        i {
-          transition: none;
-        }
+        width: 100%;
+        padding: 0 20px;
       }
-      .ant-menu-sub {
-        background: #fff;
-        color: fade(#666, 75);
-        overflow: hidden;
-        li {
-          width: 100%;
-          padding: 0 20px;
-        }
-        &menu-title:hover {
-          color: inherit;
-        }
+      &menu-title:hover {
+        color: inherit;
       }
-      .ant-menu-vertical, .ant-menu-vertical .ant-menu-item {
-        border-right: none;
-      }
+    }
+    .ant-menu-vertical, .ant-menu-vertical .ant-menu-item {
+      border-right: none;
     }
     & .ant-menu-horizontal > .ant-menu-item-active {
       color: @link-hover-color;
@@ -65,11 +58,9 @@
 
     }
   }
-  &-nav, &-phone-nav {
-    .ant-menu {
-      li i {
-        transition: none;
-      }
+  &-menu, &-phone-menu {
+    li i {
+      transition: none;
     }
     .help {
       border-left: 1px solid fade(@line-color, 5) !important;
@@ -104,7 +95,7 @@
     &-logo {
       z-index: 101;
     }
-    &-phone-nav {
+    &-phone-menu {
       width: 16px;
       height: 14px;
       cursor: pointer;
@@ -142,7 +133,7 @@
             }
           }
         }
-        .@{header}-phone-nav-text {
+        .@{header}-phone-menu-text {
           opacity: 1;
           pointer-events: auto;
           transition-timing-function: @ease-out;

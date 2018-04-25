@@ -1,0 +1,23 @@
+.child-wrapper {
+  .sort-manage {
+    height: 32px;
+    display: flex;
+    align-items: center;
+    transition: background .45s @ease-in-out, box-shadow .45s @ease-in-out, transform .45s @ease-in-out;
+    &:hover {
+      background: @heiColor;
+    }
+    &-delete{
+      text-align: center;
+      width: 32px;
+      .ant-btn {
+        background: transparent;
+        height: 32px;
+        line-height: 32px;
+        color: rgba(255, 255, 255, 0.55);
+        border: none;
+      }
+      
+    }
+  }
+}

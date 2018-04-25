@@ -25,7 +25,7 @@
     "react-document-title": "^2.0.1"
   },
   "devDependencies": {
-    "antd-tools": "^5.1.4",
+    "antd-tools": "^5.1.5",
     "babel-cli": "^6.18.0",
     "babel-eslint": "^7.1.0",
     "babel-jest": "^19.0.0",
@@ -81,7 +81,7 @@
     "lint"
   ],
   "scripts": {
-    "start": "npm run cp-prettier && cross-env NODE_ENV=development concurrently \"npm run start-index\" \"npm run start-edit\" \"npm run start-templates\"",
+    "start": "antd-tools run start",
     "start-index": "bisheng start -c ./site/bisheng.index.config.js",
     "start-edit": "bisheng start -c ./site/bisheng.edit.config.js",
     "start-templates": "bisheng start -c ./site/bisheng.templates.config.js",
@@ -89,13 +89,19 @@
     "build-edit": "bisheng build -c ./site/bisheng.edit.config.js",
     "build-templates": "bisheng build -c ./site/bisheng.templates.config.js",
     "build": "npm run cp-prettier && cross-env NODE_ENV=production concurrently \"npm run build-index\" \"npm run build-edit\" \"npm run build-templates\"",
-    "site": "rm -rf _site && npm run build",
+    "site": "antd-tools run site",
     "cp-prettier": "cp -r ./prettier/* ./_site/edit ",
-    "deploy": "npm run site && cp CNAME _site/ && bisheng gh-pages --push-only",
+    "deploy": "antd-tools run update-self && antd-tools run deploy",
     "lint": "npm run lint:es && npm run lint:style && npm run lint:demo",
     "lint:es": "eslint --fix ./ --ext '.js,.jsx,.md'",
     "lint:style": "stylelint \"site/**/*.less\" --syntax less",
     "lint:demo": "cross-env RUN_ENV=DEMO eslint ./ --ext '.md' -c ./.eslintrc.js",
-    "test": "npm run lint"
+    "test": "npm run lint",
+    "dist": "antd-tools run dist",
+    "compile": "antd-tools run compile",
+    "clean": "antd-tools run clean",
+    "just-deploy": "antd-tools run just-deploy",
+    "pub": "antd-tools run update-self && antd-tools run pub",
+    "prepublish": "antd-tools run guard"
   }
 }

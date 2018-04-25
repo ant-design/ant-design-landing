@@ -35,13 +35,27 @@
       position: absolute;
       top: -26px;
       right: -2px;
+      display: flex;
       &.inside {
         top: 0;
         >.ant-btn {
-          border-top-right-radius: 0;
-          border-top-left-radius: 0;
-          border-bottom-right-radius: 0;
+         border-radius: 0;
+         &:first-child {
           border-bottom-left-radius: 4px;
+        }
+        }
+      }
+      &.bottom {
+        top: 100%;
+       
+        >.ant-btn {
+          border-radius: 0;
+          &:last-child {
+            border-bottom-right-radius: 4px;
+          }
+          &:first-child {
+            border-bottom-left-radius: 4px;
+          }
         }
       }
       >.ant-btn {

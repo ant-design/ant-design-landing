@@ -22,12 +22,20 @@ class Banner extends React.Component {
   }
   componentWillReceiveProps(nextProps) {
     const { func } = nextProps;
+    const childLen = nextProps.dataSource.BannerAnim.children.length;
     if (func) {
+      const current = func.currentPage > childLen ? childLen : func.currentPage;
+
       if (this.banner) {
-        this.banner.slickGoTo(func.currentPage - 1);
+        this.banner.slickGoTo(current - 1);
       }
       this.setState({
-        current: func.currentPage,
+        current,
+      });
+    } else if (this.state.current > childLen && this.banner) {
+      this.banner.slickGoTo(childLen - 1);
+      this.setState({
+        current: childLen,
       });
     }
   }

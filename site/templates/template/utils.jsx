@@ -1,4 +1,4 @@
-import { isImg } from '../../utils';
+import { isImg, deepCopy } from '../../utils';
 import compConfig from '../../edit/template/component.config';
 
 export function getEditDomData(children) {
@@ -29,8 +29,16 @@ export function getEditDomData(children) {
 
 export const setDataIdToDataSource = (data, dataId) => {
   let objectForEachChild;
-  const arrayForEachChild = (item, parentKey) => {
-    const name = `array_name=${item.name}`;
+  const arrayForEachChild = (item, i, parentKey) => {
+    const name = item.name ? `array_name=${item.name}` : i;
+    item['data-id'] = `${dataId}-${parentKey}&${name}`;
+    if (item.children && typeof item.children !== 'object') {
+      if (item.children.match(isImg)) {
+        item['data-edit'] = 'image';
+      } else {
+        item['data-edit'] = 'text';
+      }
+    }
     Object.keys(item).forEach((key) => {
       const cItem = item[key];
       if (typeof cItem === 'object') {
@@ -41,8 +49,8 @@ export const setDataIdToDataSource = (data, dataId) => {
   objectForEachChild = (item, key) => {
     item['data-id'] = `${dataId}-${key}`;
     if (Array.isArray(item.children)) {
-      item.children.forEach((cItem) => {
-        arrayForEachChild(cItem, `${key}&children`);
+      item.children.forEach((cItem, i) => {
+        arrayForEachChild(cItem, i, `${key}&children`);
       });
     }
     if (key in compConfig) {

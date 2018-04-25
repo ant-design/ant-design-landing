@@ -43,7 +43,8 @@ class EditStateController extends React.PureComponent {
     const t = dragula([this.side, this.stage], {
       copy: (el, source) => source === this.side,
       moves: (el, container, handle) => (
-        handle.classList.contains('drag-hints') || handle.tagName.toLocaleLowerCase() === 'img'
+        handle.classList.contains('drag-hints') || handle.classList.contains('img') ||
+        handle.tagName.toLocaleLowerCase() === 'img'
       ),
       accepts: (el, source) => {
         if (source === this.stage) {
@@ -51,7 +52,7 @@ class EditStateController extends React.PureComponent {
           const data = this.state.data;
           const dArr = Object.keys(data).filter(key => key.split('_')[0] === elKey)
             .map(key => parseFloat(key.split('_')[1])).sort();
-          newId = `${elKey}_${dArr[dArr.length - 1] + 1}`;
+          newId = `${elKey}_${(dArr[dArr.length - 1] + 1) || 0}`;
         }
         return source === this.stage;
       },
@@ -64,6 +65,7 @@ class EditStateController extends React.PureComponent {
     })
       .on('dragend', () => {
         $(this.stage).removeClass('drag');
+        this.isDrap = false;
       })
       .on('drop', (el) => {
         if (el.className === 'placeholder') {
@@ -116,13 +118,23 @@ class EditStateController extends React.PureComponent {
     if (nextProps.mediaStateSelect !== this.props.mediaStateSelect) {
       this.reRect();
     }
-    if (nextProps.currentEditData) {
-      const dom = nextProps.currentEditData.dom;
+    if (this.currentData) {
       setTimeout(() => {
         // 避免使用多次样式，这里使用 setTimeout 等子级刷新
-        this.setState({
-          currentSelectRect: dom.getBoundingClientRect(),
-        });
+        const { parentData } = this.currentData;
+        if (parentData) {
+          const rectArray = getChildRect(parentData);
+          this.currentData = this.refreshCurrentData(rectArray);
+          if (this.currentData) {
+            const currentSelectRect = this.currentData.item.getBoundingClientRect();
+            this.currentData.rect = currentSelectRect;
+            this.setState({
+              currentSelectRect,
+            });
+          } else {
+            this.reRect();
+          }
+        }
       });
     }
   }
@@ -147,6 +159,11 @@ class EditStateController extends React.PureComponent {
     // this.reRect();
   }
 
+  refreshCurrentData = rectArray => rectArray.filter(item => (
+    item.dataId === this.currentData.dataId
+  ))[0];
+
+
   wrapperMove = (e) => {
     const dom = e.target;
     const { data, currentHoverRect } = this.state;
@@ -160,14 +177,9 @@ class EditStateController extends React.PureComponent {
       const rectArray = getChildRect(currentElemData);
       if (this.currentData) {
         // dom 在 queueAnim 删除后将不再是当前 dom; 当前从新获取；
-        const newCurrentData = rectArray.filter(item => (
-          item.dataId === this.currentData.dataId
-        ))[0];
-        this.currentData = newCurrentData || this.currentData;
-        if (this.currentData) {
-          currentSelectRect = this.currentData.item.getBoundingClientRect();
-          this.currentData.rect = currentSelectRect;
-        }
+        this.currentData = this.refreshCurrentData(rectArray) || this.currentData;
+        currentSelectRect = this.currentData.item.getBoundingClientRect();
+        this.currentData.rect = currentSelectRect;
       }
       const domRect = this.dom.getBoundingClientRect();
       const pos = {
@@ -208,13 +220,6 @@ class EditStateController extends React.PureComponent {
     const t = getDataSourceValue(ids[1], data.data.config, [ids[0], 'dataSource']);
     t.children = text;
     this.props.dispatch(setTemplateData(data));
-
-    setTimeout(() => {
-      // 等子级刷新。
-      this.setState({
-        currentSelectRect: this.currentData.item.getBoundingClientRect(),
-      });
-    });
   }
 
   editTextHandleChange = (text) => {
@@ -296,7 +301,9 @@ class EditStateController extends React.PureComponent {
               <style
                 dangerouslySetInnerHTML={{
                   __html: `.edit-text-wrapper{${
-                    document.defaultView.getComputedStyle(this.currentData.item).cssText}}`,
+                    document.defaultView.getComputedStyle(this.currentData.item).cssText}
+                    visibility: inherit;
+                  }`,
                 }}
               />
             </div>) : null}
@@ -318,6 +325,7 @@ class EditStateController extends React.PureComponent {
           dom,
           id,
           reRect: this.reRect,
+          iframe: this.state.iframe,
         }
       ));
     });
@@ -326,6 +334,10 @@ class EditStateController extends React.PureComponent {
   onClick = (e) => {
     const dom = e.target;
     if (!this.isDrap && dom.getAttribute('data-key')) {
+      this.selectParentDom = dom;
+      if (this.currentData) {
+        this.currentData.item.style.visibility = '';
+      }
       this.currentIdArray = this.mouseCurrentData.dataId.split('-');
       this.editId = this.currentIdArray[0].split('_')[0];
       this.editChildId = this.currentIdArray[1];
@@ -340,6 +352,9 @@ class EditStateController extends React.PureComponent {
   }
 
   onEditSelectChange = (v) => {
+    if (this.currentData) {
+      this.currentData.item.style.visibility = '';
+    }
     this.currentIdArray = v.dataId.split('-');
     this.editId = this.currentIdArray[0].split('_')[0];
     this.editChildId = this.currentIdArray[1];
@@ -367,6 +382,7 @@ class EditStateController extends React.PureComponent {
     const dom = e.target;
     if (dom.getAttribute('data-key')) {
       this.currentData = this.mouseCurrentData;
+      this.currentData.item.style.visibility = 'hidden';
       const editData = this.currentData.item.getAttribute('data-edit');
       if (editData && editData.indexOf('text') >= 0) {
         this.editTextFunc();
@@ -441,13 +457,13 @@ class EditStateController extends React.PureComponent {
   }
 
   render() {
-    const { className, mediaStateSelect, templateData } = this.props;
+    const { className, mediaStateSelect } = this.props;
     const { data, currentHoverRect, currentSelectRect, iframe, openEditText } = this.state;
 
     const dataArray = data ? Object.keys(data) : [];
     const overlayChild = dataArray.map((key, i) => {
       const item = data[key];
-      const itemRect = item.rect;
+      const itemRect = item.item.getBoundingClientRect();
       return (
         <div
           key={key}

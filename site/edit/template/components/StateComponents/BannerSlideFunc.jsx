@@ -18,7 +18,6 @@ export default class BannerSlideFunc extends React.Component {
   onPaginationChange = (currentPage) => {
     const { iframe, templateData, dataId, reRect } = this.props;
     reRect();
-
     const template = {
       ...templateData,
       funcData: {
@@ -43,13 +42,17 @@ export default class BannerSlideFunc extends React.Component {
 
   onSlideDelete = (item, dataSource) => {
     const data = this.getDataSourceChild(dataSource);
+    /*  const children = data.children;
+    const i = children.indexOf(item);
+    children.splice(i, 1); */
     data.children = data.children
-      .map(node => (node === item ? 'delete' : node));
+      .map(node => (node === item ? { ...node, delete: true } : node));
     this.setDataToTemplateData(dataSource);
   }
   onSlideAdd = (dataSource) => {
     const data = this.getDataSourceChild(dataSource);
     const defaultData = { ...data.children[data.children.length - 1] };
+    delete defaultData.delete;
     defaultData.name = `elem~${getRandomKey()}`;
     data.children.push(defaultData);
     this.setDataToTemplateData(dataSource);
@@ -77,12 +80,12 @@ export default class BannerSlideFunc extends React.Component {
 
   getPopChild = (dataSource) => {
     const { children } = this.getDataSourceChild(dataSource);
-    const child = children.filter(item => item !== 'delete');
+    const child = children.filter(item => !item.delete);
     const listChild = child.map((item) => {
       return (
-        <div key={item.name} className="banner-slide-manage">
-          <div className="manage-name">{item.name}</div>
-          <div className="manage-delete">
+        <div key={item.name} className="sort-manage">
+          <div className="sort-manage-name">{item.name}</div>
+          <div className="sort-manage-delete">
             <Button
               onClick={() => {
                 this.onSlideDelete(item, dataSource);
@@ -99,9 +102,9 @@ export default class BannerSlideFunc extends React.Component {
     return [
       <ListSort
         dragClassName="list-drag-selected"
-        className="manage-list"
+        className="sort-manage-list"
         key="list"
-        dragElement={<div className="manage-icon"><Icon type="bars" /></div>}
+        dragElement={<div className="sort-manage-icon"><Icon type="bars" /></div>}
         onChange={(e) => {
           this.onListChange(e, dataSource);
         }}
@@ -116,7 +119,7 @@ export default class BannerSlideFunc extends React.Component {
 
   render() {
     const { data } = this.props;
-    const popChild = this.getPopChild(this.getCurrentDataSource(this.props), data.childRoute);
+    const popChild = this.getPopChild(this.getCurrentDataSource(this.props));
     return (
       <div className="banner-slide-wrapper">
         <div className="banner-slide">

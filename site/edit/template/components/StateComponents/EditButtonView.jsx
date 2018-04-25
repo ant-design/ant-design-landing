@@ -1,5 +1,6 @@
 import React from 'react';
 import { Icon, Button, Popover, Input, Dropdown, Menu } from 'antd';
+import classnames from 'classnames';
 import { isImg } from '../../../../utils';
 
 const ButtonGroup = Button.Group;
@@ -18,15 +19,18 @@ export default class EditButtonView extends React.PureComponent {
     onParentChange(select);
   }
 
+  getStr = (id) => {
+    const str = id.split('&').filter(c => c).map(c => c.split('=')[1] || c.split('=')[0]);
+    return str[str.length - 1].split('-')[1] || str[str.length - 1].split('-')[0];
+  }
+
   getMenu = (parent) => {
-    const children = parent.map((item) => {
-      const str = item.dataId.split('&');
-      return (
-        <Menu.Item key={item.dataId} >
-          {str[str.length - 1].split('-')[1] || str[str.length - 1].split('-')[0]}
-        </Menu.Item>
-      );
-    });
+    const children = parent.map(item => (
+      <Menu.Item key={item.dataId} >
+        {this.getStr(item.dataId)}
+      </Menu.Item>
+    )
+    );
     return (
       <Menu onClick={this.onParentDropdonw}>
         {children}
@@ -38,7 +42,6 @@ export default class EditButtonView extends React.PureComponent {
     const parent = currentData.parent;
     let parentChild;
     if (parent && parent.length) {
-      const str = currentData.dataId.split('&');
       parentChild = (
         <Dropdown
           key="d"
@@ -46,7 +49,7 @@ export default class EditButtonView extends React.PureComponent {
           placement="bottomRight"
         >
           <Button type="primary" size="small" style={{ maxWidth: 150 }}>
-            {str[str.length - 1].split('-')[1] || str[str.length - 1].split('-')[0]}
+            {this.getStr(currentData.dataId)}
             <Icon type="down" />
           </Button>
         </Dropdown>);
@@ -77,13 +80,20 @@ export default class EditButtonView extends React.PureComponent {
             <Button key={key} type="primary" size="small" onClick={this.props.openEditTextFunc}>
               T
             </Button>);
+
         default:
           return null;
       }
     }).filter(c => c);
-    const top = currentData.item.getBoundingClientRect().top;
+    const rect = currentData.item.getBoundingClientRect();
+    const top = rect.top;
+    const width = rect.width;
+    const className = classnames({
+      inside: top < 24 && width > 120,
+      bottom: top < 24 && width < 120,
+    });
     return (
-      <ButtonGroup key="group" className={top < 24 ? 'inside' : ''}>
+      <ButtonGroup key="group" className={className}>
         {parentChild}
         {buttons}
       </ButtonGroup>

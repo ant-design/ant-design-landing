@@ -12,6 +12,16 @@ class Header extends React.Component {
       phoneOpen: false,
     };
   }
+  /* replace-start */
+  componentWillReceiveProps(nextProps) {
+    const { func } = nextProps;
+    if (func) {
+      this.setState({
+        phoneOpen: func.open,
+      });
+    }
+  }
+  /* replace-end */
 
   phoneClick = () => {
     this.setState({
@@ -20,76 +30,69 @@ class Header extends React.Component {
   }
 
   render() {
-    const props = { ...this.props };
-    const dataSource = props.dataSource;
-    const isMode = props.isMode;
+    const { ...props } = this.props;
+    const { dataSource, isMobile } = props;
     delete props.dataSource;
-    delete props.isMode;
-    const names = props.id.split('_');
-    const name = `${names[0]}${names[1]}`;
-    const navData = dataSource[`${name}_menu`].children;
-    const navChildren = Object.keys(dataSource[`${name}_menu`].children)
-      .map((key, i) => (<Item key={i}>{navData[key]}</Item>));
-    const func = dataSource[`${name}_menu`].func;
-    return (<TweenOne
-      component="header"
-      animation={{ opacity: 0, type: 'from' }}
-      {...props}
-    >
+    delete props.isMobile;
+
+    const navData = dataSource.menu.children;
+    const navChildren = Object.keys(navData)
+      .map((key, i) => (
+        <Item {...navData[key]} key={i.toString()}>
+          {/* replace-start-value = navData[key].children} */
+            React.createElement('span', { dangerouslySetInnerHTML: { __html: navData[key].children } })
+            /* replace-end-value */}
+        </Item>));
+    return (
       <TweenOne
-        className={`${this.props.className}-logo`}
-        animation={{ x: -30, type: 'from', ease: 'easeOutQuad' }}
-        id={`${this.props.id}-logo`}
+        component="header"
+        animation={{ opacity: 0, type: 'from' }}
+        {...dataSource.wrapper}
+        {...props}
       >
-        <img width="100%" src={dataSource[`${name}_logo`].children} />
-      </TweenOne>
-      {isMode ? (
         <div
-          className={`${this.props.className}-phone-nav${this.state.phoneOpen || (func && func.switch) ? ' open' : ''}`}
-          id={`${this.props.id}-menu`}
+          {...dataSource.page}
+          className={`${dataSource.page.className}${this.state.phoneOpen ? ' open' : ''}`}
         >
-          <div
-            className={`${this.props.className}-phone-nav-bar`}
-            onClick={() => {
-              this.phoneClick();
-            }}
-          >
-            <em />
-            <em />
-            <em />
-          </div>
-          <div
-            className={`${this.props.className}-phone-nav-text`}
-          >
-            <Menu
-              defaultSelectedKeys={['0']}
-              mode="inline"
-              theme="dark"
-            >
-              {navChildren}
-            </Menu>
-          </div>
-        </div>) : (
           <TweenOne
-            className={`${this.props.className}-nav`}
-            animation={{ x: 30, type: 'from', ease: 'easeOutQuad' }}
+            animation={{ x: -30, type: 'from', ease: 'easeOutQuad' }}
+            {...dataSource.logo}
           >
-            <Menu
-              mode="horizontal"
-              defaultSelectedKeys={['0']}
-              id={`${this.props.id}-menu`}
-            >
-              {navChildren}
-            </Menu>
+            <img width="100%" src={dataSource.logo.children} alt="img" />
           </TweenOne>
-        )
-      }
-    </TweenOne>);
+          {isMobile && (
+            <div
+              {...dataSource.mobileMenu}
+              onClick={() => {
+                this.phoneClick();
+              }}
+              /* replace-start */
+              data-edit="Menu"
+            /* replace-end */
+            >
+              <em />
+              <em />
+              <em />
+            </div>)
+          }
+          <TweenOne
+            {...dataSource.menu}
+            component={Menu}
+            componentProps={{
+              mode: isMobile ? 'inline' : 'horizontal',
+              defaultSelectedKeys: ['0'],
+              theme: isMobile ? 'dark' : 'default',
+            }}
+            animation={{ x: 30, type: 'from', ease: 'easeOutQuad' }}
+            /* replace-start */
+            {...(!isMobile ? { 'data-edit': 'Menu' } : {})}
+          /* replace-end */
+          >
+            {navChildren}
+          </TweenOne>
+        </div>
+      </TweenOne>);
   }
 }
-
-Header.defaultProps = {
-  className: 'header0',
-};
 
 export default Header;

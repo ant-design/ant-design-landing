@@ -59,7 +59,6 @@ export default class Article extends React.PureComponent {
     const anchorChild = this.getAnchor(props.utils.toReactComponent(
       ['ul', { className: 'toc' }].concat(getChildren(content.toc))
     ));
-    console.log(anchorChild);
     return (
       <DocumentTitle title={`${title[locale] || title} - Ant Design Landings`}>
         <article className="markdown" ref={(node) => { this.node = node; }}>

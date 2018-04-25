@@ -1,16 +1,14 @@
 import React from 'react';
 import EditorList from 'rc-editor-list';
 import EditorProps from './PropsComp';
+import EditorChild from './ChildComp';
 import { getDataSourceValue } from '../../utils';
 import { setTemplateData } from '../../../../edit-module/actions';
 import { deepCopy } from '../../../../utils';
 import tempData from '../../../../templates/template/element/template.config';
 
 class EditorComp extends React.Component {
-  setValue = (key, value, newData) => {
-    const { currentEditData } = this.props;
-    const { id } = currentEditData;
-    const ids = id.split('-');
+  setValue = (ids, key, value, newData) => {
     const cid = ids[0].split('_')[0];
     const data = getDataSourceValue(ids[1], newData, [ids[0], 'dataSource'], {
       [ids[0]]: {
@@ -27,11 +25,28 @@ class EditorComp extends React.Component {
     const cid = ids[0].split('_')[0];
     const tempDataSource = tempData[cid].dataSource;
     const currentEditTemplateData = getDataSourceValue(ids[1], tempDataSource);
-    const inDomClass = !!currentEditTemplateData.className.split(' ').filter(c => c === cssName).length;
+    const currentEditClassName = currentEditData.dom.className;
+    const inDataClass = currentEditTemplateData.className && !!currentEditTemplateData.className
+      .split(' ').filter(c =>
+        c === cssName
+      ).length;
+    // 如果数据里没有样式，， dom 里却有，有组件的情况下。。
+    const inDomClass = currentEditClassName && !!currentEditClassName.split(' ').filter(c =>
+      c === cssName
+    ).length;
+    let newClassName;
+    if (inDomClass && cssName.indexOf('editor_css') === -1) {
+      if (inDataClass) {
+        newClassName = currentEditTemplateData.className;
+      } else {
+        newClassName = '';
+      }
+    } else {
+      newClassName = `${currentEditTemplateData.className || ''} ${cssName}`.trim();
+    }
     const newTemplateData = deepCopy(templateData);
-    this.setValue('className', inDomClass ?
-      currentEditTemplateData.className : `${currentEditTemplateData.className} ${cssName}`,
-    newTemplateData.data.config);
+    console.log(ids);
+    this.setValue(ids, 'className', newClassName, newTemplateData.data.config);
     const data = {
       className: e.className,
       css: e.css,
@@ -42,10 +57,32 @@ class EditorComp extends React.Component {
     newTemplateData.data.style.push(data);
     dispatch(setTemplateData(newTemplateData));
   }
-  onPropsChange = (key, value) => {
+  onPropsChange = (key, value, func) => {
+    const { dispatch, templateData, currentEditData } = this.props;
+    const { id } = currentEditData;
+    const ids = id.split('-');
+    if (func) {
+      const dataId = currentEditData.id.split('-')[0];
+      const template = {
+        ...templateData,
+        funcData: {
+          [dataId]: {
+            [key]: value,
+          },
+        },
+      };
+      currentEditData.iframe.postMessage(template, '*');
+    } else {
+      const newTemplateData = deepCopy(templateData);
+
+      this.setValue(ids, key, value, newTemplateData.data.config);
+      dispatch(setTemplateData(newTemplateData));
+    }
+  }
+  onChildChange = (ids, currentData) => {
     const { dispatch, templateData } = this.props;
     const newTemplateData = deepCopy(templateData);
-    this.setValue(key, value, newTemplateData.data.config);
+    this.setValue(ids, 'children', currentData.children, newTemplateData.data.config);
     dispatch(setTemplateData(newTemplateData));
   }
   render() {
@@ -56,6 +93,7 @@ class EditorComp extends React.Component {
     const edit = currentEditData.dom.getAttribute('data-edit');
     return (
       [
+        <EditorChild edit={edit} {...this.props} key="child" onChange={this.onChildChange} />,
         <EditorProps edit={edit} {...this.props} key="props" onChange={this.onPropsChange} />,
         <EditorList
           key="css"

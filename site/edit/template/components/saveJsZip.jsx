@@ -181,7 +181,7 @@ export function saveJsZip(templateData, callBack) {
   template.forEach((key) => {
     const keys = key.split('_');
     const { templateStr, less } = webData[keys[0]];
-    const dataSource = mergeEditDataToDefault(config[key], webData[keys[0]]);
+    const dataSource = mergeEditDataToDefault(config[key], webData[keys[0]], true);
     const props = `export const ${key.replace('_', '')}DataSource =${
       JSON.stringify(imgToTag(dataSource))
         .replace(/"(<.*?>)"/g, '<span>$1</span>')//  to react;
@@ -195,7 +195,7 @@ export function saveJsZip(templateData, callBack) {
     // 转换 antd;
     const l = templateStr.match(/import\s+(.+?)\s+'antd\/lib\/(.+?)';/g);
     let newTemplateStr = templateStr.replace(/import\s+(.+?)\s+'antd\/lib\/(.+?)';/g, '&antd&');
-    if (l.length) {
+    if (l && l.length) {
       const ll = l.map(k => k.split(/\s+/g)[1]).join(',');
       newTemplateStr = newTemplateStr.replace('&antd&', `import {${ll}} from 'antd';`);
     }

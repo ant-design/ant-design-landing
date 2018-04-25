@@ -39,7 +39,7 @@ export function hasErrors(fieldsError) {
   );
 }
 
-const getParentRect = (item) => {
+const getParentRect = (item, parentData) => {
   const p = [];
   let i = 0;
   function parentNode(parent) {
@@ -50,7 +50,8 @@ const getParentRect = (item) => {
         dataId,
         item: parent,
         rect,
-        parent: getParentRect(parent),
+        parent: getParentRect(parent, parentData),
+        parentData,
       });
       i += 1;
     }
@@ -73,7 +74,8 @@ export const getChildRect = (data) => {
           dataId,
           item,
           rect,
-          parent: getParentRect(item),
+          parent: getParentRect(item, data),
+          parentData: data,
         });
       }
       if (item.children) {
@@ -112,7 +114,7 @@ export const getDataSourceValue = (id, templateData, parent, tempDefaultData) =>
     if (nameKey.length > 1 && nameKey[0] === 'array_name') {
       let i = parseFloat(nameKey[1].replace(/[a-z]/g, ''));
       const elem = t.filter((item, ii) => {
-        if (item.name === nameKey[1]) {
+        if (item && item.name === nameKey[1]) {
           i = ii;
           return item;
         }

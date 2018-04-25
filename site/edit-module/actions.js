@@ -170,6 +170,7 @@ export const setTemplateData = (data) => {
 export const saveData = (templateData, dispatch, cb) => {
   const { uid, data } = templateData;
   const { user } = data;
+  console.log(user);
   const saveFile = (d) => {
     const templateObject = AV.Object.createWithoutData(fileName, uid);
     Object.keys(data).forEach((key) => {
@@ -180,39 +181,37 @@ export const saveData = (templateData, dispatch, cb) => {
       cb(e);
     }, cb);
   };
-  if (user) {
-    let userData;
-    if (!user.userId) {
-      const password = user.password;
-      delete user.password;
-      const UserObject = AV.Object.extend(userAvName);
-      userData = new UserObject();
-      userData.set('username', templateData.uid);
-      userData.set('password', password);
-      userData.save().then((obj) => {
-        user.userId = obj.id;
-        window.localStorage.setItem(`antd-landings-login-${obj.id}`, 'true');
-        saveFile(templateData);
-      }, (error) => {
-        console.log(JSON.stringify(error));
-      });
-    } else if (user.userId && user.password) {
-      userData = AV.Object.createWithoutData(userAvName, user.userId);
-      userData.set('password', user.password);
-      delete user.password;
-      userData.save().then(() => {
-        saveFile(templateData);
-      });
-    } else if (user.delete) {
-      userData = AV.Object.createWithoutData(userAvName, user.userId);
-      userData.destroy().then(() => {
-        window.localStorage.setItem(`antd-landings-login-${user.userId}`, '');
-        delete templateData.data.user;
-        saveFile(templateData);
-      }, (error) => {
-        console.log(JSON.stringify(error));
-      });
-    }
+  let userData;
+  if (user && !user.userId) {
+    const password = user.password;
+    delete user.password;
+    const UserObject = AV.Object.extend(userAvName);
+    userData = new UserObject();
+    userData.set('username', templateData.uid);
+    userData.set('password', password);
+    userData.save().then((obj) => {
+      user.userId = obj.id;
+      window.localStorage.setItem(`antd-landings-login-${obj.id}`, 'true');
+      saveFile(templateData);
+    }, (error) => {
+      console.log(JSON.stringify(error));
+    });
+  } else if (user && user.userId && user.password) {
+    userData = AV.Object.createWithoutData(userAvName, user.userId);
+    userData.set('password', user.password);
+    delete user.password;
+    userData.save().then(() => {
+      saveFile(templateData);
+    });
+  } else if (user && user.delete) {
+    userData = AV.Object.createWithoutData(userAvName, user.userId);
+    userData.destroy().then(() => {
+      window.localStorage.setItem(`antd-landings-login-${user.userId}`, '');
+      delete templateData.data.user;
+      saveFile(templateData);
+    }, (error) => {
+      console.log(JSON.stringify(error));
+    });
   } else {
     saveFile(templateData);
   }

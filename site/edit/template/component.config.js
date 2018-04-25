@@ -113,5 +113,14 @@ export default {
       remark: '出场时是否播放子级的出场动画',
     },
   },
+  Menu: {
+    open: {
+      name: '展开导航',
+      type: 'switch',
+      value: false,
+      func: true,
+      remark: '只适用在 mobile，如果打开状态点击到别处编辑，需要关闭请重新切换。',
+    },
+  },
 };
 

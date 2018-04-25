@@ -11,28 +11,28 @@ const Panel = Collapse.Panel;
 
 export default class PropsComp extends React.PureComponent {
   getCompChild = (defaultValue, v, key) => {
-    const { type, value, props } = defaultValue;
+    const { type, value, props, func } = defaultValue;
     const currentValue = typeof v !== 'undefined' ? v : value;
     switch (type) {
       case 'switch':
         return (<Switch
           {...props}
           size="small"
-          checked={currentValue}
-          onChange={(data) => { this.props.onChange(key, data); }}
+          {...(func ? {} : { checkbox: currentValue.toString() })}
+          onChange={(data) => { this.props.onChange(key, data, func); }}
         />);
       case 'inputGroup':
         return (<InputGroup
           {...props}
-          value={currentValue}
-          onChange={(data) => { this.props.onChange(key, data); }}
+          {...(func ? {} : { value: currentValue })}
+          onChange={(data) => { this.props.onChange(key, data, func); }}
         />);
       case 'select':
         return (
           <Select
             {...props}
-            value={currentValue}
-            onChange={(data) => { this.props.onChange(key, data); }}
+            {...(func ? {} : { value: currentValue })}
+            onChange={(data) => { this.props.onChange(key, data, func); }}
             size="small"
             getPopupContainer={node => node.parentNode.parentNode.parentNode.parentNode.parentNode}
           >
@@ -44,17 +44,17 @@ export default class PropsComp extends React.PureComponent {
         return (
           <CheckboxGroup
             {...props}
-            value={currentValue}
+            {...(func ? {} : { value: currentValue })}
             size="small"
-            onChange={(data) => { this.props.onChange(key, data); }}
+            onChange={(data) => { this.props.onChange(key, data, func); }}
           />);
       case 'inputNumber':
         return (
           <InputNumber
             {...props}
             size="small"
-            value={currentValue}
-            onChange={(data) => { this.props.onChange(key, data); }}
+            {...(func ? {} : { value: currentValue })}
+            onChange={(data) => { this.props.onChange(key, data, func); }}
           />);
       default:
         break;

@@ -1,5 +1,4 @@
 @import '../../../static/custom.less';
-
 @header: header1;
 .@{header} {
   background: @template-nav-bg-color;
@@ -29,38 +28,11 @@
     color: @template-text-color-light;
     height: 64px;
     border-bottom-color: transparent;
-    li {
-      float: left;
-      text-align: center;
+    & li {
       min-width: 100px;
       i {
         transition: none;
       }
-    }
-    .ant-menu-sub {
-      background: #fff;
-      color: fade(#666, 75);
-      overflow: hidden;
-      li {
-        width: 100%;
-        padding: 0 20px;
-      }
-      &menu-title:hover {
-        color: inherit;
-      }
-    }
-    .ant-menu-vertical, .ant-menu-vertical .ant-menu-item {
-      border-right: none;
-    }
-    & .ant-menu-horizontal > .ant-menu-item-active {
-      color: @link-hover-color;
-      border-bottom-color: @link-hover-color;
-
-    }
-  }
-  &-menu, &-phone-menu {
-    li i {
-      transition: none;
     }
     .help {
       border-left: 1px solid fade(@line-color, 5) !important;
@@ -70,7 +42,6 @@
       }
       span {
         display: inline-block;
-        margin-left: 5px;
         font-size: 12px;
       }
     }
@@ -79,6 +50,9 @@
       border-left: 1px solid fade(@line-color, 5) !important;
       .img {
         margin-left: 0;
+        width: 30px;
+        height: 30px;
+        display: inline-block;
         img {
           vertical-align: middle;
         }
@@ -95,65 +69,78 @@
     &-logo {
       z-index: 101;
     }
-    &-phone-menu {
+    & &-menu {
+      height: auto;
+      min-height: 0;
+      max-height: 0;
+      float: inherit;
+      position: relative;
+      left: -24px;
+      & li {
+        padding: 0 24px;
+        &.ant-menu-submenu {
+          padding: 0;
+        }
+      }
+      & .ant-menu-submenu .ant-menu-sub {
+        padding: 0 24px;
+      }
+    }
+    &-mobile-menu {
       width: 16px;
       height: 14px;
       cursor: pointer;
       position: absolute;
-      top: 0;
-      bottom: 0;
-      margin: auto;
-      right: 20px;
-      &-bar {
-        position: relative;
-        z-index: 100;
-        em {
-          display: block;
-          width: 100%;
-          height: 2px;
-          background: #FFF;
-          margin-top: 4px;
-          transition: transform .3s @ease-in-out, opacity .3s @ease-in-out;
-        }
-        :first-child {
-          margin-top: 0;
-        }
+      top: 24px;
+      right: 24px;
+      z-index: 100;
+      em {
+        display: block;
+        width: 100%;
+        height: 2px;
+        background: #FFF;
+        margin-top: 4px;
+        transition: transform .3s @ease-in-out, opacity .3s @ease-in-out;
       }
-      &.open {
-        .@{header}-phone-nav-bar {
-          em {
-            &:nth-child(1) {
-              transform: translateY(6px) rotate(45deg);
-            }
-            &:nth-child(2) {
-              opacity: 0;
-            }
-            &:nth-child(3) {
-              transform: translateY(-6px) rotate(-45deg);
-            }
+      :first-child {
+        margin-top: 0;
+      }
+      
+    }
+    .ant-menu {
+      
+      overflow: hidden;
+      width: ~"calc(100% + 48px)";
+      transition: opacity .3s @ease-in-out, max-height .45s @ease-in-out, min-height .45s @ease-in-out;
+      background: @template-bg-color;
+      .ant-menu-item-selected {
+        border: none;
+      }
+    }
+    & .open {
+      height: auto;
+      .@{header}-mobile-menu {
+        em {
+          &:nth-child(1) {
+            transform: translateY(6px) rotate(45deg);
+          }
+          &:nth-child(2) {
+            opacity: 0;
+          }
+          &:nth-child(3) {
+            transform: translateY(-6px) rotate(-45deg);
           }
         }
-        .@{header}-phone-menu-text {
-          opacity: 1;
-          pointer-events: auto;
-          transition-timing-function: @ease-out;
-        }
       }
-
-      &-text {
-        position: fixed;
-        top: 0;
-        right: 0;
-        width: 100%;
-        height: 100%;
-        padding-top: 64px;
-        opacity: 0;
-        transition: opacity .3s @ease-in;
-        pointer-events: none;
-        background: #404040;
-        .ant-menu-item-selected {
-          border: none;
-        }
+      .ant-menu {
+        height: auto;
+      }
+      >.ant-menu {
+        // 动画采用minHeight, 如效果不好请使用绝对高度；
+        max-height: 100vh;
+        min-height: 300px;
+        opacity: 1;
+        pointer-events: auto;
       }
     }
   }

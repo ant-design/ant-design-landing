@@ -9,6 +9,8 @@ import CheckboxGroup from './CheckboxGroup';
 
 const Panel = Collapse.Panel;
 
+const noProps = ['text', 'image', 'menu'];
+
 export default class PropsComp extends React.PureComponent {
   getCompChild = (defaultValue, v, key) => {
     const { type, value, props, func } = defaultValue;
@@ -92,7 +94,7 @@ export default class PropsComp extends React.PureComponent {
   }
   render() {
     const { edit, currentEditData, templateData } = this.props;
-    const editArray = edit ? edit.split(',').filter(c => c !== 'text' && c !== 'image') : [];
+    const editArray = edit ? edit.split(',').filter(c => noProps.indexOf(c) === -1) : [];
     if (!edit || !editArray.length) {
       return null;
     }

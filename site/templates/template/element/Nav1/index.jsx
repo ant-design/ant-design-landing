@@ -44,13 +44,19 @@ class Header extends React.Component {
             React.createElement('span', { dangerouslySetInnerHTML: { __html: navData[key].children } })
             /* replace-end-value */}
         </Item>));
+    // user 涉及到数据，请自行替换。
     const userTitle = (
-      <div>
-        <span className="img">
+      <div
+        {...dataSource.user}
+        /* replace-start */
+        data-edit="Menu"
+      /* replace-end */
+      >
+        <span className="img" {...dataSource.user.img}>
           <img
             src="https://zos.alipayobjects.com/rmsportal/iXsgowFDTJtGpZM.png"
-            width="30"
-            height="30"
+            width="100%"
+            height="100%"
             alt="img"
           />
         </span>
@@ -69,7 +75,11 @@ class Header extends React.Component {
           </span>
         </Item>),
       (
-        <SubMenu className="user" title={userTitle} key="user">
+        <SubMenu
+          className="user"
+          title={userTitle}
+          key="user"
+        >
           <Item key="a">用户中心</Item>
           <Item key="b">修改密码</Item>
           <Item key="c">登出</Item>
@@ -102,6 +112,7 @@ class Header extends React.Component {
               }}
               /* replace-start */
               data-edit="Menu"
+            /* replace-end */
             >
               <em />
               <em />
@@ -119,6 +130,7 @@ class Header extends React.Component {
             animation={{ x: 30, type: 'from', ease: 'easeOutQuad' }}
             /* replace-start */
             {...(!isMobile ? { 'data-edit': 'Menu' } : {})}
+          /* replace-end */
           >
             {navChildren}
           </TweenOne>
@@ -129,54 +141,3 @@ class Header extends React.Component {
 }
 
 export default Header;
-/*
-[
-      'defaultSelectedKeys',
-      'selectedKeys',
-      'defaultOpenKeys',
-      'openKeys',
-      'mode',
-      'getPopupContainer',
-      'onSelect',
-      'onDeselect',
-      'onDestroy',
-      'openTransitionName',
-      'openAnimation',
-      'subMenuOpenDelay',
-      'subMenuCloseDelay',
-      'forceSubMenuRender',
-      'triggerSubMenuAction',
-      'level',
-      'selectable',
-      'multiple',
-      'onOpenChange',
-      'visible',
-      'focusable',
-      'defaultActiveFirst',
-      'prefixCls',
-      'inlineIndent',
-      'parentMenu',
-      'title',
-      'rootPrefixCls',
-      'eventKey',
-      'active',
-      'onItemHover',
-      'onTitleMouseEnter',
-      'onTitleMouseLeave',
-      'onTitleClick',
-      'isOpen',
-      'renderMenuItem',
-      'manualRef',
-      'subMenuKey',
-      'disabled',
-      'index',
-      'isSelected',
-      'store',
-    ].forEach(key => delete props[key])
-    const inlineIndent = props.inlineIndent;
-    const level = props.level;
-    var style = _extends({}, props.style);
-    if (props.mode === 'inline') {
-      style.paddingLeft = inlineIndent * level;
-    }
-*/

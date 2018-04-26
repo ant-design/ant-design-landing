@@ -22,20 +22,17 @@
   }
   &-menu {
     float: right;
-    line-height: 62px;
-    position: relative;
-    background: transparent;
-    color: @template-text-color-light;
-    height: 64px;
-    border-bottom-color: transparent;
-    & li {
-      float: left;
-      text-align: center;
-      width: 100px;
-    }
-    & .ant-menu-horizontal>.ant-menu-item-active {
-      color: @link-hover-color;
-      border-bottom-color: @link-hover-color;
+    
+    >.ant-menu {
+      line-height: 62px;
+      background: transparent;
+      color: @template-text-color-light;
+      height: 64px;
+      border-bottom-color: transparent;
+      position: relative;
+      & li {
+        min-width: 100px;
+      }
     }
   }
 }
@@ -45,8 +42,17 @@
     &-logo {
       z-index: 101;
     }
-    &-menu {
-      height: auto;
+    & &-menu {
+      float: inherit;
+      > .ant-menu {
+        height: auto;
+        min-height: 0;
+        max-height: 0;
+        left: -24px;
+        & li {
+          padding: 0 24px;
+        }
+      }
     }
     &-mobile-menu {
       width: 16px;
@@ -54,7 +60,7 @@
       cursor: pointer;
       position: absolute;
       top: 24px;
-      right: 20px;
+      right: 24px;
       z-index: 100;
       em {
         display: block;
@@ -69,13 +75,10 @@
       }
     }
     .ant-menu {
-      float: inherit;
-      position: relative;
-      left: -24px;
-      height: 0vh;
+      max-height: 0vh;
       overflow: hidden;
       width: ~"calc(100% + 48px)";
-      transition: opacity .3s @ease-in-out, height .3s @ease-in-out;
+      transition: opacity .3s @ease-in-out, max-height .45s @ease-in-out, min-height .45s @ease-in-out;
       background: @template-bg-color;
       .ant-menu-item-selected {
         border: none;
@@ -97,7 +100,9 @@
         }
       }
       .ant-menu {
-        height: 210px;
+        // 动画采用minHeight, 如效果不好请使用绝对高度；
+        max-height: 100vh;
+        min-height: 300px;
         opacity: 1;
         pointer-events: auto;
       }

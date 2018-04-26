@@ -46,9 +46,14 @@ export default {
         },
       ],
     },
+    mobileMenu: {
+      className: 'header1-mobile-menu',
+    },
     help: {
       className: 'help',
       children: '帮助',
+    },
+    user: {
     },
   },
 };

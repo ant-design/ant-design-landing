@@ -93,7 +93,7 @@ class EditorComp extends React.Component {
     const edit = currentEditData.dom.getAttribute('data-edit');
     return (
       [
-        <EditorChild edit={edit} {...this.props} key="child" onChange={this.onChildChange} />,
+        // <EditorChild edit={edit} {...this.props} key="child" onChange={this.onChildChange} />,
         <EditorProps edit={edit} {...this.props} key="props" onChange={this.onPropsChange} />,
         <EditorList
           key="css"

@@ -10,9 +10,6 @@ import './index.less';
 /* replace-end */
 const BgElement = Element.BgElement;
 class Banner extends React.Component {
-  static defaultProps = {
-    className: 'banner1',
-  };
   /* replace-start */
   constructor(props) {
     super(props);
@@ -128,7 +125,7 @@ class Banner extends React.Component {
           leave={{ opacity: 0 }}
           component=""
         >
-          <div className={`${props.className}-wrapper`} key="wrapper">
+          <div className="banner1-wrapper" key="wrapper">
             <BannerAnim
               key="BannerAnim"
               {...dataSource.BannerAnim}
@@ -147,7 +144,7 @@ class Banner extends React.Component {
           animation={{
             y: '-=20', yoyo: true, repeat: -1, duration: 1000,
           }}
-          className={`${props.className}-icon`}
+          className="banner1-icon"
           style={{ bottom: 40 }}
           key="icon"
         >

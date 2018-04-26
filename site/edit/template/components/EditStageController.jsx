@@ -352,6 +352,9 @@ class EditStateController extends React.PureComponent {
   }
 
   onEditSelectChange = (v) => {
+    if (!v) {
+      return;
+    }
     if (this.currentData) {
       this.currentData.item.style.visibility = '';
     }

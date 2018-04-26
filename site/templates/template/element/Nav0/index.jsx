@@ -39,9 +39,7 @@ class Header extends React.Component {
     const navChildren = Object.keys(navData)
       .map((key, i) => (
         <Item key={i.toString()}>
-          {/* replace-start-value = navData[key].children} */
-            React.createElement('span', { dangerouslySetInnerHTML: { __html: navData[key].children } })
-            /* replace-end-value */}
+          <a href={navData[key].children.link} target={navData[key].children.blank && '_blank'}>{navData[key].children.name}</a>
         </Item>));
     return (
       <TweenOne
@@ -67,7 +65,7 @@ class Header extends React.Component {
                 this.phoneClick();
               }}
               /* replace-start */
-              data-edit="menu"
+              data-edit="Menu"
             /* replace-end */
             >
               <em />
@@ -79,10 +77,14 @@ class Header extends React.Component {
             {...dataSource.menu}
             animation={{ x: 30, type: 'from', ease: 'easeOutQuad' }}
             /* replace-start */
-            {...(!isMobile ? { 'data-edit': 'menu' } : {})}
-          /* replace-end */
+            data-edit="Menu"
+            /* replace-end */
           >
-            <Menu mode={isMobile ? 'inline' : 'horizontal'} defaultSelectedKeys={['0']} theme={isMobile ? 'dark' : 'default'}>
+            <Menu
+              mode={isMobile ? 'inline' : 'horizontal'}
+              defaultSelectedKeys={['0']}
+              theme={isMobile ? 'dark' : 'default'}
+            >
               {navChildren}
             </Menu>
           </TweenOne>

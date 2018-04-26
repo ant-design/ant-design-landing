@@ -20,19 +20,31 @@ export default {
       children: [
         {
           name: 'item0',
-          children: '导航一',
+          children: {
+            name: '导航一',
+            link: '',
+          },
         },
         {
           name: 'item1',
-          children: '导航二',
+          children: {
+            name: '导航二',
+            link: '',
+          },
         },
         {
           name: 'item2',
-          children: '导航三',
+          children: {
+            name: '导航三',
+            link: '',
+          },
         },
         {
           name: 'item3',
-          children: '导航四',
+          children: {
+            name: '导航四',
+            link: '',
+          },
         },
       ],
     },

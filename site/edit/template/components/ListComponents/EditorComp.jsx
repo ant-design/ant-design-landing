@@ -1,22 +1,13 @@
 import React from 'react';
 import EditorList from 'rc-editor-list';
 import EditorProps from './PropsComp';
-import EditorChild from './ChildComp';
-import { getDataSourceValue } from '../../utils';
+// import EditorChild from './ChildComp';
+import { getDataSourceValue, setDataSourceValue } from '../../utils';
 import { setTemplateData } from '../../../../edit-module/actions';
 import { deepCopy } from '../../../../utils';
 import tempData from '../../../../templates/template/element/template.config';
 
 class EditorComp extends React.Component {
-  setValue = (ids, key, value, newData) => {
-    const cid = ids[0].split('_')[0];
-    const data = getDataSourceValue(ids[1], newData, [ids[0], 'dataSource'], {
-      [ids[0]]: {
-        dataSource: tempData[cid].dataSource,
-      },
-    });
-    data[key] = value;
-  }
   onChange = (e) => {
     const cssName = e.cssName;
     const { currentEditData, dispatch, templateData } = this.props;
@@ -45,8 +36,7 @@ class EditorComp extends React.Component {
       newClassName = `${currentEditTemplateData.className || ''} ${cssName}`.trim();
     }
     const newTemplateData = deepCopy(templateData);
-    console.log(ids);
-    this.setValue(ids, 'className', newClassName, newTemplateData.data.config);
+    setDataSourceValue(ids, 'className', newClassName, newTemplateData.data.config, tempData);
     const data = {
       className: e.className,
       css: e.css,
@@ -75,16 +65,16 @@ class EditorComp extends React.Component {
     } else {
       const newTemplateData = deepCopy(templateData);
 
-      this.setValue(ids, key, value, newTemplateData.data.config);
+      setDataSourceValue(ids, key, value, newTemplateData.data.config, tempData);
       dispatch(setTemplateData(newTemplateData));
     }
   }
-  onChildChange = (ids, currentData) => {
+  /* onChildChange = (ids, currentData) => {
     const { dispatch, templateData } = this.props;
     const newTemplateData = deepCopy(templateData);
-    this.setValue(ids, 'children', currentData.children, newTemplateData.data.config);
+    setDataSourceValue(ids, 'children', currentData.children, newTemplateData.data.config, tempData);
     dispatch(setTemplateData(newTemplateData));
-  }
+  } */
   render() {
     const { currentEditData, mediaStateSelect } = this.props;
     if (!currentEditData) {

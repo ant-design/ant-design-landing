@@ -10,7 +10,7 @@ import { isImg, deepCopy, mergeEditDataToDefault } from '../../../utils';
 import webData from '../template.config';
 import tempData from '../../../templates/template/element/template.config';
 import EditButtton from './StateComponents/EditButtonView';
-import BannerSlideFunc from './StateComponents/BannerSlideFunc';
+import BannerSlideView from './StateComponents/BannerSlideView';
 
 const $ = window.$ || {};
 
@@ -446,7 +446,7 @@ class EditStateController extends React.PureComponent {
     switch (name) {
       case 'banner-switch':
         return (
-          <BannerSlideFunc
+          <BannerSlideView
             {...this.props}
             data={data}
             dataId={dataId}

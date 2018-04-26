@@ -364,6 +364,7 @@ export default class ListSort extends React.Component {
       'appearAnim',
       'onEventChange',
       'dragElement',
+      'onChange',
     ].forEach(key => delete props[key]);
     if (this.props.appearAnim) {
       return React.createElement(QueueAnim, {

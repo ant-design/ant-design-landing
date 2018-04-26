@@ -86,11 +86,12 @@ class Banner extends React.Component {
             {button.children}
           </Button>
         </QueueAnim>
-              </Element>);
+      </Element>);
     });
     return (
       <OverPack
         {...props}
+
       >
         <TweenOneGroup
           key="banner"

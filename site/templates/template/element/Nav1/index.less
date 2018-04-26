@@ -22,16 +22,24 @@
   }
   &-menu {
     float: right;
-    line-height: 62px;
-    position: relative;
-    background: transparent;
-    color: @template-text-color-light;
-    height: 64px;
-    border-bottom-color: transparent;
-    & li {
-      min-width: 100px;
-      i {
-        transition: none;
+    >.ant-menu {
+      line-height: 62px;
+      background: transparent;
+      color: @template-text-color-light;
+      height: 64px;
+      border-bottom-color: transparent;
+      position: relative;
+      & li {
+        min-width: 100px;
+      }
+      a {
+        color: @template-text-color-light;
+        &:hover {
+          color: @primary-color;
+        }
+      }
+      .ant-menu-item-selected a {
+        color: @primary-color;
       }
     }
     .help {
@@ -71,11 +79,13 @@
     }
     & &-menu {
       height: auto;
-      min-height: 0;
-      max-height: 0;
+      max-height: 0vh;
       float: inherit;
       position: relative;
       left: -24px;
+      width: ~"calc(100% + 48px)";
+      opacity: 0;
+      transition: opacity .3s @ease-in-out, max-height .3s @ease-in-out;
       & li {
         padding: 0 24px;
         &.ant-menu-submenu {
@@ -108,13 +118,21 @@
       
     }
     .ant-menu {
-      
+      height: auto;
       overflow: hidden;
       width: ~"calc(100% + 48px)";
-      transition: opacity .3s @ease-in-out, max-height .45s @ease-in-out, min-height .45s @ease-in-out;
       background: @template-bg-color;
       .ant-menu-item-selected {
         border: none;
+      }
+      a {
+        color: @template-text-color-light;
+        &:hover {
+          color: @template-text-color-light;
+        }
+      }
+      .ant-menu-item-selected a {
+        color: @template-text-color-light;
       }
     }
     & .open {
@@ -132,13 +150,9 @@
           }
         }
       }
-      .ant-menu {
-        height: auto;
-      }
-      >.ant-menu {
+      >.@{header}-menu {
         // 动画采用minHeight, 如效果不好请使用绝对高度；
         max-height: 100vh;
-        min-height: 300px;
         opacity: 1;
         pointer-events: auto;
       }

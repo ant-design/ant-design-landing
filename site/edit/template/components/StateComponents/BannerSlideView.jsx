@@ -6,7 +6,7 @@ import tempData from '../../../../templates/template/element/template.config';
 import ListSort from './ListSort';
 import { setTemplateData } from '../../../../edit-module/actions';
 
-export default class BannerSlideFunc extends React.Component {
+export default class BannerSlideView extends React.Component {
   componentDidUpdate() {
     this.pop.tooltip.tooltip.trigger.forcePopupAlign();
   }

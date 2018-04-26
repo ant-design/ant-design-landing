@@ -1,11 +1,15 @@
 import React from 'react';
-import { Icon, Button, Popover, Input, Dropdown, Menu } from 'antd';
+import { Icon, Button, Popover, Input, Dropdown, Menu, Modal } from 'antd';
 import classnames from 'classnames';
 import { isImg } from '../../../../utils';
+import MenuEditView from './MenuEditView';
 
 const ButtonGroup = Button.Group;
 
 export default class EditButtonView extends React.PureComponent {
+  state = {
+    editMenuShow: false,
+  }
   onImageBtnChange = (e) => {
     const value = e.target.value;
     if (value.match(isImg)) {
@@ -35,6 +39,12 @@ export default class EditButtonView extends React.PureComponent {
       <Menu onClick={this.onParentDropdonw}>
         {children}
       </Menu>);
+  }
+
+  switchEditMenuFunc = () => {
+    this.setState({
+      editMenuShow: !this.state.editMenuShow,
+    });
   }
 
   render() {
@@ -80,7 +90,12 @@ export default class EditButtonView extends React.PureComponent {
             <Button key={key} type="primary" size="small" onClick={this.props.openEditTextFunc}>
               T
             </Button>);
-
+        case 'Menu':
+          return (
+            <Button key={key} type="primary" size="small" onClick={this.switchEditMenuFunc}>
+              <Icon type="bars" />
+            </Button>
+          );
         default:
           return null;
       }
@@ -96,6 +111,15 @@ export default class EditButtonView extends React.PureComponent {
       <ButtonGroup key="group" className={className}>
         {parentChild}
         {buttons}
+        <Modal
+          title="编辑导航"
+          visible={this.state.editMenuShow}
+          onCancel={this.switchEditMenuFunc}
+          footer={null}
+          width={400}
+        >
+          <MenuEditView {...this.props} />
+        </Modal>
       </ButtonGroup>
     );
   }

@@ -142,3 +142,14 @@ export const getDataSourceValue = (id, templateData, parent, tempDefaultData) =>
   });
   return t;
 };
+
+export const setDataSourceValue = (ids, key, value, newData, tempData) => {
+  const cid = ids[0].split('_')[0];
+  const data = getDataSourceValue(ids[1], newData, [ids[0], 'dataSource'], {
+    [ids[0]]: {
+      dataSource: tempData[cid].dataSource,
+    },
+  });
+  data[key] = value;
+};
+

@@ -22,7 +22,6 @@
   }
   &-menu {
     float: right;
-    
     >.ant-menu {
       line-height: 62px;
       background: transparent;
@@ -32,6 +31,15 @@
       position: relative;
       & li {
         min-width: 100px;
+      }
+      a {
+        color: @template-text-color-light;
+        &:hover {
+          color: @primary-color;
+        }
+      }
+      .ant-menu-item-selected a {
+        color: @primary-color;
       }
     }
   }
@@ -43,15 +51,22 @@
       z-index: 101;
     }
     & &-menu {
+      height: auto;
+      max-height: 0vh;
       float: inherit;
-      > .ant-menu {
-        height: auto;
-        min-height: 0;
-        max-height: 0;
-        left: -24px;
-        & li {
-          padding: 0 24px;
+      position: relative;
+      left: -24px;
+      width: ~"calc(100% + 48px)";
+      opacity: 0;
+      transition: opacity .3s @ease-in-out, max-height .3s @ease-in-out;
+      & li {
+        padding: 0 24px;
+        &.ant-menu-submenu {
+          padding: 0;
         }
+      }
+      & .ant-menu-submenu .ant-menu-sub {
+        padding: 0 24px;
       }
     }
     &-mobile-menu {
@@ -73,15 +88,24 @@
       :first-child {
         margin-top: 0;
       }
+      
     }
     .ant-menu {
-      max-height: 0vh;
+      height: auto;
       overflow: hidden;
-      width: ~"calc(100% + 48px)";
-      transition: opacity .3s @ease-in-out, max-height .45s @ease-in-out, min-height .45s @ease-in-out;
+      
       background: @template-bg-color;
       .ant-menu-item-selected {
         border: none;
+      }
+      a {
+        color: @template-text-color-light;
+        &:hover {
+          color: @template-text-color-light;
+        }
+      }
+      .ant-menu-item-selected a {
+        color: @template-text-color-light;
       }
     }
     & .open {
@@ -99,10 +123,9 @@
           }
         }
       }
-      .ant-menu {
+      >.@{header}-menu {
         // 动画采用minHeight, 如效果不好请使用绝对高度；
         max-height: 100vh;
-        min-height: 300px;
         opacity: 1;
         pointer-events: auto;
       }

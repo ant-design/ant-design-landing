@@ -49,7 +49,6 @@ export default class ChildComp extends React.PureComponent {
       tempDataSource);
 
     let currentEditTemplateData = getDataSourceValue(ids[1], newTempDataSource);
-    console.log(currentEditTemplateData);
     const idChildArray = ids[1].split('&');
     const childIsArray = Array.isArray(currentEditTemplateData.children);
     const parentIsArray = idChildArray[idChildArray.length - 1].indexOf('array_name') >= 0;
@@ -62,7 +61,6 @@ export default class ChildComp extends React.PureComponent {
       ids[1] = idChildArray.join('&');
       currentEditTemplateData = getDataSourceValue(ids[1], newTempDataSource);
     }
-    console.log(currentEditTemplateData);
     const childrenToRender = currentEditTemplateData.children.filter(c => c && !c.delete).map((item) => {
       return (
         <div key={item.name} className="sort-manage">

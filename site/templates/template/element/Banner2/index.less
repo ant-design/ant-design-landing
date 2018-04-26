@@ -55,7 +55,7 @@
   .banner-user-elem .banner-user-text {
     top: 40%;
   }
-  &-title {
+  &-text-wrapper {
     display: inline-block;
     position: relative;
     top: 25%;
@@ -65,7 +65,7 @@
     width: 400px;
     text-align: left;
     padding: 20px;
-    & .logo {
+    .@{banner2}-title {
       width: 350px;
       left: 0;
       margin: auto;
@@ -73,12 +73,12 @@
       position: relative;
       font-size: 56px;
     }
-    & p {
+    & .@{banner2}-content {
       word-wrap: break-word;
       margin: auto auto 20px auto;
       font-weight: lighter;
     }
-    & button {
+    button {
       border: 1px solid #fff;
       color: #fff;
       background: transparent;
@@ -121,7 +121,7 @@
 
 @media screen and (max-width: 414px) {
   .@{banner2} {
-    &-title {
+    &-text-wrapper {
       width: 90%;
       left: 0;
       margin: auto;

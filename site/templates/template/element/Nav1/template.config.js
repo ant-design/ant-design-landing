@@ -1,18 +1,10 @@
-import {
-  marginAndPaddingStyle,
-  offsetStyle,
-  boxShadowStyle,
-  positionStyle,
-  textStyle,
-  bgStyle,
-  borderStyle,
-} from '../../utils-style';
-
 const component = require('./index');
+const templateStr = require('!raw-loader!./index');
 const less = require('raw-loader!./index.less');
 
 export default {
   component,
+  templateStr,
   less,
   dataSource: {
     wrapper: {

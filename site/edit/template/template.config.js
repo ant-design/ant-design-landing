@@ -30,7 +30,7 @@ export default {
       {
         src: 'https://zos.alipayobjects.com/rmsportal/xLbbmipjHaqSoJSXhIzP.jpg',
         text: '单张背景图Banner2',
-        uid: 3,
+        uid: 2,
       },
     ],
   },

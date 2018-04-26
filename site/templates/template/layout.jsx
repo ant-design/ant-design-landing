@@ -144,6 +144,7 @@ class Layout extends React.Component {
       const componentName = keys[0];
       const componentData = webData[componentName];
       const d = configData[key] || {};
+      console.log(componentData, componentName);
       const dataSource = setDataIdToDataSource(mergeEditDataToDefault(d, componentData, true), key);
       return React.createElement(componentData.component, {
         key,

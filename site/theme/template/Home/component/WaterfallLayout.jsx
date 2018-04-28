@@ -41,6 +41,10 @@ export default class WaterfallLayout extends AutoResponsive {
     this.oneEnterEnd();
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateContainerWidth);
+  }
+
   updateContainerWidth = () => {
     const containerWidth = this.dom.clientWidth + this.props.itemMargin;
     if (this.containerWidth !== containerWidth) {

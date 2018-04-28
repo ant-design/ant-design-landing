@@ -46,7 +46,7 @@ class Layout extends React.PureComponent {
     const { children, ...restProps } = this.props;
     const { pathname } = this.props.location;
     const { appLocale } = this.state;
-    const pathKey = pathname && (pathname.split('/')[1] || pathname.split('/')[0]);
+    const pathKey = pathname && pathname.split('/')[0];// (pathname.split('/')[1] || pathname.split('/')[0]);
     const childrenToRender = React.cloneElement(children, {
       ...children.props,
       isMobile: this.state.isMobile,

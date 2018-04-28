@@ -9,8 +9,8 @@ import * as utils from '../utils';
 
 const { SubMenu } = Menu;
 function getActiveMenuItem(props) {
-  const { child } = props.params;
-  return (child && child.replace('-cn', '')) ||
+  const { children } = props.params;
+  return (children && children.replace('-cn', '')) ||
     props.location.pathname.replace(/(^\/|-cn$)/g, '');
 }
 
@@ -124,7 +124,6 @@ export default class MainContent extends React.PureComponent {
           {text} <Icon type="export" />
         </a>
       );
-
     return (
       <Menu.Item key={key} disabled={disabled}>
         {child}

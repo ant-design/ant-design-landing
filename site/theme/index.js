@@ -3,8 +3,8 @@ const path = require('path');
 const homeTmpl = './template/Home/index';
 const contentTmpl = './template/Content/index';
 
-function pickerGenerator(module = '') {
-  const tester = new RegExp(`^docs/${module}`);
+function pickerGenerator() {
+  const tester = new RegExp('^docs/');
   return (markdownData) => {
     const filename = markdownData.meta.filename;
     if (tester.test(filename) && !/\/demo$/.test(path.dirname(filename))) {
@@ -23,8 +23,8 @@ module.exports = {
     return nodePath.endsWith('/demo');
   },
   pick: {
-    'docs/spec': pickerGenerator('spec'),
-    'docs/instructions': pickerGenerator('instructions'),
+    docs: pickerGenerator(),
+    // 'docs/instructions': pickerGenerator('instructions'),
   },
   plugins: [
     'bisheng-plugin-description',
@@ -42,7 +42,7 @@ module.exports = {
         component: homeTmpl,
       },
       {
-        path: '/docs/:children/:child',
+        path: '/docs/:children',
         component: contentTmpl,
       },
     ],

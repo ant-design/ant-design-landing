@@ -30,16 +30,16 @@ class Header extends React.Component {
             <FormattedMessage id="app.header.menu.home" />
           </Link>
         </Menu.Item>
-        <Menu.Item key="docs/spec">
-          <Link to={getLocalizedPathname('/docs/spec/introduce', isZhCN)}>
+        <Menu.Item key="docs">
+          <Link to={getLocalizedPathname('/docs/introduce', isZhCN)}>
             <FormattedMessage id="app.header.menu.language" />
           </Link>
-        </Menu.Item>
+        </Menu.Item>{/*
         <Menu.Item key="docs/instructions">
           <Link to={getLocalizedPathname('/docs/instructions/use-witch-ant-design-pro', isZhCN)}>
             <FormattedMessage id="app.header.menu.docs" />
           </Link>
-        </Menu.Item>
+        </Menu.Item> */}
         {!isMobile && (
           <Menu.Item key="edit">
             <a

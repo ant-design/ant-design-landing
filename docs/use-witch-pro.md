@@ -12,7 +12,7 @@ title:
 
 [Ant Design pro](https://pro.ant.design) 是 Ant Design 推出的一个开箱即用的中台前端/设计解决方案。
 
-基本配置请查看 [开始使用](docs/spec/getting-started);
+基本配置请查看 [开始使用](docs/getting-started);
 
 
 
@@ -205,4 +205,4 @@ export default class LandingsLayout extends React.Component {
 
 ## CSS Modules
 
-具体参考 [dva-cli 里使用里的 global](docs/spec/dva-cli#使用-global);
+具体参考 [开如使用里的 global](docs/getting-started#样式);

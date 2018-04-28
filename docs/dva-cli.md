@@ -11,7 +11,7 @@ title:
 
 如何使用 demo 地址请查看 [dva-cli-example](https://github.com/ant-motion/ant-motion-dva-cli-example);
 
-基本配置请查看 [开始使用](docs/spec/getting-started);
+基本配置请查看 [开始使用](docs/getting-started);
 
 ## 文件路径
 
@@ -31,7 +31,7 @@ dva 默认使用了 `css-modules`，同样我们提供了两套解决方案。
 
 ### 关闭 css-modules
 
-如果你当前项目为新项目，且对 `css-modules` 并不是太了解，可以选择关闭 css-modules，只需要在 `.roadhogrc` 文件里加上 `"disableCSSModules": true` 即可。
+如果你当前项目为新项目，且对 `css-modules` 并不是太了解，可以选择关闭 `css-modules`，只需要在 `.roadhogrc` 文件里加上 `"disableCSSModules": true` 即可。
 ```json
 {
   "entry": "src/index.js",
@@ -54,7 +54,7 @@ dva 默认使用了 `css-modules`，同样我们提供了两套解决方案。
 
 ### 使用 global
 
-使用 `css-modules` 的 global, 在 index.less 里添加 :global, 将样式不作转换, `global` 具体使用[请查看开始使用](/docs/spec/getting-started#样式)。
+使用 `css-modules` 的 `global`, 在 `index.less` 里添加 `:global`, 将样式不作转换, `global` 具体使用[请查看开始使用](/docs/getting-started#样式)。
 
 
 ## 按需加载

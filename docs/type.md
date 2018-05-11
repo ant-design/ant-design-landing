@@ -1,5 +1,8 @@
 ---
-order: 1
+order: 0
+category:
+  zh-CN: 设计指引
+  en-US: Guide
 title: 
   zh-CN: 类型
   en-US: Type

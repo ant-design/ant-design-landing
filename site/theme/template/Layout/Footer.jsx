@@ -101,6 +101,7 @@ class Footer extends React.Component {
             <Col md={6} sm={24} xs={24}>
               <div className="footer-center">
                 <h2>
+                  <img className="title-icon" src="https://gw.alipayobjects.com/zos/rmsportal/nBVXkrFdWHxbZlmMbsaH.svg" alt="" />
                   <FormattedMessage id="app.footer.more-product" />
                 </h2>
                 <div>

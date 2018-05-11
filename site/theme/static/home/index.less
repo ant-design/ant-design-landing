@@ -1,29 +1,20 @@
-.home,
-.home-wrapper {
-  .page-wrapper {
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-    .page {
-      padding: 0 24px;
-      max-width: 1200px;
-    }
-    h1 {
-      font-size: 32px;
-      line-height: 45px;
-      margin: 128px auto 120px;
-      text-align: center;
-      color: @text-color;
-    }
+.home .page-wrapper,
+.home-wrapper .home-page-wrapper {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  .page,
+  .home-page {
+    padding: 0 24px;
+    max-width: 1200px;
+    margin: auto;
   }
-  .button {
-    min-width: 136px;
-    height: 40px;
-    line-height: 40px;
+  h1 {
+    font-size: 32px;
+    line-height: 45px;
+    margin: 128px auto;
     text-align: center;
-    border-radius: 20px;
-    display: inline-block;
-    .mouseHover(@home-button-shadow-color);
+    color: @text-color;
   }
 }
 
@@ -33,6 +24,15 @@
     position: absolute;
     width: 100%;
     z-index: 999;
+  }
+  .button {
+    min-width: 136px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 20px;
+    display: inline-block;
+    .mouseHover(@home-button-shadow-color);
   }
 }
 

@@ -39,7 +39,12 @@ class Header extends React.Component {
     const navData = dataSource.menu.children;
     const navChildren = Object.keys(navData)
       .map((key, i) => (
-        <Item {...navData[key]} key={i.toString()}>
+        <Item
+          {...navData[key]}
+          key={i.toString()}
+          /* replace-start */
+          data-edit="Menu"
+        >
           <a href={navData[key].children.link} target={navData[key].children.blank && '_blank'}>{navData[key].children.name}</a>
         </Item>));
     // user 涉及到数据，请自行替换。
@@ -122,7 +127,7 @@ class Header extends React.Component {
             animation={{ x: 30, type: 'from', ease: 'easeOutQuad' }}
             /* replace-start */
             data-edit="Menu"
-            /* replace-end */
+          /* replace-end */
           >
             <Menu
               mode={isMobile ? 'inline' : 'horizontal'}

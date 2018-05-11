@@ -1,82 +1,76 @@
 @import '../../../static/custom.less';
-
-@content5: content5;
-.@{content5} {
-  &-text {
-    width: 35%;
-    display: inline-block;
-    vertical-align: top;
-    position: relative;
-    top: 15%;
-    left: 5%;
-    & > *.queue-anim-leaving {
-      position: relative !important;
+@content7: content7;
+.@{content7}-wrapper {
+  min-height: 720px;
+  .@{content7} {
+    >h1,
+    >p {
+      text-align: center;
     }
-    & > h1 {
-      position: relative;
-    }
-    & > p {
-      position: relative;
-      margin-top: 10px;
-    }
-    & ul {
-      position: relative;
-      margin-top: 10%;
-      display: inline-block;
-      & li {
-        margin-top: 8%;
-        & span {
-          display: inline-block;
-          width: 30px;
-          height: 30px;
-          position: absolute;
-        }
-        & h2, & p {
-          margin-left: 45px;
-        }
-        & h2 {
-          font-size: 14px;
-          margin-bottom: 10px;
-        }
+    &-tag {
+      & i {
+        width: 12px;
+        height: 14px;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 5px;
+      }
+      &-name {
+        display: inline-block;
       }
     }
-  }
-  &-img {
-    width: 50%;
-    display: inline-block;
-    position: relative;
-    float: right;
-    top: 15%;
-    right: 5%;
+    .ant-tabs-bar {
+      text-align: center;
+    }
+    .ant-tabs {
+      .ant-tabs-nav {
+        float: none;
+        text-align: center;
+      }
+    }
+    &-tabs-wrapper {
+      position: relative;
+      margin-top: 24px;
+    }
+    &-content {
+      display: flex;
+      align-items: center;
+    }
+    &-text {
+      padding: 24px 48px;
+
+    }
+    &-img {
+      padding: 24px 48px;
+    }
+    .ant-tabs-tabpane {
+      margin-top: 40px;
+    }
   }
 }
 
 @media screen and (max-width: 767px) {
-  .@{content5}-wrapper {
-    height: 800px;
+  .@{content7}-wrapper {
+    min-height: 980px;
     overflow: hidden;
-    .@{content5} {
-      width: 90%;
+    .@{content7} {
       max-width: 100%;
-      &-img, &-text {
+      &-content {
         display: block;
-        width: 100%;
-        top: auto;
-        left: auto;
-        right: auto;
       }
-      &-text {
-        height: 430px;
-        > h1 {
-          margin: 40px auto 20px;
-          font-size: 24px;
-        }
-        > h1, > p {
-          text-align: center;
-        }
+      &-text,
+      &-img {
+        text-align: left;
+        padding: 0;
       }
       &-img {
-        margin-top: 20px;
+        margin-top: 32px;
+      }
+      .ant-tabs-bar {
+        width: auto;
+        .ant-tabs-nav {
+          float: left;
+        }
       }
     }
   }

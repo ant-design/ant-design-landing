@@ -108,8 +108,8 @@ export default class Page1 extends React.PureComponent {
   render() {
     const children = this.getChildrenToRender();
     return (
-      <div className="page-wrapper page1">
-        <div className="page" >
+      <div className="home-page-wrapper page1">
+        <div className="home-page" >
           <h1><FormattedMessage id="app.home.features" /></h1>
           <ScrollOverPack playScale="0.3" className="page1-content">
             <QueueAnim key="queue" type="bottom" leaveReverse component={Row}>

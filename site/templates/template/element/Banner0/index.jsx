@@ -6,7 +6,7 @@ import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';
 /* replace-start */
 import './index.less';
 /* replace-end */
-class Banner extends React.Component {
+class Banner extends React.PureComponent {
   render() {
     const { ...currentProps } = this.props;
     const { dataSource } = currentProps;
@@ -32,7 +32,7 @@ class Banner extends React.Component {
           >
             {
             /* replace-start */
-            dataSource.title.children.match(/\.(gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/) ? (
+            dataSource.title.children.match(/\.(svg|gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/) ? (
               <img src={dataSource.title.children} width="100%" alt="img" />
             ) :
               /* replace-end */

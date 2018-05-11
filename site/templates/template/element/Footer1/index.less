@@ -1,79 +1,62 @@
 @import '../../../static/custom.less';
-
-@footer: footer1;
-.@{footer} {
+.footer1-wrapper {
   background: @template-bg-color;
-  height: 400px;
   overflow: hidden;
   position: relative;
+  min-height: 400px;
   color: @template-footer-text-color;
-  & > ul {
-    width: 95%;
-    max-width: 1200px;
-    margin: 40px auto 0;
-    overflow: inherit;
-    & > li {
-      float: left;
-      width: 20%;
-      padding: 10px;
-      position: relative !important; // 强制去除 queue-anim-leaving 的 absolute;
-      & h2 {
-        font-weight: normal;
+  .footer1 {
+    .home-page {
+      padding: 64px 24px 80px;
+    }
+    .block {
+      padding: 0 32px;
+      .logo {
+        max-width: 180px;
+      }
+      .slogan {
+        font-size: 12px;
+        margin-top: -20px;
+      }
+      >h2 {
+        margin-bottom: 24px;
         color: @template-text-color;
-        margin-bottom: 20px;
       }
-
-      & .icon {
-        width: 20px;
-        display: inline-block;
-        margin-left: 10px;
-        opacity: .35;
-        transition: opacity .3s @ease-out;
-        &:first-child {
-          margin-left: 0;
+      >div {
+        line-height: 24px;
+        a {
+          color: @template-footer-text-color;
+          &:hover {
+            color: @template-text-color;
+          }
         }
-        &:hover {
-          opacity: 1;
-        }
-      }
-
-      & a {
-        color: #666;
-        display: block;
-        &:hover {
-          color: @template-text-color;
-        }
-      }
-
-      & .logo {
-        width: 80%;
-        max-width: 150px;
-        display: block;
       }
     }
   }
-  & .copyright {
-    position: absolute;
-    bottom: 0;
+  .copyright-wrapper {
     width: 100%;
-    height: 100px;
-    text-align: center;
     border-top: 1px solid fade(@line-color, 10);
-    span{
-      display: block;
-      margin: 20px auto 0;
+    .home-page {
+      padding: 0 24px;
+      overflow: hidden;
+    }
+    .copyright {
+      height: 100px;
+      text-align: right;
+      line-height: 80px;
+      float: right;
     }
   }
 }
 
 @media screen and (max-width: 767px) {
-  .@{footer} {
+  .footer1 {
     height: 550px;
-    > ul {
+    >ul {
       width: 90%;
       margin: 20px auto 0;
       padding: 10px 0;
-      > li {
+      >li {
         width: 100%;
         h2 {
           margin-bottom: 10px;

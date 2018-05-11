@@ -9,7 +9,7 @@ import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';
 import './index.less';
 /* replace-end */
 const BgElement = Element.BgElement;
-class Banner extends React.Component {
+class Banner extends React.PureComponent {
   /* replace-start */
   constructor(props) {
     super(props);
@@ -76,7 +76,7 @@ class Banner extends React.Component {
             >
               {
                 /* replace-start */
-                title.children.match(/\.(gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/) ? (
+                title.children.match(/\.(svg|gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/) ? (
                   <img src={title.children} width="100%" alt="img" />
                 ) :
                   /* replace-end */

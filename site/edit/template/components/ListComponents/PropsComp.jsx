@@ -9,7 +9,7 @@ import CheckboxGroup from './CheckboxGroup';
 
 const Panel = Collapse.Panel;
 
-const noProps = ['text', 'image'];
+const noProps = ['text', 'image', 'video', 'icon'];
 
 export default class PropsComp extends React.PureComponent {
   getCompChild = (defaultValue, v, key) => {
@@ -66,6 +66,12 @@ export default class PropsComp extends React.PureComponent {
     const t = Object.keys(config).filter(key => key !== 'apiLink').map((key) => {
       const defaultData = config[key];
       const templateData = template[key];
+      if (key === 'remark') {
+        return (
+          <Row key="remark">
+            <Col><Icon type="warning" style={{ marginRight: 4 }} /> {defaultData}</Col>
+          </Row>);
+      }
       const compChild = this.getCompChild(defaultData, templateData, key);
       const tip = defaultData.remark && (
         <Tooltip
@@ -105,22 +111,24 @@ export default class PropsComp extends React.PureComponent {
     const newTempDataSource = mergeEditDataToDefault(templateData.data.config[ids[0]],
       tempDataSource);
     const currentEditTemplateData = getDataSourceValue(ids[1], newTempDataSource);
-    const childToRender = this.getChildrenToRender(compConfig[editArray[0]], currentEditTemplateData);
-    return (
-      <Collapse bordered={false} defaultActiveKey={['1']}>
-        <Panel
-          header={
-            <p>{editArray[0]} 编辑 {
-              compConfig[editArray[0]].apiLink && (
-                <a target="_blank" href={compConfig[editArray[0]].apiLink}>查看 API</a>
-              )}
-            </p>
-          }
-          key="1"
-        >
-          {childToRender}
-        </Panel>
-      </Collapse>
-    );
+    return editArray.map((item, i) => {
+      const childToRender = this.getChildrenToRender(compConfig[item], currentEditTemplateData);
+      return (
+        <Collapse bordered={false} defaultActiveKey={['1']} key={i.toString()}>
+          <Panel
+            header={
+              <p>{item} 编辑 {
+                compConfig[item].apiLink && (
+                  <a target="_blank" href={compConfig[item].apiLink}>查看 API</a>
+                )}
+              </p>
+            }
+            key="1"
+          >
+            {childToRender}
+          </Panel>
+        </Collapse>
+      );
+    });
   }
 }

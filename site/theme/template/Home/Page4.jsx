@@ -21,13 +21,13 @@ const svgChildren = svgBgToParallax(svgBg);
 
 export default function Page2() {
   return (
-    <div className="page-wrapper page4" >
+    <div className="home-page-wrapper page4" >
       <div className="bg">
         <svg width="1440px" height="300px" viewBox="0 0 1440 300" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" >
           {svgChildren}
         </svg>
       </div>
-      <ScrollOverPack playScale="0.3" className="page">
+      <ScrollOverPack playScale="0.3" className="home-page">
         <QueueAnim type="bottom" key="queue" leaveReverse>
           <p key="p"><FormattedMessage id="app.home.edit-slogen" /></p>
           <div key="a">

@@ -38,7 +38,13 @@ class Header extends React.Component {
     const navData = dataSource.menu.children;
     const navChildren = Object.keys(navData)
       .map((key, i) => (
-        <Item key={i.toString()}>
+        <Item
+          key={i.toString()}
+          {...navData[key]}
+           /* replace-start */
+          data-edit="Menu"
+           /* replace-end */
+        >
           <a href={navData[key].children.link} target={navData[key].children.blank && '_blank'}>{navData[key].children.name}</a>
         </Item>));
     return (

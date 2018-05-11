@@ -1,95 +1,118 @@
 import React from 'react';
-import TweenOne, { TweenOneGroup } from 'rc-tween-one';
+import TweenOne from 'rc-tween-one';
+import { Row, Col } from 'antd';
+import QueueAnim from 'rc-queue-anim';
 import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';
-import '../../../static/content.less';
+/* replace-start */
 import './index.less';
+/* replace-end */
 
-class Content extends React.Component {
-  static defaultProps = {
-    className: 'content4',
-  };
-
-  getChildrenToRender = data =>
-    Object.keys(data).filter(key => key.match('block'))
-      .sort((a, b) => {
-        const aa = Number(a.replace(/[^0-9]/ig, ''));
-        const bb = Number(b.replace(/[^0-9]/ig, ''));
-        return aa - bb;
-      })
-      .map((key) => {
-        const item = data[key];
-        return (<li
-          key={key}
-          id={`${this.props.id}-${key.split('_')[1]}`}
+class Content7 extends React.Component {
+  getBlockChildren = data =>
+    data.map((item) => {
+      const { title, img, content } = item;
+      ['title', 'img', 'contnet'].forEach(key => delete item[key]);
+      return (
+        <li
+          key={item.name}
+          {...item}
         >
-          <div className="content-wrapper">
-            <span>
-              <img src={item.children.img} height="100%" />
-            </span>
-            <p>
-              {item.children.content}
-            </p>
-          </div>
+          <span {...img}>
+            <img src={img.children} width="100%" alt="img" />
+          </span>
+          <h2 {...title}>
+            {
+              /* replace-start-value = title.children */
+              React.createElement('span', { dangerouslySetInnerHTML: { __html: title.children } })
+              /* replace-end-value */
+            }
+          </h2>
+          <p {...content}>
+            {
+              /* replace-start-value = content.children */
+              React.createElement('span', { dangerouslySetInnerHTML: { __html: content.children } })
+              /* replace-end-value */
+            }
+          </p>
         </li>);
-      });
+    });
 
-  getEnterAnim = (e, isMode) => {
-    const index = e.index;
-    const delay = isMode ? index * 50 + 200 : index % 4 * 100 + Math.floor(index / 4) * 100 + 300;
-    return {
-      y: '+=30', opacity: 0, type: 'from', delay,
-    };
-  };
 
   render() {
-    const props = { ...this.props };
-    const dataSource = props.dataSource;
-    const isMode = props.isMode;
-    const names = props.id.split('_');
-    const name = `${names[0]}${names[1]}`;
-    const childrenToRender = this.getChildrenToRender(dataSource);
+    const { ...props } = this.props;
+    const { dataSource, isMobile } = props;
     delete props.dataSource;
-    delete props.isMode;
+    delete props.isMobile;
+    const ulChildren = this.getBlockChildren(dataSource.block.children);
+    const queue = isMobile ? 'bottom' : 'left';
+    const imgAnim = isMobile ? {
+      y: 30, opacity: 0, delay: 600, type: 'from', ease: 'easeOutQuad',
+    }
+      : {
+        x: 30, opacity: 0, type: 'from', ease: 'easeOutQuad',
+      };
     return (
-      <div
-        {...props}
-        className="content-template-wrapper content4-wrapper"
-      >
+      <div {...props} {...dataSource.wrapper}>
         <OverPack
-          className={`content-template ${props.className}`}
+          {...dataSource.OverPack}
+          component={Row}
+          /* replace-start */
+          data-edit={['OverPack', 'Row']}
+        /* replace-end */
         >
+          <QueueAnim
+            key="text"
+            type={queue}
+            leaveReverse
+            ease={['easeOutQuad', 'easeInQuad']}
+            {...dataSource.textWrapper}
+            component={Col}
+            /* replace-start */
+            data-edit="Col"
+          /* replace-end */
+          >
+            <h1
+              key="h1"
+              {...dataSource.title}
+            >
+              {
+                /* replace-start-value = dataSource.title.children */
+                React.createElement('span', { dangerouslySetInnerHTML: { __html: dataSource.title.children } })
+                /* replace-end-value */
+              }
+            </h1>
+            <p
+              key="p"
+              {...dataSource.titleContent}
+            >
+              {
+                /* replace-start-value = dataSource.titleContent.children */
+                React.createElement('span', { dangerouslySetInnerHTML: { __html: dataSource.titleContent.children } })
+                /* replace-end-value */
+              }
+            </p>
+            <QueueAnim
+              component="ul"
+              key="ul"
+              type={queue}
+              ease="easeOutQuad"
+              {...dataSource.block}
+            >
+              {ulChildren}
+            </QueueAnim>
+          </QueueAnim>
           <TweenOne
-            animation={{
-              y: '+=30', opacity: 0, type: 'from', ease: 'easeOutQuad',
-            }}
-            component="h1"
-            key="h1"
-            reverseDelay={300}
-            id={`${props.id}-title`}
+            key="img"
+            animation={imgAnim}
+            resetStyleBool
+            {...dataSource.img}
+            component={Col}
+            /* replace-start */
+            data-edit={['Col', 'image']}
+          /* replace-end */
           >
-            {dataSource[`${name}_title`].children}
+            <img src={dataSource.img.children} width="100%" alt="img" />
           </TweenOne>
-          <TweenOne
-            animation={{
-              y: '+=30', opacity: 0, type: 'from', delay: 200, ease: 'easeOutQuad',
-            }}
-            component="p"
-            key="p"
-            reverseDelay={200}
-            id={`${props.id}-content`}
-          >
-            {dataSource[`${name}_content`].children}
-          </TweenOne>
-          <TweenOneGroup
-            className={`${props.className}-img-wrapper`}
-            component="ul"
-            key="ul"
-            enter={e => this.getEnterAnim(e, isMode)}
-            leave={{ y: '+=30', opacity: 0, ease: 'easeOutQuad' }}
-            id={`${props.id}-ul`}
-          >
-            {childrenToRender}
-          </TweenOneGroup>
         </OverPack>
       </div>
     );
@@ -97,4 +120,4 @@ class Content extends React.Component {
 }
 
 
-export default Content;
+export default Content7;

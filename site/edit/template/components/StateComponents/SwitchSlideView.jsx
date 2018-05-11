@@ -6,7 +6,7 @@ import tempData from '../../../../templates/template/element/template.config';
 import ListSort from './ListSort';
 import { setTemplateData } from '../../../../edit-module/actions';
 
-export default class BannerSlideView extends React.Component {
+export default class SwitchSlideView extends React.Component {
   componentDidUpdate() {
     this.pop.tooltip.tooltip.trigger.forcePopupAlign();
   }
@@ -118,7 +118,7 @@ export default class BannerSlideView extends React.Component {
   }
 
   render() {
-    const { data } = this.props;
+    const { data, name } = this.props;
     const popChild = this.getPopChild(this.getCurrentDataSource(this.props));
     return (
       <div className="banner-slide-wrapper">
@@ -133,7 +133,7 @@ export default class BannerSlideView extends React.Component {
           />
           <Popover
             content={popChild}
-            title="管理 banner 页数"
+            title={`管理 ${name} 页数`}
             getPopupContainer={triggerNode => triggerNode.parentNode}
             overlayClassName="manage-wrapper"
             ref={(c) => {

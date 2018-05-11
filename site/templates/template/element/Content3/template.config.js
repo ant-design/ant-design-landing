@@ -1,132 +1,94 @@
-import {
-  marginAndPaddingStyle,
-  offsetStyle,
-  textStyle,
-  bgStyle,
-  borderStyle,
-  floatStyle,
-} from '../../utils-style';
 
 const component = require('./index');
+const templateStr = require('!raw-loader!./index');
 const less = require('raw-loader!./index.less');
+
+const getBlock = children => ({
+  name: children.name,
+  className: 'block',
+  md: 8,
+  xs: 24,
+  children: {
+    icon: {
+      className: 'icon',
+      children: children.icon,
+    },
+    textWrapper: {
+      className: 'text',
+    },
+    title: {
+      className: 'title',
+      children: children.title,
+    },
+    content: {
+      className: 'content',
+      children: children.content,
+    },
+  },
+});
 
 export default {
   component,
+  templateStr,
   less,
   dataSource: {
-    content3: {
-      style: {
-        ...offsetStyle({ height: '50vh' }),
-        ...bgStyle({
-          imageRemark: '图片尺寸参考： 1920*540',
-        }),
-        ...borderStyle({ width: '0px', style: 'none', color: '#666' }),
-        '$ .content-template': {
-          name: '区块内框',
-          style: {
-            ...offsetStyle({ width: '100%', maxWidth: '1200px' }),
-            ...marginAndPaddingStyle({ margin: 'auto' }),
-          },
-        },
-      },
-      stylePhone: {
-        ...offsetStyle({ height: '400px' }),
-        ...bgStyle({
-          imageRemark: '图片尺寸参考： 1920*540',
-          isMode: true,
-        }),
-        ...borderStyle({ width: '0px', style: 'none', color: '#666' }),
-        '$ .content-template': {
-          name: '区块内框',
-          stylePhone: {
-            ...offsetStyle({ width: '90%' }),
-            ...marginAndPaddingStyle({ margin: 'auto' }),
-          },
-        },
-      },
+    wrapper: {
+      className: 'home-page-wrapper content3-wrapper',
     },
-    content3_imgWrapper: {
-      style: {
-        ...offsetStyle({ width: '40%' }),
-      },
-      stylePhone: {
-        ...offsetStyle({ height: '200px', width: '100%' }),
-        ...marginAndPaddingStyle({ margin: '20px auto' }),
-      },
+    page: {
+      className: 'home-page content3',
     },
-    content3_img: {
-      style: {
-        ...offsetStyle({ width: '55%', left: '10%', height: '50vh' }),
-        lineHeight: {
-          value: '50vh',
-          name: '区块行高',
-          remark: '控制图片垂直居中元素, 跟区块高度一样为居中',
-        },
-      },
-      stylePhone: {
-        ...offsetStyle({
-          width: '180px', height: '200px', right: '0px', left: '0px',
+    OverPack: {
+      playScale: 0.3,
+    },
+    title: {
+      children: '蚂蚁金融云提供专业的服务',
+      className: 'content-bottom',
+    },
+    titleContent: {
+      className: 'title-content',
+      children: '基于阿里云强大的基础资源',
+    },
+    block: {
+      className: 'content3-block-wrapper',
+      children: [
+        getBlock({
+          icon: 'https://zos.alipayobjects.com/rmsportal/ScHBSdwpTkAHZkJ.png',
+          title: '企业资源管理',
+          content: '云资源集中编排、弹性伸缩、持续发布和部署，高可用及容灾。',
+          name: 'block0',
         }),
-        ...textStyle({ lineHeight: '200px' }),
-        ...marginAndPaddingStyle({ margin: 'auto' }),
-      },
-      children: {
-        name: '图片展示',
-        value: 'https://zos.alipayobjects.com/rmsportal/tvQTfCupGUFKSfQ.png',
-        remark: '尺寸参考:268*290',
-      },
-    },
-    content3_textWrapper: {
-      style: {
-        ...offsetStyle({ width: '55%', height: '150px' }),
-      },
-      stylePhone: {
-        ...offsetStyle({ width: '100%', height: '140px' }),
-        ...marginAndPaddingStyle({ margin: 'auto auto 20px' }),
-        ...textStyle({ align: 'center' }),
-      },
-    },
-    content3_title: {
-      style: {
-        ...offsetStyle({ width: '75%', top: '35%' }),
-        ...textStyle({
-          size: '32px',
-          color: '#404040',
-          align: 'left',
+        getBlock({
+          icon: 'https://zos.alipayobjects.com/rmsportal/NKBELAOuuKbofDD.png',
+          title: '云安全',
+          content: '按金融企业安全要求打造的完整云上安全体系，全方位保障金融应用及数据安全。',
+          name: 'block1',
         }),
-        ...floatStyle('right'),
-      },
-      stylePhone: {
-        ...offsetStyle({ width: '100%' }),
-        ...textStyle({ size: '24px', color: '#404040', align: 'center' }),
-        ...marginAndPaddingStyle({ margin: '10px auto' }),
-      },
-      children: {
-        name: '标题名称',
-        value: '分布式中间件',
-      },
-    },
-    content3_content: {
-      style: {
-        ...offsetStyle({ width: '75%', top: '37%' }),
-        ...textStyle({
-          size: '12px',
-          color: '#666',
-          align: 'left',
+        getBlock({
+          icon: 'https://zos.alipayobjects.com/rmsportal/xMSBjgxBhKfyMWX.png',
+          title: '云监控',
+          content: '分布式云环境集中监控，统一资源及应用状态视图，智能分析及故障定位。',
+          name: 'block2',
         }),
-        ...marginAndPaddingStyle({ margin: '20px auto auto' }),
-        ...floatStyle('right'),
-      },
-      stylePhone: {
-        ...offsetStyle({ width: '100%' }),
-        ...textStyle({ size: '12px', color: '#666', align: 'center' }),
-        ...marginAndPaddingStyle({ margin: '20px auto auto' }),
-      },
-      children: {
-        name: '详细说明',
-        value: '金融级联机交易处理中间件，大规模分布式计算机，数万笔/秒级并发能力，严格保证交易数据统一性。' +
-        '金融级联机交易处理中间件，大规模分布式计算机，数万笔/秒级并发能力，严格保证交易数据统一性。',
-      },
+        getBlock({
+          icon: 'https://zos.alipayobjects.com/rmsportal/MNdlBNhmDBLuzqp.png',
+          title: '移动',
+          content: '一站式移动金融APP开发及全面监控；丰富可用组件，动态发布和故障热修复。',
+          name: 'block3',
+        }),
+        getBlock({
+          icon: 'https://zos.alipayobjects.com/rmsportal/UsUmoBRyLvkIQeO.png',
+          title: '分布式中间件',
+          content: '金融级联机交易处理中间件，大规模分布式计算机，数万笔/秒级并发能力，严格保证交易数据统一性。',
+          name: 'block4',
+        }),
+        getBlock({
+          icon: 'https://zos.alipayobjects.com/rmsportal/ipwaQLBLflRfUrg.png',
+          title: '大数据',
+          content: '一站式、全周期大数据协同工作平台，PB级数据处理、毫秒级数据分析工具。',
+          name: 'block5',
+        }),
+      ],
     },
   },
 };

@@ -24,30 +24,30 @@ Ant Design 目前提供了两套布局方案: [Layout](https://ant.design/compon
 
 <img class="preview-img" align="right" alt="像素类型示例" description="两边的距离为 24px" src="https://gw.alipayobjects.com/zos/rmsportal/bWJWBtBklmyOlISZyOFi.jpg">
 
-1152px 为最大宽度，为在响应式方面保证更好的预览效果，我们在最大宽度外面增加了 24 的边距, 避免屏幕尺寸在低于 1152px 的时候内容贴边, 于是需要将内容区域的最大宽度改为 1200px。
+1152px 为最大宽度，为在响应式方面保证更好的预览效果，我们在最大宽度外面增加了 24px 的边距, 避免屏幕尺寸在低于 1152px 的时候内容贴边, 于是需要将内容区域的最大宽度改为 1200px，再增加 24px 的内边距 `padding: 0 24px`。
 
 ---
 
 ## 样式参考
 百分比:
 ```less
-.page-wrapper {
+.home-page-wrapper {
   width: 100%;
-  .page {
-    width: 92%;
-    margin: auto;
-  }
+}
+.home-page {
+  width: 92%;
+  margin: auto;
 }
 ```
 像素点:
 ```less
-.page-wrapper {
+.home-page-wrapper {
   width: 100%;
-  .page {
-    padding: 0 24px;
-    max-width: 1200px;
-    margin: auto;
-  }
+}
+.home-page {
+  padding: 0 24px;
+  max-width: 1200px;
+  margin: auto;
 }
 ```
 

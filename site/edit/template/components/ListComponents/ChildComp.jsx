@@ -40,7 +40,7 @@ export default class ChildComp extends React.PureComponent {
   }
   render() {
     const { edit, currentEditData, templateData } = this.props;
-    const isBannerAnim = edit && edit.split(',').some(c => c === 'BannerAnim');
+    const isNoShow = edit && edit.split(',').some(c => c === 'BannerAnim' || c === 'Menu');
     const { id } = currentEditData;
     const ids = id.split('-');
     const cid = ids[0].split('_')[0];
@@ -52,7 +52,7 @@ export default class ChildComp extends React.PureComponent {
     const idChildArray = ids[1].split('&');
     const childIsArray = Array.isArray(currentEditTemplateData.children);
     const parentIsArray = idChildArray[idChildArray.length - 1].indexOf('array_name') >= 0;
-    if ((!childIsArray && !parentIsArray) || isBannerAnim) {
+    if ((!childIsArray && !parentIsArray) || isNoShow) {
       return null;
     }
     if (parentIsArray) {

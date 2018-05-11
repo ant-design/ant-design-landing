@@ -12,20 +12,21 @@ export default class InputGroup extends React.PureComponent {
   }
   render() {
     const { value } = this.props;
+    const newValue = Array.isArray(value) ? value : [value, value];
     return (
       <div>
         <AntInputGroup compact>
           <InputNumber
             {...this.props}
             size="small"
-            value={value[0]}
+            value={newValue[0]}
             style={{ width: '50%' }}
             onChange={(v) => { this.onInputChange(v, 'start'); }}
           />
           <InputNumber
             {...this.props}
             size="small"
-            value={value[1]}
+            value={newValue[1] || newValue[0]}
             style={{ width: '50%' }}
             onChange={(v) => { this.onInputChange(v, 'end'); }}
           />

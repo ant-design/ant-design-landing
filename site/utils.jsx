@@ -81,3 +81,5 @@ export function mergeEditDataToDefault(newData, defaultData, useDelete) {
   }
   return mergeDataToChild(newData.dataSource, dataSource, useDelete);
 }
+
+export const mdId = {};

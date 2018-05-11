@@ -7,37 +7,20 @@ import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';
 import './index.less';
 /* replace-end */
 
-function Content2(props) {
+function Content1(props) {
   const { ...tagProps } = props;
   const { dataSource, isMobile } = tagProps;
   delete tagProps.dataSource;
   delete tagProps.isMobile;
   const animType = {
-    queue: isMobile ? 'bottom' : 'left',
+    queue: isMobile ? 'bottom' : 'right',
     one: isMobile ? {
       scaleY: '+=0.3', opacity: 0, type: 'from', ease: 'easeOutQuad',
     }
       : {
-        x: '+=30', opacity: 0, type: 'from', ease: 'easeOutQuad',
+        x: '-=30', opacity: 0, type: 'from', ease: 'easeOutQuad',
       },
   };
-  const img = (
-    <TweenOne
-      key="img"
-      animation={animType.one}
-      resetStyleBool
-      {...dataSource.imgWrapper}
-      component={Col}
-      componentProps={{ md: dataSource.imgWrapper.md, xs: dataSource.imgWrapper.xs }}
-      /* replace-start */
-      data-edit="Col"
-    /* replace-end */
-    >
-      <span {...dataSource.img}>
-        <img src={dataSource.img.children} width="100%" alt="img" />
-      </span>
-    </TweenOne>
-  );
   return (
     <div
       {...tagProps}
@@ -50,12 +33,28 @@ function Content2(props) {
         data-edit="Row"
       /* replace-end */
       >
-        {isMobile && img}
+        <TweenOne
+          key="img"
+          animation={animType.one}
+          resetStyleBool
+          {...dataSource.imgWrapper}
+          component={Col}
+          componentProps={{ md: dataSource.imgWrapper.md, xs: dataSource.imgWrapper.xs }}
+          /* replace-start */
+          data-edit="Col"
+        /* replace-end */
+        >
+          <span
+            {...dataSource.img}
+          >
+            <img src={dataSource.img.children} width="100%" alt="img" />
+          </span>
+        </TweenOne>
         <QueueAnim
-          type={animType.queue}
           key="text"
+          type={animType.queue}
           leaveReverse
-          ease={['easeOutCubic', 'easeInCubic']}
+          ease={['easeOutQuad', 'easeInQuad']}
           {...dataSource.textWrapper}
           component={Col}
           componentProps={{ md: dataSource.textWrapper.md, xs: dataSource.textWrapper.xs }}
@@ -78,10 +77,9 @@ function Content2(props) {
             }
           </p>
         </QueueAnim>
-        {!isMobile && img}
       </OverPack>
     </div>
   );
 }
 
-export default Content2;
+export default Content1;

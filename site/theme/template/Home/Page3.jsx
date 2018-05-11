@@ -124,8 +124,8 @@ export default class Page3 extends React.Component {
   render() {
     const { type, imgData } = this.state;
     return (
-      <div className="page-wrapper page3">
-        <div className="page" >
+      <div className="home-page-wrapper page3">
+        <div className="home-page" >
           <h1 onClick={this.onClick}><FormattedMessage id="app.home.module" /></h1>
           <ScrollOverPack
             playScale="0.3"

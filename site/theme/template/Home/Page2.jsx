@@ -36,8 +36,8 @@ const svgBgChild = setBgToParallax((
 export default class Page1 extends React.PureComponent {
   render() {
     return (
-      <div className="page-wrapper page2" id="page2">
-        <div className="page">
+      <div className="home-page-wrapper page2" id="page2">
+        <div className="home-page">
           <h1><FormattedMessage id="app.home.templates" /></h1>
           <div className="bg">
             {svgBgChild}

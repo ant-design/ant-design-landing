@@ -46,7 +46,8 @@ export default class WaterfallLayout extends AutoResponsive {
   }
 
   updateContainerWidth = () => {
-    const containerWidth = this.dom.clientWidth + this.props.itemMargin;
+    const dw = this.dom.clientWidth > 1200 ? 1200 : this.dom.clientWidth;
+    const containerWidth = dw + this.props.itemMargin;
     if (this.containerWidth !== containerWidth) {
       this.containerWidth = containerWidth;
       this.sortManager.changeProps({

@@ -87,6 +87,9 @@ module.exports = {
       react: 'React',
       'react-dom': 'ReactDOM',
     });
+    if (isDev) {
+      config.devtool = 'source-map';
+    }
     return config;
   },
   htmlTemplateExtraData: {

@@ -8,7 +8,7 @@ import {
   getEditDomData,
   setDataIdToDataSource,
 } from './utils';
-import { getState, mergeEditDataToDefault } from '../../utils';
+import { getState, mergeEditDataToDefault, mdId } from '../../utils';
 import { getURLData } from '../../theme/template/utils';
 import { getUserData } from '../../edit-module/actions';
 
@@ -74,7 +74,7 @@ class Layout extends React.Component {
     // Uncaught DOMException: Failed to execute 'postMessage' on 'Window': HTMLDivElement object could not be cloned.
     // window.parent.postMessage(editData, '*');
     if (window.parent.receiveDomData) {
-      window.parent.receiveDomData(editData, window);
+      window.parent.receiveDomData(editData, window, mdId);
     }
   }
 
@@ -144,8 +144,8 @@ class Layout extends React.Component {
       const componentName = keys[0];
       const componentData = webData[componentName];
       const d = configData[key] || {};
-      console.log(componentData, componentName);
-      const dataSource = setDataIdToDataSource(mergeEditDataToDefault(d, componentData, true), key);
+      const dataSource = this.isEdit ? setDataIdToDataSource(mergeEditDataToDefault(d, componentData, true), key) :
+        mergeEditDataToDefault(d, componentData, true);
       return React.createElement(componentData.component, {
         key,
         id: key,

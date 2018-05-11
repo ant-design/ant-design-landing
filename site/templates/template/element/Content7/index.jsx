@@ -1,103 +1,188 @@
 import React from 'react';
 import TweenOne from 'rc-tween-one';
-import QueueAnim from 'rc-queue-anim';
 import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';
-import '../../../static/content.less';
+import { Tabs, Icon, Row, Col } from 'antd';
+/* replace-start */
 import './index.less';
+/* replace-end */
+const TabPane = Tabs.TabPane;
 
-class Content extends React.Component {
-  static defaultProps = {
-    className: 'content5',
+class Content7 extends React.Component {
+  /* replace-start */
+  constructor(props) {
+    super(props);
+    this.state = {
+      /* replace-start-value = current: 1 */
+      current: props.func ? props.func.currentPage : 1,
+      /* replace-end-value */
+    };
+    console.log(this.state);
+  }
+  componentWillReceiveProps(nextProps) {
+    const { func } = nextProps;
+    const childLen = nextProps.dataSource.block.children.length;
+    if (func) {
+      const current = func.currentPage > childLen ? childLen : func.currentPage;
+      this.setState({
+        current,
+      });
+    } else if (this.state.current > childLen) {
+      this.setState({
+        current: childLen,
+      });
+    }
+  }
+  /* replace-end */
+
+  onChange = (key) => {
+    this.setState({ current: parseFloat(key) });
+  }
+
+  getBlockChildren = (item, i) => {
+    const { tag, content } = item;
+    const { text, img } = content;
+    const textChildren = text.children;
+    const { icon } = tag;
+    const iconChildren = icon.children;
+    const tagText = tag.text;
+    return (
+      <TabPane
+        key={i + 1}
+        tab={(
+          <div
+            className={tag.className}
+            /* replace-start */
+            {...tag}
+          /* replace-end */
+          >
+            <Icon
+              type={iconChildren}
+              className={icon.className}
+              /* replace-start */
+              {...icon}
+              data-edit="icon"
+              children=""// eslint-disable-line
+            /* replace-end */
+            />
+            <div
+              {...tagText}
+            >
+
+              {
+                /* replace-start-value = tagText.children */
+                React.createElement('span', { dangerouslySetInnerHTML: { __html: tagText.children } })
+                /* replace-end-value */
+              }
+            </div>
+          </div>)}
+        className={item.className}
+        /* replace-start */
+        {...item}
+      /* replace-end */
+      >
+        <TweenOne.TweenOneGroup
+          enter={{
+            y: 30, delay: 300, opacity: 0, type: 'from', ease: 'easeOutQuad',
+          }}
+          leave={null}
+          component=""
+        >
+          {this.state.current === i + 1 && (
+            <Row
+              key="content"
+              className={content.className}
+              gutter={content.gutter}
+              /* replace-start */
+              {...content}
+              data-edit="Row"
+            /* replace-end */
+            >
+              <Col
+                className={text.className}
+                xs={text.xs}
+                md={text.md}
+                /* replace-start */
+                {...text}
+                data-edit={['Col', 'text']}
+              /* replace-end */
+              >
+                {
+                  /* replace-start-value = textChildren */
+                  React.createElement('span', { dangerouslySetInnerHTML: { __html: textChildren } })
+                  /* replace-end-value */
+                }
+              </Col>
+              <Col
+                className={img.className}
+                xs={img.xs}
+                md={img.md}
+                /* replace-start */
+                {...img}
+                data-edit={['Col', 'image']}
+              /* replace-end */
+              >
+                <img src={img.children} width="100%" alt="img" />
+              </Col>
+            </Row>)}
+        </TweenOne.TweenOneGroup>
+      </TabPane>
+    );
   };
 
-  getBlockChildren = data =>
-    Object.keys(data).filter(key => key.match('block'))
-      .sort((a, b) => {
-        const aa = Number(a.replace(/[^0-9]/ig, ''));
-        const bb = Number(b.replace(/[^0-9]/ig, ''));
-        return aa - bb;
-      })
-      .map((key) => {
-        const item = data[key];
-        return (<li
-          key={key}
-          id={`${this.props.id}-${key.split('_')[1]}`}
-        >
-          <span>
-            <img src={item.children.img} width="100%" />
-          </span>
-          <h2>{item.children.title}</h2>
-          <p>{item.children.content}</p>
-        </li>);
-      });
-
-
   render() {
-    const props = { ...this.props };
-    const dataSource = props.dataSource;
-    const isMode = props.isMode;
-    const names = props.id.split('_');
-    const name = `${names[0]}${names[1]}`;
-    const ulChildren = this.getBlockChildren(dataSource);
+    const { ...props } = this.props;
+    const { dataSource } = props;
     delete props.dataSource;
-    delete props.isMode;
-    const queue = isMode ? 'bottom' : 'left';
-    const imgAnim = isMode ? {
-      y: 30, opacity: 0, delay: 400, type: 'from', ease: 'easeOutQuad',
-    }
-      : {
-        x: 30, opacity: 0, type: 'from', ease: 'easeOutQuad',
-      };
+    delete props.isMobile;
+    const tabsChildren = dataSource.block.children.map(this.getBlockChildren);
     return (
-      <div {...props} className="content-template-wrapper content5-wrapper">
-        <OverPack
-          className={`content-template ${props.className}`}
-          location={props.id}
-        >
-          <QueueAnim
-            className={`${props.className}-text`}
-            key="text"
-            type={queue}
-            leaveReverse
-            ease={['easeOutQuad', 'easeInQuad']}
-            id={`${props.id}-textWrapper`}
+      <div
+        {...props}
+        {...dataSource.wrapper}
+        /* replace-start */
+        data-comp={[`tabs-switch={ "current": ${
+          this.state.current}, "total": ${dataSource.block.children.length
+          } ,"childRoute": ["block"] }`]}
+      /* replace-end */
+      >
+        <div {...dataSource.page}>
+          <h1
+            {...dataSource.title}
           >
-            <h1
-              key="h1"
-              id={`${props.id}-title`}
-            >
-              {dataSource[`${name}_title`].children}
-            </h1>
-            <p
-              key="p"
-              id={`${props.id}-content`}
-            >
-              {dataSource[`${name}_content`].children}
-            </p>
-            <QueueAnim
-              component="ul"
-              key="ul"
-              type={queue}
-              id={`${props.id}-ul`}
-              ease="easeOutQuad"
-            >
-              {ulChildren}
-            </QueueAnim>
-          </QueueAnim>
-          <TweenOne
-            className={`${props.className}-img`}
-            key="img"
-            animation={imgAnim}
-            id={`${props.id}-img`}
-            resetStyleBool
+            {dataSource.title.children}
+          </h1>
+          <p
+            {...dataSource.titleContent}
           >
-            <img src={dataSource[`${name}_img`].children} width="100%" />
-          </TweenOne>
-        </OverPack>
+            {dataSource.titleContent.children}
+          </p>
+
+          <OverPack
+            {...dataSource.OverPack}
+          >
+            <TweenOne.TweenOneGroup
+              key="tabs"
+              enter={{
+                y: 30, opacity: 0, delay: 200, type: 'from',
+              }}
+              leave={{ y: 30, opacity: 0 }}
+              {...dataSource.tabsWrapper}
+            >
+              <Tabs
+                key="tabs"
+                onChange={this.onChange}
+                activeKey={`${this.state.current}`}
+                {...dataSource.block}
+              >
+                {tabsChildren}
+              </Tabs>
+            </TweenOne.TweenOneGroup>
+          </OverPack>
+        </div>
       </div>
     );
   }
 }
 
 
-export default Content;
+export default Content7;

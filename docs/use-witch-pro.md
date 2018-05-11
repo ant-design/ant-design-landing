@@ -22,6 +22,10 @@ title:
 
 ## 修改路由
 
+我们提供了两种方案： 1. 直接新增页面。 2. 更改 pro 的主路由。详细请查看下方；
+
+### 直接新增页面
+
 复制完成后，首页我们在顶部引入 Home, 命名为 IndexPage。
 
 ```jsx
@@ -93,32 +97,6 @@ const menuData = [
   ...
 ```
 
-#### router.js
-
-文件地址： `src/router.js`;
-
-将 path 改为 `/dashboards`，再新增个 404 路由；
-
-```jsx
-  ...
-+ import NotFound from './routes/Exception/404';
-  ...
-+ const BasicLayout = routerData['/dashboards'].component;
-- const BasicLayout = routerData['/'].component;  
-  ...
-      <Route path="/user" component={UserLayout} />
-      <AuthorizedRoute
-+       path="/dashboards"
--       path="/"
-        render={props => <BasicLayout {...props} />}
-        authority={['admin', 'user']}
-        redirectPath="/user/login"
-      />
-+     <Route render={NotFound} /> {/*增加 404*/}
-  ...
-```
-
-
 #### BasicLaout.js
 
 文件地址： `src/layout/BasicLaout.js`;
@@ -163,7 +141,7 @@ const menuData = [
 
 文件地址： `src/layout/PageLayout.js` 新增;
 
-命名为: `PageLayout.jsx`; 然后在 router.js 上加上 `<Route path="/home" component={PageLayout} />`  layout 上就可以增加网站的内容了。
+命名为: `PageLayout.jsx`; 然后在 router.js 上加上 `<Route path="/" component={PageLayout} />`  layout 上就可以增加网站的内容了。
 
 PageLayout.jsx
 
@@ -178,9 +156,11 @@ export default class LandingsLayout extends React.Component {
 } 
 ```
 
-#### router.js 最终
+#### router.js
 
 文件地址： `src/router.js`;
+
+将 `AuthorizedRoute` 的 path 改为 `/dashboards`, 新增 `/` 的 `Route` 到自已的 `layout` 文件, 顺便再新增个 404 路由； 
 
 ```jsx
   ...

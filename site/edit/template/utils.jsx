@@ -1,4 +1,5 @@
 // import { createLogger } from 'redux-logger';
+import { mdId } from '../../utils';
 
 const worker = new Worker('/worker.js');
 
@@ -43,7 +44,8 @@ const getParentRect = (item, parentData) => {
   const p = [];
   let i = 0;
   function parentNode(parent) {
-    const dataId = parent.getAttribute('data-id');
+    const dataId = mdId[parent.getAttribute('data-id')];
+    // const dataId = parent.getAttribute('data-id');
     if (dataId) {
       const rect = parent.getBoundingClientRect();
       p.push({
@@ -67,7 +69,8 @@ export const getChildRect = (data) => {
   const array = [];
   function mapChild(child) {
     Array.prototype.slice.call(child).forEach((item) => {
-      const dataId = item.getAttribute('data-id');
+      const dataId = mdId[item.getAttribute('data-id')];
+      // const dataId = item.getAttribute('data-id');
       const rect = item.getBoundingClientRect();
       if (dataId) {
         array.push({

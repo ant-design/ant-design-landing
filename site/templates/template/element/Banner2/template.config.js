@@ -19,6 +19,9 @@ export default {
           BannerElement: {
             className: 'banner-user-elem',
           },
+          page: {
+            className: 'home-page banner2-page',
+          },
           textWrapper: {
             className: 'banner2-text-wrapper',
           },

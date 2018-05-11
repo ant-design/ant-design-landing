@@ -1,21 +1,21 @@
 @import '../../../static/custom.less';
 
-@footer: footer0;
-.@{footer} {
+.footer0-wrapper {
   background-color: @template-bg-color;
-  text-align: center;
   height: 80px;
-  color: @template-footer-text-color;
   overflow: hidden;
-  position: relative;
-  span {
-    display: block;
-    margin: 20px auto 0;
+  .footer0 {
+    height: 100%;
+    padding: 0 24px;
+    line-height: 80px;
+    text-align: center;
+    color: @template-footer-text-color;
+    position: relative;
   }
 }
 
 @media screen and (max-width: 767px) {
-  .@{footer} {
+  .footer0 {
     > div {
       width: 90%;
       margin: auto;

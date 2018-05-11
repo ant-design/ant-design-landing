@@ -1,7 +1,7 @@
 import React from 'react';
 import EditorList from 'rc-editor-list';
 import EditorProps from './PropsComp';
-// import EditorChild from './ChildComp';
+import EditorChild from './ChildComp';
 import { getDataSourceValue, setDataSourceValue } from '../../utils';
 import { setTemplateData } from '../../../../edit-module/actions';
 import { deepCopy } from '../../../../utils';
@@ -69,12 +69,12 @@ class EditorComp extends React.Component {
       dispatch(setTemplateData(newTemplateData));
     }
   }
-  /* onChildChange = (ids, currentData) => {
+  onChildChange = (ids, currentData) => {
     const { dispatch, templateData } = this.props;
     const newTemplateData = deepCopy(templateData);
     setDataSourceValue(ids, 'children', currentData.children, newTemplateData.data.config, tempData);
     dispatch(setTemplateData(newTemplateData));
-  } */
+  }
   render() {
     const { currentEditData, mediaStateSelect } = this.props;
     if (!currentEditData) {
@@ -83,7 +83,7 @@ class EditorComp extends React.Component {
     const edit = currentEditData.dom.getAttribute('data-edit');
     return (
       [
-        // <EditorChild edit={edit} {...this.props} key="child" onChange={this.onChildChange} />,
+        <EditorChild edit={edit} {...this.props} key="child" onChange={this.onChildChange} />,
         <EditorProps edit={edit} {...this.props} key="props" onChange={this.onPropsChange} />,
         <EditorList
           key="css"

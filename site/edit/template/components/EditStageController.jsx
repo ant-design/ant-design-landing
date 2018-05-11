@@ -6,11 +6,11 @@ import dragula from 'dragula';
 import Editor from 'react-medium-editor';
 import { setTemplateData, setCurrentData } from '../../../edit-module/actions';
 import { getChildRect, getCurrentDom, getDataSourceValue } from '../utils';
-import { isImg, deepCopy, mergeEditDataToDefault } from '../../../utils';
+import { isImg, deepCopy, mergeEditDataToDefault, mdId } from '../../../utils';
 import webData from '../template.config';
 import tempData from '../../../templates/template/element/template.config';
 import EditButtton from './StateComponents/EditButtonView';
-import BannerSlideView from './StateComponents/BannerSlideView';
+import SwitchSlideView from './StateComponents/SwitchSlideView';
 
 const $ = window.$ || {};
 
@@ -118,13 +118,18 @@ class EditStateController extends React.PureComponent {
     if (nextProps.mediaStateSelect !== this.props.mediaStateSelect) {
       this.reRect();
     }
-    if (this.currentData) {
+    const { currentEditData } = nextProps;
+    const propsCurrentEditData = this.props.currentEditData;
+    if (this.currentData &&
+      currentEditData && propsCurrentEditData &&
+      currentEditData.id === this.props.currentEditData.id) {
       setTimeout(() => {
         // 避免使用多次样式，这里使用 setTimeout 等子级刷新
         const { parentData } = this.currentData;
         if (parentData) {
           const rectArray = getChildRect(parentData);
-          this.currentData = this.refreshCurrentData(rectArray);
+          const isParentNode = this.currentData.dataId === parentData.dataId;
+          this.currentData = isParentNode ? this.currentData : this.refreshCurrentData(rectArray);
           if (this.currentData) {
             const currentSelectRect = this.currentData.item.getBoundingClientRect();
             this.currentData.rect = currentSelectRect;
@@ -140,6 +145,7 @@ class EditStateController extends React.PureComponent {
   }
 
   reRect = () => {
+    this.reEditItemVisibility();
     this.currentData = null;
     this.mouseCurrentData = null;
     this.setState({
@@ -148,6 +154,12 @@ class EditStateController extends React.PureComponent {
     }, () => {
       this.props.dispatch(setCurrentData());
     });
+  }
+
+  reEditItemVisibility = () => {
+    if (this.currentData) {
+      this.currentData.item.style.visibility = '';
+    }
   }
 
   onOverlayScroll = (e) => {
@@ -165,6 +177,9 @@ class EditStateController extends React.PureComponent {
 
 
   wrapperMove = (e) => {
+    if (this.state.openEditText) {
+      return;
+    }
     const dom = e.target;
     const { data, currentHoverRect } = this.state;
     let currentSelectRect = this.state.currentSelectRect;
@@ -196,13 +211,19 @@ class EditStateController extends React.PureComponent {
     }
   }
 
-  receiveDomData = (data, iframe) => {
+  receiveDomData = (data, iframe, id) => {
+    Object.keys(id).forEach((key) => {
+      mdId[key] = id[key];
+    });
     this.setState({
       data,
       iframe,
     });
   }
   wrapperLeave = () => {
+    if (this.state.openEditText) {
+      return;
+    }
     this.setState({
       currentHoverRect: {},
     });
@@ -283,7 +304,7 @@ class EditStateController extends React.PureComponent {
               <Editor
                 text={this.state.editText}
                 onChange={this.editTextHandleChange}
-                options={{ toolbar: false }}
+
                 ref={(c) => {
                   const d = ReactDOM.findDOMNode(c);
                   if (!d) {
@@ -355,9 +376,7 @@ class EditStateController extends React.PureComponent {
     if (!v) {
       return;
     }
-    if (this.currentData) {
-      this.currentData.item.style.visibility = '';
-    }
+    this.reEditItemVisibility();
     this.currentIdArray = v.dataId.split('-');
     this.editId = this.currentIdArray[0].split('_')[0];
     this.editChildId = this.currentIdArray[1];
@@ -370,6 +389,7 @@ class EditStateController extends React.PureComponent {
   }
 
   editTextFunc = () => {
+    this.currentData.item.style.visibility = 'hidden';
     const currentConfigDataSource = mergeEditDataToDefault(
       this.props.templateData.data.config[this.currentIdArray[0]], tempData[this.editId]);
     let editText = this.getDataSourceChildren(currentConfigDataSource, this.editChildId).children;
@@ -385,7 +405,6 @@ class EditStateController extends React.PureComponent {
     const dom = e.target;
     if (dom.getAttribute('data-key')) {
       this.currentData = this.mouseCurrentData;
-      this.currentData.item.style.visibility = 'hidden';
       const editData = this.currentData.item.getAttribute('data-edit');
       if (editData && editData.indexOf('text') >= 0) {
         this.editTextFunc();
@@ -445,10 +464,12 @@ class EditStateController extends React.PureComponent {
     const data = JSON.parse(compArray[1] || '{}');
     switch (name) {
       case 'banner-switch':
+      case 'tabs-switch':
         return (
-          <BannerSlideView
+          <SwitchSlideView
             {...this.props}
             data={data}
+            name={name.split('-')[0]}
             dataId={dataId}
             iframe={this.state.iframe}
             reRect={this.reRect}
@@ -497,7 +518,7 @@ class EditStateController extends React.PureComponent {
         <div className="overlay" style={{ height: overlayHeight }}>
           {overlayChild}
         </div>
-        <div className="mouse-catcher" >
+        <div className="mouse-catcher" style={{ height: overlayHeight }}>
           {!deepEql(currentHoverRect, currentSelectRect) && !openEditText
             && this.getCatcherDom(currentHoverRect, 'hover')}
           {this.getCatcherDom(currentSelectRect, 'select')}

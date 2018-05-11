@@ -1,14 +1,14 @@
 @import '../../../static/custom.less';
-@content2: content2;
-.@{content2}-wrapper {
+@content1: content1;
+.@{content1}-wrapper {
   height: 360px;
-  .@{content2} {
+  .@{content1} {
     height: 100%;
     padding: 0 24px;
     &-img {
       height: 100%;
       transform-origin: top;
-      padding-left: 32px;
+      padding-right: 32px;
       span {
         display: block;
         width: 250px;
@@ -19,7 +19,7 @@
       }
     }
     &-text {
-      padding-right: 32px;
+      padding-left: 32px;
       height: 100%;
       & p,
       & h2 {
@@ -39,9 +39,9 @@
 }
 
 @media screen and (max-width: 767px) {
-  .@{content2}-wrapper {
+  .@{content1}-wrapper {
     height: 500px;
-    .@{content2} {
+    .@{content1} {
       &-img {
         height: 200px;
         padding: 0;

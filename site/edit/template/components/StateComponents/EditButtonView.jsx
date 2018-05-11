@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, Button, Popover, Input, Dropdown, Menu, Modal } from 'antd';
+import { Icon, Button, Popover, Input, Dropdown, Menu, Modal, Row, Col } from 'antd';
 import classnames from 'classnames';
 import { isImg } from '../../../../utils';
 import MenuEditView from './MenuEditView';
@@ -15,6 +15,10 @@ export default class EditButtonView extends React.PureComponent {
     if (value.match(isImg)) {
       this.props.setTemplateConfigData(value);
     }
+  }
+
+  onIconChange = (e) => {
+    this.props.setTemplateConfigData(e.target.value);
   }
 
   onParentDropdonw = (e) => {
@@ -45,6 +49,11 @@ export default class EditButtonView extends React.PureComponent {
     this.setState({
       editMenuShow: !this.state.editMenuShow,
     });
+  }
+
+  onVideoChange = (e, data, key) => {
+    data[key] = e.target.value;
+    this.props.setTemplateConfigData(data);
   }
 
   render() {
@@ -95,6 +104,71 @@ export default class EditButtonView extends React.PureComponent {
             <Button key={key} type="primary" size="small" onClick={this.switchEditMenuFunc}>
               <Icon type="bars" />
             </Button>
+          );
+        case 'icon':
+          return (
+            <Popover
+              key={key}
+              placement="bottomRight"
+              title="粘贴 Icon 的 type 名称"
+              content={
+                <div>
+                  <p style={{ marginBottom: 8 }}>
+                    只能使用
+                    <a href="https://ant.design/components/icon-cn/" target="_blank"> ant design 的 Icon </a>
+                    名称
+                  </p>
+                  <Input
+                    style={{ width: 250 }}
+                    onChange={this.onIconChange}
+                    defaultValue={editText}
+                    placeholder="请粘贴 Icon 名称"
+                  />
+                </div>
+              }
+              trigger="click"
+            >
+              <Button type="primary" size="small" onClick={this.props.closeEditText}>
+                Icon
+              </Button>
+            </Popover>
+          );
+        case 'video':
+          return (
+            <Popover
+              key={key}
+              placement="bottomRight"
+              title="video 地址"
+              content={
+                <div style={{ width: 350, lineHeight: '32px' }}>
+                  <Row>
+                    <Col span={4}>视频地址</Col>
+                    <Col span={20}>
+                      <Input
+                        onChange={(e) => { this.onVideoChange(e, editText, 'video'); }}
+                        defaultValue={editText.video}
+                        placeholder="请粘贴 video 地址"
+                      />
+                    </Col>
+                  </Row>
+                  <Row style={{ marginTop: 16 }}>
+                    <Col span={4}>预览图片</Col>
+                    <Col span={20}>
+                      <Input
+                        onChange={(e) => { this.onVideoChange(e, editText, 'image'); }}
+                        defaultValue={editText.image && editText.image.match(isImg) ? editText.image : ''}
+                        placeholder="请粘贴图片地址"
+                      />
+                    </Col>
+                  </Row>
+                </div>
+              }
+              trigger="click"
+            >
+              <Button key={key} type="primary" size="small">
+                <Icon type="video-camera" />
+              </Button>
+            </Popover>
           );
         default:
           return null;

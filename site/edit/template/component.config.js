@@ -122,5 +122,35 @@ export default {
       remark: '只适用在 mobile，如果打开状态点击到别处编辑，需要关闭请重新切换。',
     },
   },
+  Row: {
+    apiLink: 'https://ant.design/components/grid-cn/',
+    gutter: {
+      name: '栅格间隔',
+      type: 'inputNumber',
+      value: 0,
+    },
+  },
+  Col: {
+    apiLink: 'https://ant.design/components/grid-cn/',
+    remark: '此处为 antd grid 布局，请不要随意更改下面样式宽度，请在此修改栅格',
+    md: {
+      name: '桌面栅格',
+      type: 'inputNumber',
+      value: 0,
+      props: {
+        max: 24,
+        min: 0,
+      },
+    },
+    xs: {
+      name: '手机栅格',
+      type: 'inputNumber',
+      value: 0,
+      props: {
+        max: 24,
+        min: 0,
+      },
+    },
+  },
 };
 

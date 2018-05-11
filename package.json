@@ -93,9 +93,9 @@
     "site": "npm run build",
     "cp-prettier": "rm -rf _site && mkdir -p ./_site/edit && cp -r ./prettier/* ./_site/edit ",
     "deploy": "antd-tools run update-self && antd-tools run deploy",
-    "lint": "npm run lint:es && npm run lint:style && npm run lint:demo",
-    "lint:es": "eslint --fix ./ --ext '.js,.jsx,.md'",
-    "lint:style": "stylelint \"site/**/*.less\" --syntax less",
+    "lint": "npm run lint:es && npm run lint:style",
+    "lint:es": "eslint --fix --ext .js .jsx ./site",
+    "lint:style": "stylelint --fix \"site/**/*.less\" --syntax less",
     "lint:demo": "cross-env RUN_ENV=DEMO eslint ./ --ext '.md' -c ./.eslintrc.js",
     "test": "npm run lint"
   }

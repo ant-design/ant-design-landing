@@ -1,5 +1,4 @@
 @import './custom.less';
-
 @point: point;
 .@{point} {
   float: left;
@@ -12,14 +11,12 @@
   margin: 6px auto;
   background: @primary-color;
   border-radius: 100%;
-  
-  &.active{
+  &.active {
     opacity: 1;
     background: @primary-color;
   }
   &-wrapper {
     position: fixed;
-    width: 8px;
     z-index: 9998;
     top: 0;
     right: 16px;
@@ -32,18 +29,18 @@
   &-left {
     left: 16px;
   }
-  &-rect{
+  &-rect {
     border-radius: 0;
   }
   &-prismatic {
     border-radius: 0;
     transform: rotate(45deg);
   }
-  &-stroke{
+  &-stroke {
     border: 2px solid @primary-color;
     background: transparent;
   }
-  &-small{
+  &-small {
     width: 6px;
     &.point {
       height: 6px;
@@ -51,7 +48,7 @@
   }
   &-large {
     width: 10px;
-    &.point{
+    &.point {
       height: 10px;
     }
   }

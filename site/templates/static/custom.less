@@ -6,11 +6,11 @@
 @shadow-color: rgba(0, 0, 0, 0.15);
 
 @template-bg-color: #001529;
-@template-bg-color-light: #ECECEC;
+@template-bg-color-light: #ececec;
 @template-nav-bg-color: fade(@template-bg-color, 95%);
-@template-text-color: #CCC;
-@template-text-title-color: #BCBCBC;
-@template-text-color-light: #FFF;
+@template-text-color: #ccc;
+@template-text-title-color: #bcbcbc;
+@template-text-color-light: #fff;
 @template-footer-text-color: #666;
 
 @animate-duration: .45s;
@@ -23,12 +23,10 @@
 .page-pro() {
   border-radius: 6px;
   border: 1px solid @line-color;
-  transform: translateY(0px);
+  transform: translateY(0);
   transition: transform .3s @ease-out, box-shadow .3s @ease-out;
   &:hover {
     .page-shadow();
     transform: translateY(-5px);
   }
 }
-
-

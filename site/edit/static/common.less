@@ -1,5 +1,5 @@
-
-html, body {
+html,
+body {
   background: #fff;
   color: @edit-text-color;
 }
@@ -11,29 +11,32 @@ html, body {
   opacity: 0.8;
   background: fade(@primary-color, 70);
   pointer-events: none;
-  > div, > p  {
+  >div,
+  >p {
     display: none;
   }
   >.img {
     display: block;
   }
-  
   &.img-wrapper {
     background: none;
   }
 }
+
 .gu-hide {
   display: none !important;
 }
+
 .gu-unselectable {
   -webkit-user-select: none !important;
   -moz-user-select: none !important;
   -ms-user-select: none !important;
   user-select: none !important;
 }
+
 .gu-transit {
   background: fade(@primary-color, 35);
-  > p {
+  >p {
     display: none;
   }
 }
@@ -45,5 +48,5 @@ html, body {
   font-size: 12px;
   line-height: 12px;
   position: absolute;
-  width: 100%; 
+  width: 100%;
 }

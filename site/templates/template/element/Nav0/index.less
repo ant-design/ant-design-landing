@@ -55,7 +55,7 @@
     }
     & &-menu {
       height: auto;
-      max-height: 0vh;
+      max-height: 0;
       float: inherit;
       position: relative;
       left: -24px;
@@ -84,19 +84,18 @@
         display: block;
         width: 100%;
         height: 2px;
-        background: #FFF;
+        background: #fff;
         margin-top: 4px;
         transition: transform .3s @ease-in-out, opacity .3s @ease-in-out;
       }
       :first-child {
         margin-top: 0;
       }
-      
     }
     .ant-menu {
       height: auto;
       overflow: hidden;
-      
+
       background: @template-bg-color;
       .ant-menu-item-selected {
         border: none;

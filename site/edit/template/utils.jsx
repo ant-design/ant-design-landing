@@ -1,7 +1,7 @@
 // import { createLogger } from 'redux-logger';
 import { mdId } from '../../utils';
 
-const worker = new Worker('/worker.js');
+const worker = new Worker('./worker.js');
 
 export function formatCode({ code, cb, parser = 'babylon', key }) {
   const options = {

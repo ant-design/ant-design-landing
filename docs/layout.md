@@ -1,5 +1,5 @@
 ---
-order: 2
+order: 1
 category:
   zh-CN: 设计指引
   en-US: Guide

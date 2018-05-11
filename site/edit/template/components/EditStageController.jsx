@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Icon, Button } from 'antd';
 import deepEql from 'deep-eql';
 import dragula from 'dragula';
-import Editor from 'react-medium-editor';
+import Editor from './MediumEditor';
 import { setTemplateData, setCurrentData } from '../../../edit-module/actions';
 import { getChildRect, getCurrentDom, getDataSourceValue } from '../utils';
 import { isImg, deepCopy, mergeEditDataToDefault, mdId } from '../../../utils';
@@ -302,9 +302,8 @@ class EditStateController extends React.PureComponent {
           {css === 'select' && this.state.openEditText ? (
             <div className="edit-text-wrapper">
               <Editor
-                text={this.state.editText}
                 onChange={this.editTextHandleChange}
-
+                defaultText={this.state.editText}
                 ref={(c) => {
                   const d = ReactDOM.findDOMNode(c);
                   if (!d) {

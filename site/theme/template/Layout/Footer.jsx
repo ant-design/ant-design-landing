@@ -50,8 +50,8 @@ class Footer extends React.Component {
                   </a>
                 </div>
                 <div>
-                  <a target="_blank " href="https://github.com/ant-design/ant-design-pro">
-                    Ant Design Pro GitHub
+                  <a target="_blank " href="https://pro.ant.design/">
+                    Ant Design Pro
                   </a>
                 </div>
                 <div>

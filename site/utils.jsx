@@ -83,3 +83,28 @@ export function mergeEditDataToDefault(newData, defaultData, useDelete) {
 }
 
 export const mdId = {};
+
+
+export function getNewHref(port, hash, remHash) {
+  const winLocation = window.location;
+  const userHash = hash ? `#${hash}` : '';
+  let newHash = winLocation.hash ? `${winLocation.hash}${hash ? `&${hash}` : ''}` : userHash;
+  newHash = remHash ? '' : newHash;
+  const protocol = winLocation.protocol;
+  const isLocalMode = winLocation.port;
+  let child = '';
+  switch (port) {
+    case '7113':
+      child = 'templates';
+      break;
+    case '7112':
+      child = 'edit';
+      break;
+    default:
+      break;
+  }
+  child = isLocalMode ? '' : child;
+  const href = `${protocol}//${winLocation.hostname}${isLocalMode ? `:${port}` : ''}/${child}${newHash}`;
+  return href;
+}
+

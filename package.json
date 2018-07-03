@@ -16,12 +16,12 @@
     "leancloud-storage": "^3.5.0",
     "raw-loader": "^0.5.1",
     "rc-animate": "^2.4.4",
-    "rc-banner-anim": "^1.0.1",
-    "rc-drawer-menu": "^0.5.4",
+    "rc-banner-anim": "^2.0.0",
+    "rc-drawer": "^1.5.0",
     "rc-editor-list": "^1.1.0",
-    "rc-queue-anim": "^1.5.0",
+    "rc-queue-anim": "^1.6.0",
     "rc-scroll-anim": "^2.5.0",
-    "rc-tween-one": "^1.7.3",
+    "rc-tween-one": "^2.1.0",
     "react-document-title": "^2.0.1"
   },
   "devDependencies": {

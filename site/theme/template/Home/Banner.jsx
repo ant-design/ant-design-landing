@@ -133,7 +133,6 @@ export default function Banner({ isMobile }) {
             )}
           </div>
         </QueueAnim>
-
       </Element>
     </BannerAnim>
   );

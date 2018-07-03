@@ -48,6 +48,7 @@ class MenuEditView extends React.PureComponent {
     const { currentEditData, templateData } = this.props;
     const { id } = currentEditData;
     const ids = id.split('-');
+    ids[1] = 'menu';
     const cid = ids[0].split('_')[0];
     const tempDataSource = tempData[cid];
     const newTempDataSource = mergeEditDataToDefault(templateData.data.config[ids[0]],

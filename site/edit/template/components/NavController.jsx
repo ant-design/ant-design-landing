@@ -3,7 +3,8 @@ import { Icon, message, Menu, Dropdown, Button, Modal } from 'antd';
 import CodeMirror from 'rc-editor-list/lib/components/common/CodeMirror';
 import 'codemirror/mode/javascript/javascript.js';
 
-import { formatCode, getNewHref } from '../utils';
+import { formatCode } from '../utils';
+import { getNewHref } from '../../../utils';
 import { getURLData, setURLData } from '../../../theme/template/utils';
 import {
   saveData, userName, newTemplate, removeTemplate, setTemplateData,
@@ -23,6 +24,7 @@ class NavController extends React.PureComponent {
     this.state = {
       localStorage: user.split(',').filter(c => c),
       code: JSON.stringify(props.templateData.data),
+      isLoad: null,
     };
   }
 
@@ -58,14 +60,19 @@ class NavController extends React.PureComponent {
   }
 
   onSave = (e, cb) => {
-    saveData(this.props.templateData, this.props.dispatch, (b) => {
-      if (b.code) {
-        message.error('保存出错，请重试。');
-      } else if (!cb) {
-        message.success('保存成功。');
-      } else {
-        cb();
-      }
+    this.setState({
+      isLoad: '保存',
+    }, () => {
+      saveData(this.props.templateData, this.props.dispatch, (b) => {
+        if (b.code) {
+          message.error('保存出错，请重试。');
+        } else if (!cb) {
+          message.success('保存成功。');
+        } else {
+          cb();
+        }
+        this.setState({ isLoad: null });
+      });
     });
   }
 
@@ -78,8 +85,15 @@ class NavController extends React.PureComponent {
         message.success('生成代码成功。');
       });
     }); */
-    saveJsZip(this.props.templateData, () => {
-      message.success('生成代码成功。');
+    this.setState({
+      isLoad: '下载',
+    }, () => {
+      saveJsZip(this.props.templateData, () => {
+        message.success('生成代码成功。');
+        this.setState({
+          isLoad: null,
+        });
+      });
     });
   }
 
@@ -186,12 +200,24 @@ class NavController extends React.PureComponent {
 
   render() {
     const menuChild = [
-      { name: '保存', icon: 'save', onClick: this.onSave },
-      { name: '预览', icon: 'eye-o', onClick: this.onPreview },
-      { name: '下载', icon: 'code-o', onClick: this.onSaveCode },
+      {
+        name: '保存',
+        icon: this.state.isLoad === '保存' ? 'loading' : 'save',
+        onClick: this.state.isLoad === '保存' ? null : this.onSave,
+      },
+      {
+        name: '预览',
+        icon: 'eye-o',
+        onClick: this.onPreview,
+      },
+      {
+        name: '下载',
+        icon: this.state.isLoad === '下载' ? 'loading' : 'code-o',
+        onClick: this.state.isLoad === '下载' ? null : this.onSaveCode,
+      },
       { name: '编辑数据', icon: 'tool', onClick: this.onMoadlOpenClose },
     ].map((item, i) => (
-      <li key={i.toString()} onClick={item.onClick}>
+      <li key={i.toString()} onClick={item.onClick} disabled={!item.onClick}>
         <Icon type={item.icon} />
         {item.name}
       </li>
@@ -205,7 +231,7 @@ class NavController extends React.PureComponent {
     return (
       <div className={this.props.className}>
         <div className="logo">
-          <a href={getNewHref()} target="_blank">
+          <a href={getNewHref('7111', null, true)} target="_blank">
             <img
               src="https://gw.alipayobjects.com/zos/rmsportal/SVDdpZEbAlWBFuRGIIIL.svg"
               alt="logo"

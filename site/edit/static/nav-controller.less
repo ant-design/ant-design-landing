@@ -36,6 +36,9 @@
       display: inline-block;
       border-right: 1px solid @edit-line-color;
       cursor: pointer;
+      &[disabled] {
+        cursor: wait;
+      }
       >i {
         margin-right: 8px;
         font-size: 16px;

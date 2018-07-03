@@ -6,6 +6,7 @@ import { Row, Col, Menu } from 'antd';
 
 import PhoneNav from './PhoneNav';
 import { getLocalizedPathname } from '../utils';
+import { getNewHref } from '../../../utils';
 
 class Header extends React.Component {
   static contextTypes = {
@@ -17,12 +18,7 @@ class Header extends React.Component {
     const menuMode = isMobile ? 'inline' : 'horizontal';
     const module = location.pathname.replace(/(^\/|\/$)/g, '').split('/').slice(0, -1).join('/');
     const activeMenuItem = module || 'home';
-    const winLocation = window.location;
-    const protocol = winLocation.protocol;
-    const isLocalMode = winLocation.port;
-    const port = isLocalMode ? ':7112' : '';
-    const mainPath = isLocalMode ? '' : '/edit';
-    const href = `${protocol}//${winLocation.hostname}${port}${mainPath}`;
+    const href = getNewHref('7112');
     return (
       <Menu mode={menuMode} selectedKeys={[activeMenuItem]} id="nav" key="nav">
         <Menu.Item key="home">

@@ -1,11 +1,12 @@
 import React from 'react';
 import TweenOne, { TweenOneGroup } from 'rc-tween-one';
-import { Row, Col, Pagination } from 'antd';
+import { Row, Col, Pagination, Icon } from 'antd';
 import QueueAnim from 'rc-queue-anim';
 import ScrollOverPack from 'rc-scroll-anim/lib/ScrollOverPack';
 import { FormattedMessage } from 'react-intl';
 import ImageLoadComp from './ImageLoadComp';
 import { getURLData, setURLData } from '../../utils';
+import { getNewHref } from '../../../../utils';
 import { scrollTo } from '../utils';
 import data from './data.json';
 
@@ -38,6 +39,7 @@ class Templates extends React.PureComponent {
         const i = ii - prePaging;
         const delay = isMobile ? i * 50 : (Math.floor(i / 3) * 50) + ((i % 3) * 50);
         const animation = { scale: 0.95, opacity: 0, type: 'from', delay, duration: 300 };
+        console.log(item.edit);
         return (
           <TweenOne
             component={Col}
@@ -52,9 +54,20 @@ class Templates extends React.PureComponent {
                 </a>
               </div>
               <p>{item.name}</p>
-              <a href={item.git} target="_blank" className="download">
-                <FormattedMessage id="app.home.download" />
-              </a>
+              <Row className="handle">
+                <Col span={12}>
+                  <a href={getNewHref('7113', item.preview)} target="_blank">
+                    <Icon type="eye-o" />
+                    <FormattedMessage id="app.home.preview" />
+                  </a>
+                </Col>
+                <Col span={12}>
+                  <a href={getNewHref('7112', `cloneId=${item.id}`)} target="_blank">
+                    <Icon type="edit" />
+                    <FormattedMessage id="app.home.edit" />
+                  </a>
+                </Col>
+              </Row>
             </div>
           </TweenOne>);
       }
@@ -63,7 +76,7 @@ class Templates extends React.PureComponent {
     const lineNum = Math.ceil((data.length - prePaging) / 3);
     return (
       <ScrollOverPack playScale="0.3">
-        <QueueAnim key="qeu" type="bottom" className="page1-content-wrapper">
+        <QueueAnim key="qeu" type="bottom" className="page2-content-wrapper">
           <div key="a">
             <TweenOneGroup
               enter={{ opacity: 0, type: 'from', ease: 'easeInOutQuad' }}

@@ -1,6 +1,6 @@
+const less = require('raw-loader!./index.less');
 const component = require('./index');
 const templateStr = require('!raw-loader!./index');
-const less = require('raw-loader!./index.less');
 
 export default {
   component,
@@ -12,10 +12,11 @@ export default {
     },
     OverPack: {
       className: 'home-page content2',
+      playScale: 0.3,
     },
     imgWrapper: {
       className: 'content2-img',
-      md: 8,
+      md: 10,
       xs: 24,
     },
     img: {
@@ -23,15 +24,15 @@ export default {
     },
     textWrapper: {
       className: 'content2-text',
-      md: 16,
+      md: 14,
       xs: 24,
     },
     title: {
       children: '分布式中间件',
     },
     content: {
-      children: '金融级联机交易处理中间件，大规模分布式计算机，数万笔/秒级并发能力，严格保证交易数据统一性。' +
-      '金融级联机交易处理中间件，大规模分布式计算机，数万笔/秒级并发能力，严格保证交易数据统一性。',
+      children: '金融级联机交易处理中间件，大规模分布式计算机，数万笔/秒级并发能力，严格保证交易数据统一性。'
+      + '金融级联机交易处理中间件，大规模分布式计算机，数万笔/秒级并发能力，严格保证交易数据统一性。',
     },
   },
 };

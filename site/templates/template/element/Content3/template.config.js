@@ -1,7 +1,7 @@
 
+const less = require('raw-loader!./index.less');
 const component = require('./index');
 const templateStr = require('!raw-loader!./index');
-const less = require('raw-loader!./index.less');
 
 const getBlock = children => ({
   name: children.name,

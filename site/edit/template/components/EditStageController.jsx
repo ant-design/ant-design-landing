@@ -275,6 +275,7 @@ class EditStateController extends React.PureComponent {
     if (rect.width) {
       let editText;
       if (css === 'select') {
+        console.log(this.props.templateData.data.config[this.currentIdArray[0]], tempData[this.editId]);
         const currentConfigDataSource = mergeEditDataToDefault(
           this.props.templateData.data.config[this.currentIdArray[0]], tempData[this.editId]);
         editText = this.getDataSourceChildren(currentConfigDataSource,

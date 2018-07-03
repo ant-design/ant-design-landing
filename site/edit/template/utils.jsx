@@ -25,15 +25,6 @@ export function formatCode({ code, cb, parser = 'babylon', key }) {
   });
 }
 
-export function getNewHref(child = '') {
-  const winLocation = window.location;
-  const protocol = winLocation.protocol;
-  const isLocalMode = winLocation.port;
-  const port = isLocalMode ? ':7111' : '';
-  const href = `${protocol}//${winLocation.hostname}${port}/${child}`;
-  return href;
-}
-
 export function hasErrors(fieldsError) {
   return Object.keys(fieldsError).some(field =>
     fieldsError[field] && fieldsError[field][0] !== 'password error'

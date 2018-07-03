@@ -8,8 +8,8 @@ import EditInfluence from './components/EditInfluence';
 import Iframe from './components/Iframe';
 import EditStageController from './components/EditStageController';
 import EditListController from './components/EditListController';
-import { getState } from '../../utils';
-import { getNewHref, hasErrors } from './utils';
+import { getState, getNewHref } from '../../utils';
+import { hasErrors } from './utils';
 import { getUserData, loginIn } from '../../edit-module/actions';
 
 const FormItem = Form.Item;
@@ -70,7 +70,7 @@ class Layout extends React.PureComponent {
       return (
         <div className="login-controller" key="1">
           <div className={`login-view${passwordNo ? ' password-no' : ''}`}>
-            <a href={getNewHref()} target="_blank" className="header">
+            <a href={getNewHref('7111', null, true)} target="_blank" className="header">
               <img
                 src="https://gw.alipayobjects.com/zos/rmsportal/SVDdpZEbAlWBFuRGIIIL.svg"
                 alt="logo"

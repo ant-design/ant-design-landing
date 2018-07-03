@@ -104,6 +104,7 @@ class Layout extends React.Component {
   }
 
   setStyleData = (style) => {
+    console.log(style);
     const getCssToString = (css, className) => Object.keys(css).sort((a, b) => (
       stateSort[a] - stateSort[b]
     )).map((key) => {
@@ -136,6 +137,7 @@ class Layout extends React.Component {
     const { data, funcData } = templateData;
     const func = { ...funcData };
     const template = data.template;
+    console.log(templateData);
     this.setStyleData(data.style);
     const otherData = data.other;
     const configData = data.config || {};

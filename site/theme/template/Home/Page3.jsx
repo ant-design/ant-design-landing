@@ -29,14 +29,15 @@ export default class Page3 extends React.Component {
     pageSize: 5,
   };
   imgInLoad = {};
+  inQueue = {};
   queueElement = {};
   timeout = null;
   num = 0;
   scrollEventListener = (e) => {
     const showHeight = e.showHeight;
     if (parseFloat(this.waterfallDom.style.height) &&
-    this.num + this.state.pageSize < maxLength &&
-      showHeight > parseFloat(this.waterfallDom.style.height) + 74) {
+      this.num + this.state.pageSize < maxLength &&
+      showHeight > parseFloat(this.waterfallDom.style.height) + 200) {
       this.num += 5;
       ticker.clear(this.timeout);
       this.timeout = ticker.timeout(() => {
@@ -58,7 +59,20 @@ export default class Page3 extends React.Component {
     this.setState({
       type,
       pageSize: 5,
+      isSwitchTween: true,
     });
+  }
+  onSwitchEnd = (e) => {
+    if (e.type === 'enter') {
+      this.inQueue[e.key] = true;
+    } else {
+      delete this.inQueue[e.key];
+    }
+    if (Object.keys(this.inQueue).length >= this.chidlrenLength) {
+      this.setState({
+        isSwitchTween: false,
+      })
+    }
   }
   loadImage = (src, key) => {
     const { imgData } = this.state;
@@ -140,7 +154,7 @@ export default class Page3 extends React.Component {
                 });
               }, 17);
             }}
-            onScroll={this.scrollEventListener}
+            onScroll={!this.state.isSwitchTween ? this.scrollEventListener : undefined}
           >
             <TweenOne
               key="queue"
@@ -158,6 +172,7 @@ export default class Page3 extends React.Component {
                 leaveReverse: true,
                 interval: [80, 0],
                 duration: 300,
+                onEnd: this.onSwitchEnd
               }}
               itemMargin={48}
               gridWidth={16}

@@ -57,18 +57,6 @@ export default class WaterfallLayout extends AutoResponsive {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    const currrentChildKeys = [];
-    React.Children.forEach(nextProps.children, (item) => {
-      currrentChildKeys.push(item.key);
-    });
-    Object.keys(this.currrentChildKeys).forEach((key) => {
-      if (currrentChildKeys.indexOf(key) === -1) {
-        delete this.currrentChildKeys[key];
-      }
-    });
-  }
-
   oneEnterEnd = () => {
     this.setState({
       oneEnter: true,
@@ -106,30 +94,24 @@ export default class WaterfallLayout extends AutoResponsive {
         ...child.props.style,
       };
       const animation = {};
-
-      if (!this.currrentChildKeys[child.key]) {
+      if (!this.inQueueEnd[child.key]) {
         style.transform = `translate(${calculatedPosition[0]}px,${calculatedPosition[1]}px)`;
+        this.currrentChildKeys[child.key] = calculatedPosition;
       } else {
         animation.x = calculatedPosition[0];
         animation.y = calculatedPosition[1];
-        this.inAnimate[child.key] = true;
         animation.onComplete = () => {
           this.currrentChildKeys[child.key] = calculatedPosition;
-          delete this.inAnimate[child.key];
         };
         style.transform = `translate(${this.currrentChildKeys[child.key][0]}px,${
           this.currrentChildKeys[child.key][1]}px)`;
       }
-
       childrenToRender.push(React.createElement(TweenOne, {
         key: child.key,
         ...child.props,
         style,
         animation,
       }));
-      if (!this.inAnimate[child.key] && this.inQueueEnd[child.key]) {
-        this.currrentChildKeys[child.key] = calculatedPosition;
-      }
     });
     return childrenToRender;
   }
@@ -159,7 +141,7 @@ export default class WaterfallLayout extends AutoResponsive {
         }}
         onEnd={(e) => {
           if (queueAnimProps.onEnd) {
-            queueAnimProps.onEnd();
+            queueAnimProps.onEnd(e);
           }
           if (e.type === 'enter') {
             this.inQueueEnd[e.key] = true;

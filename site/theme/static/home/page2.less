@@ -10,29 +10,36 @@
     .mouseHover(rgb(163, 177, 191), 0, 12px, 24px);
     box-shadow: 0 8px 24px rgba(163, 177, 191, 0.35);
     .img-wrapper {
-      height: 356px;
+      height: 410px;
       overflow: hidden;
       .img {
         width: 100%;
-        height: 356px;
+        height: 410px;
         background-size: cover;
         background-position: top center;
       }
       .ant-spin {
-        height: 356px;
-        max-height: 356px;
+        height: 410px;
+        max-height: 410px;
       }
     }
     p,
-    .download {
-      line-height: 22px;
+    .handle {
+      line-height: 48px;
       font-size: 14px;
-      padding: 18px 16px;
-      height: 54px;
+      height: 48px;
       margin: 0;
       font-weight: 700;
     }
-    .download {
+    p {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      background: fade(#fff, 75);
+      transition: transform .3s @ease-out;
+    }
+    .handle {
       background: @primary-color;
       text-align: center;
       position: absolute;
@@ -40,18 +47,25 @@
       width: 100%;
       transform: translateY(100%);
       transition: transform .3s @ease-out;
-      color: #fff;
+      a {
+        color: #fff;
+        i {
+          margin-right: 8px;
+        }
+      }
     }
     &:hover {
-      .download {
+      p {
+        transform: translateY(-100%);
+      }
+      .handle {
         transform: translateY(0%);
       }
     }
   }
-  .page1-content {
+  .page2-content {
     &-wrapper {
       min-height: 514px;
-      margin: 0 auto 120px;
       position: relative;
       .pagination {
         display: flex;

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'bisheng/router';
 import { Row, Col, Menu, Icon } from 'antd';
-import MobileMenu from 'rc-drawer-menu';
+import MobileMenu from 'rc-drawer';
 import Animate from 'rc-animate';
 import Article from './Article';
 import * as utils from '../utils';

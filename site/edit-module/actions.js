@@ -39,16 +39,22 @@ function dataToLocalStorage(obj) {
   }));
 }
 
-export const newTemplate = (cb) => {
+export const newTemplate = (cb, data = {
+  template: [
+    'Nav0_0', 'Banner0_0', 'Content0_0',
+    'Content1_0', 'Content3_0', 'Footer0_0',
+  ],
+  config: {},
+  style: [],
+  other: {},
+}) => {
   const TemplateObject = AV.Object.extend(fileName);
   const tempData = new TemplateObject();
-  tempData.set('template', [
-    'nav_0_0', 'content_0_0', 'content_2_0',
-    'content_3_0', 'content_4_0', 'footer_0_0',
-  ]);
-  tempData.set('config', {});
-  tempData.set('style', []);
-  tempData.set('other', {});
+  console.log(data);
+  tempData.set('template', data.template);
+  tempData.set('config', data.config);
+  tempData.set('style', data.style);
+  tempData.set('other', data.other);
   tempData.save().then((obj) => {
     setURLData('uid', obj.id);
     window.localStorage.setItem(userName, `${obj.id},${
@@ -64,38 +70,50 @@ export const switchTemplate = (key) => {
   setURLData('uid', key);
   location.reload();
 };
-export const getUserData = () => (dispatch) => {
+export const getUserData = data => (dispatch) => {
   // 获取 url 上是否有 user id;
   const hash = getURLData('uid');
+  const cloneId = getURLData('cloneId');
+  if (cloneId) {
+    const cloneData = new AV.Query(fileName);
+    cloneData.get(cloneId).then((obj) => {
+      console.log(obj);
+      setURLData('cloneId');
+      getUserData(obj.attributes)(dispatch);
+      console.log(1212);
+    });
+    return;
+  }
   /**
    * 进入页面:
    * 1. 如果 hash 里有值, 请求 hash 里的值，当值没有返回数据，依次往下取 localStorage 里的值，没有将删除再新建。
    * 2. 空 hash 进入, 依次往下取 localStorage 里的值, 没有将删除再新建。
    */
   // 获取本地是否有数据存在 localStorage;
-  const userId = (window.localStorage.getItem(userName) &&
-    window.localStorage.getItem(userName).split(',').filter(c => c)) || [];
+  const userId = data ? [] : (window.localStorage.getItem(userName)
+    && window.localStorage.getItem(userName).split(',').filter(c => c)) || [];
   const uid = hash || userId[localNum];
   localNum += 1;
-  console.log(userId);
+  console.log(uid);
   if (!hash && uid) {
     setURLData('uid', uid);
   }
   let userIsLogin;
   if (!uid) {
+    console.log(data);
     newTemplate((obj) => {
       dispatch({
         type: postType.POST_SUCCESS,
         templateData: obj,
       });
-    });
+    }, data);
   } else {
     const storageDataStr = window.localStorage.getItem(uid);
     if (storageDataStr) {
       const obj = JSON.parse(storageDataStr);
-      userIsLogin = obj.attributes.user &&
-        obj.attributes.user.userId &&
-        window.localStorage.getItem(`antd-landings-login-${obj.attributes.user.userId}`);
+      userIsLogin = obj.attributes.user
+        && obj.attributes.user.userId
+        && window.localStorage.getItem(`antd-landings-login-${obj.attributes.user.userId}`);
       dispatch({
         type: postType.POST_SUCCESS,
         templateData: obj,
@@ -111,9 +129,9 @@ export const getUserData = () => (dispatch) => {
         }
         window.localStorage.setItem(userName, localStr);
         dataToLocalStorage(obj);
-        userIsLogin = obj.attributes.user &&
-          obj.attributes.user.userId &&
-          window.localStorage.getItem(`antd-landings-login-${obj.attributes.user.userId}`);
+        userIsLogin = obj.attributes.user
+          && obj.attributes.user.userId
+          && window.localStorage.getItem(`antd-landings-login-${obj.attributes.user.userId}`);
         dispatch({
           type: postType.POST_SUCCESS,
           templateData: obj,
@@ -125,7 +143,7 @@ export const getUserData = () => (dispatch) => {
           window.localStorage.setItem(userName, userId.filter(key => key !== uid).join(','));
           setURLData('uid');
           return getUserData()(dispatch);
-        } else if (error.code === -1) {
+        } if (error.code === -1) {
           t += 1;
           if (t < 3) {
             getUserData()(dispatch);

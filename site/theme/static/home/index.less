@@ -5,17 +5,20 @@
   overflow: hidden;
   .page,
   .home-page {
-    padding: 0 24px;
+    padding: 120px 24px;
     max-width: 1200px;
     margin: auto;
   }
   h1 {
     font-size: 32px;
     line-height: 45px;
-    margin: 128px auto;
+    margin: 0 auto 64px;
     text-align: center;
     color: @text-color;
   }
+}
+.home .header.page-wrapper .page {
+  padding: 0 24px;
 }
 
 .home {
@@ -36,6 +39,23 @@
   }
 }
 
+@media screen and (max-width: 767px) {
+  .home-wrapper .home-page-wrapper {
+    .home-page {
+      padding: 56px 24px;
+      >h1 {
+        font-size: 24px;
+        margin: 0 auto 32px;
+        &.content-bottom {
+          margin-bottom: 8px;
+        }
+      }
+      >p {
+        margin-bottom: 32px;
+      }
+    }
+  }
+}
 @import './banner.less';
 @import './page1.less';
 @import './page2.less';

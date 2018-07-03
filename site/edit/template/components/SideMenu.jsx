@@ -1,6 +1,6 @@
 import React from 'react';
 import { Icon, Tooltip, Modal, Form, Button, Input, message } from 'antd';
-import DrawerMenu from 'rc-drawer-menu';
+import DrawerMenu from 'rc-drawer';
 import webData from '../template.config';
 import {
   signUpUser,
@@ -137,9 +137,8 @@ class SideMenu extends React.PureComponent {
       >
         <DrawerMenu
           level={null}
-          parent={null}
-          iconChild={null}
-          width="320px"
+          getContainer={null}
+          handler={null}
           open={this.state.editMenuOpen}
           wrapperClassName="edit-side-drawer"
         >

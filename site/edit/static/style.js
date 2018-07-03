@@ -1,4 +1,4 @@
-import 'rc-drawer-menu/assets/index.css';
+import 'rc-drawer/assets/index.css';
 import 'medium-editor/dist/css/medium-editor.css';
 import 'medium-editor/dist/css/themes/default.css';
 // import 'rc-editor-list/assets/index.css';

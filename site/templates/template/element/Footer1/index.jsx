@@ -3,43 +3,40 @@ import TweenOne from 'rc-tween-one';
 import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';
 import QueueAnim from 'rc-queue-anim';
 import { Row, Col } from 'antd';
+/* replace-start */
 import './index.less';
+/* replace-end */
 
 class Footer extends React.Component {
   static defaultProps = {
     className: 'footer1',
   };
 
-  getLiChildren = data =>
-    data.map((item, i) => {
-      return (
-        <Col
-          key={i.toString()}
-          {...item}
-          title={null}
-          content={null}
-        >
-          <h2 {...item.title}>
-            {
-              /* replace-start */
-              item.title.children.match(/\.(svg|gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/) ? (
-                <img src={item.title.children} width="100%" alt="img" />
-              ) :
-                /* replace-end */
-                /* replace-start-value = dataSource.title.children */
-                React.createElement('span', { dangerouslySetInnerHTML: { __html: item.title.children } })
-              /* replace-end-value */
-            }
-          </h2>
-          <div {...item.content}>
-            {
-              /* replace-start-value = item.content.children */
-              React.createElement('span', { dangerouslySetInnerHTML: { __html: item.content.children } })
-              /* replace-end-value */
-            }
-          </div>
-        </Col>);
-    });
+  getLiChildren = data => data.map((item, i) => {
+    return (
+      <Col
+        key={i.toString()}
+        {...item}
+        title={null}
+        content={null}
+      >
+        <h2 {...item.title}>
+          {
+            item.title.children.match(/\.(svg|gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/) ? (
+              <img src={item.title.children} width="100%" alt="img" />
+            ) : /* replace-start-value = dataSource.title.children */React.createElement('span', { dangerouslySetInnerHTML: { __html: item.title.children } })
+            /* replace-end-value */
+          }
+        </h2>
+        <div {...item.content}>
+          {
+            /* replace-start-value = item.content.children */
+            React.createElement('span', { dangerouslySetInnerHTML: { __html: item.content.children } })
+            /* replace-end-value */
+          }
+        </div>
+      </Col>);
+  });
 
   render() {
     const { ...props } = this.props;
@@ -69,10 +66,10 @@ class Footer extends React.Component {
             <div {...dataSource.copyrightPage}>
               <div {...dataSource.copyright}>
                 {
-                /* replace-start-value = dataSource.copyright.children */
-                React.createElement('span', { dangerouslySetInnerHTML: { __html: dataSource.copyright.children } })
-                /* replace-end-value */
-              }
+                  /* replace-start-value = dataSource.copyright.children */
+                  React.createElement('span', { dangerouslySetInnerHTML: { __html: dataSource.copyright.children } })
+                  /* replace-end-value */
+                }
               </div>
             </div>
           </TweenOne>

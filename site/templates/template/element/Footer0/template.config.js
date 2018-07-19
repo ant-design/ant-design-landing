@@ -1,6 +1,7 @@
 const component = require('./index');
-const less = require('raw-loader!./index.less');
+const less = require('!raw-loader!./index.less');
 const templateStr = require('!raw-loader!./index');
+
 
 export default {
   component,

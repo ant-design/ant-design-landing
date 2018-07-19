@@ -1,7 +1,9 @@
 import React from 'react';
 import TweenOne from 'rc-tween-one';
 import { Menu, Icon } from 'antd';
+/* replace-start */
 import './index.less';
+/* replace-end */
 
 const Item = Menu.Item;
 const SubMenu = Menu.SubMenu;
@@ -14,6 +16,7 @@ class Header extends React.Component {
     };
   }
   /* replace-start */
+
   componentWillReceiveProps(nextProps) {
     const { func } = nextProps;
     if (func) {
@@ -22,8 +25,8 @@ class Header extends React.Component {
       });
     }
   }
-  /* replace-end */
 
+  /* replace-end */
   phoneClick = () => {
     this.setState({
       phoneOpen: !this.state.phoneOpen,
@@ -45,7 +48,9 @@ class Header extends React.Component {
           /* replace-start */
           data-edit="Menu"
         >
-          <a href={navData[key].children.link} target={navData[key].children.blank && '_blank'}>{navData[key].children.name}</a>
+          <a href={navData[key].children.link} target={navData[key].children.blank && '_blank'}>
+            {navData[key].children.name}
+          </a>
         </Item>));
     // user 涉及到数据，请自行替换。
     const userTitle = (
@@ -63,7 +68,9 @@ class Header extends React.Component {
             alt="img"
           />
         </span>
-        <span>用户名</span>
+        <span>
+          用户名
+        </span>
       </div>);
     navChildren.push(
       (
@@ -83,9 +90,15 @@ class Header extends React.Component {
           title={userTitle}
           key="user"
         >
-          <Item key="a">用户中心</Item>
-          <Item key="b">修改密码</Item>
-          <Item key="c">登出</Item>
+          <Item key="a">
+            用户中心
+          </Item>
+          <Item key="b">
+            修改密码
+          </Item>
+          <Item key="c">
+            登出
+          </Item>
         </SubMenu>)
     );
     return (

@@ -17,6 +17,7 @@ class Banner extends React.PureComponent {
       current: props.func ? props.func.currentPage : 1,
     };
   }
+
   componentWillReceiveProps(nextProps) {
     const { func } = nextProps;
     const childLen = nextProps.dataSource.BannerAnim.children.length;
@@ -36,6 +37,7 @@ class Banner extends React.PureComponent {
       });
     }
   }
+
   /* replace-end */
   render() {
     const { ...props } = this.props;
@@ -75,13 +77,9 @@ class Banner extends React.PureComponent {
             /* replace-end */
             >
               {
-                /* replace-start */
                 title.children.match(/\.(svg|gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/) ? (
                   <img src={title.children} width="100%" alt="img" />
-                ) :
-                  /* replace-end */
-                  /* replace-start-value = title.children */
-                  React.createElement('span', { dangerouslySetInnerHTML: { __html: title.children } })
+                ) : /* replace-start-value = title.children */React.createElement('span', { dangerouslySetInnerHTML: { __html: title.children } })
                 /* replace-end-value */
               }
             </div>
@@ -116,7 +114,7 @@ class Banner extends React.PureComponent {
         /* replace-start */
         data-comp={[`banner-switch={ "current": ${
           this.state.current}, "total": ${dataSource.BannerAnim.children.length
-          } ,"childRoute": ["BannerAnim"] }`]}
+        } ,"childRoute": ["BannerAnim"] }`]}
       /* replace-end */
       >
         <TweenOneGroup

@@ -1,7 +1,9 @@
 import React from 'react';
 import TweenOne from 'rc-tween-one';
 import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';
+/* replace-start */
 import './index.less';
+/* replace-end */
 
 class Footer extends React.PureComponent {
   render() {

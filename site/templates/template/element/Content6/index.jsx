@@ -8,34 +8,33 @@ import './index.less';
 /* replace-end */
 
 class Content7 extends React.Component {
-  getBlockChildren = data =>
-    data.map((item) => {
-      const { title, img, content } = item;
-      ['title', 'img', 'contnet'].forEach(key => delete item[key]);
-      return (
-        <li
-          key={item.name}
-          {...item}
-        >
-          <span {...img}>
-            <img src={img.children} width="100%" alt="img" />
-          </span>
-          <h2 {...title}>
-            {
+  getBlockChildren = data => data.map((item) => {
+    const { title, img, content } = item;
+    ['title', 'img', 'contnet'].forEach(key => delete item[key]);
+    return (
+      <li
+        key={item.name}
+        {...item}
+      >
+        <span {...img}>
+          <img src={img.children} width="100%" alt="img" />
+        </span>
+        <h2 {...title}>
+          {
               /* replace-start-value = title.children */
               React.createElement('span', { dangerouslySetInnerHTML: { __html: title.children } })
               /* replace-end-value */
             }
-          </h2>
-          <p {...content}>
-            {
+        </h2>
+        <p {...content}>
+          {
               /* replace-start-value = content.children */
               React.createElement('span', { dangerouslySetInnerHTML: { __html: content.children } })
               /* replace-end-value */
             }
-          </p>
-        </li>);
-    });
+        </p>
+      </li>);
+  });
 
 
   render() {

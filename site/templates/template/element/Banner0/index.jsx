@@ -31,13 +31,9 @@ class Banner extends React.PureComponent {
             /* replace-end */
           >
             {
-            /* replace-start */
             dataSource.title.children.match(/\.(svg|gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/) ? (
               <img src={dataSource.title.children} width="100%" alt="img" />
-            ) :
-              /* replace-end */
-              /* replace-start-value = dataSource.title.children */
-              React.createElement('span', { dangerouslySetInnerHTML: { __html: dataSource.title.children } })
+            ) : /* replace-start-value = dataSource.title.children */React.createElement('span', { dangerouslySetInnerHTML: { __html: dataSource.title.children } })
             /* replace-end-value */
           }
           </div>
@@ -61,8 +57,8 @@ class Banner extends React.PureComponent {
         </QueueAnim>
         <TweenOne
           animation={{
-          y: '-=20', yoyo: true, repeat: -1, duration: 1000,
-        }}
+            y: '-=20', yoyo: true, repeat: -1, duration: 1000,
+          }}
           className="banner0-icon"
           key="icon"
         >

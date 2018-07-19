@@ -64,13 +64,9 @@ class Banner extends React.PureComponent {
               /* replace-end */
               >
                 {
-                  /* replace-start */
                   title.children.match(/\.(svg|gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/) ? (
                     <img src={title.children} width="100%" alt="img" />
-                  ) :
-                    /* replace-end */
-                    /* replace-start-value = title.children */
-                    React.createElement('span', { dangerouslySetInnerHTML: { __html: title.children } })
+                  ) : /* replace-start-value = title.children */React.createElement('span', { dangerouslySetInnerHTML: { __html: title.children } })
                   /* replace-end-value */
                 }
               </div>

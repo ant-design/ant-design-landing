@@ -8,7 +8,6 @@ import './index.less';
 const TabPane = Tabs.TabPane;
 
 class Content7 extends React.Component {
-  /* replace-start */
   constructor(props) {
     super(props);
     this.state = {
@@ -16,8 +15,9 @@ class Content7 extends React.Component {
       current: props.func ? props.func.currentPage : 1,
       /* replace-end-value */
     };
-    console.log(this.state);
   }
+  /* replace-start */
+
   componentWillReceiveProps(nextProps) {
     const { func } = nextProps;
     const childLen = nextProps.dataSource.block.children.length;
@@ -32,8 +32,8 @@ class Content7 extends React.Component {
       });
     }
   }
-  /* replace-end */
 
+  /* replace-end */
   onChange = (key) => {
     this.setState({ current: parseFloat(key) });
   }
@@ -67,7 +67,6 @@ class Content7 extends React.Component {
             <div
               {...tagText}
             >
-
               {
                 /* replace-start-value = tagText.children */
                 React.createElement('span', { dangerouslySetInnerHTML: { __html: tagText.children } })
@@ -142,7 +141,7 @@ class Content7 extends React.Component {
         /* replace-start */
         data-comp={[`tabs-switch={ "current": ${
           this.state.current}, "total": ${dataSource.block.children.length
-          } ,"childRoute": ["block"] }`]}
+        } ,"childRoute": ["block"] }`]}
       /* replace-end */
       >
         <div {...dataSource.page}>

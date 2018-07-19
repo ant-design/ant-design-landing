@@ -1,7 +1,9 @@
 import React from 'react';
 import TweenOne from 'rc-tween-one';
 import { Menu } from 'antd';
+/* replace-start */
 import './index.less';
+/* replace-end */
 
 const Item = Menu.Item;
 
@@ -13,6 +15,7 @@ class Header extends React.Component {
     };
   }
   /* replace-start */
+
   componentWillReceiveProps(nextProps) {
     const { func } = nextProps;
     if (func) {
@@ -21,8 +24,8 @@ class Header extends React.Component {
       });
     }
   }
-  /* replace-end */
 
+  /* replace-end */
   phoneClick = () => {
     this.setState({
       phoneOpen: !this.state.phoneOpen,
@@ -41,11 +44,13 @@ class Header extends React.Component {
         <Item
           key={i.toString()}
           {...navData[key]}
-           /* replace-start */
+          /* replace-start */
           data-edit="Menu"
-           /* replace-end */
+        /* replace-end */
         >
-          <a href={navData[key].children.link} target={navData[key].children.blank && '_blank'}>{navData[key].children.name}</a>
+          <a href={navData[key].children.link} target={navData[key].children.blank && '_blank'}>
+            {navData[key].children.name}
+          </a>
         </Item>));
     return (
       <TweenOne
@@ -84,7 +89,7 @@ class Header extends React.Component {
             animation={{ x: 30, type: 'from', ease: 'easeOutQuad' }}
             /* replace-start */
             data-edit="Menu"
-            /* replace-end */
+          /* replace-end */
           >
             <Menu
               mode={isMobile ? 'inline' : 'horizontal'}

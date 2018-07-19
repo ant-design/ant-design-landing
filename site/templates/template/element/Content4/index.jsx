@@ -60,13 +60,13 @@ function Content4(props) {
             data-edit="video"
           /* replace-end */
           >
-            {isMobile ?
-              (
+            {isMobile
+              ? (
                 <video width="100%" loop poster={dataSource.video.children.image}>
                   <source src={videoChildren} type={`video/${type}`} />
                   <track kind="captions" />
-                </video>) :
-              (
+                </video>)
+              : (
                 <VideoPlay loop width="100%" poster={dataSource.video.children.image}>
                   <source src={videoChildren} type={`video/${type}`} />
                 </VideoPlay>)}

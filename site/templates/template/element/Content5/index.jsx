@@ -7,30 +7,28 @@ import './index.less';
 /* replace-end */
 
 class Content5 extends React.PureComponent {
-  getChildrenToRender = data =>
-    data.map((item) => {
-      return (
-        <Col
-          key={item.name}
-          {...item}
-          /* replace-start */
-          data-edit="Col"
-        /* replace-end */
-        >
-          <div {...item.children.wrapper}>
-            <span {...item.children.img}>
-              <img src={item.children.img.children} height="100%" alt="img" />
-            </span>
-            <p {...item.children.content}>
-              {
-                /* replace-start-value = item.children.content.children */
-                React.createElement('span', { dangerouslySetInnerHTML: { __html: item.children.content.children } })
-                /* replace-end-value */
-              }
-            </p>
-          </div>
-        </Col>);
-    });
+  getChildrenToRender = data => data.map((item) => {
+    return (
+      <Col
+        key={item.name}
+        {...item}
+        /* replace-start */
+        data-edit="Col"
+      >
+        <div {...item.children.wrapper}>
+          <span {...item.children.img}>
+            <img src={item.children.img.children} height="100%" alt="img" />
+          </span>
+          <p {...item.children.content}>
+            {
+              /* replace-start-value = item.children.content.children */
+              React.createElement('span', { dangerouslySetInnerHTML: { __html: item.children.content.children } })
+              /* replace-end-value */
+            }
+          </p>
+        </div>
+      </Col>);
+  });
 
   getEnterAnim = (e, isMode) => {
     const index = e.index;

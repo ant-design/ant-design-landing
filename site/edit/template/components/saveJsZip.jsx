@@ -2,7 +2,7 @@ import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 import { mobileTitle } from 'rc-editor-list/lib/utils';
 import { formatCode } from '../utils';
-import { isImg, mergeEditDataToDefault } from '../../../utils';
+import { mergeEditDataToDefault } from '../../../utils';
 import webData from '../../../templates/template/element/template.config';
 import otherComp from '../../../templates/template/other/otherToString';
 import lessComp from '../../../templates/static/lessToString';
@@ -33,6 +33,7 @@ const setScrollScreen = () => {
     */`);
 };
 
+
 const getEditCss = (dataArray) => {
   let cssStr = '';
   let mobileCssStr = '';
@@ -59,10 +60,10 @@ const getEditCss = (dataArray) => {
   });
   return `${cssStr}${mobileCssStr ? `${mobileTitle}${mobileCssStr}}` : ''}`;
 };
-const setChildrenToIndex = (other) => {
+const setChildrenToIndex = (other, template) => {
   let importStr = '';
   let childStr = '';
-  Object.keys(templateStrObj.JS).forEach((key) => {
+  Object.keys(template).forEach((key) => {
     importStr += `import ${key} from './${key}';\n`;
   });
   templateStrObj.TEMPLATE.forEach((key) => {
@@ -103,8 +104,8 @@ const jsToZip = () => {
         fileName = `${key}.jsx`;
         break;
       case 'LESS':
-        indexLessStr += `@import './${key}.less';\n`;
-        fileName = `less/${key}.less`;
+        indexLessStr += `@import './${key.toLocaleLowerCase()}.less';\n`;
+        fileName = `less/${key.toLocaleLowerCase()}.less`;
         break;
       default:
         {
@@ -119,10 +120,10 @@ const jsToZip = () => {
     if (key === 'point' && !('point' in templateStrObj.OTHER)) {
       return;
     }
-    indexLessStr += `@import './${key}.less';\n`;
-    zip.file(`less/${key}.less`, lessComp[key]);
+    indexLessStr += `@import './${key.toLocaleLowerCase()}.less';\n`;
+    zip.file(`less/${key.toLocaleLowerCase()}.less`, lessComp[key]);
   });
-  let propsStr = 'import React from \'react\';\n';
+  let propsStr = '';// 'import React from \'react\';\n';
   Object.keys(templateStrObj).forEach((key) => {
     const item = templateStrObj[key];
     if (key === 'PROPS') {
@@ -144,12 +145,13 @@ const jsToZip = () => {
     saveAs(content, 'Home.zip');
   });
 };
-const imgToTag = (data) => {
+/* const imgToTag = (data) => {
   let forEachData;
   const forEachFunc = (item, parent, key) => {
     if (typeof item === 'object') {
       forEachData(item);
     } else if (typeof item === 'string' && item.match(isImg) && key === 'children') {
+      console.log(data, item);
       parent[key] = `<img width="100%" src="${item}" alt="img"/>`;
     }
   };
@@ -166,7 +168,7 @@ const imgToTag = (data) => {
   };
   forEachData(data);
   return data;
-};
+}; */
 
 export function saveJsZip(templateData, callBack) {
   const { data } = templateData;
@@ -183,9 +185,10 @@ export function saveJsZip(templateData, callBack) {
     const { templateStr, less } = webData[keys[0]];
     const dataSource = mergeEditDataToDefault(config[key], webData[keys[0]], true);
     const props = `export const ${key.replace('_', '')}DataSource =${
-      JSON.stringify(imgToTag(dataSource))
-        .replace(/"(<.*?>)"/g, '<span>$1</span>')//  to react;
+      JSON.stringify(dataSource)
+        // .replace(/"(<.*?>)"/g, '<span>$1</span>')//  to react;
         .replace(/\\"/g, '"')
+        .replace(/href="(.*?)"/g, 'href=\\"$1\\"')
         .replace(/<br>/g, '<br />')}`;
     promiseObject[`PROPS-${key}`] = { value: props };
     /*  formatCode(props).then((value) => {
@@ -231,7 +234,12 @@ export function saveJsZip(templateData, callBack) {
     }
   });
   // templateStrObj.OTHER.index = setChildrenToIndex(other);
-  promiseObject['OTHER-index'] = { value: setChildrenToIndex(other) };
+  const fileNameObject = {};
+  template.forEach((key) => {
+    const keys = key.split('_');
+    fileNameObject[keys[0]] = 1;
+  });
+  promiseObject['OTHER-index'] = { value: setChildrenToIndex(other, fileNameObject) };
   let i = 0;
   const promiseArray = Object.keys(promiseObject);
   function startSvae() {

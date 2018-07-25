@@ -4,6 +4,7 @@ import QueueAnim from 'rc-queue-anim';
 import TweenOne from 'rc-tween-one';
 import Link from 'rc-scroll-anim/lib/ScrollLink';
 import BannerAnim, { Element } from 'rc-banner-anim';
+import { getNewHref } from '../../../utils';
 
 const { BgElement } = Element;
 
@@ -56,7 +57,7 @@ export default function Banner({ isMobile }) {
       >
         <BgElement className="bg-wrapper" key="bg">
           <TweenOne component="" animation={{ opacity: 0, type: 'from', delay: 300 }} key="tween">
-            <svg width="100%" height="100%" viewBox={isMobile ? '0 0 500 760' : '0 0 1440 451'} >
+            <svg width="100%" height="100%" viewBox={isMobile ? '0 0 500 760' : '0 0 1440 451'}>
               <g transform="translate(-30, 0)" id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                 <g id="Group-9" opacity="0.3">
                   <TweenOneYG>
@@ -126,7 +127,7 @@ export default function Banner({ isMobile }) {
               <a
                 className="btn-editor button"
                 target="_blank"
-                href="https://motion.ant.design/edit/#t%3Dnav_0_0%2Ccontent_0_0%2Ccontent_2_0%2Ccontent_3_0%2Ccontent_4_0%2Cfooter_0_0"
+                href={getNewHref('7112')}
               >
                 <FormattedMessage id="app.home.enter-editor" />
               </a>

@@ -12,6 +12,7 @@ class Header extends React.Component {
   static contextTypes = {
     router: PropTypes.object.isRequired,
   }
+
   getMenuToRender = () => {
     const { isMobile, location, intl } = this.props;
     const isZhCN = intl.locale === 'zh-CN';
@@ -30,7 +31,8 @@ class Header extends React.Component {
           <Link to={getLocalizedPathname('/docs/introduce', isZhCN)}>
             <FormattedMessage id="app.header.menu.language" />
           </Link>
-        </Menu.Item>{/*
+        </Menu.Item>
+        {/*
         <Menu.Item key="docs/instructions">
           <Link to={getLocalizedPathname('/docs/instructions/use-witch-ant-design-pro', isZhCN)}>
             <FormattedMessage id="app.header.menu.docs" />
@@ -49,23 +51,30 @@ class Header extends React.Component {
       </Menu>
     );
   }
+
   render() {
     const menu = this.getMenuToRender();
     const { isMobile, intl } = this.props;
     const isZhCN = intl.locale === 'zh-CN';
     return (
       <div id="header" className="header page-wrapper">
-        {isMobile && (<PhoneNav>{menu}</PhoneNav>)}
+        {isMobile && (
+          <PhoneNav>
+            {menu}
+          </PhoneNav>
+        )}
         <Row className="page">
           <Col md={6} sm={24}>
             <Link className="logo" to={getLocalizedPathname('/', isZhCN)}>
               <img alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/SVDdpZEbAlWBFuRGIIIL.svg" />
-              <span>LANDINGS</span>
+              <span>
+                LANDINGS
+              </span>
             </Link>
           </Col>
           {
             !isMobile && (
-              <Col md={18} sm={0} >
+              <Col md={18} sm={0}>
                 <div className="menu">
                   {menu}
                   <a

@@ -14,6 +14,7 @@ class Iframe extends React.Component {
       this.iframe.contentWindow.postMessage(templateData, '*');
     }
   }
+
   getData = () => {
     const { dispatch, templateData } = this.props;
     if (templateData.type === 'success') {
@@ -22,6 +23,7 @@ class Iframe extends React.Component {
       dispatch(getUserData());
     }
   }
+
   render() {
     const { templateData, className, mediaStateSelect } = this.props;
     const { type, uid } = templateData;

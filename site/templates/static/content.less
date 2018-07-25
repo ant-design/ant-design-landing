@@ -3,26 +3,28 @@
   width: 100%;
   position: relative;
   overflow: hidden;
+  .@{homepage} {
+    height: 100%;
+    max-width: 1200px;
+    position: relative;
+    margin: auto;
+    >h1 {
+      font-size: 32px;
+      text-align: center;
+      color: @text-color;
+      margin: 0 auto 64px;
+      &.content-bottom {
+        margin-bottom: 16px;
+      }
+    }
+    >p {
+      margin-bottom: 64px;
+    }
+  }
 }
 
 .@{homepage} {
   padding: 120px 24px;
-  height: 100%;
-  max-width: 1200px;
-  position: relative;
-  margin: auto;
-  >h1 {
-    font-size: 32px;
-    text-align: center;
-    color: @text-color;
-    margin: 0 auto 64px;
-    &.content-bottom {
-      margin-bottom: 16px;
-    }
-  }
-  >p {
-    margin-bottom: 64px;
-  }
 }
 
 @media screen and (max-width: 767px) {

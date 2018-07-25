@@ -22,30 +22,30 @@ export default {
       children: [
         {
           name: 'item0',
-          children: {
-            name: '导航一',
-            link: '',
+          a: {
+            children: '导航一',
+            href: '',
           },
         },
         {
           name: 'item1',
-          children: {
-            name: '导航二',
-            link: '',
+          a: {
+            children: '导航二',
+            href: '',
           },
         },
         {
           name: 'item2',
-          children: {
-            name: '导航三',
-            link: '',
+          a: {
+            children: '导航三',
+            href: '',
           },
         },
         {
           name: 'item3',
-          children: {
-            name: '导航四',
-            link: '',
+          a: {
+            children: '导航四',
+            href: '',
           },
         },
       ],

@@ -18,6 +18,7 @@ class Layout extends React.PureComponent {
   state = {
     loading: false,
   }
+
   componentWillMount() {
     const { dispatch } = this.props;
     dispatch(getUserData());
@@ -58,10 +59,15 @@ class Layout extends React.PureComponent {
       });
     });
   }
+
   render() {
     const { templateData, userIsLogin, form } = this.props;
     if (!templateData.data) {
-      return <div>加载中。。。</div>;
+      return (
+        <div>
+          加载中。。。
+        </div>
+      );
     }
     if (templateData.data.user && templateData.data.user.userId && !templateData.data.user.delete && !userIsLogin) {
       const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = form;
@@ -77,7 +83,7 @@ class Layout extends React.PureComponent {
                 width="20"
               />
             </a>
-            <Form onSubmit={this.onLogin} >
+            <Form onSubmit={this.onLogin}>
               <p>
                 <Icon type="exclamation-circle" style={{ marginRight: 8 }} />
                 此页面已加锁，请输入密码。
@@ -114,14 +120,14 @@ class Layout extends React.PureComponent {
               </FormItem>
             </Form>
           </div>
-        </div >
+        </div>
       );
     }
     return (
       <div className="edit-wrapper" key="2">
         <div className="edit-left-view">
           <NavController {...this.props} />
-          <div className="edit-content-wrapper" >
+          <div className="edit-content-wrapper">
             <SideMenu {...this.props} />
             <div className="edit-stage-wrapper">
               <EditInfluence {...this.props} />
@@ -132,7 +138,7 @@ class Layout extends React.PureComponent {
             </div>
           </div>
         </div>
-        <div className="edit-right-view" >
+        <div className="edit-right-view">
           <EditListController {...this.props} />
         </div>
       </div>
@@ -142,4 +148,3 @@ class Layout extends React.PureComponent {
 
 
 export default connect(getState)(Form.create()(Layout));
-

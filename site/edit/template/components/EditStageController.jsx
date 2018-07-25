@@ -43,8 +43,8 @@ class EditStateController extends React.PureComponent {
     const t = dragula([this.side, this.stage], {
       copy: (el, source) => source === this.side,
       moves: (el, container, handle) => (
-        handle.classList.contains('drag-hints') || handle.classList.contains('img') ||
-        handle.tagName.toLocaleLowerCase() === 'img'
+        handle.classList.contains('drag-hints') || handle.classList.contains('img')
+        || handle.tagName.toLocaleLowerCase() === 'img'
       ),
       accepts: (el, source) => {
         if (source === this.stage) {
@@ -120,9 +120,9 @@ class EditStateController extends React.PureComponent {
     }
     const { currentEditData } = nextProps;
     const propsCurrentEditData = this.props.currentEditData;
-    if (this.currentData &&
-      currentEditData && propsCurrentEditData &&
-      currentEditData.id === this.props.currentEditData.id) {
+    if (this.currentData
+      && currentEditData && propsCurrentEditData
+      && currentEditData.id === this.props.currentEditData.id) {
       setTimeout(() => {
         // 避免使用多次样式，这里使用 setTimeout 等子级刷新
         const { parentData } = this.currentData;
@@ -220,6 +220,7 @@ class EditStateController extends React.PureComponent {
       iframe,
     });
   }
+
   wrapperLeave = () => {
     if (this.state.openEditText) {
       return;
@@ -275,7 +276,6 @@ class EditStateController extends React.PureComponent {
     if (rect.width) {
       let editText;
       if (css === 'select') {
-        console.log(this.props.templateData.data.config[this.currentIdArray[0]], tempData[this.editId]);
         const currentConfigDataSource = mergeEditDataToDefault(
           this.props.templateData.data.config[this.currentIdArray[0]], tempData[this.editId]);
         editText = this.getDataSourceChildren(currentConfigDataSource,
@@ -290,16 +290,18 @@ class EditStateController extends React.PureComponent {
             top: rect.y + this.scrollTop,
           }}
         >
-          {css === 'select' && <EditButtton
-            setTemplateConfigData={this.setTemplateConfigData}
-            closeEditText={this.closeEditText}
-            openEditTextFunc={this.editTextFunc}
-            editButtonArray={this.state.editButton}
-            currentData={this.currentData}
-            scrollTop={this.scrollTop}
-            onParentChange={this.onEditSelectChange}
-            editText={editText}
-          />}
+          {css === 'select' && (
+            <EditButtton
+              setTemplateConfigData={this.setTemplateConfigData}
+              closeEditText={this.closeEditText}
+              openEditTextFunc={this.editTextFunc}
+              editButtonArray={this.state.editButton}
+              currentData={this.currentData}
+              scrollTop={this.scrollTop}
+              onParentChange={this.onEditSelectChange}
+              editText={editText}
+            />
+          )}
           {css === 'select' && this.state.openEditText ? (
             <div className="edit-text-wrapper">
               <Editor
@@ -500,7 +502,11 @@ class EditStateController extends React.PureComponent {
           onDoubleClick={this.onDoubleClick}
           className="overlay-elem"
         >
-          <div className="drag-hints"><Icon type="bars" /> 拖拽此处加中键滚动或点击右侧按钮可更换位置</div>
+          <div className="drag-hints">
+            <Icon type="bars" />
+            {' '}
+            拖拽此处加中键滚动或点击右侧按钮可更换位置
+          </div>
           <div className="func-wrapper">
             {this.getFuncIconChild(i, dataArray, key)}
           </div>

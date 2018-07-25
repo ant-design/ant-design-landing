@@ -48,10 +48,15 @@ class Header extends React.Component {
           data-edit="Menu"
         /* replace-end */
         >
-          <a href={navData[key].children.link} target={navData[key].children.blank && '_blank'}>
-            {navData[key].children.name}
+          <a
+            {...navData[key].a}
+            href={navData[key].a.href}
+            target={navData[key].a.target}
+          >
+            {navData[key].a.children}
           </a>
-        </Item>));
+        </Item>)
+      );
     return (
       <TweenOne
         component="header"

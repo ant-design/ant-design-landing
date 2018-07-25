@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Input, Icon, Popover, Row, Col, Switch } from 'antd';
 import { getRandomKey } from 'rc-editor-list/lib/utils';
 import { connect } from 'react-redux';
-import ListSort from '../StateComponents/ListSort';
+import ListSort from './ListSort';
 import { getState, mergeEditDataToDefault, deepCopy } from '../../../../utils';
 import tempData from '../../../../templates/template/element/template.config';
 import { getDataSourceValue, setDataSourceValue } from '../../utils';
@@ -27,9 +27,11 @@ class MenuEditView extends React.PureComponent {
   }
 
   onValueChange = (e, i, key, ids, currentData) => {
-    currentData.children[i].children[key] = e;
+    const c = e ? '_black' : '';
+    currentData.children[i].a[key] = key === 'target' ? c : e;
     this.onChildChange(ids, currentData);
   }
+
   onListChange = (e, ids, currentData) => {
     currentData.children = e.map((item) => {
       return currentData.children.filter((node) => {
@@ -38,12 +40,14 @@ class MenuEditView extends React.PureComponent {
     });
     this.onChildChange(ids, currentData);
   }
+
   onChildChange = (ids, currentData) => {
     const { dispatch, templateData } = this.props;
     const newTemplateData = deepCopy(templateData);
     setDataSourceValue(ids, 'children', currentData.children, newTemplateData.data.config, tempData);
     dispatch(setTemplateData(newTemplateData));
   }
+
   render() {
     const { currentEditData, templateData } = this.props;
     const { id } = currentEditData;
@@ -62,9 +66,9 @@ class MenuEditView extends React.PureComponent {
         <div key={item.name} className="sort-manage">
           <div className="sort-manage-name">
             <Input
-              defaultValue={item.children.name}
+              defaultValue={item.a.children}
               onChange={(e) => {
-                this.onValueChange(e.target.value, i, 'name', ids, currentEditTemplateData);
+                this.onValueChange(e.target.value, i, 'children', ids, currentEditTemplateData);
               }}
             />
           </div>
@@ -72,7 +76,7 @@ class MenuEditView extends React.PureComponent {
             <Popover
               placement="bottomRight"
               title="修改链接地址"
-              content={
+              content={(
                 <div>
                   <Row>
                     <Col span={8}>
@@ -81,9 +85,9 @@ class MenuEditView extends React.PureComponent {
                     <Col span={16}>
                       <Input
                         onChange={(e) => {
-                          this.onValueChange(e.target.value, i, 'link', ids, currentEditTemplateData);
+                          this.onValueChange(e.target.value, i, 'href', ids, currentEditTemplateData);
                         }}
-                        defaultValue={item.children.link}
+                        defaultValue={item.a.href}
                       />
                     </Col>
                   </Row>
@@ -93,14 +97,15 @@ class MenuEditView extends React.PureComponent {
                     </Col>
                     <Col span={16}>
                       <Switch size="small"
+                        checked={!!item.a.target}
                         onChange={(e) => {
-                          this.onValueChange(e, i, 'blank', ids, currentEditTemplateData);
+                          this.onValueChange(e, i, 'target', ids, currentEditTemplateData);
                         }}
                       />
                     </Col>
                   </Row>
                 </div>
-              }
+              )}
               trigger="click"
             >
               <Button
@@ -125,12 +130,16 @@ class MenuEditView extends React.PureComponent {
       );
     });
     return (
-      <div >
+      <div>
         <ListSort
           dragClassName="list-drag-selected"
           className="sort-manage-list"
           key="list"
-          dragElement={<div className="sort-manage-icon"><Icon type="bars" /></div>}
+          dragElement={(
+            <div className="sort-manage-icon">
+              <Icon type="bars" />
+            </div>
+          )}
           onChange={(e) => {
             this.onListChange(e, ids, currentEditTemplateData);
           }}

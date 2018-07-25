@@ -12,6 +12,7 @@ class EditListController extends React.PureComponent {
       show: '1',
     };
   }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.currentEditData !== this.props.currentEditData
       && this.state.show !== '1') {
@@ -20,11 +21,13 @@ class EditListController extends React.PureComponent {
       });
     }
   }
+
   onChange = (key) => {
     this.setState({
       show: key,
     });
   }
+
   render() {
     return (
       <Tabs
@@ -34,11 +37,11 @@ class EditListController extends React.PureComponent {
       >
         <TabPane
           key="1"
-          tab={
+          tab={(
             <Tooltip title="编辑样式">
               <Icon type="edit" />
             </Tooltip>
-          }
+          )}
           className="edit-list-tab"
         >
           <div className="tab-scroll">
@@ -58,11 +61,11 @@ class EditListController extends React.PureComponent {
         </TabPane> */}
         <TabPane
           key="3"
-          tab={
+          tab={(
             <Tooltip title="其它功能">
               <Icon type="appstore-o" />
             </Tooltip>
-          }
+          )}
           className="edit-list-tab"
         >
           <div className="tab-scroll">

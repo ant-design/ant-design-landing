@@ -48,8 +48,12 @@ class Header extends React.Component {
           /* replace-start */
           data-edit="Menu"
         >
-          <a href={navData[key].children.link} target={navData[key].children.blank && '_blank'}>
-            {navData[key].children.name}
+          <a
+            {...navData[key].a}
+            href={navData[key].a.link}
+            target={navData[key].a.blank && '_blank'}
+          >
+            {navData[key].a.name}
           </a>
         </Item>));
     // user 涉及到数据，请自行替换。

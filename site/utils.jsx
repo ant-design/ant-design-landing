@@ -59,9 +59,10 @@ function mergeDataToChild(newData, _data, useDelete) {
   const data = _data;
   Object.keys(newData).forEach((key) => {
     if (typeof newData[key] === 'object') {
-      data[key] = mergeDataToChild(newData[key], deepCopy(data[key]) ||
-        (Array.isArray(newData[key]) ? [] : {}), useDelete);
+      data[key] = mergeDataToChild(newData[key], deepCopy(data[key])
+        || (Array.isArray(newData[key]) ? [] : {}), useDelete);
       if (Array.isArray(newData[key])) {
+        console.log(data[key]);
         data[key] = data[key].filter(c => c || c === 0);
       }
     } else {
@@ -107,4 +108,3 @@ export function getNewHref(port, hash, remHash) {
   const href = `${protocol}//${winLocation.hostname}${isLocalMode ? `:${port}` : ''}/${child}${newHash}`;
   return href;
 }
-

@@ -48,6 +48,7 @@ class NavController extends React.PureComponent {
       codeModalShow: false,
     });
   }
+
   onPreview = () => {
     /* this.onSave(e, () => {
       message.success('生成预览成功。');
@@ -107,6 +108,7 @@ class NavController extends React.PureComponent {
     setURLData('uid', e.key);
     location.reload();
   }
+
   onRemoveLocalStorage = (key) => {
     const localStorage = this.state.localStorage.filter(c => c !== key);
     window.localStorage.setItem(userName, localStorage.join(','));
@@ -270,9 +272,15 @@ class NavController extends React.PureComponent {
               this.setState({ code: v });
             }}
           />
-          <Button type="primary" style={{ marginTop: '1em' }} onClick={this.onSaveData}>保存</Button>
-          <Button key="re" style={{ marginLeft: 8 }} onClick={this.onReData}>重置</Button>
-          <Button onClick={this.onSaveJSON} style={{ marginLeft: 8 }}>下载 JSON</Button>
+          <Button type="primary" style={{ marginTop: '1em' }} onClick={this.onSaveData}>
+保存
+          </Button>
+          <Button key="re" style={{ marginLeft: 8 }} onClick={this.onReData}>
+重置
+          </Button>
+          <Button onClick={this.onSaveJSON} style={{ marginLeft: 8 }}>
+下载 JSON
+          </Button>
         </Modal>
       </div>
     );

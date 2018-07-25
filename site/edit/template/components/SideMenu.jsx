@@ -15,6 +15,7 @@ class SideMenu extends React.PureComponent {
     editMenuOpen: false,
     lockModalShow: false,
   }
+
   getDrawer = () => {
     const children = [];
     const pushData = (child, i, key) => {
@@ -26,12 +27,14 @@ class SideMenu extends React.PureComponent {
         >
           <div className="img">
             {child.isVideo ? (
-              <video src={child.src} width="100%" height="100%" autoPlay loop >
+              <video src={child.src} width="100%" height="100%" autoPlay loop>
                 <track kind="captions" />
-              </video>) :
-              <img src={child.src} width="100%" alt="img" draggable="false" />}
+              </video>)
+              : <img src={child.src} width="100%" alt="img" draggable="false" />}
           </div>
-          <p>{child.text}</p>
+          <p>
+            {child.text}
+          </p>
         </div>
       ));
     };
@@ -39,7 +42,10 @@ class SideMenu extends React.PureComponent {
       .forEach((key) => {
         if (key !== 'Other') {
           const item = webData[key];
-          children.push((<div className="title" key={key}>{item.name}</div>));
+          children.push((
+            <div className="title" key={key}>
+              {item.name}
+            </div>));
           item.data // .sort((a, b) => (a.order - b.order))
             .forEach((child, i) => {
               pushData(child, i, key);
@@ -48,11 +54,13 @@ class SideMenu extends React.PureComponent {
       });
     return children;
   }
+
   showMenu = () => {
     this.setState({
       editMenuOpen: true,
     });
   }
+
   hideMenu = () => {
     this.setState({
       editMenuOpen: false,
@@ -85,7 +93,7 @@ class SideMenu extends React.PureComponent {
     const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = form;
     const passwordError = isFieldTouched('password') && getFieldError('password');
     return (
-      <Form onSubmit={this.onSignUp} >
+      <Form onSubmit={this.onSignUp}>
         <p style={{ marginBottom: '1em' }}>
           <Icon type="exclamation-circle" style={{ marginRight: 8 }} />
           设定密码后，编辑此页面需要输入密码才可以编辑。
@@ -189,4 +197,3 @@ class SideMenu extends React.PureComponent {
   }
 }
 export default Form.create()(SideMenu);
-

@@ -12,6 +12,7 @@ export default class Article extends React.PureComponent {
   static contextTypes = {
     intl: PropTypes.object.isRequired,
   }
+
   componentDidMount() {
     // Add ga event click
     this.delegation = delegate(this.node, '.resource-card', 'click', (e) => {
@@ -21,6 +22,7 @@ export default class Article extends React.PureComponent {
     }, false);
     this.componentDidUpdate();
   }
+
   componentDidUpdate() {
     const links = [...document.querySelectorAll('.outside-link.internal')];
     if (links.length === 0) {
@@ -34,6 +36,7 @@ export default class Article extends React.PureComponent {
       }
     });
   }
+
   componentWillUnmount() {
     clearTimeout(this.pingTimer);
     if (this.delegation) {
@@ -41,11 +44,10 @@ export default class Article extends React.PureComponent {
     }
   }
 
-  getAnchor = node =>
-    React.Children.map(node.props.children, (item) => {
-      const children = item.props.children[0];
-      return React.createElement(Anchor.Link, { ...children.props, title: children.props.children }, null);
-    });
+  getAnchor = node => React.Children.map(node.props.children, (item) => {
+    const children = item.props.children[0];
+    return React.createElement(Anchor.Link, { ...children.props, title: children.props.children }, null);
+  });
 
 
   render() {
@@ -67,7 +69,11 @@ export default class Article extends React.PureComponent {
               type="warning"
               message={(
                 <span>
-                  This article has not been translated yet. Wan&apos;t to help us out? <a href="https://github.com/ant-design/ant-design-pro/issues/120">See this issue on GitHub.</a>
+                  This article has not been translated yet. Wan&apos;t to help us out?
+                  {' '}
+                  <a href="https://github.com/ant-design/ant-design-pro/issues/120">
+                    See this issue on GitHub.
+                  </a>
                 </span>
               )}
               style={{ marginBottom: 24 }}
@@ -76,8 +82,12 @@ export default class Article extends React.PureComponent {
           <h1>
             {title[locale] || title}
             {
-              !subtitle || locale === 'en-US' ? null :
-              <span className="subtitle">{subtitle}</span>
+              !subtitle || locale === 'en-US' ? null
+                : (
+                  <span className="subtitle">
+                    {subtitle}
+                  </span>
+                )
             }
             <EditButton
               title={<FormattedMessage id="app.content.edit-page" />}
@@ -88,16 +98,18 @@ export default class Article extends React.PureComponent {
             />
           </h1>
           {
-            !description ? null :
-              props.utils.toReactComponent(
+            !description ? null
+              : props.utils.toReactComponent(
                 ['section', { className: 'markdown' }].concat(getChildren(description))
               )
           }
           {
-            (!content.toc || content.toc.length <= 1 || meta.toc === false) ? null :
-            <Anchor className="toc-affix" offsetTop={16}>
-              {anchorChild}
-            </Anchor>
+            (!content.toc || content.toc.length <= 1 || meta.toc === false) ? null
+              : (
+                <Anchor className="toc-affix" offsetTop={16}>
+                  {anchorChild}
+                </Anchor>
+              )
           }
           {
             props.utils.toReactComponent(

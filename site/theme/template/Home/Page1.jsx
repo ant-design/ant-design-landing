@@ -37,6 +37,7 @@ export default class Page1 extends React.PureComponent {
   state = {
     hoverNum: null,
   }
+
   onMouseOver = (i) => {
     this.setState({
       hoverNum: i,
@@ -48,6 +49,7 @@ export default class Page1 extends React.PureComponent {
       hoverNum: null,
     });
   }
+
   getEnter = (e) => {
     const i = e.index;
     const r = (Math.random() * 2) - 1;
@@ -64,6 +66,7 @@ export default class Page1 extends React.PureComponent {
         repeat: -1,
       }];
   }
+
   getChildrenToRender = () => {
     const { hoverNum } = this.state;
     const { isMobile } = this.props;
@@ -100,17 +103,22 @@ export default class Page1 extends React.PureComponent {
             <div className="page1-item-img">
               <img src={item.src} alt="img" />
             </div>
-            <div className="page1-item-title">{item.title}</div>
+            <div className="page1-item-title">
+              {item.title}
+            </div>
           </a>
         </Col>);
     });
   }
+
   render() {
     const children = this.getChildrenToRender();
     return (
       <div className="home-page-wrapper page1">
-        <div className="home-page" >
-          <h1><FormattedMessage id="app.home.features" /></h1>
+        <div className="home-page">
+          <h1>
+            <FormattedMessage id="app.home.features" />
+          </h1>
           <ScrollOverPack playScale="0.3" className="page1-content">
             <QueueAnim key="queue" type="bottom" leaveReverse component={Row}>
               {children}

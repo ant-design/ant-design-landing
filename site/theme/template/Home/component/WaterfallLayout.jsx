@@ -21,9 +21,13 @@ export default class WaterfallLayout extends AutoResponsive {
   };
 
   defaultAnim = { scale: [1, 0.8], opacity: [1, 0] }
+
   inQueueEnd = {};
+
   inAnimate = {}
+
   currrentChildKeys = {};
+
   state = {
     oneEnter: false,
   }

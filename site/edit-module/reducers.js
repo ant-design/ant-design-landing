@@ -7,7 +7,6 @@ function templateData(state, aciton) {
     case postType.POST_SUCCESS:
     case postType.POST_SET:
     case postType.POST_ERROR:
-      console.log(aciton);
       return {
         type: aciton.type,
         uid: aciton.templateData.id,

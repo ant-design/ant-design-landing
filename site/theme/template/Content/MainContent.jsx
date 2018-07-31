@@ -10,8 +10,8 @@ import * as utils from '../utils';
 const { SubMenu } = Menu;
 function getActiveMenuItem(props) {
   const { children } = props.params;
-  return (children && children.replace('-cn', '')) ||
-    props.location.pathname.replace(/(^\/|-cn$)/g, '');
+  return (children && children.replace('-cn', ''))
+    || props.location.pathname.replace(/(^\/|-cn$)/g, '');
 }
 
 function getModuleData(props) {
@@ -101,8 +101,12 @@ export default class MainContent extends React.PureComponent {
     const locale = this.context.intl.locale;
     const key = fileNameToPath(item.filename);
     const text = [
-      <span key="english">{item.title[locale] || item.title}</span>,
-      <span className="chinese" key="chinese">{item.subtitle}</span>,
+      <span key="english">
+        {item.title[locale] || item.title}
+      </span>,
+      <span className="chinese" key="chinese">
+        {item.subtitle}
+      </span>,
     ];
     const disabled = item.disabled;
     const url = item.filename.replace(/(\/index)?((\.zh-CN)|(\.en-US))?\.md$/i, '').replace('scaffold/src/', '');
@@ -112,8 +116,8 @@ export default class MainContent extends React.PureComponent {
         disabled={disabled}
       >
         {text}
-      </Link>) :
-      (
+      </Link>)
+      : (
         <a
           href={item.link}
           target="_blank"
@@ -121,7 +125,9 @@ export default class MainContent extends React.PureComponent {
           disabled={disabled}
           className="menu-item-link-outside"
         >
-          {text} <Icon type="export" />
+          {text}
+          {' '}
+          <Icon type="export" />
         </a>
       );
     return (
@@ -143,7 +149,13 @@ export default class MainContent extends React.PureComponent {
     return menuItems.map((menuItem) => {
       if (menuItem.children) {
         return (
-          <SubMenu title={<h4>{menuItem.title}</h4>} key={menuItem.title}>
+          <SubMenu title={(
+            <h4>
+              {menuItem.title}
+            </h4>
+          )}
+            key={menuItem.title}
+          >
             {menuItem.children.map((child) => {
               if (child.type === 'type') {
                 return (
@@ -221,8 +233,8 @@ export default class MainContent extends React.PureComponent {
               >
                 {menuChild}
               </MobileMenu>
-            ) :
-              (
+            )
+              : (
                 <Col xxl={4} xl={5} lg={6} md={6} sm={24} xs={24} className="main-menu">
                   {menuChild}
                 </Col>
@@ -248,14 +260,14 @@ export default class MainContent extends React.PureComponent {
           >
             <section className="prev-next-nav">
               {
-                prev ?
-                  React.cloneElement(prev.props.children, { className: 'prev-page' }) :
-                  null
+                prev
+                  ? React.cloneElement(prev.props.children, { className: 'prev-page' })
+                  : null
               }
               {
-                next ?
-                  React.cloneElement(next.props.children, { className: 'next-page' }) :
-                  null
+                next
+                  ? React.cloneElement(next.props.children, { className: 'next-page' })
+                  : null
               }
             </section>
           </Col>

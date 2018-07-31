@@ -39,6 +39,7 @@ class Layout extends React.Component {
       isMobile,
     };
   }
+
   componentDidUpdate() {
     if (this.isEdit) {
       this.setData();
@@ -58,6 +59,7 @@ class Layout extends React.Component {
       this.setState({ isMobile: b });
     });
   }
+
   componentWillReceiveProps(nextProps) {
     if (!this.isEdit) {
       this.setState({
@@ -65,6 +67,7 @@ class Layout extends React.Component {
       }, this.setScrollToWindow);
     }
   }
+
   componentWillUpdate() {
     this.scrollTop = window.scrollY;
   }
@@ -104,7 +107,6 @@ class Layout extends React.Component {
   }
 
   setStyleData = (style) => {
-    console.log(style);
     const getCssToString = (css, className) => Object.keys(css).sort((a, b) => (
       stateSort[a] - stateSort[b]
     )).map((key) => {
@@ -137,7 +139,6 @@ class Layout extends React.Component {
     const { data, funcData } = templateData;
     const func = { ...funcData };
     const template = data.template;
-    console.log(templateData);
     this.setStyleData(data.style);
     const otherData = data.other;
     const configData = data.config || {};
@@ -146,8 +147,8 @@ class Layout extends React.Component {
       const componentName = keys[0];
       const componentData = webData[componentName];
       const d = configData[key] || {};
-      const dataSource = this.isEdit ? setDataIdToDataSource(mergeEditDataToDefault(d, componentData, true), key) :
-        mergeEditDataToDefault(d, componentData, true);
+      const dataSource = this.isEdit ? setDataIdToDataSource(mergeEditDataToDefault(d, componentData, true), key)
+        : mergeEditDataToDefault(d, componentData, true);
       return React.createElement(componentData.component, {
         key,
         id: key,
@@ -188,16 +189,24 @@ class Layout extends React.Component {
     switch (type) {
       case 'default':
         return (
-          <div> 加载中。。。 </div>
+          <div>
+            {' '}
+            加载中。。。
+            {' '}
+          </div>
         );
       case 'error':
         return (
-          <div> 数据加载错误。。。</div>
+          <div>
+            {' '}
+            数据加载错误。。。
+          </div>
         );
       default:
         return this.getDataToChildren();
     }
   };
+
   render() {
     const children = this.getTemplatesToChildren();
     return (

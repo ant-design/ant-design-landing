@@ -95,7 +95,7 @@
     "cp-prettier": "rm -rf _site && mkdir -p ./_site/edit && cp -r ./prettier/* ./_site/edit ",
     "deploy": "npm run site && cp CNAME _site/ && bisheng gh-pages --push-only",
     "lint": "npm run lint:es && npm run lint:style",
-    "lint:es": "eslint --fix --ext .js .jsx ./site",
+    "lint:es": "eslint site --fix --ext .js .jsx",
     "lint:style": "stylelint --fix \"site/**/*.less\" --syntax less",
     "lint:demo": "cross-env RUN_ENV=DEMO eslint ./ --ext '.md' -c ./.eslintrc.js",
     "test": "npm run lint"

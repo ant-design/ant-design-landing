@@ -28,16 +28,22 @@ export default class Page3 extends React.Component {
     imgData: {},
     pageSize: 5,
   };
+
   imgInLoad = {};
+
   inQueue = {};
+
   queueElement = {};
+
   timeout = null;
+
   num = 0;
+
   scrollEventListener = (e) => {
     const showHeight = e.showHeight;
-    if (parseFloat(this.waterfallDom.style.height) &&
-      this.num + this.state.pageSize < maxLength &&
-      showHeight > parseFloat(this.waterfallDom.style.height) + 200) {
+    if (parseFloat(this.waterfallDom.style.height)
+      && this.num + this.state.pageSize < maxLength
+      && showHeight > parseFloat(this.waterfallDom.style.height) + 200) {
       this.num += 5;
       ticker.clear(this.timeout);
       this.timeout = ticker.timeout(() => {
@@ -50,10 +56,16 @@ export default class Page3 extends React.Component {
       });
     }
   }
-  getHeaderChildrenToRender = () =>
-    Object.keys(data).map(key => (
-      key !== 'Other' && <RadioButton value={key} key={key}>{key}s</RadioButton>
-    ));
+
+  getHeaderChildrenToRender = () => Object.keys(data).map(key => (
+    key !== 'Other' && (
+      <RadioButton value={key} key={key}>
+        {key}
+        s
+      </RadioButton>
+    )
+  ));
+
   onLabelChange = (v) => {
     const type = v.target.value;
     this.setState({
@@ -62,6 +74,7 @@ export default class Page3 extends React.Component {
       isSwitchTween: true,
     });
   }
+
   onSwitchEnd = (e) => {
     if (e.type === 'enter') {
       this.inQueue[e.key] = true;
@@ -71,9 +84,10 @@ export default class Page3 extends React.Component {
     if (Object.keys(this.inQueue).length >= this.chidlrenLength) {
       this.setState({
         isSwitchTween: false,
-      })
+      });
     }
   }
+
   loadImage = (src, key) => {
     const { imgData } = this.state;
     if (this.imgInLoad[key]) {
@@ -101,6 +115,7 @@ export default class Page3 extends React.Component {
     img.src = src;
     this.imgInLoad[key] = true;
   }
+
   getChildrenToRender = (v, imgData) => {
     const children = [];
     let num = 0;
@@ -135,12 +150,15 @@ export default class Page3 extends React.Component {
     this.chidlrenLength = children.length;
     return children;
   }
+
   render() {
     const { type, imgData } = this.state;
     return (
       <div className="home-page-wrapper page3">
-        <div className="home-page" >
-          <h1 onClick={this.onClick}><FormattedMessage id="app.home.module" /></h1>
+        <div className="home-page">
+          <h1 onClick={this.onClick}>
+            <FormattedMessage id="app.home.module" />
+          </h1>
           <ScrollOverPack
             playScale="0.3"
             className="page3-content"
@@ -163,7 +181,9 @@ export default class Page3 extends React.Component {
               className="page3-content-header"
               animation={{ y: 30, opacity: 0, type: 'from' }}
             >
-              <RadioButton value="all" key="all">ALL</RadioButton>
+              <RadioButton value="all" key="all">
+                ALL
+              </RadioButton>
               {this.getHeaderChildrenToRender()}
             </TweenOne>
             <WaterfallLayout
@@ -172,7 +192,7 @@ export default class Page3 extends React.Component {
                 leaveReverse: true,
                 interval: [80, 0],
                 duration: 300,
-                onEnd: this.onSwitchEnd
+                onEnd: this.onSwitchEnd,
               }}
               itemMargin={48}
               gridWidth={16}

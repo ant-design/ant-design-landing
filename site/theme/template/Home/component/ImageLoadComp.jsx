@@ -11,6 +11,7 @@ export default class ImageLoadComp extends React.PureComponent {
       isLoad: imgLoadData[this.id],
     };
   }
+
   onImageLoad = () => {
     if (!imgLoadData[this.id] || !this.state.isLoad) {
       this.setState({
@@ -20,6 +21,7 @@ export default class ImageLoadComp extends React.PureComponent {
       });
     }
   }
+
   render() {
     const { src } = this.props;
     const { isLoad } = this.state;

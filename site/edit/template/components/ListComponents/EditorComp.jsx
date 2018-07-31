@@ -18,13 +18,10 @@ class EditorComp extends React.Component {
     const currentEditTemplateData = getDataSourceValue(ids[1], tempDataSource);
     const currentEditClassName = currentEditData.dom.className;
     const inDataClass = currentEditTemplateData.className && !!currentEditTemplateData.className
-      .split(' ').filter(c =>
-        c === cssName
-      ).length;
+      .split(' ').filter(c => c === cssName).length;
     // 如果数据里没有样式，， dom 里却有，有组件的情况下。。
-    const inDomClass = currentEditClassName && !!currentEditClassName.split(' ').filter(c =>
-      c === cssName
-    ).length;
+    const inDomClass = currentEditClassName && !!currentEditClassName.split(' ')
+      .filter(c => c === cssName).length;
     let newClassName;
     if (inDomClass && cssName.indexOf('editor_css') === -1) {
       if (inDataClass) {
@@ -36,7 +33,7 @@ class EditorComp extends React.Component {
       newClassName = `${currentEditTemplateData.className || ''} ${cssName}`.trim();
     }
     const newTemplateData = deepCopy(templateData);
-    setDataSourceValue(ids, 'className', newClassName, newTemplateData.data.config, tempData);
+    setDataSourceValue(ids, 'className', newClassName, newTemplateData.data.config);
     const data = {
       className: e.className,
       css: e.css,
@@ -47,6 +44,7 @@ class EditorComp extends React.Component {
     newTemplateData.data.style.push(data);
     dispatch(setTemplateData(newTemplateData));
   }
+
   onPropsChange = (key, value, func) => {
     const { dispatch, templateData, currentEditData } = this.props;
     const { id } = currentEditData;
@@ -65,20 +63,26 @@ class EditorComp extends React.Component {
     } else {
       const newTemplateData = deepCopy(templateData);
 
-      setDataSourceValue(ids, key, value, newTemplateData.data.config, tempData);
+      setDataSourceValue(ids, key, value, newTemplateData.data.config);
       dispatch(setTemplateData(newTemplateData));
     }
   }
+
   onChildChange = (ids, currentData) => {
     const { dispatch, templateData } = this.props;
     const newTemplateData = deepCopy(templateData);
-    setDataSourceValue(ids, 'children', currentData.children, newTemplateData.data.config, tempData);
+    setDataSourceValue(ids, 'children', currentData.children, newTemplateData.data.config);
     dispatch(setTemplateData(newTemplateData));
   }
+
   render() {
     const { currentEditData, mediaStateSelect } = this.props;
     if (!currentEditData) {
-      return <p className="props-explain">请选择左侧进行编辑...</p>;
+      return (
+        <p className="props-explain">
+          请选择左侧进行编辑...
+        </p>
+      );
     }
     const edit = currentEditData.dom.getAttribute('data-edit');
     return (

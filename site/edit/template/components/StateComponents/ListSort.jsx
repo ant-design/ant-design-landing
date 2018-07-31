@@ -63,6 +63,7 @@ export default class ListSort extends React.Component {
     onEventChange: PropTypes.any,
     dragElement: PropTypes.any,
   };
+
   static defaultProps = {
     component: 'div',
     animType: 'y',
@@ -152,10 +153,10 @@ export default class ListSort extends React.Component {
         marginHeight = cItem.offsetTop - item.offsetTop - item.clientHeight;
         marginWidth = cItem.offsetLeft - item.offsetLeft - item.clientWidth;
       } else {
-        const parentHeight = item.parentNode.clientHeight -
-          parseFloat(getComputedStyle(item.parentNode).getPropertyValue('padding-bottom'));
-        const parentWidth = item.parentNode.clientWidth -
-          parseFloat(getComputedStyle(item.parentNode).getPropertyValue('padding-right'));
+        const parentHeight = item.parentNode.clientHeight
+          - parseFloat(getComputedStyle(item.parentNode).getPropertyValue('padding-bottom'));
+        const parentWidth = item.parentNode.clientWidth
+          - parseFloat(getComputedStyle(item.parentNode).getPropertyValue('padding-right'));
         marginHeight = parentHeight - item.offsetTop - item.clientHeight;
         marginWidth = parentWidth - item.offsetLeft - item.clientWidth;
       }
@@ -173,9 +174,8 @@ export default class ListSort extends React.Component {
       this.childStyle.push({ ...d });
       return d;
     });
-    const animation = this.children.map((item, ii) =>
-      i === ii && ((!dragClassName ?
-        { scale: 1.2, boxShadow: '0 10px 10px rgba(0,0,0,0.15)' } : null) || null));
+    const animation = this.children.map((item, ii) => i === ii && ((!dragClassName
+      ? { scale: 1.2, boxShadow: '0 10px 10px rgba(0,0,0,0.15)' } : null) || null));
     this.index = i;
     this.swapIndex = i;
     this.mouseXY = {
@@ -220,8 +220,8 @@ export default class ListSort extends React.Component {
             animate.top = this.childStyle[this.swapIndex].top;
           }
         }
-        const dragScale = !this.props.dragClassName &&
-          ({
+        const dragScale = !this.props.dragClassName
+          && ({
             scale: 1,
             boxShadow: '0 0px 0px rgba(0,0,0,0)',
           });
@@ -272,11 +272,11 @@ export default class ListSort extends React.Component {
       childStyle[this.index].left = (this.mouseXY.x - this.mouseXY.startX) + this.mouseXY.left;
     } else {
       childStyle[this.index].top = (this.mouseXY.y - this.mouseXY.startY) + this.mouseXY.top;
-      this.swapIndex = childStyle[this.index].top < this.childStyle[this.index].top ?
-        0 : this.index;
-      this.swapIndex = childStyle[this.index].top >
-        this.childStyle[this.index].top + this.childStyle[this.index].height ?
-        childStyle.length - 1 : this.swapIndex;
+      this.swapIndex = childStyle[this.index].top < this.childStyle[this.index].top
+        ? 0 : this.index;
+      this.swapIndex = childStyle[this.index].top
+        > this.childStyle[this.index].top + this.childStyle[this.index].height
+        ? childStyle.length - 1 : this.swapIndex;
 
       const top = childStyle[this.index].top;
       this.childStyle.forEach((item, i) => {
@@ -298,14 +298,14 @@ export default class ListSort extends React.Component {
               height += _item.height + _item.marginHeight;
             });
             return { top: this.childStyle[this.index].top + height };
-          } else if ((i > this.swapIndex || this.swapIndex === this.index) && i !== this.index) {
+          } if ((i > this.swapIndex || this.swapIndex === this.index) && i !== this.index) {
             return { top: this.childStyle[i].top };
           }
         } else if (this.index > this.swapIndex) {
           if (i < this.index && i >= this.swapIndex && this.swapIndex !== this.index) {
             height = this.childStyle[this.index].height + this.childStyle[this.index].marginHeight;
             return { top: this.childStyle[i].top + height };
-          } else if ((i < this.swapIndex || this.swapIndex === this.index) && i !== this.index) {
+          } if ((i < this.swapIndex || this.swapIndex === this.index) && i !== this.index) {
             return { top: this.childStyle[i].top };
           }
         }

@@ -1,3 +1,83 @@
-.home {
-  width: 100%;
+@import '../../../static/custom.less';
+@banner3: banner3;
+.@{banner3} {
+  width: 100%; // 如果在第一屏且导航位置为 relative, 一屏为 height: calc(~"100vh - 64px");
+  height: 100vh;
+  position: relative;
+  text-align: center;
+  border-color: #666;
+  background-image: url("https://gw.alipayobjects.com/zos/rmsportal/xTPkCNNLOnTEbGgVZOpE.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  & &-text-wrapper {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    left: 0;
+    right: 0;
+    color: @template-text-color-light;
+    max-width: 845px;
+    height: 500px;
+    width: 80%;
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 400;
+    will-change: transform;
+    >.queue-anim-leaving {
+      position: relative !important;
+    }
+  }
+  & &-slogan {
+    font-size: 68px;
+    line-height: 80px;
+    text-indent: 2px;
+    font-weight: 600;
+    margin: 26px auto 38px;
+    overflow: hidden;
+  }
+  & &-name-en {
+    display: block;
+    font-size: 14px;
+    line-height: 32px;
+    font-weight: 400;
+  }
+  & &-name {
+    font-size: 24px;
+    overflow: hidden;
+    opacity: 0.8;
+  }
+  & &-button {
+    margin: 72px auto 0;
+    background: rgb(3, 67, 101);
+    background: -moz-linear-gradient(left, rgba(3, 67, 101, 1) 0%, rgba(0, 27, 51, 1) 100%);
+    background: linear-gradient(to right, rgba(3, 67, 101, 1) 0%, rgba(0, 27, 51, 1) 100%);
+    box-shadow: 0 8px 16px #0a52ab;
+    border: none;
+    transition: background .45s @ease-out;
+    width: 132px;
+    line-height: 42px;
+    height: 42px;
+    border-radius: 42px;
+  }
+  & &-time {
+    font-size: 14px;
+    line-height: 24px;
+    margin-top: 24px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .@{banner3} {
+    background-attachment: inherit;
+    & &-text-wrapper {
+      width: 90%;
+    }
+    & &-title {
+      width: 90%;
+      left: 0;
+    }
+  }
 }

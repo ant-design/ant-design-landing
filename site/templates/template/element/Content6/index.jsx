@@ -103,7 +103,7 @@ class Content7 extends React.Component {
           <TweenOne
             key="img"
             animation={imgAnim}
-            resetStyleBool
+            resetStyle
             {...dataSource.img}
             component={Col}
             /* replace-start */

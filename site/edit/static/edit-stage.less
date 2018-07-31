@@ -48,7 +48,7 @@
       }
       &.bottom {
         top: 100%;
-        >.ant-btn {
+        > * {
           border-radius: 0;
           &:last-child {
             border-bottom-right-radius: 4px;
@@ -56,6 +56,9 @@
           &:first-child {
             border-bottom-left-radius: 4px;
           }
+        }
+        > div {
+          overflow: hidden;
         }
       }
       >.ant-btn {

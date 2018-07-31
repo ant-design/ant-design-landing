@@ -62,7 +62,6 @@ function mergeDataToChild(newData, _data, useDelete) {
       data[key] = mergeDataToChild(newData[key], deepCopy(data[key])
         || (Array.isArray(newData[key]) ? [] : {}), useDelete);
       if (Array.isArray(newData[key])) {
-        console.log(data[key]);
         data[key] = data[key].filter(c => c || c === 0);
       }
     } else {

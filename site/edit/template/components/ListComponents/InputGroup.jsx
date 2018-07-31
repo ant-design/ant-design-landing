@@ -10,6 +10,7 @@ export default class InputGroup extends React.PureComponent {
     value[i] = v;
     this.props.onChange(value);
   }
+
   render() {
     const { value } = this.props;
     const newValue = Array.isArray(value) ? value : [value, value];

@@ -21,7 +21,8 @@
     "rc-editor-list": "^1.1.0",
     "rc-queue-anim": "^1.6.0",
     "rc-scroll-anim": "^2.5.0",
-    "rc-tween-one": "^2.1.0",
+    "rc-texty": "^0.1.1",
+    "rc-tween-one": "^2.2.0",
     "react-document-title": "^2.0.1"
   },
   "devDependencies": {

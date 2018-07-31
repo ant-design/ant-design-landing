@@ -96,6 +96,7 @@ class EditorOther extends React.PureComponent {
     }
     dispatch(setTemplateData(newTemplateData));
   }
+
   getChildrenToRender = () => {
     const { templateData } = this.props;
     const { other } = templateData.data;
@@ -108,8 +109,8 @@ class EditorOther extends React.PureComponent {
         switch (t) {
           case 'radio':
           {
-            let value = (other[name] && other[name][key]) ||
-                item.value.filter((c) => {
+            let value = (other[name] && other[name][key])
+                || item.value.filter((c) => {
                   return key === 'position' ? c === 'right' : c.indexOf('point') === -1;
                 })[0];
             value = value === 'point-left' ? 'left' : value;
@@ -118,20 +119,20 @@ class EditorOther extends React.PureComponent {
                 size="small"
                 value={value}
                 onChange={(e) => {
-                    this.onChange(name, key, e.target.value);
-                  }}
+                  this.onChange(name, key, e.target.value);
+                }}
               >
                 {item.value.map((c) => {
-                    return (
-                      <RadioButton key={c} value={c}>
-                        <div className="point-radio-wrapper">
-                          <span className={!item.isChild ? `point ${c}` : ''}>
-                            {item.isChild ? c : ''}
-                          </span>
-                        </div>
-                      </RadioButton>
-                    );
-                  })}
+                  return (
+                    <RadioButton key={c} value={c}>
+                      <div className="point-radio-wrapper">
+                        <span className={!item.isChild ? `point ${c}` : ''}>
+                          {item.isChild ? c : ''}
+                        </span>
+                      </div>
+                    </RadioButton>
+                  );
+                })}
               </RadioGroup>
             );
             break;
@@ -154,7 +155,11 @@ class EditorOther extends React.PureComponent {
           <Tooltip
             placement="topRight"
             arrowPointAtCenter
-            title={<span>{item.remark}</span>}
+            title={(
+              <span>
+                {item.remark}
+              </span>
+            )}
           >
             <Icon type="question-circle" style={{ marginLeft: 8 }} />
           </Tooltip>
@@ -162,7 +167,11 @@ class EditorOther extends React.PureComponent {
         return [
           <Row gutter={8} key={`${item.name}-1`}>
             <Col>
-              {item.name} - {key}
+              {item.name}
+              {' '}
+              -
+              {' '}
+              {key}
               {tip}
             </Col>
           </Row>,
@@ -176,18 +185,20 @@ class EditorOther extends React.PureComponent {
     };
     return otherData.map((item, i) => {
       return (
-        <Panel header={item.name} key={i.toString()} >
+        <Panel header={item.name} key={i.toString()}>
           {getDataChildren(item.children, item.type, item.key)}
           {item.demo && (
             <Row gutter={8} key={`${item.name}-3`}>
               <Col>
                 <div className="other-demo">
                   {
-                    item.demo.match(isImg) ?
-                      <img src={item.demo} width="100%" alt="img" draggable="false" /> :
-                      <video src={item.demo} width="100%" height="100%" autoPlay loop >
-                        <track kind="captions" />
-                      </video>
+                    item.demo.match(isImg)
+                      ? <img src={item.demo} width="100%" alt="img" draggable="false" />
+                      : (
+                        <video src={item.demo} width="100%" height="100%" autoPlay loop>
+                          <track kind="captions" />
+                        </video>
+                      )
                   }
                 </div>
               </Col>
@@ -195,6 +206,7 @@ class EditorOther extends React.PureComponent {
         </Panel>);
     });
   }
+
   render() {
     const children = this.getChildrenToRender();
     return (

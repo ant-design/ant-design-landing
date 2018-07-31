@@ -2,11 +2,11 @@ import React from 'react';
 import { Button, Input, Icon, Popover, Row, Col, Switch } from 'antd';
 import { getRandomKey } from 'rc-editor-list/lib/utils';
 import { connect } from 'react-redux';
-import ListSort from './ListSort';
-import { getState, mergeEditDataToDefault, deepCopy } from '../../../../utils';
-import tempData from '../../../../templates/template/element/template.config';
-import { getDataSourceValue, setDataSourceValue } from '../../utils';
-import { setTemplateData } from '../../../../edit-module/actions';
+import ListSort from '../ListSort';
+import { getState, mergeEditDataToDefault, deepCopy } from '../../../../../utils';
+import tempData from '../../../../../templates/template/element/template.config';
+import { getDataSourceValue, setDataSourceValue } from '../../../utils';
+import { setTemplateData } from '../../../../../edit-module/actions';
 
 class MenuEditView extends React.PureComponent {
   onAdd = (ids, currentData) => {
@@ -44,7 +44,7 @@ class MenuEditView extends React.PureComponent {
   onChildChange = (ids, currentData) => {
     const { dispatch, templateData } = this.props;
     const newTemplateData = deepCopy(templateData);
-    setDataSourceValue(ids, 'children', currentData.children, newTemplateData.data.config, tempData);
+    setDataSourceValue(ids, 'children', currentData.children, newTemplateData.data.config);
     dispatch(setTemplateData(newTemplateData));
   }
 

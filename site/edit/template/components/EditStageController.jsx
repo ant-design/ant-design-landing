@@ -408,7 +408,7 @@ class EditStateController extends React.PureComponent {
     if (dom.getAttribute('data-key')) {
       this.currentData = this.mouseCurrentData;
       const editData = this.currentData.item.getAttribute('data-edit');
-      if (editData && editData.indexOf('text') >= 0) {
+      if (editData && editData.indexOf('text') >= 0 && editData !== 'texty') {
         this.editTextFunc();
       }
     }
@@ -485,7 +485,6 @@ class EditStateController extends React.PureComponent {
   render() {
     const { className, mediaStateSelect } = this.props;
     const { data, currentHoverRect, currentSelectRect, iframe, openEditText } = this.state;
-
     const dataArray = data ? Object.keys(data) : [];
     const overlayChild = dataArray.map((key, i) => {
       const item = data[key];

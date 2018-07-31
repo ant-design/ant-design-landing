@@ -10,11 +10,13 @@ export default class SwitchSlideView extends React.Component {
   componentDidUpdate() {
     this.pop.tooltip.tooltip.trigger.forcePopupAlign();
   }
+
   getCurrentDataSource = (props) => {
     const { templateData, dataId } = props;
     const id = dataId.split('_')[0];
     return mergeEditDataToDefault(templateData.data.config[dataId], tempData[id]);
   }
+
   onPaginationChange = (currentPage) => {
     const { iframe, templateData, dataId, reRect } = this.props;
     reRect();
@@ -49,6 +51,7 @@ export default class SwitchSlideView extends React.Component {
       .map(node => (node === item ? { ...node, delete: true } : node));
     this.setDataToTemplateData(dataSource);
   }
+
   onSlideAdd = (dataSource) => {
     const data = this.getDataSourceChild(dataSource);
     const defaultData = { ...data.children[data.children.length - 1] };
@@ -84,7 +87,9 @@ export default class SwitchSlideView extends React.Component {
     const listChild = child.map((item) => {
       return (
         <div key={item.name} className="sort-manage">
-          <div className="sort-manage-name">{item.name}</div>
+          <div className="sort-manage-name">
+            {item.name}
+          </div>
           <div className="sort-manage-delete">
             <Button
               onClick={() => {
@@ -104,7 +109,11 @@ export default class SwitchSlideView extends React.Component {
         dragClassName="list-drag-selected"
         className="sort-manage-list"
         key="list"
-        dragElement={<div className="sort-manage-icon"><Icon type="bars" /></div>}
+        dragElement={(
+          <div className="sort-manage-icon">
+            <Icon type="bars" />
+          </div>
+        )}
         onChange={(e) => {
           this.onListChange(e, dataSource);
         }}
@@ -112,7 +121,9 @@ export default class SwitchSlideView extends React.Component {
         {listChild}
       </ListSort>,
       <div key="button" className="manage-button">
-        <Button onClick={() => { this.onSlideAdd(dataSource); }} type="primary">添加分页</Button>
+        <Button onClick={() => { this.onSlideAdd(dataSource); }} type="primary">
+          添加分页
+        </Button>
       </div>,
     ];
   }

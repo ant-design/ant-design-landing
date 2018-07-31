@@ -8,6 +8,8 @@ import { getDataSourceValue } from '../../utils';
 
 const Panel = Collapse.Panel;
 
+const noChildProps = ['BannerAnim', 'Menu', 'contentWrapper'];
+
 export default class ChildComp extends React.PureComponent {
   getCurrentDataSource = (props) => {
     const { templateData, dataId } = props;
@@ -23,6 +25,7 @@ export default class ChildComp extends React.PureComponent {
     });
     this.props.onChange(ids, currentData);
   }
+
   onSlideDelete = (e, ids, currentData) => {
     /*  const children = currentData.children;
     const i = children.indexOf(e);
@@ -31,6 +34,7 @@ export default class ChildComp extends React.PureComponent {
       .map(node => (node === e ? { ...node, delete: true } : node));
     this.props.onChange(ids, currentData);
   }
+
   onAdd = (ids, currentData) => {
     const newData = deepCopy(currentData.children[currentData.children.length - 1]);
     delete newData.delete;
@@ -38,9 +42,10 @@ export default class ChildComp extends React.PureComponent {
     currentData.children.push(newData);
     this.props.onChange(ids, currentData);
   }
+
   render() {
     const { edit, currentEditData, templateData } = this.props;
-    const isNoShow = edit && edit.split(',').some(c => c === 'BannerAnim' || c === 'Menu');
+    const isNoShow = edit && edit.split(',').some(c => noChildProps.indexOf(c) >= 0);
     const { id } = currentEditData;
     const ids = id.split('-');
     const cid = ids[0].split('_')[0];
@@ -64,7 +69,9 @@ export default class ChildComp extends React.PureComponent {
     const childrenToRender = currentEditTemplateData.children.filter(c => c && !c.delete).map((item) => {
       return (
         <div key={item.name} className="sort-manage">
-          <div className="sort-manage-name">{item.name}</div>
+          <div className="sort-manage-name">
+            {item.name}
+          </div>
           <div className="sort-manage-delete">
             <Button
               onClick={() => {
@@ -82,11 +89,11 @@ export default class ChildComp extends React.PureComponent {
     return (
       <Collapse bordered={false} defaultActiveKey={['1']} className="child-wrapper">
         <Panel
-          header={
+          header={(
             <p>
               子级增删
             </p>
-          }
+          )}
           key="1"
         >
           <Row gutter={8}>
@@ -95,7 +102,11 @@ export default class ChildComp extends React.PureComponent {
                 dragClassName="list-drag-selected"
                 className="sort-manage-list"
                 key="list"
-                dragElement={<div className="sort-manage-icon"><Icon type="bars" /></div>}
+                dragElement={(
+                  <div className="sort-manage-icon">
+                    <Icon type="bars" />
+                  </div>
+                )}
                 onChange={(e) => {
                   this.onListChange(e, ids, currentEditTemplateData);
                 }}

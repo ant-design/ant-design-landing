@@ -3,6 +3,7 @@ const Nav1 = require('./Nav1/template.config');
 const Banner0 = require('./Banner0/template.config');
 const Banner1 = require('./Banner1/template.config');
 const Banner2 = require('./Banner2/template.config');
+const Banner3 = require('./Banner3/template.config');
 const Content0 = require('./Content0/template.config');
 const Content1 = require('./Content1/template.config');
 const Content2 = require('./Content2/template.config');
@@ -22,6 +23,7 @@ export default {
   Banner0,
   Banner1,
   Banner2,
+  Banner3,
   Content0,
   Content1,
   Content2,

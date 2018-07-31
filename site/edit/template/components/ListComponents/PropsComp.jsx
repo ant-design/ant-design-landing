@@ -9,7 +9,7 @@ import CheckboxGroup from './CheckboxGroup';
 
 const Panel = Collapse.Panel;
 
-const noProps = ['text', 'image', 'video', 'icon'];
+const noProps = ['text', 'image', 'video', 'icon', 'texty', 'contentWrapper'];
 
 export default class PropsComp extends React.PureComponent {
   getCompChild = (defaultValue, v, key) => {
@@ -17,18 +17,22 @@ export default class PropsComp extends React.PureComponent {
     const currentValue = typeof v !== 'undefined' ? v : value;
     switch (type) {
       case 'switch':
-        return (<Switch
-          {...props}
-          size="small"
-          {...(func ? {} : { checkbox: currentValue.toString() })}
-          onChange={(data) => { this.props.onChange(key, data, func); }}
-        />);
+        return (
+          <Switch
+            {...props}
+            size="small"
+            {...(func ? {} : { checkbox: currentValue.toString() })}
+            onChange={(data) => { this.props.onChange(key, data, func); }}
+          />
+        );
       case 'inputGroup':
-        return (<InputGroup
-          {...props}
-          {...(func ? {} : { value: currentValue })}
-          onChange={(data) => { this.props.onChange(key, data, func); }}
-        />);
+        return (
+          <InputGroup
+            {...props}
+            {...(func ? {} : { value: currentValue })}
+            onChange={(data) => { this.props.onChange(key, data, func); }}
+          />
+        );
       case 'select':
         return (
           <Select
@@ -39,7 +43,11 @@ export default class PropsComp extends React.PureComponent {
             getPopupContainer={node => node.parentNode.parentNode.parentNode.parentNode.parentNode}
           >
             {props.children.map((k) => {
-              return (<Select.Option key={k}>{k}</Select.Option>);
+              return (
+                <Select.Option key={k}>
+                  {k}
+                </Select.Option>
+              );
             })}
           </Select>);
       case 'checkbox':
@@ -62,6 +70,7 @@ export default class PropsComp extends React.PureComponent {
         break;
     }
   }
+
   getChildrenToRender = (config, template) => {
     const t = Object.keys(config).filter(key => key !== 'apiLink').map((key) => {
       const defaultData = config[key];
@@ -69,7 +78,11 @@ export default class PropsComp extends React.PureComponent {
       if (key === 'remark') {
         return (
           <Row key="remark">
-            <Col><Icon type="warning" style={{ marginRight: 4 }} /> {defaultData}</Col>
+            <Col>
+              <Icon type="warning" style={{ marginRight: 4 }} />
+              {' '}
+              {defaultData}
+            </Col>
           </Row>);
       }
       const compChild = this.getCompChild(defaultData, templateData, key);
@@ -77,7 +90,11 @@ export default class PropsComp extends React.PureComponent {
         <Tooltip
           placement="topRight"
           arrowPointAtCenter
-          title={<span>{defaultData.remark}</span>}
+          title={(
+            <span>
+              {defaultData.remark}
+            </span>
+          )}
         >
           <Icon type="question-circle" style={{ marginLeft: 8 }} />
         </Tooltip>
@@ -85,7 +102,11 @@ export default class PropsComp extends React.PureComponent {
       return [
         <Row gutter={8} key={`${defaultData.name}-1`}>
           <Col>
-            {defaultData.name} - {key}
+            {defaultData.name}
+            {' '}
+            -
+            {' '}
+            {key}
             {tip}
           </Col>
         </Row>,
@@ -98,6 +119,7 @@ export default class PropsComp extends React.PureComponent {
     });
     return t;
   }
+
   render() {
     const { edit, currentEditData, templateData } = this.props;
     const editArray = edit ? edit.split(',').filter(c => noProps.indexOf(c) === -1) : [];
@@ -116,13 +138,20 @@ export default class PropsComp extends React.PureComponent {
       return (
         <Collapse bordered={false} defaultActiveKey={['1']} key={i.toString()}>
           <Panel
-            header={
-              <p>{item} 编辑 {
-                compConfig[item].apiLink && (
-                  <a target="_blank" href={compConfig[item].apiLink}>查看 API</a>
-                )}
+            header={(
+              <p>
+                {item}
+                {' '}
+                编辑
+                {' '}
+                {
+                  compConfig[item].apiLink && (
+                    <a target="_blank" href={compConfig[item].apiLink}>
+                      查看 API
+                    </a>
+                  )}
               </p>
-            }
+            )}
             key="1"
           >
             {childToRender}

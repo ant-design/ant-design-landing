@@ -92,7 +92,7 @@ export default class Page1 extends React.PureComponent {
               leave={{
                 x: 0, y: 30, opacity: 0, duration: 300, ease: 'easeInBack',
               }}
-              resetStyleBool={false}
+              resetStyle={false}
               className="point-wrapper"
             >
               {(isHover || isMobile) && pointChild}

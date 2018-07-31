@@ -19,18 +19,23 @@ export default {
     data: [
       {
         src: 'https://zos.alipayobjects.com/rmsportal/gyseCGEPqWjQpYF.jpg',
-        text: '单张背景图Banner',
+        text: '单图Banner',
         uid: 0,
       },
       {
         src: 'https://zos.alipayobjects.com/rmsportal/chnhazooyzrjWSv.jpg',
-        text: '多张背景图Banner',
+        text: '多图Banner',
         uid: 1,
       },
       {
         src: 'https://zos.alipayobjects.com/rmsportal/xLbbmipjHaqSoJSXhIzP.jpg',
         text: 'Banner特性动画',
         uid: 2,
+      },
+      {
+        src: 'https://gw.alipayobjects.com/zos/rmsportal/YOuqklTpqeaLDYKBpJIL.jpg',
+        text: 'Banner文字动画',
+        uid: 3,
       },
     ],
   },

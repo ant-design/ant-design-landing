@@ -1,7 +1,6 @@
 import React from 'react';
 import { Icon, message, Button, Input, Form } from 'antd';
 import { connect } from 'react-redux';
-import QueueAnim from 'rc-queue-anim';
 import NavController from './components/NavController';
 import SideMenu from './components/SideMenu';
 import EditInfluence from './components/EditInfluence';

@@ -1,5 +1,7 @@
 // import { createLogger } from 'redux-logger';
-import { mdId } from '../../utils';
+import { mdId, deepCopy } from '../../utils';
+
+import tempData from '../../templates/template/element/template.config';
 
 const worker = new Worker('./worker.js');
 
@@ -26,8 +28,7 @@ export function formatCode({ code, cb, parser = 'babylon', key }) {
 }
 
 export function hasErrors(fieldsError) {
-  return Object.keys(fieldsError).some(field =>
-    fieldsError[field] && fieldsError[field][0] !== 'password error'
+  return Object.keys(fieldsError).some(field => fieldsError[field] && fieldsError[field][0] !== 'password error'
   );
 }
 
@@ -86,8 +87,8 @@ export const getChildRect = (data) => {
 export const getCurrentDom = (pos, data) => {
   const t = data.map((item) => {
     const rect = item.rect;
-    if (pos.x >= rect.x && pos.y >= rect.y &&
-      pos.x <= rect.x + rect.width && pos.y <= rect.y + rect.height) {
+    if (pos.x >= rect.x && pos.y >= rect.y
+      && pos.x <= rect.x + rect.width && pos.y <= rect.y + rect.height) {
       return {
         ...item,
         rect,
@@ -98,11 +99,19 @@ export const getCurrentDom = (pos, data) => {
   return t[t.length - 1];
 };
 
-export const getDataSourceValue = (id, templateData, parent, tempDefaultData) => {
+export const getDataSourceValue = (id, templateData, parent) => {
   const array = parent || [];
   const childIds = id.split('&');
   let t = templateData;
-  let tt = tempDefaultData;
+  let tt;
+  if (parent) {
+    const cid = parent[0].split('_')[0];
+    tt = {
+      [parent[0]]: {
+        dataSource: tempData[cid].dataSource,
+      },
+    };
+  }
   array.concat(childIds).forEach((key) => {
     const nameKey = key.split('=');
     if (nameKey.length > 1 && nameKey[0] === 'array_name') {
@@ -121,13 +130,17 @@ export const getDataSourceValue = (id, templateData, parent, tempDefaultData) =>
           }
         });
       }
-      t[i] = elem || {
-        name: nameKey[1],
-      };
-      t = t[i];
+      if (isNaN(i)) {
+        t = null;
+      } else {
+        t[i] = elem || {
+          name: nameKey[1],
+        };
+        t = t[i];
+      }
     } else {
       const isArray = key === 'children' && childIds.length > 1;
-      t[key] = t[key] || (isArray ? [] : {});
+      t[key] = t[key] || (isArray ? deepCopy(tt[key]) : {});
       t = t[key];
       if (tt) {
         tt = tt[key];
@@ -137,13 +150,7 @@ export const getDataSourceValue = (id, templateData, parent, tempDefaultData) =>
   return t;
 };
 
-export const setDataSourceValue = (ids, key, value, newData, tempData) => {
-  const cid = ids[0].split('_')[0];
-  const data = getDataSourceValue(ids[1], newData, [ids[0], 'dataSource'], {
-    [ids[0]]: {
-      dataSource: tempData[cid].dataSource,
-    },
-  });
+export const setDataSourceValue = (ids, key, value, newData) => {
+  const data = getDataSourceValue(ids[1], newData, [ids[0], 'dataSource']);
   data[key] = value;
 };
-

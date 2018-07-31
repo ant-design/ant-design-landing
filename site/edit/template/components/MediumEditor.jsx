@@ -19,9 +19,11 @@ export default class Editor extends React.Component {
       (this.props.onChange || noop)(e.target.innerHTML);
     });
   }
+
   componentWillUnmount() {
     this.medium.destroy();
   }
+
   render() {
     const props = { ...this.props };
     ['opitons', 'onChange', 'children', 'defaultText'].forEach(key => delete props[key]);

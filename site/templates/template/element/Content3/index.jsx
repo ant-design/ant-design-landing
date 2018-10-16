@@ -82,31 +82,23 @@ class Content3 extends React.PureComponent {
         <div
           {...dataSource.page}
         >
-          <TweenOne
-            key="h1"
-            animation={oneAnim}
-            component="h1"
-            reverseDelay={100}
-            {...dataSource.title}
+          <div
+            {...dataSource.titleWrapper}
+            /* replace-start */
+            data-edit="titleWrapper"
+          /* replace-end */
           >
             {
-              /* replace-start-value = dataSource.title.children */
-              React.createElement('span', { dangerouslySetInnerHTML: { __html: dataSource.title.children } })
-              /* replace-end-value */
+              dataSource.titleWrapper.children.map((item, i) => (
+                React.createElement(item.name.indexOf('title') === 0 ? 'h1' : 'div', { key: i.toString(), ...item }, (
+                  item.children.match(/\.(svg|gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/)
+                    ? React.createElement('img', { src: item.children, alt: 'img' })
+                    : /* replace-start-value = title.children */React.createElement('span', { dangerouslySetInnerHTML: { __html: item.children } })
+                  /* replace-end-value */
+                ))
+              ))
             }
-          </TweenOne>
-          <TweenOne
-            key="p"
-            animation={{ ...oneAnim, delay: 100 }}
-            component="p"
-            {...dataSource.titleContent}
-          >
-            {
-              /* replace-start-value = dataSource.titleContent.children */
-              React.createElement('span', { dangerouslySetInnerHTML: { __html: dataSource.titleContent.children } })
-              /* replace-end-value */
-            }
-          </TweenOne>
+          </div>
           <OverPack {...dataSource.OverPack}>
             <QueueAnim
               key="u"

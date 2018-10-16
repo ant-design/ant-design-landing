@@ -9,7 +9,7 @@ import CheckboxGroup from './CheckboxGroup';
 
 const Panel = Collapse.Panel;
 
-const noProps = ['text', 'image', 'video', 'icon', 'texty', 'contentWrapper'];
+const noProps = ['text', 'image', 'video', 'icon', 'texty', 'titleWrapper'];
 
 export default class PropsComp extends React.PureComponent {
   getCompChild = (defaultValue, v, key) => {

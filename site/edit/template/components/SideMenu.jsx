@@ -150,7 +150,9 @@ class SideMenu extends React.PureComponent {
           open={this.state.editMenuOpen}
           wrapperClassName="edit-side-drawer"
         >
-          {drawerChild}
+          <div className="img-content-wrapper">
+            {drawerChild}
+          </div>
         </DrawerMenu>
         <div className="edit-side-menu">
           <div className="add" onMouseEnter={this.showMenu}>

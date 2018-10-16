@@ -8,23 +8,20 @@
     max-width: 1200px;
     position: relative;
     margin: auto;
-    >h1 {
-      font-size: 32px;
-      text-align: center;
-      color: @text-color;
-      margin: 0 auto 64px;
-      &.content-bottom {
-        margin-bottom: 16px;
-      }
-    }
-    >p {
-      margin-bottom: 64px;
-    }
+  }
+  .title-wrapper > h1, > h1 {
+    font-size: 32px;
+    color: @text-color;
+    margin-bottom: 16px;
+  }
+  .title-wrapper {
+    margin: 0 auto 64px;
+    text-align: center;
   }
 }
 
 .@{homepage} {
-  padding: 120px 24px;
+  padding: 128px 24px;
 }
 
 @media screen and (max-width: 767px) {

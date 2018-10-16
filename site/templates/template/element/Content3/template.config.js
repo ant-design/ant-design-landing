@@ -41,13 +41,20 @@ export default {
     OverPack: {
       playScale: 0.3,
     },
-    title: {
-      children: '蚂蚁金融云提供专业的服务',
-      className: 'content-bottom',
-    },
-    titleContent: {
-      className: 'title-content',
-      children: '基于阿里云强大的基础资源',
+    titleWrapper: {
+      className: 'title-wrapper',
+      children: [
+        {
+          name: 'title',
+          children: '蚂蚁金融云提供专业的服务',
+          className: 'content-bottom',
+        },
+        {
+          name: 'content',
+          className: 'title-content',
+          children: '基于阿里云强大的基础资源',
+        },
+      ],
     },
     block: {
       className: 'content3-block-wrapper',

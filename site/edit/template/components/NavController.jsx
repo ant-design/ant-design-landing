@@ -273,13 +273,13 @@ class NavController extends React.PureComponent {
             }}
           />
           <Button type="primary" style={{ marginTop: '1em' }} onClick={this.onSaveData}>
-保存
+            保存
           </Button>
           <Button key="re" style={{ marginLeft: 8 }} onClick={this.onReData}>
-重置
+            重置
           </Button>
           <Button onClick={this.onSaveJSON} style={{ marginLeft: 8 }}>
-下载 JSON
+            下载 JSON
           </Button>
         </Modal>
       </div>

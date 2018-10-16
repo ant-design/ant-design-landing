@@ -222,6 +222,7 @@ export default class MainContent extends React.PureComponent {
       </Menu>
     );
     const contentKey = props.location.pathname;
+    console.log(prev.props.children);
     return (
       <div className="main-wrapper">
         <Row className="">
@@ -261,12 +262,24 @@ export default class MainContent extends React.PureComponent {
             <section className="prev-next-nav">
               {
                 prev
-                  ? React.cloneElement(prev.props.children, { className: 'prev-page' })
+                  ? React.cloneElement(prev.props.children, {
+                    className: 'prev-page',
+                    children: [
+                      <Icon className="footer-nav-icon-before" type="left" key="left" />,
+                      ...prev.props.children.props.children,
+                    ],
+                  })
                   : null
               }
               {
                 next
-                  ? React.cloneElement(next.props.children, { className: 'next-page' })
+                  ? React.cloneElement(next.props.children, {
+                    className: 'next-page',
+                    children: [
+                      ...next.props.children.props.children,
+                      <Icon className="footer-nav-icon-after" type="right" key="right" />,
+                    ],
+                  })
                   : null
               }
             </section>

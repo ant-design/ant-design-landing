@@ -17,8 +17,14 @@ export default {
       playScale: 0.3,
       className: '',
     },
-    title: {
-      children: '产品与服务',
+    titleWrapper: {
+      className: 'title-wrapper',
+      children: [
+        {
+          name: 'title',
+          children: '产品与服务',
+        },
+      ],
     },
     block: {
       className: 'block-wrapper',

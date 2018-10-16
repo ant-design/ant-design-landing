@@ -16,6 +16,7 @@ class EditorComp extends React.Component {
     const cid = ids[0].split('_')[0];
     const tempDataSource = tempData[cid].dataSource;
     const currentEditTemplateData = getDataSourceValue(ids[1], tempDataSource);
+    console.log(ids[1]);// 新增模板找不到数据。。后继修复。。
     const currentEditClassName = currentEditData.dom.className;
     const inDataClass = currentEditTemplateData.className && !!currentEditTemplateData.className
       .split(' ').filter(c => c === cssName).length;

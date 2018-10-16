@@ -11,7 +11,7 @@
   > .prev-page,
   > .next-page {
     padding: 0 24px;
-    width: 50%;
+    // width: 50%;
     float: left;
     line-height: 72px;
     height: 72px;
@@ -19,44 +19,28 @@
   }
 
   > a.prev-page {
-    &:before {
-      font-family: 'anticon';
-      content: '\e61c';
-      font-size: 12px;
-      margin-right: 1em;
-      color: @site-text-color-secondary;
-      transition: color .3s @ease-out, right .3s @ease-out;
-      position: relative;
-      left: 0;
+    i {
+      transform: translateX(0);
+      transition: transform .3s @ease-out;
     }
-
-    &:hover:before {
+    &:hover i {
       color: @primary-color;
-      left: -3px;
+      transform: translateX(-3px);
     }
   }
-
   > .next-page {
     text-align: right;
     float: right;
 
-    &:after {
-      font-family: 'anticon';
-      content: '\e61b';
-      font-size: 12px;
-      margin-left: 1em;
-      color: @site-text-color-secondary;
-      transition: color .3s @ease-out, right .3s @ease-out;
-      position: relative;
-      right: 0;
+    i {
+      transform: translateX(0);
+      transition: transform .3s @ease-out;
     }
-
-    &:hover:after {
+    &:hover i {
       color: @primary-color;
-      right: -3px;
+      transform: translateX(3px);
     }
   }
-
   .chinese {
     margin-left: 0.5em;
   }

@@ -37,7 +37,7 @@ class EditStateController extends React.PureComponent {
     $(window).resize(this.reRect);
     // 拖动
     let newId;
-    this.side = document.querySelector('.edit-side-drawer .drawer-content');
+    this.side = document.querySelector('.edit-side-drawer .drawer-content .img-content-wrapper');
     this.stage = document.querySelector('.edit-stage .overlay');
 
     const t = dragula([this.side, this.stage], {
@@ -336,6 +336,7 @@ class EditStateController extends React.PureComponent {
   }
 
   selectSteState = (currentSelectRect, editData, dom, id) => {
+    console.log(currentSelectRect);
     this.setState({
       currentHoverRect: currentSelectRect,
       currentSelectRect,

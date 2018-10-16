@@ -50,15 +50,23 @@ class Content extends React.PureComponent {
         {...dataSource.wrapper}
       >
         <div {...dataSource.page}>
-          <h1
-            {...dataSource.title}
+          <div
+            {...dataSource.titleWrapper}
+            /* replace-start */
+            data-edit="titleWrapper"
+            /* replace-end */
           >
             {
-              /* replace-start-value = dataSource.title.children */
-              React.createElement('span', { dangerouslySetInnerHTML: { __html: dataSource.title.children } })
-              /* replace-end-value */
+              dataSource.titleWrapper.children.map((item, i) => (
+                React.createElement(item.name.indexOf('title') === 0 ? 'h1' : 'div', { key: i.toString(), ...item }, (
+                  item.children.match(/\.(svg|gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/)
+                    ? React.createElement('img', { src: item.children, height: '100%', alt: 'img' })
+                    : /* replace-start-value = title.children */React.createElement('span', { dangerouslySetInnerHTML: { __html: item.children } })
+                  /* replace-end-value */
+                ))
+              ))
             }
-          </h1>
+          </div>
           <OverPack {...dataSource.OverPack}>
             <QueueAnim
               type="bottom"

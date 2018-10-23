@@ -109,7 +109,7 @@ class EditStateController extends React.PureComponent {
             .filter((c, i) => (c.uid === keyId || i === keyId))[0];
           clone.style.backgroundImage = `url(${item && item.src})`;
           clone.style.backgroundSize = 'cover';
-          clone.style.backgroundPosition = 'center';
+          clone.style.backgroundPosition = 'center top';
         }
       });
   }
@@ -336,7 +336,6 @@ class EditStateController extends React.PureComponent {
   }
 
   selectSteState = (currentSelectRect, editData, dom, id) => {
-    console.log(currentSelectRect);
     this.setState({
       currentHoverRect: currentSelectRect,
       currentSelectRect,
@@ -489,13 +488,19 @@ class EditStateController extends React.PureComponent {
     const dataArray = data ? Object.keys(data) : [];
     const overlayChild = dataArray.map((key, i) => {
       const item = data[key];
-      const itemRect = item.item.getBoundingClientRect();
+      const itemStyle = window.getComputedStyle(item.item);
       return (
         <div
           key={key}
           id={key}
           data-key={key.split('_')[0]}
-          style={{ height: itemRect.height }}
+          style={{
+            width: '100%',
+            height: itemStyle.height,
+            position: 'absolute', // 设置 marign 后定位失效，用 absolute
+            top: item.item.offsetTop,
+            zIndex: itemStyle.zIndex,
+          }}
           onMouseMove={this.wrapperMove}
           onMouseEnter={this.wrapperMove}
           onClick={this.onClick}

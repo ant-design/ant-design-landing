@@ -83,6 +83,11 @@ export default {
         text: '多个模块介绍',
         uid: 7,
       },
+      {
+        src: 'https://gw.alipayobjects.com/zos/rmsportal/UOyWjlYKpHewBsDAzaMi.jpg',
+        text: '嘉宾介绍',
+        uid: 8,
+      },
       /* { disabled: true, src: 'https://zos.alipayobjects.com/rmsportal/MnbozfSRmOwdxvH.jpg' },
       { disabled: true, src: 'https://zos.alipayobjects.com/rmsportal/cMigmCVGBaJkuYG.jpg' },
       { disabled: true, src: 'https://zos.alipayobjects.com/rmsportal/VKeYAOSRQVtMccj.jpg' },

@@ -15,9 +15,6 @@ class Content3 extends React.PureComponent {
     const { dataSource, isMobile } = props;
     delete props.dataSource;
     delete props.isMobile;
-    const oneAnim = {
-      y: '+=30', opacity: 0, type: 'from', ease: 'easeOutQuad',
-    };
     let clearFloatNum = 0;
     const children = dataSource.block.children.map((item, i) => {
       const childObj = item.children;
@@ -103,12 +100,12 @@ class Content3 extends React.PureComponent {
             <QueueAnim
               key="u"
               type="bottom"
-              {...dataSource.block}
             >
               <Row
                 key="row"
+                {...dataSource.block}
                 /* replace-start */
-                data-edit="Col"
+                data-edit="Row"
               /* replace-end */
               >
                 {children}

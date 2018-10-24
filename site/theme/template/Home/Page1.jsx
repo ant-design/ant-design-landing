@@ -3,22 +3,23 @@ import { TweenOneGroup } from 'rc-tween-one';
 import { FormattedMessage } from 'react-intl';
 import ScrollOverPack from 'rc-scroll-anim/lib/ScrollOverPack';
 import QueueAnim from 'rc-queue-anim';
+import { Link } from 'react-router';
 import { Row, Col } from 'antd';
 
 const page1 = [
   {
     title: <FormattedMessage id="app.home.fatures.language" />,
-    link: '',
+    link: '/docs/introduce-cn',
     src: 'https://gw.alipayobjects.com/zos/rmsportal/QCcDSfdbCIbVSsUZJaQK.svg',
   },
   {
     title: <FormattedMessage id="app.home.fatures.sketch" />,
-    link: '',
+    link: '/docs/download-cn',
     src: 'https://gw.alipayobjects.com/zos/rmsportal/hMSnSxMzmiGSSIXxFtNf.svg',
   },
   {
     title: <FormattedMessage id="app.home.fatures.responsive" />,
-    link: '',
+    link: '/docs/layout-cn',
     src: 'https://gw.alipayobjects.com/zos/rmsportal/OMEOieDFPYDcWXMpqqzd.svg',
   },
 ];
@@ -83,10 +84,9 @@ export default class Page1 extends React.PureComponent {
       ));
       return (
         <Col md={8} xs={24} key={i.toString()} className="page1-item">
-          <a
+          <Link
             className="page1-item-link"
-            href={item.link}
-            target="_blank"
+            to={item.link}
             onMouseEnter={() => { this.onMouseOver(i); }}
             onMouseLeave={this.onMouseOut}
           >
@@ -96,6 +96,7 @@ export default class Page1 extends React.PureComponent {
                 x: 0, y: 30, opacity: 0, duration: 300, ease: 'easeInBack',
               }}
               resetStyle={false}
+              exclusive
               className="point-wrapper"
             >
               {(isHover || isMobile) && pointChild}
@@ -106,7 +107,7 @@ export default class Page1 extends React.PureComponent {
             <div className="page1-item-title">
               {item.title}
             </div>
-          </a>
+          </Link>
         </Col>);
     });
   }

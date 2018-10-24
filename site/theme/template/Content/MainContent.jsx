@@ -222,7 +222,6 @@ export default class MainContent extends React.PureComponent {
       </Menu>
     );
     const contentKey = props.location.pathname;
-    console.log(prev.props.children);
     return (
       <div className="main-wrapper">
         <Row className="">

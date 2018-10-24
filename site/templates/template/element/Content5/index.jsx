@@ -44,42 +44,30 @@ class Content5 extends React.PureComponent {
     delete props.dataSource;
     delete props.isMobile;
     const childrenToRender = this.getChildrenToRender(dataSource.block.children);
+    console.log(dataSource.titleWrapper);
     return (
       <div
         {...props}
         {...dataSource.wrapper}
       >
         <div {...dataSource.page}>
-          <TweenOne
-            animation={{
-              y: '+=30', opacity: 0, type: 'from', ease: 'easeOutQuad',
-            }}
-            component="h1"
-            key="h1"
-            reverseDelay={300}
-            {...dataSource.title}
+          <div
+            key="title"
+            {...dataSource.titleWrapper}
+            /* replace-start */
+            data-edit="titleWrapper"
           >
             {
-              /* replace-start-value = dataSource.title.children */
-              React.createElement('span', { dangerouslySetInnerHTML: { __html: dataSource.title.children } })
-              /* replace-end-value */
+              dataSource.titleWrapper.children.map((item, i) => (
+                React.createElement(item.name.indexOf('title') === 0 ? 'h1' : 'div', { key: i.toString(), ...item }, (
+                  item.children.match(/\.(svg|gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/)
+                    ? React.createElement('img', { src: item.children, alt: 'img' })
+                    : /* replace-start-value = title.children */React.createElement('span', { dangerouslySetInnerHTML: { __html: item.children } })
+                  /* replace-end-value */
+                ))
+              ))
             }
-          </TweenOne>
-          <TweenOne
-            animation={{
-              y: '+=30', opacity: 0, type: 'from', delay: 200, ease: 'easeOutQuad',
-            }}
-            component="p"
-            key="p"
-            reverseDelay={200}
-            {...dataSource.titleContent}
-          >
-            {
-              /* replace-start-value = dataSource.titleContent.children */
-              React.createElement('span', { dangerouslySetInnerHTML: { __html: dataSource.titleContent.children } })
-              /* replace-end-value */
-            }
-          </TweenOne>
+          </div>
           <OverPack
             className={`content-template ${props.className}`}
             {...dataSource.OverPack}

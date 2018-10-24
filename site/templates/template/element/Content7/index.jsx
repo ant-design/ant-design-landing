@@ -145,16 +145,23 @@ class Content7 extends React.Component {
       /* replace-end */
       >
         <div {...dataSource.page}>
-          <h1
-            {...dataSource.title}
+          <div
+            {...dataSource.titleWrapper}
+            /* replace-start */
+            data-edit="titleWrapper"
+          /* replace-end */
           >
-            {dataSource.title.children}
-          </h1>
-          <p
-            {...dataSource.titleContent}
-          >
-            {dataSource.titleContent.children}
-          </p>
+            {
+              dataSource.titleWrapper.children.map((item, i) => (
+                React.createElement(item.name.indexOf('title') === 0 ? 'h1' : 'div', { key: i.toString(), ...item }, (
+                  item.children.match(/\.(svg|gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/)
+                    ? React.createElement('img', { src: item.children, alt: 'img' })
+                    : /* replace-start-value = title.children */React.createElement('span', { dangerouslySetInnerHTML: { __html: item.children } })
+                  /* replace-end-value */
+                ))
+              ))
+            }
+          </div>
 
           <OverPack
             {...dataSource.OverPack}

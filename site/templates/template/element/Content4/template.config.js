@@ -17,13 +17,20 @@ export default {
       playScale: 0.3,
       className: '',
     },
-    title: {
-      children: '蚂蚁金融云提供专业的服务',
-      className: 'content-bottom',
-    },
-    titleContent: {
-      children: '科技想象力，金融创造力',
-      className: 'content4-title-content',
+    titleWrapper: {
+      className: 'title-wrapper',
+      children: [
+        {
+          name: 'title',
+          children: '蚂蚁金融云提供专业的服务',
+          className: 'title-h1',
+        },
+        {
+          name: 'content',
+          className: 'title-content content4-title-content',
+          children: '科技想象力，金融创造力',
+        },
+      ],
     },
     video: {
       className: 'content4-video',

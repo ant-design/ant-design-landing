@@ -21,17 +21,17 @@ class Content7 extends React.Component {
         </span>
         <h2 {...title}>
           {
-              /* replace-start-value = title.children */
-              React.createElement('span', { dangerouslySetInnerHTML: { __html: title.children } })
-              /* replace-end-value */
-            }
+            /* replace-start-value = title.children */
+            React.createElement('span', { dangerouslySetInnerHTML: { __html: title.children } })
+            /* replace-end-value */
+          }
         </h2>
         <p {...content}>
           {
-              /* replace-start-value = content.children */
-              React.createElement('span', { dangerouslySetInnerHTML: { __html: content.children } })
-              /* replace-end-value */
-            }
+            /* replace-start-value = content.children */
+            React.createElement('span', { dangerouslySetInnerHTML: { __html: content.children } })
+            /* replace-end-value */
+          }
         </p>
       </li>);
   });
@@ -70,26 +70,24 @@ class Content7 extends React.Component {
             data-edit="Col"
           /* replace-end */
           >
-            <h1
-              key="h1"
-              {...dataSource.title}
+            <div
+              key="title"
+              {...dataSource.titleWrapper}
+              /* replace-start */
+              data-edit="titleWrapper"
+            /* replace-end */
             >
               {
-                /* replace-start-value = dataSource.title.children */
-                React.createElement('span', { dangerouslySetInnerHTML: { __html: dataSource.title.children } })
-                /* replace-end-value */
+                dataSource.titleWrapper.children.map((item, i) => (
+                  React.createElement(item.name.indexOf('title') === 0 ? 'h1' : 'div', { key: i.toString(), ...item }, (
+                    item.children.match(/\.(svg|gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/)
+                      ? React.createElement('img', { src: item.children, alt: 'img' })
+                      : /* replace-start-value = title.children */React.createElement('span', { dangerouslySetInnerHTML: { __html: item.children } })
+                    /* replace-end-value */
+                  ))
+                ))
               }
-            </h1>
-            <p
-              key="p"
-              {...dataSource.titleContent}
-            >
-              {
-                /* replace-start-value = dataSource.titleContent.children */
-                React.createElement('span', { dangerouslySetInnerHTML: { __html: dataSource.titleContent.children } })
-                /* replace-end-value */
-              }
-            </p>
+            </div>
             <QueueAnim
               component="ul"
               key="ul"

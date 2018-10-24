@@ -35,12 +35,20 @@ export default {
       playScale: 0.3,
       className: '',
     },
-    title: {
-      children: '客户案例',
-      className: 'content-bottom',
-    },
-    titleContent: {
-      children: '在这里用一段话介绍服务的案例情况',
+    titleWrapper: {
+      className: 'title-wrapper',
+      children: [
+        {
+          name: 'title',
+          children: '客户案例',
+          className: 'title-h1',
+        },
+        {
+          name: 'content',
+          className: 'title-content',
+          children: '在这里用一段话介绍服务的案例情况',
+        },
+      ],
     },
     block: {
       className: 'content5-img-wrapper',

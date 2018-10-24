@@ -47,7 +47,7 @@ export default {
         {
           name: 'title',
           children: '蚂蚁金融云提供专业的服务',
-          className: 'content-bottom',
+          className: 'title-h1',
         },
         {
           name: 'content',

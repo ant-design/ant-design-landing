@@ -18,12 +18,20 @@ export default {
       xs: 24,
       md: 10,
     },
-    title: {
-      children: '蚂蚁金融云提供专业的服务',
-      className: 'content-bottom',
-    },
-    titleContent: {
-      children: '基于阿里云计算强大的基础资源',
+    titleWrapper: {
+      className: 'title-wrapper',
+      children: [
+        {
+          name: 'title',
+          children: '蚂蚁金融云提供专业的服务',
+          className: 'title-h1',
+        },
+        {
+          name: 'content',
+          className: 'title-content',
+          children: '基于阿里云计算强大的基础资源',
+        },
+      ],
     },
     img: {
       children: 'https://zos.alipayobjects.com/rmsportal/VHGOVdYyBwuyqCx.png',

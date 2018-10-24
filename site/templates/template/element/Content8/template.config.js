@@ -23,12 +23,12 @@ export default {
         {
           name: 'image',
           children: 'https://gw.alipayobjects.com/zos/rmsportal/PiqyziYmvbgAudYfhuBr.svg',
-          className: 'content-image',
+          className: 'title-image',
         },
         {
           name: 'title',
           children: '特邀嘉宾',
-          className: 'content-bottom',
+          className: 'title-h1',
         },
       ],
     },

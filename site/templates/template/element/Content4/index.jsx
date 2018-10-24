@@ -25,32 +25,23 @@ function Content4(props) {
       <div
         {...dataSource.page}
       >
-        <TweenOne
-          animation={animation}
-          component="h1"
-          key="h1"
-          reverseDelay={300}
-          {...dataSource.title}
+        <div
+          key="title"
+          {...dataSource.titleWrapper}
+          /* replace-start */
+          data-edit="titleWrapper"
         >
           {
-            /* replace-start-value = dataSource.title.children */
-            React.createElement('span', { dangerouslySetInnerHTML: { __html: dataSource.title.children } })
-            /* replace-end-value */
+            dataSource.titleWrapper.children.map((item, i) => (
+              React.createElement(item.name.indexOf('title') === 0 ? 'h1' : 'div', { key: i.toString(), ...item }, (
+                item.children.match(/\.(svg|gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/)
+                  ? React.createElement('img', { src: item.children, alt: 'img' })
+                  : /* replace-start-value = title.children */React.createElement('span', { dangerouslySetInnerHTML: { __html: item.children } })
+                /* replace-end-value */
+              ))
+            ))
           }
-        </TweenOne>
-        <TweenOne
-          animation={{ ...animation, delay: 200 }}
-          component="p"
-          key="p"
-          reverseDelay={200}
-          {...dataSource.titleContent}
-        >
-          {
-            /* replace-start-value = dataSource.titleContent.children */
-            React.createElement('span', { dangerouslySetInnerHTML: { __html: dataSource.titleContent.children } })
-            /* replace-end-value */
-          }
-        </TweenOne>
+        </div>
         <OverPack {...dataSource.OverPack}>
           <TweenOne
             key="video"

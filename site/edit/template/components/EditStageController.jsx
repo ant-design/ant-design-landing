@@ -40,6 +40,7 @@ class EditStateController extends React.PureComponent {
     this.side = document.querySelector('.edit-side-drawer .drawer-content .img-content-wrapper');
     this.stage = document.querySelector('.edit-stage .overlay');
 
+    let stateChild;
     const t = dragula([this.side, this.stage], {
       copy: (el, source) => source === this.side,
       moves: (el, container, handle) => (
@@ -53,12 +54,31 @@ class EditStateController extends React.PureComponent {
           const dArr = Object.keys(data).filter(key => key.split('_')[0] === elKey)
             .map(key => parseFloat(key.split('_')[1])).sort();
           newId = `${elKey}_${(dArr[dArr.length - 1] + 1) || 0}`;
+          const sourceArray = Array.prototype.slice.call(source.children);
+          stateChild = stateChild || sourceArray;
+          const placeholder = source.querySelectorAll('.placeholder')[0];
+          const ci = sourceArray.indexOf(placeholder);
+          if (ci >= 0) {
+            const dom = sourceArray[(ci - 1 >= 0) ? ci - 1 : 0];
+            if (dom) {
+              placeholder.style.top = ci ? `${dom.offsetTop + dom.offsetHeight}px` : 0;
+              placeholder.style.zIndex = dom.style.zIndex;
+            }
+          }
+          const ii = sourceArray.indexOf(el);
+          if (ii >= 0
+            && sourceArray.map(item => item.getAttribute('id')).join()
+            !== stateChild.map(item => item.getAttribute('id')).join()) {
+            this.setPropsData(el, sourceArray);
+            stateChild = sourceArray;
+          }
         }
         return source === this.stage;
       },
     });
     t.on('drag', () => {
       newId = '';
+      stateChild = null;
       this.isDrap = true;
       this.reRect();
       $(this.stage).addClass('drag');
@@ -84,19 +104,8 @@ class EditStateController extends React.PureComponent {
       })
       .on('out', (el, source) => {
         if (source === this.stage) {
-          if (el.className === 'placeholder' || el.className === 'overlay-elem') {
-            const children = Array.prototype.slice.call(source.children);
-            const template = children.map(item => item.getAttribute('id')).filter(id => id);
-            const { templateData } = this.props;
-            if (el.className === 'placeholder') {
-              el.remove();
-            }
-            templateData.data = {
-              ...templateData.data,
-              template,
-            };
-            const { dispatch } = this.props;
-            dispatch(setTemplateData(templateData));
+          if (el.className === 'placeholder') { // || el.className === 'overlay-elem'
+            this.setPropsData(el, Array.prototype.slice.call(source.children));
           }
         }
       })
@@ -354,9 +363,23 @@ class EditStateController extends React.PureComponent {
     });
   }
 
+  setPropsData = (el, children) => {
+    const template = children.map(item => item.getAttribute('id')).filter(id => id);
+    const { templateData } = this.props;
+    if (el.className === 'placeholder') {
+      el.remove();
+    }
+    templateData.data = {
+      ...templateData.data,
+      template,
+    };
+    const { dispatch } = this.props;
+    dispatch(setTemplateData(templateData));
+  };
+
   onClick = (e) => {
     const dom = e.target;
-    if (!this.isDrap && dom.getAttribute('data-key')) {
+    if (!this.isDrap && dom.getAttribute('data-key') && this.mouseCurrentData) {
       this.selectParentDom = dom;
       if (this.currentData) {
         this.currentData.item.style.visibility = '';

@@ -75,7 +75,7 @@ function mergeDataToChild(newData, _data, useDelete) {
 }
 
 export function mergeEditDataToDefault(newData, defaultData, useDelete) {
-  const dataSource = deepCopy(defaultData.dataSource) || {};
+  const dataSource = deepCopy(defaultData && defaultData.dataSource) || {};
   if (!newData) {
     return dataSource;
   }

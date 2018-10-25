@@ -3,10 +3,8 @@ import { Button, Input, Icon, Popover, Row, Col, Switch } from 'antd';
 import { getRandomKey } from 'rc-editor-list/lib/utils';
 import { connect } from 'react-redux';
 import ListSort from '../ListSort';
-import { getState, mergeEditDataToDefault, deepCopy } from '../../../../../utils';
-import tempData from '../../../../../templates/template/element/template.config';
-import { getDataSourceValue, setDataSourceValue } from '../../../utils';
-import { setTemplateData } from '../../../../../edit-module/actions';
+import { getState, deepCopy } from '../../../../../utils';
+import { getIdsAndCurrentData, onChildChange } from './EditViewUtils';
 
 class MenuEditView extends React.PureComponent {
   onAdd = (ids, currentData) => {
@@ -14,7 +12,7 @@ class MenuEditView extends React.PureComponent {
     delete newData.delete;
     newData.name = `${newData.name.split('~')[0].replace(/[0-9]/ig, '')}~${getRandomKey()}`;
     currentData.children.push(newData);
-    this.onChildChange(ids, currentData);
+    onChildChange(this.props.dispatch, this.props.templateData, ids, currentData);
   }
 
   onSlideDelete = (e, ids, currentData) => {
@@ -23,13 +21,13 @@ class MenuEditView extends React.PureComponent {
     children.splice(i, 1); */
     currentData.children = currentData.children
       .map(node => (node === e ? { ...node, delete: true } : node));
-    this.onChildChange(ids, currentData);
+    onChildChange(this.props.dispatch, this.props.templateData, ids, currentData);
   }
 
   onValueChange = (e, i, key, ids, currentData) => {
     const c = e ? '_black' : '';
     currentData.children[i].a[key] = key === 'target' ? c : e;
-    this.onChildChange(ids, currentData);
+    onChildChange(this.props.dispatch, this.props.templateData, ids, currentData);
   }
 
   onListChange = (e, ids, currentData) => {
@@ -38,26 +36,12 @@ class MenuEditView extends React.PureComponent {
         return node.name === item.key;
       })[0];
     });
-    this.onChildChange(ids, currentData);
-  }
-
-  onChildChange = (ids, currentData) => {
-    const { dispatch, templateData } = this.props;
-    const newTemplateData = deepCopy(templateData);
-    setDataSourceValue(ids, 'children', currentData.children, newTemplateData.data.config);
-    dispatch(setTemplateData(newTemplateData));
+    onChildChange(this.props.dispatch, this.props.templateData, ids, currentData);
   }
 
   render() {
     const { currentEditData, templateData } = this.props;
-    const { id } = currentEditData;
-    const ids = id.split('-');
-    ids[1] = 'menu';
-    const cid = ids[0].split('_')[0];
-    const tempDataSource = tempData[cid];
-    const newTempDataSource = mergeEditDataToDefault(templateData.data.config[ids[0]],
-      tempDataSource);
-    const currentEditTemplateData = getDataSourceValue('menu', newTempDataSource);
+    const { ids, currentEditTemplateData } = getIdsAndCurrentData(currentEditData, templateData, 'Menu');
     if (!currentEditTemplateData.children) {
       return null;
     }

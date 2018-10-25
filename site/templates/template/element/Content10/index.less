@@ -1,0 +1,96 @@
+@import '../../../static/custom.less';
+@content10: content10;
+.@{content10}-wrapper {
+  height: 480px;
+  background: url(https://gw.alipayobjects.com/os/s/prod/seeconf/c66ebea962cdf544926ca5a472dea5ea.jpg) no-repeat 50%;
+  background-size: cover;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &.home-page-wrapper {
+    overflow: initial;
+  }
+  .icon-wrapper {
+    text-align: center;
+    position: relative;
+    img {
+      display: block;
+    }
+  }
+  .icon {
+    position: relative;
+    z-index: 1;
+    animation: BeatAnim 2s ease-in-out infinite;
+  }
+  .icon-shadow {
+    display: inline-block;
+    position: relative;
+    top: -12px;
+    z-index: 0;
+    animation: ScaleAnim 2s ease-in-out infinite;
+    transform-origin: 50%;
+  }
+  .map-tip {
+    position: absolute;
+    width: 330px;
+    background: #fff;
+    padding: 16px;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(13, 26, 38, 0.12);
+    left: 50%;
+    top: 50%;
+    margin-left: 30px;
+    margin-top: -60px;
+    font-size: 14px;
+    z-index: 10;
+    transform-origin: 0 50%;
+    h2 {
+      font-size: 16px;
+      color: #0D1A26;
+      margin-bottom: 8px;
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .@{content10}-wrapper {
+    padding-bottom: 0;
+  }
+}
+
+@keyframes BeatAnim {
+  0%,
+  25%,
+  35%,
+  45% {
+    transform: translateY(0);
+  }
+  15% {
+    transform: translateY(-30px);
+  }
+  30% {
+    transform: translateY(-15px);
+  }
+  40% {
+    transform: translateY(-7px);
+  }
+}
+
+@keyframes ScaleAnim {
+  0%,
+  25%,
+  35%,
+  45% {
+    transform: scale(1);
+  }
+  15% {
+    transform: scale(0.5);
+  }
+  30% {
+    transform: scale(0.7);
+  }
+  40% {
+    transform: scale(0.9);
+  }
+}

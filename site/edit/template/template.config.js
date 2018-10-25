@@ -93,6 +93,11 @@ export default {
         text: '时间日程',
         uid: 9,
       },
+      {
+        src: 'https://gw.alipayobjects.com/zos/rmsportal/xsPGUBDpYRjOxsiTJDEt.jpg',
+        text: '大会地址',
+        uid: 10,
+      },
       /* { disabled: true, src: 'https://zos.alipayobjects.com/rmsportal/MnbozfSRmOwdxvH.jpg' },
       { disabled: true, src: 'https://zos.alipayobjects.com/rmsportal/cMigmCVGBaJkuYG.jpg' },
       { disabled: true, src: 'https://zos.alipayobjects.com/rmsportal/VKeYAOSRQVtMccj.jpg' },

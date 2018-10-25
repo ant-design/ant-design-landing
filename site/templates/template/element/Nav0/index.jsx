@@ -38,7 +38,7 @@ class Header extends React.Component {
     delete props.dataSource;
     delete props.isMobile;
 
-    const navData = dataSource.menu.children;
+    const navData = dataSource.Menu.children;
     const navChildren = Object.keys(navData)
       .map((key, i) => (
         <Item
@@ -90,7 +90,7 @@ class Header extends React.Component {
             </div>)
           }
           <TweenOne
-            {...dataSource.menu}
+            {...dataSource.Menu}
             animation={{ x: 30, type: 'from', ease: 'easeOutQuad' }}
             /* replace-start */
             data-edit="Menu"

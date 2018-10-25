@@ -7,7 +7,7 @@ import IconComp from './ButtonViewComponent/IconComp';
 import VideoComp from './ButtonViewComponent/VideoComp';
 import MenuComp from './ButtonViewComponent/MenuComp';
 import TextyComp from './ButtonViewComponent/TextyComp';
-// import ContentWrapper from './ButtonViewComponent/ContentWrapper';
+import ContentWrapper from './ButtonViewComponent/ContentWrapper';
 
 const ButtonGroup = Button.Group;
 
@@ -78,10 +78,10 @@ export default class EditButtonView extends React.PureComponent {
           return (
             <TextyComp {...this.props} key={key} />
           );
-        /* case 'contentWrapper':
+        case 'Content': // Content 必须为 object;
           return (
             <ContentWrapper {...this.props} key={key} />
-          ); */
+          );
         default:
           return null;
       }

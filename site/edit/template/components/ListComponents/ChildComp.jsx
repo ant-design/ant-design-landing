@@ -12,7 +12,7 @@ const addDefault = {
   titleWrapper: ['title', 'content', 'image'],
 };
 
-const noChildProps = ['BannerAnim', 'Menu'];
+const noChildProps = ['BannerAnim', 'Menu', 'Content'];
 
 export default class ChildComp extends React.PureComponent {
   editAddDefault = null;

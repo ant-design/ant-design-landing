@@ -1,51 +1,86 @@
 import React from 'react';
-import TweenOne from 'rc-tween-one';
 import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';
-import { Row, Col } from 'antd';
 import QueueAnim from 'rc-queue-anim';
+import TweenOne from 'rc-tween-one';
 /* replace-start */
 import './index.less';
 /* replace-end */
 
 class Content9 extends React.PureComponent {
-  getDelay = (e, b) => ((e % b) * 100) + (Math.floor(e / b) * 100) + (b * 100);
-
-  getBlockChildren = (item, i) => {
-    const children = item.children;
-    const delay = this.props.isMobile ? i * 50 : this.getDelay(i, 24 / item.md);
-    const liAnim = {
-      y: 30, opacity: 0, type: 'from', ease: 'easeOutQuad', delay,
-    };
+  getBlockChildren = (block, i) => {
+    const { isMobile } = this.props;
+    const item = block.children;
+    const textWrapper = (
+      <QueueAnim
+        key="text"
+        leaveReverse
+        delay={isMobile ? [0, 100] : 0}
+        {...item.textWrapper}
+      >
+        <div key="time" {...item.time}>
+          {
+            /* replace-start-value = item.time.children */
+            React.createElement('span', { dangerouslySetInnerHTML: { __html: item.time.children } })
+            /* replace-end-value */
+          }
+        </div>
+        <h2 key="title" {...item.title}>
+          <i {...item.icon}><img src={item.icon.children} alt="img" /></i>
+          {
+            /* replace-start-value = item.title.children */
+            React.createElement('span', { dangerouslySetInnerHTML: { __html: item.title.children } })
+            /* replace-end-value */
+          }
+        </h2>
+        <p key="p" {...item.content}>
+          {
+            /* replace-start-value = item.content.children */
+            React.createElement('span', { dangerouslySetInnerHTML: { __html: item.content.children } })
+            /* replace-end-value */
+          }
+        </p>
+      </QueueAnim>
+    );
     return (
-      <TweenOne
-        component={Col}
-        animation={liAnim}
+      <OverPack
         key={i.toString()}
-        {...item}
+        {...block}
         /* replace-start */
-        data-edit="Col"
+        data-edit="OverPack"
       /* replace-end */
       >
-        <div {...children}>
-          <div className="image-wrapper" {...children.img}>
-            <img src={children.img.children} alt="img" />
+        {isMobile && textWrapper}
+        <QueueAnim
+          className="image-wrapper"
+          key="image"
+          type={isMobile ? 'right' : 'bottom'}
+          leaveReverse
+          delay={isMobile ? [100, 0] : 0}
+          {...item.imgWrapper}
+        >
+          <div key="image" {...item.img}>
+            <img src={item.img.children} alt="img" />
           </div>
-          <h2 {...children.title}>
-            {
-              /* replace-start-value = children.title.children */
-              React.createElement('span', { dangerouslySetInnerHTML: { __html: children.title.children } })
-              /* replace-end-value */
-            }
-          </h2>
-          <p {...children.content}>
-            {
-              /* replace-start-value = children.title.children */
-              React.createElement('span', { dangerouslySetInnerHTML: { __html: children.content.children } })
-              /* replace-end-value */
-            }
-          </p>
-        </div>
-      </TweenOne>
+          <div key="name" className="name-wrapper">
+            <p key="name" {...item.name}>
+              {
+                /* replace-start-value = item.name.children */
+                React.createElement('span', { dangerouslySetInnerHTML: { __html: item.name.children } })
+                /* replace-end-value */
+              }
+            </p>
+            <p key="post" {...item.post}>
+              {
+                /* replace-start-value = item.post.children */
+                React.createElement('span', { dangerouslySetInnerHTML: { __html: item.post.children } })
+                /* replace-end-value */
+              }
+            </p>
+          </div>
+        </QueueAnim>
+
+        {!isMobile && textWrapper}
+      </OverPack>
     );
   }
 
@@ -54,7 +89,6 @@ class Content9 extends React.PureComponent {
     const { dataSource } = props;
     delete props.dataSource;
     delete props.isMobile;
-    // const children = [];
     const children = dataSource.block.children.map(this.getBlockChildren);
     return (
       <div
@@ -79,24 +113,9 @@ class Content9 extends React.PureComponent {
               ))
             }
           </div>
-          <OverPack
-            {...dataSource.OverPack}
-          >
-            <QueueAnim
-              type="bottom"
-              key="img"
-            >
-              <Row
-                {...dataSource.block}
-                key="img"
-                /* replace-start */
-                data-edit="Row"
-              /* replace-end */
-              >
-                {children}
-              </Row>
-            </QueueAnim>
-          </OverPack>
+          <div {...dataSource.block}>
+            {children}
+          </div>
         </div>
       </div>
     );

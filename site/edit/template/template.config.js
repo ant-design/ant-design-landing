@@ -88,6 +88,11 @@ export default {
         text: '嘉宾介绍',
         uid: 8,
       },
+      {
+        src: 'https://gw.alipayobjects.com/zos/rmsportal/LDBMKOrfaecPagkrDCIP.jpg',
+        text: '时间日程',
+        uid: 9,
+      },
       /* { disabled: true, src: 'https://zos.alipayobjects.com/rmsportal/MnbozfSRmOwdxvH.jpg' },
       { disabled: true, src: 'https://zos.alipayobjects.com/rmsportal/cMigmCVGBaJkuYG.jpg' },
       { disabled: true, src: 'https://zos.alipayobjects.com/rmsportal/VKeYAOSRQVtMccj.jpg' },

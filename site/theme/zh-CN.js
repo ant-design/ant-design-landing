@@ -12,7 +12,7 @@ module.exports = {
     'app.home.enter-editor': '进入编辑器',
     'app.home.module': '丰富的模块',
     'app.home.features': '三大特征',
-    'app.home.fatures.language': '设计语言',
+    'app.home.fatures.language': '设计指引',
     'app.home.fatures.sketch': 'Sketch 资源包',
     'app.home.fatures.responsive': '响应式布局',
     'app.home.templates': '丰富的模板',

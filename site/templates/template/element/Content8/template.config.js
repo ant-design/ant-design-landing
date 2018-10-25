@@ -16,6 +16,7 @@ export default {
       className: 'home-page content8',
     },
     OverPack: {
+      playScale: 0.3,
     },
     titleWrapper: {
       className: 'title-wrapper',
@@ -43,15 +44,15 @@ export default {
           children: {
             className: 'block',
             img: {
-              className: 'content8-img',
+              className: 'block-img',
               children: 'https://gw.alipayobjects.com/zos/rmsportal/JahzbVrdHdJlkJjkNsBJ.png',
             },
             title: {
-              className: 'content8-title',
+              className: 'block-title',
               children: 'Jack',
             },
             content: {
-              className: 'content8-content',
+              className: 'block-content',
               children: '公司+职位 信息暂缺',
             },
           },
@@ -64,15 +65,15 @@ export default {
           children: {
             className: 'block',
             img: {
-              className: 'content8-img',
+              className: 'block-img',
               children: 'https://gw.alipayobjects.com/zos/rmsportal/JahzbVrdHdJlkJjkNsBJ.png',
             },
             title: {
-              className: 'content8-title',
+              className: 'block-title',
               children: 'Jack',
             },
             content: {
-              className: 'content8-content',
+              className: 'block-content',
               children: '公司+职位 信息暂缺',
             },
           },
@@ -85,15 +86,15 @@ export default {
           children: {
             className: 'block',
             img: {
-              className: 'content8-img',
+              className: 'block-img',
               children: 'https://gw.alipayobjects.com/zos/rmsportal/JahzbVrdHdJlkJjkNsBJ.png',
             },
             title: {
-              className: 'content8-title',
+              className: 'block-title',
               children: 'Jack',
             },
             content: {
-              className: 'content8-content',
+              className: 'block-content',
               children: '公司+职位 信息暂缺',
             },
           },
@@ -106,15 +107,15 @@ export default {
           children: {
             className: 'block',
             img: {
-              className: 'content8-img',
+              className: 'block-img',
               children: 'https://gw.alipayobjects.com/zos/rmsportal/JahzbVrdHdJlkJjkNsBJ.png',
             },
             title: {
-              className: 'content8-title',
+              className: 'block-title',
               children: 'Jack',
             },
             content: {
-              className: 'content8-content',
+              className: 'block-content',
               children: '公司+职位 信息暂缺',
             },
           },
@@ -127,15 +128,15 @@ export default {
           children: {
             className: 'block',
             img: {
-              className: 'content8-img',
+              className: 'block-img',
               children: 'https://gw.alipayobjects.com/zos/rmsportal/JahzbVrdHdJlkJjkNsBJ.png',
             },
             title: {
-              className: 'content8-title',
+              className: 'block-title',
               children: 'Jack',
             },
             content: {
-              className: 'content8-content',
+              className: 'block-content',
               children: '公司+职位 信息暂缺',
             },
           },
@@ -148,15 +149,15 @@ export default {
           children: {
             className: 'block',
             img: {
-              className: 'content8-img',
+              className: 'block-img',
               children: 'https://gw.alipayobjects.com/zos/rmsportal/JahzbVrdHdJlkJjkNsBJ.png',
             },
             title: {
-              className: 'content8-title',
+              className: 'block-title',
               children: 'Jack',
             },
             content: {
-              className: 'content8-content',
+              className: 'block-content',
               children: '公司+职位 信息暂缺',
             },
           },
@@ -169,15 +170,15 @@ export default {
           children: {
             className: 'block',
             img: {
-              className: 'content8-img',
+              className: 'block-img',
               children: 'https://gw.alipayobjects.com/zos/rmsportal/JahzbVrdHdJlkJjkNsBJ.png',
             },
             title: {
-              className: 'content8-title',
+              className: 'block-title',
               children: 'Jack',
             },
             content: {
-              className: 'content8-content',
+              className: 'block-content',
               children: '公司+职位 信息暂缺',
             },
           },
@@ -190,15 +191,15 @@ export default {
           children: {
             className: 'block',
             img: {
-              className: 'content8-img',
+              className: 'block-img',
               children: 'https://gw.alipayobjects.com/zos/rmsportal/JahzbVrdHdJlkJjkNsBJ.png',
             },
             title: {
-              className: 'content8-title',
+              className: 'block-title',
               children: 'Jack',
             },
             content: {
-              className: 'content8-content',
+              className: 'block-content',
               children: '公司+职位 信息暂缺',
             },
           },

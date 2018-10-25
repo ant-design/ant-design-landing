@@ -1,30 +1,21 @@
 @import '../../../static/custom.less';
 @content8: content8;
 .@{content8}-wrapper {
-  padding-bottom: 64px;
   &.home-page-wrapper {
     overflow: initial;
   }
-  .@{content8} {
-    min-height: 878px;
-    padding: 64px 0 0;
-    box-shadow: 0 32px 32px rgba(34, 94, 222, .08);
-    background: #fff;
-    border-radius: 4px;
-    margin-top: -220px;
-  }
-  &.page-wrapper {
+  &.home-page-wrapper {
     width: calc(~"100% - 112px");
-    margin: 0 56px;
+    max-width: 1200px;
+    min-height: 878px;
+    margin: auto;
     border-radius: 4px;
     box-shadow: 0 32px 32px rgba(34, 94, 222, 0.08);
     background: #fff;
-  }
-  .page {
-    margin-top: -220px;
-    overflow: hidden;
-    >i {
-      margin-top: 64px;
+    & .home-page {
+      margin-top: -220px;
+      padding: 64px 24px;
+      overflow: hidden;
     }
   }
   .content-wrapper {
@@ -37,7 +28,7 @@
       max-width: 192px;
       margin: auto;
     }
-    .@{content8}-img {
+    .block-img {
       border-radius: 8px;
       overflow: hidden;
       width: 100%;
@@ -50,7 +41,7 @@
         }
       }
     }
-    .@{content8}-title {
+    .block-title {
       font-size: 20px;
       color: #0d1a26;
       font-weight: 400;
@@ -58,7 +49,7 @@
       text-align: center;
       white-space: nowrap;
     }
-    .@{content8}-content {
+    .block-content {
       text-align: center;
       white-space: nowrap;
       font-size: 14px;
@@ -68,12 +59,13 @@
 }
 
 @media screen and (max-width: 767px) {
-  .@{content8}-wrapper {
+  .@{content8}-wrapper.home-page-wrapper {
     padding-bottom: 0;
+    box-shadow: none;
+    width: 100%;
     .@{content8} {
-      box-shadow: none;
-      width: 100%;
       &.home-page {
+        margin: auto;
         padding-bottom: 0;
       }
     }

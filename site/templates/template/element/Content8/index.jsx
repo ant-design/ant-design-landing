@@ -39,7 +39,7 @@ class Content8 extends React.PureComponent {
           </h2>
           <p {...children.content}>
             {
-              /* replace-start-value = children.title.children */
+              /* replace-start-value = children.content.children */
               React.createElement('span', { dangerouslySetInnerHTML: { __html: children.content.children } })
               /* replace-end-value */
             }
@@ -54,7 +54,6 @@ class Content8 extends React.PureComponent {
     const { dataSource } = props;
     delete props.dataSource;
     delete props.isMobile;
-    // const children = [];
     const children = dataSource.block.children.map(this.getBlockChildren);
     return (
       <div
@@ -66,7 +65,7 @@ class Content8 extends React.PureComponent {
             {...dataSource.titleWrapper}
             /* replace-start */
             data-edit="titleWrapper"
-          /* replace-end */
+            /* replace-end */
           >
             {
               dataSource.titleWrapper.children.map((item, i) => (

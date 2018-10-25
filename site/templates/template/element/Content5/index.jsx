@@ -44,7 +44,6 @@ class Content5 extends React.PureComponent {
     delete props.dataSource;
     delete props.isMobile;
     const childrenToRender = this.getChildrenToRender(dataSource.block.children);
-    console.log(dataSource.titleWrapper);
     return (
       <div
         {...props}

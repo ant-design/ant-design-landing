@@ -13,6 +13,7 @@ const Content5 = require('./Content5/template.config');
 const Content6 = require('./Content6/template.config');
 const Content7 = require('./Content7/template.config');
 const Content8 = require('./Content8/template.config');
+const Content9 = require('./Content9/template.config');
 
 
 const Footer0 = require('./Footer0/template.config');
@@ -34,6 +35,7 @@ export default {
   Content6,
   Content7,
   Content8,
+  Content9,
   Footer0,
   Footer1,
 };

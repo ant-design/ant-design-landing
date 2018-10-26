@@ -10,6 +10,7 @@ const Panel = Collapse.Panel;
 const Option = Select.Option;
 const addDefault = {
   titleWrapper: ['title', 'content', 'image'],
+  textAndImage: ['content', 'image'],
 };
 
 const noChildProps = ['BannerAnim', 'Menu', 'Content'];

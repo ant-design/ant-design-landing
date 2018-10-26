@@ -8,6 +8,7 @@ import VideoComp from './ButtonViewComponent/VideoComp';
 import MenuComp from './ButtonViewComponent/MenuComp';
 import TextyComp from './ButtonViewComponent/TextyComp';
 import ContentWrapper from './ButtonViewComponent/ContentWrapper';
+import LinkComp from './ButtonViewComponent/LinkComp';
 
 const ButtonGroup = Button.Group;
 
@@ -82,6 +83,8 @@ export default class EditButtonView extends React.PureComponent {
           return (
             <ContentWrapper {...this.props} key={key} />
           );
+        case 'link':
+          return (<LinkComp {...this.props} key={key} />);
         default:
           return null;
       }

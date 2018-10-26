@@ -6,7 +6,7 @@ import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';
 import './index.less';
 /* replace-end */
 
-class Content5 extends React.PureComponent {
+class Content12 extends React.PureComponent {
   getChildrenToRender = data => data.map((item) => {
     return (
       <Col
@@ -17,22 +17,15 @@ class Content5 extends React.PureComponent {
       >
         <div {...item.children.wrapper}>
           <span {...item.children.img}>
-            <img src={item.children.img.children} height="100%" alt="img" />
+            <img src={item.children.img.children} alt="img" />
           </span>
-          <p {...item.children.content}>
-            {
-              /* replace-start-value = item.children.content.children */
-              React.createElement('span', { dangerouslySetInnerHTML: { __html: item.children.content.children } })
-              /* replace-end-value */
-            }
-          </p>
         </div>
       </Col>);
   });
 
   render() {
     const { ...props } = this.props;
-    const { dataSource } = props;
+    const { dataSource, isMobile } = props;
     delete props.dataSource;
     delete props.isMobile;
     const childrenToRender = this.getChildrenToRender(dataSource.block.children);
@@ -66,8 +59,8 @@ class Content5 extends React.PureComponent {
             <TweenOneGroup
               component={Row}
               key="ul"
-              enter={{ y: '+=30', opacity: 0, type: 'from', ease: 'easeInOutQuad' }}
-              leave={{ y: '+=30', opacity: 0, ease: 'easeInOutQuad' }}
+              enter={{ y: '+=30', opacity: 0, type: 'from', ease: 'easeOutQuad' }}
+              leave={{ y: '+=30', opacity: 0, ease: 'easeOutQuad' }}
               {...dataSource.block}
               /* replace-start */
               data-edit="Row"
@@ -83,4 +76,4 @@ class Content5 extends React.PureComponent {
 }
 
 
-export default Content5;
+export default Content12;

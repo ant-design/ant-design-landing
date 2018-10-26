@@ -253,6 +253,23 @@ class EditStateController extends React.PureComponent {
     this.props.dispatch(setTemplateData(data));
   }
 
+  setTemplateConfigObject = (obj) => {
+    const data = deepCopy(this.props.templateData);
+    const ids = this.currentData.dataId.split('-');
+    const newIds = ids[1].split('&').filter(c => c);
+    const endKey = newIds.pop();
+    const endKeyArray = endKey.split('=');
+
+    const t = getDataSourceValue(newIds.join('&'), data.data.config, [ids[0], 'dataSource']);
+    if (endKeyArray.length && endKeyArray[0] === 'array_name') {
+      const i = t.findIndex(item => item.name === endKeyArray[1]);
+      t[i] = obj;
+    } else {
+      t[endKey] = obj;
+    }
+    this.props.dispatch(setTemplateData(data));
+  }
+
   editTextHandleChange = (text) => {
     this.setState({
       editText: text,
@@ -284,11 +301,13 @@ class EditStateController extends React.PureComponent {
   getCatcherDom = (rect, css) => {
     if (rect.width) {
       let editText;
+      let editData;
       if (css === 'select') {
         const currentConfigDataSource = mergeEditDataToDefault(
           this.props.templateData.data.config[this.currentIdArray[0]], tempData[this.editId]);
-        editText = this.getDataSourceChildren(currentConfigDataSource,
-          this.editChildId).children;
+        editData = this.getDataSourceChildren(currentConfigDataSource,
+          this.editChildId);
+        editText = editData.children;
       }
       return (
         <div className={css}
@@ -302,6 +321,7 @@ class EditStateController extends React.PureComponent {
           {css === 'select' && (
             <EditButtton
               setTemplateConfigData={this.setTemplateConfigData}
+              setTemplateConfigObject={this.setTemplateConfigObject}
               closeEditText={this.closeEditText}
               openEditTextFunc={this.editTextFunc}
               editButtonArray={this.state.editButton}
@@ -309,6 +329,7 @@ class EditStateController extends React.PureComponent {
               scrollTop={this.scrollTop}
               onParentChange={this.onEditSelectChange}
               editText={editText}
+              editData={editData}
             />
           )}
           {css === 'select' && this.state.openEditText ? (

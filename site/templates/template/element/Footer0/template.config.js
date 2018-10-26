@@ -17,7 +17,7 @@ export default {
     },
     copyright: {
       className: 'copyright',
-      children: 'Copyright © 2017 The Project by <a href="#">Ant Motion</a>. All Rights Reserved',
+      children: '©2018 <a href="https://motion.ant.design">Ant Motion</a> All Rights Reserved',
     },
   },
 };

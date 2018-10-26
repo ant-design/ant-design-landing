@@ -1,5 +1,4 @@
 @import '../../../static/custom.less';
-
 .footer0-wrapper {
   background-color: @template-bg-color;
   height: 80px;
@@ -15,10 +14,16 @@
 }
 
 @media screen and (max-width: 767px) {
-  .footer0 {
-    > div {
-      width: 90%;
-      margin: auto;
+  .footer0-wrapper {
+    .footer0 {
+      font-size: 12px;
+      &.home-page {
+        padding: 0;
+      }
+      >div {
+        width: 90%;
+        margin: auto;
+      }
     }
   }
 }

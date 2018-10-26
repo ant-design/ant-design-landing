@@ -9,6 +9,7 @@ export default class CheckboxGroup extends React.PureComponent {
     const checked = e.target.checked;
     this.props.onChange(checked ? children.map(item => item.key) : []);
   }
+
   render() {
     const { children, value } = this.props;
     const checkAll = value.length === children.length;
@@ -25,7 +26,7 @@ export default class CheckboxGroup extends React.PureComponent {
           </Checkbox>
         </div>
         <div>
-          <AntCheckboxGroup value={value} onChange={this.props.onChange} >
+          <AntCheckboxGroup value={value} onChange={this.props.onChange}>
             <Row>
               {children.map(item => (
                 <Col key={item.key} span={12}><Checkbox value={item.key}>{item.name}</Checkbox></Col>

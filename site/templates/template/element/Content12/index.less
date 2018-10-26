@@ -1,0 +1,53 @@
+@import '../../../static/custom.less';
+@content12: content12;
+.@{content12}-wrapper {
+  background-color: #fafafa;
+  min-height: 470px;
+  .@{content12} {
+    padding: 64px 24px;
+    >p {
+      text-align: center;
+    }
+  }
+  .img-wrapper {
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    .block {
+      margin-bottom: 40px;
+      .block-content {
+        display: flex;
+        border-radius: 4px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        border: none;
+        height: 64px;
+        align-items: center;
+        transition: box-shadow .3s @ease-out, transform .3s @ease-out;
+        & > span {
+          width: 100%;
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .@{content12}-wrapper {
+    overflow: hidden;
+    .@{content12} {
+      ul {
+        li {
+          display: block;
+          width: 100%;
+          padding: 2%;
+          span {
+            height: 168px;
+          }
+        }
+      }
+    }
+  }
+}

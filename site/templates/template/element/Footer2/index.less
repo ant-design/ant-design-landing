@@ -1,0 +1,60 @@
+@import '../../../static/custom.less';
+.footer2-wrapper {
+  background-color: #0d1a26;
+  height: 80px;
+  overflow: hidden;
+  .footer2 {
+    height: 100%;
+    padding: 0 24px;
+    line-height: 80px;
+    text-align: center;
+    color: @template-footer-text-color;
+    position: relative;
+  }
+  .copyright {
+    float: right;
+    >* {
+      display: inline-block;
+    }
+    &-logo {
+      width: 16px;
+      margin-right: 8px;
+      img {
+        width: 100%;
+      }
+    }
+    &-line {
+      padding: 0 12px;
+      margin: 0 12px;
+    }
+  }
+  .links {
+    float: left;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    a {
+      height: 21px;
+      display: inline-block;
+      margin-right: 32px;
+      img {
+        display: block;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .footer2-wrapper {
+    .footer2 {
+      font-size: 12px;
+      &.home-page {
+        padding: 0;
+      }
+      >div {
+        width: 90%;
+        margin: auto;
+      }
+    }
+  }
+}

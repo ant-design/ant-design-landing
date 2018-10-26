@@ -9,7 +9,7 @@ export default {
   less,
   dataSource: {
     OverPack: {
-      className: 'home-page-wrapper content11-wrapper',
+      className: 'home-page-wrapper content13-wrapper',
       playScale: 0.3,
     },
     titleWrapper: {
@@ -36,16 +36,6 @@ export default {
           className: 'title-content',
         },
       ],
-    },
-    button: {
-      className: '',
-      children: {
-        a: {
-          className: 'button',
-          href: '#',
-          children: '立即报名',
-        },
-      },
     },
   },
 };

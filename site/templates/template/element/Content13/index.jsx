@@ -6,7 +6,7 @@ import TweenOne from 'rc-tween-one';
 import './index.less';
 /* replace-end */
 
-class Content11 extends React.PureComponent {
+class Content13 extends React.PureComponent {
   render() {
     const { ...props } = this.props;
     const { dataSource } = props;
@@ -38,24 +38,9 @@ class Content11 extends React.PureComponent {
             ))
           }
         </QueueAnim>
-        <TweenOne
-          key="button"
-          style={{ textAlign: 'center' }}
-          {...dataSource.button}
-          animation={{ y: 30, opacity: 0, type: 'from', delay: 300 }}
-        >
-          <a
-            {...dataSource.button.children.a}
-            /* replace-start */
-            data-edit="link,text"
-          /* replace-end */
-          >
-            {dataSource.button.children.a.children}
-          </a>
-        </TweenOne>
       </OverPack>
     );
   }
 }
 
-export default Content11;
+export default Content13;

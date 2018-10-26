@@ -142,6 +142,7 @@ class Layout extends React.Component {
     this.setStyleData(data.style);
     const otherData = data.other;
     const configData = data.config || {};
+    console.log(data);
     const children = template.map((key) => {
       const keys = key.split('_');
       const componentName = keys[0];
@@ -149,6 +150,7 @@ class Layout extends React.Component {
       const d = configData[key] || {};
       const dataSource = this.isEdit ? setDataIdToDataSource(mergeEditDataToDefault(d, componentData, true), key)
         : mergeEditDataToDefault(d, componentData, true);
+      console.log(dataSource, key);
       return React.createElement(componentData.component, {
         key,
         id: key,

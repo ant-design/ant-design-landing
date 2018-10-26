@@ -50,37 +50,37 @@ export default {
       },
       {
         src: 'https://zos.alipayobjects.com/rmsportal/CXrFvvZqkMwMHZo.jpg',
-        text: '产品特性介绍1',
+        text: '产品特性1',
         uid: 1,
       },
       {
         src: 'https://zos.alipayobjects.com/rmsportal/WxCxyIKjMdCUUSJ.jpg',
-        text: '产品特性介绍2',
+        text: '产品特性2',
         uid: 2,
       },
       {
         src: 'https://zos.alipayobjects.com/rmsportal/pUFfIJXizTljrgZ.jpg',
-        text: '多个功能点介绍',
+        text: '多功能介绍',
         uid: 3,
       },
       {
         src: 'https://zos.alipayobjects.com/rmsportal/ndmJrWwkQloTtKg.jpg',
-        text: 'video页面展示',
+        text: 'video 展示',
         uid: 4,
       },
       {
         src: 'https://zos.alipayobjects.com/rmsportal/sgTBpfjKcsXWDtq.jpg',
-        text: '案例介绍页面',
+        text: '案例介绍',
         uid: 5,
       },
       {
         src: 'https://zos.alipayobjects.com/rmsportal/yNbeUIWcDNZFKTY.jpg',
-        text: '单个模块介绍',
+        text: '单模块介绍',
         uid: 6,
       },
       {
         src: 'https://zos.alipayobjects.com/rmsportal/CfSeDOXHJzJuPbz.jpg',
-        text: '多个模块介绍',
+        text: '多模块介绍',
         uid: 7,
       },
       {
@@ -99,9 +99,19 @@ export default {
         uid: 10,
       },
       {
+        src: 'https://gw.alipayobjects.com/zos/rmsportal/hEmKNrtthHJqUGAWXfun.jpg',
+        text: '标题文字',
+        uid: 13,
+      },
+      {
         src: 'https://gw.alipayobjects.com/zos/rmsportal/bDZgyDGRJtLCmrcODFax.jpg',
         text: '标题按钮',
         uid: 11,
+      },
+      {
+        src: 'https://gw.alipayobjects.com/zos/rmsportal/OmIIrSdGdZIhUBREQrFT.jpg',
+        text: '案例介绍2-无文字',
+        uid: 12,
       },
       /* { disabled: true, src: 'https://zos.alipayobjects.com/rmsportal/MnbozfSRmOwdxvH.jpg' },
       { disabled: true, src: 'https://zos.alipayobjects.com/rmsportal/cMigmCVGBaJkuYG.jpg' },
@@ -116,12 +126,14 @@ export default {
       {
         src: 'https://gw.alipayobjects.com/zos/rmsportal/wEeRbkdWEpxGIQBqqcoM.jpg',
         text: '简单型页尾',
-        id: 'footer',
       },
       {
         src: 'https://gw.alipayobjects.com/zos/rmsportal/honVGZnoRmMVCNzxiNvy.jpg',
-        text: '带信息尾页',
-        id: 'footer',
+        text: '带信息页尾',
+      },
+      {
+        src: 'https://gw.alipayobjects.com/zos/rmsportal/QaIFRzeqZhIsgQCcjxGs.jpg',
+        text: '带分享页尾',
       },
     ],
   },

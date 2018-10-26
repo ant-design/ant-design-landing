@@ -16,10 +16,13 @@ const Content8 = require('./Content8/template.config');
 const Content9 = require('./Content9/template.config');
 const Content10 = require('./Content10/template.config');
 const Content11 = require('./Content11/template.config');
+const Content12 = require('./Content12/template.config');
+const Content13 = require('./Content13/template.config');
 
 
 const Footer0 = require('./Footer0/template.config');
 const Footer1 = require('./Footer1/template.config');
+const Footer2 = require('./Footer2/template.config');
 
 export default {
   Nav0,
@@ -40,6 +43,9 @@ export default {
   Content9,
   Content10,
   Content11,
+  Content12,
+  Content13,
   Footer0,
   Footer1,
+  Footer2,
 };

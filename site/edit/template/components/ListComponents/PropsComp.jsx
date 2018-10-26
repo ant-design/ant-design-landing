@@ -9,7 +9,7 @@ import CheckboxGroup from './CheckboxGroup';
 
 const Panel = Collapse.Panel;
 
-const noProps = ['text', 'image', 'video', 'icon', 'texty', 'titleWrapper', 'Content'];
+const noProps = ['text', 'image', 'video', 'icon', 'texty', 'titleWrapper', 'textAndImage', 'link', 'Content'];
 
 export default class PropsComp extends React.PureComponent {
   getCompChild = (defaultValue, v, key) => {
@@ -85,7 +85,6 @@ export default class PropsComp extends React.PureComponent {
             </Col>
           </Row>);
       }
-      console.log(defaultData, templateData, key);
       const compChild = this.getCompChild(defaultData, templateData, key);
       const tip = defaultData.remark && (
         <Tooltip

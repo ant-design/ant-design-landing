@@ -112,7 +112,7 @@ export const getDataSourceValue = (id, templateData, parent) => {
       },
     };
   }
-  array.concat(childIds).forEach((key) => {
+  array.concat(childIds).filter(c => c).forEach((key) => {
     const nameKey = key.split('=');
     if (nameKey.length > 1 && nameKey[0] === 'array_name') {
       let i = parseFloat(nameKey[1].replace(/[a-z]/g, ''));

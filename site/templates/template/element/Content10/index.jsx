@@ -4,7 +4,7 @@ import QueueAnim from 'rc-queue-anim';
 import './index.less';
 /* replace-end */
 
-class Content9 extends React.PureComponent {
+class Content10 extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -80,4 +80,4 @@ class Content9 extends React.PureComponent {
 }
 
 
-export default Content9;
+export default Content10;

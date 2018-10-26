@@ -1,0 +1,48 @@
+@import '../../../static/custom.less';
+@content11: content11;
+.@{content11}-wrapper {
+  height: 480px;
+  background: url("https://gw.alipayobjects.com/zos/rmsportal/ZsWYzLOItgeaWDSsXdZd.svg") no-repeat bottom;
+  background-size: cover;
+  background-size: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  will-change: transform;
+  padding-top: 96px;
+  &.home-page-wrapper {
+    .title-wrapper {
+      margin-bottom: 32px;
+    }
+  }
+  .button {
+    box-shadow: 0 8px 16px #0554b7;
+    background: linear-gradient(to right, #05cbff, #1e5aff) !important;
+    height: 42px;
+    line-height: 42px;
+    font-size: 14px;
+    border: 0;
+    border-radius: 21px;
+    color: #fff;
+    width: 128px;
+    padding: 0 15px;
+    display: inline-block;
+    transition: transform .3s, box-shadow .3s;
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 20px #0554b7;
+    }
+    &:active {
+      transform: translateY(4px);
+      box-shadow: 0 4px 8px #0554b7;
+    }
+  }
+  .title-content {
+    line-height: 32px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .@{content11}-wrapper {
+    padding-bottom: 0;
+  }
+}

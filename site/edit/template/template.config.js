@@ -98,6 +98,11 @@ export default {
         text: '大会地址',
         uid: 10,
       },
+      {
+        src: 'https://gw.alipayobjects.com/zos/rmsportal/bDZgyDGRJtLCmrcODFax.jpg',
+        text: '标题按钮',
+        uid: 11,
+      },
       /* { disabled: true, src: 'https://zos.alipayobjects.com/rmsportal/MnbozfSRmOwdxvH.jpg' },
       { disabled: true, src: 'https://zos.alipayobjects.com/rmsportal/cMigmCVGBaJkuYG.jpg' },
       { disabled: true, src: 'https://zos.alipayobjects.com/rmsportal/VKeYAOSRQVtMccj.jpg' },

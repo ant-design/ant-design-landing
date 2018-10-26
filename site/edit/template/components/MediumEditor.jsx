@@ -15,8 +15,8 @@ export default class Editor extends React.Component {
         hideOnClick: true,
       },
     });
-    this.medium.subscribe('editableInput', (e) => {
-      (this.props.onChange || noop)(e.target.innerHTML);
+    this.medium.subscribe('editableInput', (e, b) => {
+      (this.props.onChange || noop)(b.innerHTML);
     });
   }
 

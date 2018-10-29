@@ -82,13 +82,12 @@
     }
     & &-menu {
       height: auto;
-      max-height: 0;
       float: inherit;
       position: relative;
       left: -24px;
       width: ~"calc(100% + 48px)";
       opacity: 0;
-      transition: opacity .3s @ease-in-out, max-height .3s @ease-in-out;
+      transition: opacity .3s @ease-in-out, height .3s @ease-in-out;
     }
     &-mobile-menu {
       width: 16px;
@@ -144,8 +143,6 @@
         }
       }
       >.@{header}-menu {
-        // 动画采用minHeight, 如效果不好请使用绝对高度；
-        max-height: 100vh;
         opacity: 1;
         pointer-events: auto;
       }

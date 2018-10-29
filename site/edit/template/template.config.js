@@ -6,10 +6,17 @@ export default {
       {
         src: 'https://zos.alipayobjects.com/rmsportal/ZjfIAdkDVlpnilf.jpg',
         text: '普通型导航',
+        uid: 0,
+      },
+      {
+        src: 'https://zos.alipayobjects.com/rmsportal/ZjfIAdkDVlpnilf.jpg',
+        text: 'Link 导航(页面滚动)',
+        uid: 2,
       },
       {
         src: 'https://zos.alipayobjects.com/rmsportal/UTHsfGMNXXbpEoL.jpg',
         text: '带用户型导航',
+        uid: 1,
       },
     ],
   },

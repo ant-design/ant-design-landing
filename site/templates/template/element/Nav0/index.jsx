@@ -1,4 +1,5 @@
 import React from 'react';
+import { findDOMNode } from 'react-dom';
 import TweenOne from 'rc-tween-one';
 import { Menu } from 'antd';
 /* replace-start */
@@ -12,6 +13,7 @@ class Header extends React.Component {
     super(props);
     this.state = {
       phoneOpen: false,
+      menuHeight: 0,
     };
   }
   /* replace-start */
@@ -27,8 +29,11 @@ class Header extends React.Component {
 
   /* replace-end */
   phoneClick = () => {
+    const menu = findDOMNode(this.menu);
+    const phoneOpen = !this.state.phoneOpen;
     this.setState({
-      phoneOpen: !this.state.phoneOpen,
+      phoneOpen,
+      menuHeight: phoneOpen ? menu.scrollHeight : 0,
     });
   }
 
@@ -37,7 +42,7 @@ class Header extends React.Component {
     const { dataSource, isMobile } = props;
     delete props.dataSource;
     delete props.isMobile;
-    console.log(props);
+    const { menuHeight, phoneOpen } = this.state;
     const navData = dataSource.Menu.children;
     const navChildren = Object.keys(navData)
       .map((key, i) => (
@@ -66,7 +71,7 @@ class Header extends React.Component {
       >
         <div
           {...dataSource.page}
-          className={`${dataSource.page.className}${this.state.phoneOpen ? ' open' : ''}`}
+          className={`${dataSource.page.className}${phoneOpen ? ' open' : ''}`}
         >
           <TweenOne
             animation={{ x: -30, type: 'from', ease: 'easeOutQuad' }}
@@ -92,6 +97,8 @@ class Header extends React.Component {
           <TweenOne
             {...dataSource.Menu}
             animation={{ x: 30, type: 'from', ease: 'easeOutQuad' }}
+            ref={(c) => { this.menu = c; }}
+            style={isMobile ? { height: menuHeight } : null}
             /* replace-start */
             data-edit="Menu"
           /* replace-end */

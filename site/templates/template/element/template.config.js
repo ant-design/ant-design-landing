@@ -1,5 +1,6 @@
 const Nav0 = require('./Nav0/template.config');
 const Nav1 = require('./Nav1/template.config');
+const Nav2 = require('./Nav2/template.config');
 const Banner0 = require('./Banner0/template.config');
 const Banner1 = require('./Banner1/template.config');
 const Banner2 = require('./Banner2/template.config');
@@ -27,6 +28,7 @@ const Footer2 = require('./Footer2/template.config');
 export default {
   Nav0,
   Nav1,
+  Nav2,
   Banner0,
   Banner1,
   Banner2,

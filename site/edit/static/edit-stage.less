@@ -28,6 +28,8 @@
     }
     .select {
       border: 2px solid @primary-color;
+      position: relative;
+      z-index: 100;
       * {
         pointer-events: auto;
       }
@@ -122,6 +124,7 @@
       text-align: center;
       overflow: hidden;
       opacity: 0;
+      z-index: 100;
       >.ant-btn {
         line-height: 28px;
         height: 28px;

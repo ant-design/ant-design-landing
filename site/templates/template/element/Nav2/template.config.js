@@ -18,7 +18,7 @@ export default {
       className: 'header2-logo',
       children: 'https://os.alipayobjects.com/rmsportal/mlcYmsRilwraoAe.svg',
     },
-    Menu: {
+    menuLink: {
       className: 'header2-menu',
       children: [
 

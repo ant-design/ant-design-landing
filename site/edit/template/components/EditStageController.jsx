@@ -5,8 +5,8 @@ import deepEql from 'deep-eql';
 import dragula from 'dragula';
 import Editor from './MediumEditor';
 import { setTemplateData, setCurrentData } from '../../../edit-module/actions';
-import { getChildRect, getCurrentDom, getDataSourceValue } from '../utils';
-import { isImg, deepCopy, mergeEditDataToDefault, mdId } from '../../../utils';
+import { getChildRect, getCurrentDom } from '../utils';
+import { isImg, deepCopy, mergeEditDataToDefault, getDataSourceValue, mdId } from '../../../utils';
 import webData from '../template.config';
 import tempData from '../../../templates/template/element/template.config';
 import EditButtton from './StateComponents/EditButtonView';
@@ -105,7 +105,7 @@ class EditStateController extends React.PureComponent {
       .on('out', (el, source) => {
         if (source === this.stage) {
           if (el.className === 'placeholder') { // || el.className === 'overlay-elem'
-            this.setPropsData(el, Array.prototype.slice.call(source.children));
+            this.setPropsData(el, Array.prototype.slice.call(source.children), true);
           }
         }
       })
@@ -221,13 +221,24 @@ class EditStateController extends React.PureComponent {
   }
 
   receiveDomData = (data, iframe, id) => {
-    Object.keys(id).forEach((key) => {
-      mdId[key] = id[key];
-    });
-    this.setState({
-      data,
-      iframe,
-    });
+    const { templateData } = this.props;
+    const { template } = templateData ? templateData.data : { template: [] };
+    let isChange;
+    if (template.some(key => key.indexOf('Nav2') >= 0)) {
+      isChange = this.addNavLinkData(templateData);
+    }
+    if (isChange) {
+      const { dispatch } = this.props;
+      dispatch(setTemplateData(templateData));
+    } else {
+      Object.keys(id).forEach((key) => {
+        mdId[key] = id[key];
+      });
+      this.setState({
+        data,
+        iframe,
+      });
+    }
   }
 
   wrapperLeave = () => {
@@ -384,7 +395,7 @@ class EditStateController extends React.PureComponent {
     });
   }
 
-  setPropsData = (el, children) => {
+  setPropsData = (el, children, add) => {
     const template = children.map(item => item.getAttribute('id')).filter(id => id);
     const { templateData } = this.props;
     if (el.className === 'placeholder') {
@@ -394,6 +405,10 @@ class EditStateController extends React.PureComponent {
       ...templateData.data,
       template,
     };
+    // 添加 scrollLink 导航的时候，自动添加数据。
+    if (add) {
+      // this.addNavLinkData(templateData);
+    }
     const { dispatch } = this.props;
     dispatch(setTemplateData(templateData));
   };
@@ -462,6 +477,7 @@ class EditStateController extends React.PureComponent {
     this.reRect();
     const { templateData } = this.props;
     const template = templateData.data.template;
+    const config = templateData.data.config;
     const current = template.indexOf(key);
     switch (type) {
       case 'up':
@@ -472,9 +488,51 @@ class EditStateController extends React.PureComponent {
         break;
       default:
         template.splice(current, 1);
+        delete config[key];
+        this.removeNavLinkData(templateData, key);
         break;
     }
     this.props.dispatch(setTemplateData(templateData));
+  }
+
+  addNavLinkData = (templateData) => {
+    const { template } = templateData.data;
+    const nav2Array = template.filter(key => key.indexOf('Nav2') >= 0);
+    const pageArray = template.filter(key => !key.match(/Nav|Footer/ig));
+    const config = templateData.data.config;
+    let change = false;
+    nav2Array.forEach((key) => {
+      const menuLink = getDataSourceValue('menuLink', config, [key, 'dataSource']);
+      ([].concat(pageArray)).forEach((cKey) => {
+        const menuChild = menuLink.children || [];
+        if (menuChild.findIndex(item => item.name === cKey) === -1) {
+          const index = pageArray.indexOf(cKey);
+          const obj = {
+            name: cKey,
+            to: cKey,
+            children: cKey,
+            className: 'menu-item',
+          };
+          menuChild.splice(index, 0, obj);
+          menuLink.children = menuChild;
+          change = true;
+        }
+      });
+    });
+    return change;
+  }
+
+  removeNavLinkData = (templateData, current) => {
+    const template = templateData.data.template;
+    const nav2Array = template.filter(key => key.indexOf('Nav2') >= 0);
+    const config = templateData.data.config;
+    nav2Array.forEach((key) => {
+      const menuLink = getDataSourceValue('menuLink', config, [key, 'dataSource']);
+      const menuChild = menuLink.children || [];
+      const index = menuChild.findIndex(item => item.name === current);
+      menuChild.splice(index, 1);
+      menuLink.children = menuChild;
+    });
   }
 
   getFuncIconChild = (i, dataArray, key) => {

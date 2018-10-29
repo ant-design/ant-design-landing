@@ -8,7 +8,7 @@ import {
   getEditDomData,
   setDataIdToDataSource,
 } from './utils';
-import { getState, mergeEditDataToDefault, mdId } from '../../utils';
+import { getState, mergeEditDataToDefault, getDataSourceValue, mdId } from '../../utils';
 import { getURLData } from '../../theme/template/utils';
 import { getUserData } from '../../edit-module/actions';
 
@@ -33,6 +33,7 @@ class Layout extends React.Component {
       <style type="text/css">body::-webkit-scrollbar{display:none;}</style>
       `);
     }
+    console.log(props.templateData)
     this.styleTag = this.createStyle();
     this.state = {
       templateData: props.templateData,
@@ -142,15 +143,32 @@ class Layout extends React.Component {
     this.setStyleData(data.style);
     const otherData = data.other;
     const configData = data.config || {};
-    console.log(data);
     const children = template.map((key) => {
       const keys = key.split('_');
       const componentName = keys[0];
       const componentData = webData[componentName];
+      /*       if (key.indexOf('Nav2') >= 0) {
+              const pageArray = template.filter(cKey => !cKey.match(/Nav|Footer/ig));
+              const menuLink = getDataSourceValue('menuLink', configData, [key, 'dataSource']);
+              console.log(menuLink);
+              ([].concat(pageArray)).forEach((cKey) => {
+                const menuChild = menuLink.children || [];
+                console.log(cKey, menuChild.map(item => item.name), menuChild.findIndex(item => item.name === cKey) === -1)
+                if (menuChild.findIndex(item => item.name === cKey) === -1) {
+                  const index = pageArray.indexOf(cKey);
+                  const obj = {
+                    name: cKey,
+                    to: cKey,
+                    children: cKey,
+                  };
+                  menuChild.splice(index, 0, obj);
+                  menuLink.children = menuChild;
+                }
+              });
+            } */
       const d = configData[key] || {};
       const dataSource = this.isEdit ? setDataIdToDataSource(mergeEditDataToDefault(d, componentData, true), key)
         : mergeEditDataToDefault(d, componentData, true);
-      console.log(dataSource, key);
       return React.createElement(componentData.component, {
         key,
         id: key,
@@ -162,8 +180,7 @@ class Layout extends React.Component {
     this.scrollScreen = false;
     Object.keys(otherData).forEach((key) => {
       switch (key) {
-        case 'point':
-        {
+        case 'point': {
           children.push((
             <Point
               key="point"

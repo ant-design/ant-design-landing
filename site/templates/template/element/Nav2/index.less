@@ -1,6 +1,6 @@
 @import '../../../static/custom.less';
-@header: header0;
-.@{header} {
+@header2: header2;
+.@{header2} {
   background: @template-nav-bg-color;
   width: 100%;
   z-index: 1;
@@ -25,51 +25,56 @@
   }
   &-menu {
     float: right;
-    >.ant-menu {
+    >.menu-item {
       line-height: 62px;
+      display: inline-block;
+      padding: 0 20px;
+      cursor: pointer;
       background: transparent;
       color: @template-text-color-light;
       height: 64px;
       border-bottom-color: transparent;
       position: relative;
-      a {
-        color: @template-text-color-light;
-        &:hover {
-          color: @primary-color;
-        }
+      transition: color .3s @ease-in-out, border .3s @ease-in-out;
+      &.active,
+      &:hover {
+        color: @primary-color;
+        border-bottom: 2px solid @primary-color;
       }
     }
-  }
-  .ant-menu-item-selected a {
-    color: @primary-color;
   }
 }
 
 @media screen and (max-width: 767px) {
-  .@{header} {
+  .@{header2} {
     &-logo {
       z-index: 101;
     }
     &.home-page-wrapper .home-page {
       padding: 0 24px;
     }
-    & &-menu {
+    &-menu {
       height: auto;
-      max-height: 0;
       float: inherit;
       position: relative;
       left: -24px;
       width: ~"calc(100% + 48px)";
       opacity: 0;
-      transition: opacity .3s @ease-in-out, max-height .3s @ease-in-out;
-      & li {
+      overflow: hidden;
+      transition: opacity .3s @ease-in-out, height .3s @ease-in-out;
+      .menu-item {
+        display: block;
+        width: 100%;
         padding: 0 24px;
-        &.ant-menu-submenu {
-          padding: 0;
+        border-bottom: none;
+        line-height: 40px;
+        height: 40px;
+        margin: 4px 0 8px;
+        &.active, &:hover {
+          border: none;
+          background: @primary-color;
+          color: @template-text-color-light;
         }
-      }
-      & .ant-menu-submenu .ant-menu-sub {
-        padding: 0 24px;
       }
     }
     &-mobile-menu {
@@ -92,27 +97,9 @@
         margin-top: 0;
       }
     }
-    .ant-menu {
-      height: auto;
-      overflow: hidden;
-
-      background: @template-bg-color;
-      .ant-menu-item-selected {
-        border: none;
-      }
-      a {
-        color: @template-text-color-light;
-        &:hover {
-          color: @template-text-color-light;
-        }
-      }
-      .ant-menu-item-selected a {
-        color: @template-text-color-light;
-      }
-    }
     & .open {
       height: auto;
-      .@{header}-mobile-menu {
+      .@{header2}-mobile-menu {
         em {
           &:nth-child(1) {
             transform: translateY(6px) rotate(45deg);
@@ -125,9 +112,7 @@
           }
         }
       }
-      >.@{header}-menu {
-        // 动画采用minHeight, 如效果不好请使用绝对高度；
-        max-height: 100vh;
+      .@{header2}-menu {
         opacity: 1;
         pointer-events: auto;
       }

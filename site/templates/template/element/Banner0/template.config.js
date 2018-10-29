@@ -7,9 +7,7 @@ export default {
   templateStr,
   less,
   dataSource: {
-    OverPack: {
-      replay: true,
-      playScale: [0.3, 0.1],
+    wrapper: {
       className: 'banner0',
     },
     textWrapper: {

@@ -1,14 +1,14 @@
 [
   {
-    "id": "5ad85f55d50eee1db13d3eaa",
+    "id": "template",
     "name": "模板1",
-    "preview": "uid=5ad85f55d50eee1db13d3eaa",
+    "preview": "uid=template",
     "image": "https://gw.alipayobjects.com/zos/rmsportal/zoItfYZBNMHPvqZDxuda.jpg"
   },
   {
-    "id": "5ad85f55d50eee1db13d3eaa",
+    "id": "seeconf",
     "name": "seeconf 官网",
-    "preview": "uid=5ad85f55d50eee1db13d3eaa",
+    "preview": "uid=seeconf",
     "image": "https://gw.alipayobjects.com/zos/rmsportal/AUIbyJxfwerASkPBwFmD.jpg"
   }
 ]

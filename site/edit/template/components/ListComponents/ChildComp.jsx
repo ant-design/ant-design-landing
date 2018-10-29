@@ -3,8 +3,7 @@ import { Collapse, Button, Row, Col, Icon, Select } from 'antd';
 import { getRandomKey } from 'rc-editor-list/lib/utils';
 import ListSort from '../StateComponents/ListSort';
 import tempData from '../../../../templates/template/element/template.config';
-import { mergeEditDataToDefault, deepCopy } from '../../../../utils';
-import { getDataSourceValue } from '../../utils';
+import { mergeEditDataToDefault, getDataSourceValue, deepCopy } from '../../../../utils';
 
 const Panel = Collapse.Panel;
 const Option = Select.Option;
@@ -77,7 +76,7 @@ export default class ChildComp extends React.PureComponent {
     const tempDataSource = tempData[cid];
     const newTempDataSource = mergeEditDataToDefault(templateData.data.config[ids[0]],
       tempDataSource);
-
+    console.log(newTempDataSource);
     let currentEditTemplateData = getDataSourceValue(ids[1], newTempDataSource);
     const idChildArray = ids[1].split('&');
     const childIsArray = Array.isArray(currentEditTemplateData.children);

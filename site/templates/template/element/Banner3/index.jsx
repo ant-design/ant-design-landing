@@ -55,9 +55,9 @@ class Banner extends React.PureComponent {
       );
     });
     return (
-      <OverPack
+      <div
         {...currentProps}
-        {...dataSource.OverPack}
+        {...dataSource.wrapper}
       >
         <QueueAnim
           key="QueueAnim"
@@ -67,7 +67,7 @@ class Banner extends React.PureComponent {
         >
           {children}
         </QueueAnim>
-      </OverPack>
+      </div>
     );
   }
 }

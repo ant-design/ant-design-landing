@@ -32,7 +32,7 @@ class Footer2 extends React.PureComponent {
             })}
           </TweenOne>
           <TweenOne
-            animation={{ x: '-=30', opacity: 0, type: 'from' }}
+            animation={{ x: '+=30', opacity: 0, type: 'from' }}
             key="copyright"
             {...dataSource.copyright}
             /* replace-start */

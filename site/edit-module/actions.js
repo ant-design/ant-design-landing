@@ -1,6 +1,7 @@
 
 import AV from 'leancloud-storage';
 import { getURLData, setURLData } from '../theme/template/utils';
+import defaultData from './default.template.config.js';
 
 export const appId = 'ogaJShC9qJERt8LqGO80z2pO-gzGzoHsz';
 export const appKey = '8e5H5xBF86hI9vItQI1pt4kP';
@@ -10,7 +11,6 @@ AV.init({
   appId,
   appKey,
 });
-
 export const userName = 'antd-landings-user-name';
 
 let t = 0;
@@ -75,14 +75,13 @@ export const getUserData = data => (dispatch) => {
   const hash = getURLData('uid');
   const cloneId = getURLData('cloneId');
   if (cloneId) {
-    const cloneData = new AV.Query(fileName);
-    cloneData.get(cloneId).then((obj) => {
-      console.log(obj);
-      setURLData('cloneId');
-      getUserData(obj.attributes)(dispatch);
-      console.log(1212);
-    });
-    return;
+    const d = defaultData[cloneId];
+    setURLData('cloneId');
+    if (d) {
+      getUserData(d)(dispatch);
+      return;
+    }
+    console.warn(`error: cloneId(${cloneId}) Incorrect, please check it.`);
   }
   /**
    * 进入页面:

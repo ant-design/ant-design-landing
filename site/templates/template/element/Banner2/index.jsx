@@ -96,9 +96,9 @@ class Banner extends React.PureComponent {
         </Element>);
     });
     return (
-      <OverPack
+      <div
         {...props}
-        {...dataSource.OverPack}
+        {...dataSource.wrapper}
       >
         <TweenOneGroup
           key="bannerGroup"
@@ -128,7 +128,7 @@ class Banner extends React.PureComponent {
         >
           <Icon type="down" />
         </TweenOne>
-      </OverPack>
+      </div>
     );
   }
 }

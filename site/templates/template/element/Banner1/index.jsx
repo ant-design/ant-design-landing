@@ -108,9 +108,9 @@ class Banner extends React.PureComponent {
         </Element>);
     });
     return (
-      <OverPack
+      <div
         {...props}
-        {...dataSource.OverPack}
+        {...dataSource.wrapper}
         /* replace-start */
         data-comp={[`banner-switch={ "current": ${
           this.state.current}, "total": ${dataSource.BannerAnim.children.length
@@ -148,7 +148,7 @@ class Banner extends React.PureComponent {
         >
           <Icon type="down" />
         </TweenOne>
-      </OverPack>
+      </div>
     );
   }
 }

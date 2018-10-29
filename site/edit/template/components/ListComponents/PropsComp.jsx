@@ -3,8 +3,7 @@ import { Collapse, Row, Col, Tooltip, Icon, Switch, Select, InputNumber } from '
 import InputGroup from './InputGroup';
 import tempData from '../../../../templates/template/element/template.config';
 import compConfig from '../../component.config';
-import { mergeEditDataToDefault } from '../../../../utils';
-import { getDataSourceValue } from '../../utils';
+import { mergeEditDataToDefault, getDataSourceValue } from '../../../../utils';
 import CheckboxGroup from './CheckboxGroup';
 
 const Panel = Collapse.Panel;

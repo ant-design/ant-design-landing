@@ -1,6 +1,5 @@
-import { mergeEditDataToDefault, deepCopy } from '../../../../../utils';
+import { mergeEditDataToDefault, deepCopy, getDataSourceValue, setDataSourceValue } from '../../../../../utils';
 import tempData from '../../../../../templates/template/element/template.config';
-import { getDataSourceValue, setDataSourceValue } from '../../../utils';
 import { setTemplateData } from '../../../../../edit-module/actions';
 
 export const getIdsAndCurrentData = (currentEditData, templateData, key) => {

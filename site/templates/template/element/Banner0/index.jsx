@@ -13,9 +13,9 @@ class Banner extends React.PureComponent {
     delete currentProps.dataSource;
     delete currentProps.isMobile;
     return (
-      <OverPack
+      <div
         {...currentProps}
-        {...dataSource.OverPack}
+        {...dataSource.wrapper}
       >
         <QueueAnim
           key="QueueAnim"
@@ -64,7 +64,7 @@ class Banner extends React.PureComponent {
         >
           <Icon type="down" />
         </TweenOne>
-      </OverPack>
+      </div>
     );
   }
 }

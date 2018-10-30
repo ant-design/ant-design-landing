@@ -8,7 +8,7 @@ title:
   en-US: getting-started
 ---
 
-Landings 编辑器里下载的文件为 Home 文件包，导出的文件为 [React](https://reactjs.org/) 文件 `.jsx`， 样式采用的为 [less](http://lesscss.org/) 文件 `.less`， 如遇到问题时，建议先学习一下相关的语言特性，再前往 [Landings issues](https://github.com/ant-design/landings/issues) 提问。
+Landing 编辑器里下载的文件为 Home 文件包，导出的文件为 [React](https://reactjs.org/) 文件 `.jsx`， 样式采用的为 [less](http://lesscss.org/) 文件 `.less`， 如遇到问题时，建议先学习一下相关的语言特性，再前往 [Landing issues](https://github.com/ant-design/landing/issues) 提问。
 
 ## 目录结构
 
@@ -87,14 +87,14 @@ npm install babel-plugin-import --save-dev;
 
 ### 配置 html scale
 
-为更好的响应无线端的使用，Landings 需要你在你的 html 文件的 head 里配置以下代码：
+为更好的响应无线端的使用，Landing 需要你在你的 html 文件的 head 里配置以下代码：
 ```html
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 ```
 
 ## 样式
 
-Ant Design Landings 默认使用 less 作为样式语言，整个文件的 less 没使用 `css-modules` 需直接使用。
+Ant Design Landing 默认使用 less 作为样式语言，整个文件的 less 没使用 `css-modules` 需直接使用。
 
 如果你的脚手架使用了 `css-modules` 请在 `index.less` 里加上 `:global`, [global 的使用详细查看](https://github.com/css-modules/css-modules#usage-with-preprocessors)
 

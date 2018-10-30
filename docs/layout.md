@@ -8,7 +8,7 @@ title:
   en-US: Layout
 ---
 
-Ant Design 目前提供了两套布局方案: [Layout](https://ant.design/components/layout-cn/) 和 [Grid](https://ant.design/components/grid-cn/), 同样 Landings 的整体布局也是以 8 的倍数来计算。我们以页面宽度来做整体布局，提供以下两种类型:
+Ant Design 目前提供了两套布局方案: [Layout](https://ant.design/components/layout-cn/) 和 [Grid](https://ant.design/components/grid-cn/), 同样 Landing 的整体布局也是以 8 的倍数来计算。我们以页面宽度来做整体布局，提供以下两种类型:
 
 ---
 

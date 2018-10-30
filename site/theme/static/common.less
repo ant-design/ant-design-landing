@@ -40,7 +40,7 @@ body {
   padding: 40px 0;
 }
 
-.landings-move-motion(@className, @keyframeName) {
+.landing-move-motion(@className, @keyframeName) {
   .make-motion(@className, @keyframeName, .45s);
   .@{className}-enter,
   .@{className}-appear {
@@ -59,9 +59,9 @@ body {
   }
 }
 
-.landings-move-motion(landings-move, landingsMove);
+.landing-move-motion(landing-move, landingMove);
 
-@keyframes landingsMoveIn {
+@keyframes landingMoveIn {
   0% {
     transform: translateY(30px);
     opacity: 0;
@@ -72,7 +72,7 @@ body {
   }
 }
 
-@keyframes landingsMoveOut {
+@keyframes landingMoveOut {
   0% {
     transform: translateY(0);
     opacity: 1;

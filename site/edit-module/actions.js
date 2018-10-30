@@ -11,7 +11,7 @@ AV.init({
   appId,
   appKey,
 });
-export const userName = 'antd-landings-user-name';
+export const userName = 'antd-landing-user-name';
 
 let t = 0;
 let localNum = 0;
@@ -112,7 +112,7 @@ export const getUserData = data => (dispatch) => {
       const obj = JSON.parse(storageDataStr);
       userIsLogin = obj.attributes.user
         && obj.attributes.user.userId
-        && window.localStorage.getItem(`antd-landings-login-${obj.attributes.user.userId}`);
+        && window.localStorage.getItem(`antd-landing-login-${obj.attributes.user.userId}`);
       dispatch({
         type: postType.POST_SUCCESS,
         templateData: obj,
@@ -130,7 +130,7 @@ export const getUserData = data => (dispatch) => {
         dataToLocalStorage(obj);
         userIsLogin = obj.attributes.user
           && obj.attributes.user.userId
-          && window.localStorage.getItem(`antd-landings-login-${obj.attributes.user.userId}`);
+          && window.localStorage.getItem(`antd-landing-login-${obj.attributes.user.userId}`);
         dispatch({
           type: postType.POST_SUCCESS,
           templateData: obj,
@@ -192,7 +192,7 @@ export const saveData = (templateData, dispatch, cb) => {
     userData.set('password', password);
     userData.save().then((obj) => {
       user.userId = obj.id;
-      window.localStorage.setItem(`antd-landings-login-${obj.id}`, 'true');
+      window.localStorage.setItem(`antd-landing-login-${obj.id}`, 'true');
       saveFile(templateData);
     }, (error) => {
       console.log(JSON.stringify(error));
@@ -207,7 +207,7 @@ export const saveData = (templateData, dispatch, cb) => {
   } else if (user && user.delete) {
     userData = AV.Object.createWithoutData(userAvName, user.userId);
     userData.destroy().then(() => {
-      window.localStorage.setItem(`antd-landings-login-${user.userId}`, '');
+      window.localStorage.setItem(`antd-landing-login-${user.userId}`, '');
       delete templateData.data.user;
       saveFile(templateData);
     }, (error) => {
@@ -261,7 +261,7 @@ export const loginIn = (password, id, dispatch, cb) => {
   const user = AV.Object.createWithoutData(userAvName, id);
   user.fetch().then(() => {
     if (password === user.get('password')) {
-      window.localStorage.setItem(`antd-landings-login-${id}`, 'true');
+      window.localStorage.setItem(`antd-landing-login-${id}`, 'true');
       dispatch(setUserData(true));
       cb(true);
     } else {

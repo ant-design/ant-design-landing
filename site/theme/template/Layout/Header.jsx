@@ -68,7 +68,7 @@ class Header extends React.Component {
             <Link className="logo" to={getLocalizedPathname('/', isZhCN)}>
               <img alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/SVDdpZEbAlWBFuRGIIIL.svg" />
               <span>
-                LANDINGS
+                LANDING
               </span>
             </Link>
           </Col>
@@ -78,7 +78,7 @@ class Header extends React.Component {
                 <div className="menu">
                   {menu}
                   <a
-                    href="https://github.com/ant-design/landings"
+                    href="https://github.com/ant-design/landing"
                     alt="git"
                     target="_blank"
                     className="gitbtn"

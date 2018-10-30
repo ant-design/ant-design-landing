@@ -149,7 +149,7 @@ PageLayout.jsx
 import React from 'react';
 import Home from '../routes/Home';
 
-export default class LandingsLayout extends React.Component {
+export default class LandingLayout extends React.Component {
   render(){
     return (<Home />);
   }

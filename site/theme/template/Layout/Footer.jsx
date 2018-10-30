@@ -28,9 +28,9 @@ class Footer extends React.Component {
           <Row>
             <Col md={6} sm={24} xs={24}>
               <div className="footer-center">
-                <h2>Ant Design Landings</h2>
+                <h2>Ant Design Landing</h2>
                 <div>
-                  <a target="_blank " href="https://github.com/ant-design/landings">
+                  <a target="_blank " href="https://github.com/ant-design/landing">
                     <FormattedMessage id="app.footer.repo" />
                   </a>
                 </div>
@@ -83,7 +83,7 @@ class Footer extends React.Component {
               <div className="footer-center">
                 <h2><FormattedMessage id="app.footer.community" /></h2>
                 <div>
-                  <a target="_blank" rel="noopener" href="https://github.com/ant-design/landings/issues">
+                  <a target="_blank" rel="noopener" href="https://github.com/ant-design/landing/issues">
                     <FormattedMessage id="app.footer.issues" />
                   </a>
                 </div>
@@ -148,7 +148,11 @@ class Footer extends React.Component {
               </a>
             </span>
             <span style={{ marginRight: 12 }}>ICP 证浙 B2-2-100257</span>
-            <span style={{ marginRight: 12 }}>Copyright © <FormattedMessage id="app.footer.company" /></span>
+            <span style={{ marginRight: 12 }}>
+Copyright ©
+              {' '}
+              <FormattedMessage id="app.footer.company" />
+            </span>
           </Col>
         </Row>
       </footer>

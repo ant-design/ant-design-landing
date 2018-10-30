@@ -58,7 +58,7 @@ class Layout extends React.PureComponent {
           <div className={(pathname === '/' || pathname === 'index-cn') ? 'home' : ''}>
             <div className="header-placeholder" />
             <Header {...restProps} isMobile={this.state.isMobile} />
-            <Animate component="div" transitionName="landings-move">
+            <Animate component="div" transitionName="landing-move">
               {childrenToRender}
             </Animate>
             <Footer {...restProps} isMobile={this.state.isMobile} />

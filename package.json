@@ -1,12 +1,12 @@
 {
-  "name": "landings",
+  "name": "landing",
   "version": "0.1.0",
   "title": "Landing Pages",
   "description": "site of Landing Pages",
-  "homepage": "http://landings.ant.design/",
+  "homepage": "http://landing.ant.design/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ant-design/landings"
+    "url": "https://github.com/ant-design/landing"
   },
   "license": "MIT",
   "dependencies": {

@@ -4,6 +4,6 @@ module.exports = {
   locale: 'en-US',
   data: appLocaleData,
   messages: {
-    'app.home.slogan': 'Ant Design Landings Templates and Specifications',
+    'app.home.slogan': 'Ant Design Landing Templates and Specifications',
   },
 };

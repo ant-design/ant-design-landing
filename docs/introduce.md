@@ -17,7 +17,7 @@ title:
   </div>
 </div>
 
-Ant Design Landings 是针对产品首页的解决方案，我们秉承 [Ant Design](https://ant.design) 的 [设计价值观](https://ant.design/docs/spec/introduce-cn)，延用 [Ant Design](https://ant.design) 的 [设计原则](http://ant.design/docs/spec/proximity-cn)，可以快速搭建出你想要的首页，进一步提升你的工作效率。随着『设计者』的不断反馈，我们将持续迭代，逐步沉淀和总结出更多首页模块的代码实现，阐述首页(Landing page)的最佳实践，也十分期待你的参与和共建。
+Ant Design Landing 是针对产品首页的解决方案，我们秉承 [Ant Design](https://ant.design) 的 [设计价值观](https://ant.design/docs/spec/introduce-cn)，延用 [Ant Design](https://ant.design) 的 [设计原则](http://ant.design/docs/spec/proximity-cn)，可以快速搭建出你想要的首页，进一步提升你的工作效率。随着『设计者』的不断反馈，我们将持续迭代，逐步沉淀和总结出更多首页模块的代码实现，阐述首页(Landing page)的最佳实践，也十分期待你的参与和共建。
 
 ## 作用
 
@@ -48,6 +48,7 @@ Ant Design Landings 是针对产品首页的解决方案，我们秉承 [Ant Des
 - [单元素动效执行组件](https://motion.ant.design/components/tween-one)
 - [样式进出场组件](https://motion.ant.design/components/animate)
 - [队列进出场组件](https://motion.ant.design/components/queue-anim)
+- [文字动效组件](https://motion.ant.design/components/texty)
 - [随滚动执行效果组件](https://motion.ant.design/components/scroll-anim)
 - [Banner 切换效果组件](https://motion.ant.design/components/banner-anim)
 
@@ -58,7 +59,7 @@ Ant Design Landings 是针对产品首页的解决方案，我们秉承 [Ant Des
 
 ## 谁在使用
 
-目前 Ant Design 旗下产品全部使用 Landings 搭建，如果你和你的组织使用了这个产品，欢迎到 Ant Design Landings Users 留言。
+目前 Ant Design 旗下产品全部使用 Landing 搭建，如果你和你的组织使用了这个产品，欢迎到 Ant Design Landing Users 留言。
 
 
 ### For 设计者

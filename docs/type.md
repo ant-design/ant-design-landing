@@ -8,13 +8,15 @@ title:
   en-US: Type
 ---
 
+展示类页面（Display Page）一般是指当用户进入某个网站时浏览到的第一个页面，也可以当作着陆页（Landing Page）来吸引用户的注意。在此，我们归纳整理了几种最常见的展示类模板，可以用于灵活的搭配组合。
+
 我们对 Landing Page 做了以下两种类型：
 
 ---
 
 ## 分步浏览
 
-<img class="preview-img" align="right" alt="分步浏览示例" description="包含：USP (产品 logo，名称，slogan )，CTA（登录/注册栏，行动按钮），导航，分点阐述，客户展示，页尾。" src="https://gw.alipayobjects.com/zos/rmsportal/TxFcrlPlBxcfawCWwdti.jpg">
+<img class="preview-img" align="right" alt="分步浏览示例" description="包含：USP (产品 logo，名称，slogan )，CTA（登录/注册栏，行动按钮），导航，分点阐述，客户展示，页尾。" src="https://gw.alipayobjects.com/zos/rmsportal/VVtazyoxkkGjvjySprqS.png">
 
 分步浏览展示产品的主要信息，通过精彩的视觉，动效，使用户增加产品认知，提升使用兴趣，提供试用机制，进而达到转化目的
 适用产品范围较广。

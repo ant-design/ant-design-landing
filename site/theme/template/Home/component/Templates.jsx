@@ -42,6 +42,7 @@ class Templates extends React.PureComponent {
         const i = ii - prePaging;
         const delay = isMobile ? i * 50 : (Math.floor(i / 3) * 50) + ((i % 3) * 50);
         const animation = { scale: 0.95, opacity: 0, type: 'from', delay, duration: 300 };
+        const typeIsEdit = item.type === 'edit';
         return (
           <TweenOne
             component={Col}
@@ -51,7 +52,7 @@ class Templates extends React.PureComponent {
           >
             <div className="item-wrapper">
               <div className="img-wrapper">
-                <a href={item.preview} target="_blank">
+                <a href={typeIsEdit ? getNewHref('7113', item.preview) : item.preview} target="_blank">
                   <ImageLoadComp src={item.image} />
                 </a>
               </div>
@@ -60,15 +61,15 @@ class Templates extends React.PureComponent {
               </p>
               <Row className="handle">
                 <Col span={12}>
-                  <a href={getNewHref('7113', item.preview)} target="_blank">
+                  <a href={typeIsEdit ? getNewHref('7113', item.preview) : item.preview} target="_blank">
                     <Icon type="eye-o" />
                     <FormattedMessage id="app.home.preview" />
                   </a>
                 </Col>
                 <Col span={12}>
-                  <a href={getNewHref('7112', `cloneId=${item.id}`)} target="_blank">
-                    <Icon type="edit" />
-                    <FormattedMessage id="app.home.edit" />
+                  <a href={typeIsEdit ? getNewHref('7112', `cloneId=${item.templateId}`) : item.git} target="_blank">
+                    <Icon type={item.type} />
+                    <FormattedMessage id={`app.home.${item.type}`} />
                   </a>
                 </Col>
               </Row>
@@ -93,13 +94,13 @@ class Templates extends React.PureComponent {
               </Row>
             </TweenOneGroup>
             {data.length > num && (
-            <Pagination
-              current={paging}
-              pageSize={num}
-              total={data.length}
-              className="pagination"
-              onChange={this.onPagingChange}
-            />
+              <Pagination
+                current={paging}
+                pageSize={num}
+                total={data.length}
+                className="pagination"
+                onChange={this.onPagingChange}
+              />
             )}
           </div>
         </QueueAnim>

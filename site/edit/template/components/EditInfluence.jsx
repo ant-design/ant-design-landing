@@ -17,14 +17,14 @@ class EditInfluence extends React.Component {
         <div className={mediaStateSelect}>
           <Select defaultValue={mediaStateSelect} size="small" onChange={this.onChange}>
             <Option value="Desktop">
-              <Icon type="laptop" />
-              <span>
+              <Icon type="laptop" style={{ fontSize: '12px' }} />
+              <span style={{ marginLeft: 4 }}>
                 Desktop
               </span>
             </Option>
             <Option value="Mobile">
-              <Icon type="mobile" />
-              <span>
+              <Icon type="mobile" style={{ fontSize: '12px' }} />
+              <span style={{ marginLeft: 4 }}>
                 Mobile
               </span>
             </Option>

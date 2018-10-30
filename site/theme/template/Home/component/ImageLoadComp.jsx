@@ -1,4 +1,5 @@
 import React from 'react';
+import TweenOne from 'rc-tween-one';
 import { Spin } from 'antd';
 
 const imgLoadData = {};
@@ -9,6 +10,7 @@ export default class ImageLoadComp extends React.PureComponent {
     this.id = props.src;
     this.state = {
       isLoad: imgLoadData[this.id],
+      anim: null,
     };
   }
 
@@ -22,12 +24,38 @@ export default class ImageLoadComp extends React.PureComponent {
     }
   }
 
+  onEnter = () => {
+    this.setState({
+      anim: [
+        {
+          backgroundPositionY: '100%',
+          duration: 4000,
+        },
+        { backgroundPositionY: '0%', duration: 4000 },
+      ],
+    });
+  }
+
+  onLeave = () => {
+    this.setState({
+      anim: { backgroundPositionY: '0%' },
+    });
+  }
+
   render() {
     const { src } = this.props;
-    const { isLoad } = this.state;
+    const { isLoad, anim } = this.state;
+    const enter = Array.isArray(anim);
     return (
       <Spin spinning={!isLoad}>
-        <div className="img" style={{ backgroundImage: `url(${src})` }} />
+        <TweenOne
+          repeat={enter ? -1 : null}
+          animation={anim}
+          className="img"
+          style={{ backgroundImage: `url(${src})` }}
+          onMouseEnter={this.onEnter}
+          onMouseLeave={this.onLeave}
+        />
         <img alt="img" src={src} onLoad={this.onImageLoad} style={{ display: 'none' }} />
       </Spin>
     );

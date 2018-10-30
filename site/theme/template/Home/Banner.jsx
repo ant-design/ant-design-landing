@@ -120,12 +120,12 @@ export default function Banner({ isMobile }) {
             <FormattedMessage id="app.home.introduce" />
           </p>
           <div className="button-wrapper" key="button">
-            <Link component="a" toHash={false} to="page2" className="btn-temp button">
+            <Link component="a" toHash={false} to="page2" className="btn-temp home-button">
               <FormattedMessage id="app.home.select-template" />
             </Link>
             {!isMobile && (
               <a
-                className="btn-editor button"
+                className="btn-editor home-button"
                 target="_blank"
                 href={getNewHref('7112')}
               >

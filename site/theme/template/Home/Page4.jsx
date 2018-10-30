@@ -37,7 +37,7 @@ export default function Page2() {
             <FormattedMessage id="app.home.edit-slogen" />
           </p>
           <div key="a">
-            <a className="button">
+            <a className="home-button">
               <FormattedMessage id="app.home.enter-editor" />
             </a>
           </div>

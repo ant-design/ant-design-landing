@@ -25,7 +25,7 @@ class Content12 extends React.PureComponent {
 
   render() {
     const { ...props } = this.props;
-    const { dataSource, isMobile } = props;
+    const { dataSource } = props;
     delete props.dataSource;
     delete props.isMobile;
     const childrenToRender = this.getChildrenToRender(dataSource.block.children);
@@ -46,7 +46,7 @@ class Content12 extends React.PureComponent {
                 React.createElement(item.name.indexOf('title') === 0 ? 'h1' : 'div', { key: i.toString(), ...item }, (
                   item.children.match(/\.(svg|gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/)
                     ? React.createElement('img', { src: item.children, alt: 'img' })
-                    : /* replace-start-value = title.children */React.createElement('span', { dangerouslySetInnerHTML: { __html: item.children } })
+                    : /* replace-start-value = item.children */React.createElement('span', { dangerouslySetInnerHTML: { __html: item.children } })
                   /* replace-end-value */
                 ))
               ))

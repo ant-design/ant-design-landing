@@ -4,10 +4,15 @@ import { Link } from 'bisheng/router';
 import { Row, Col, Menu, Icon } from 'antd';
 import MobileMenu from 'rc-drawer';
 import Animate from 'rc-animate';
+import TweenOne from 'rc-tween-one';
+import ticker from 'rc-tween-one/lib/ticker';
 import Article from './Article';
 import * as utils from '../utils';
 
 const { SubMenu } = Menu;
+
+const { easing } = TweenOne;
+
 function getActiveMenuItem(props) {
   const { children } = props.params;
   return (children && children.replace('-cn', ''))
@@ -56,8 +61,19 @@ export default class MainContent extends React.PureComponent {
 
   componentDidUpdate() {
     if (!location.hash) {
-      document.body.scrollTop = 0;
-      document.documentElement.scrollTop = 0;
+      const time = Date.now();
+      ticker.clear(this.tickerId);
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      if (scrollTop) {
+        this.tickerId = ticker.add(() => {
+          const timeDiffer = Date.now() - time;
+          const top = easing.easeInOutCubic(timeDiffer, scrollTop, 0, 450);
+          window.scrollTo(window.pageXOffset, top);
+          if (timeDiffer > 450) {
+            ticker.clear(this.tickerId);
+          }
+        });
+      }
     } else {
       if (this.timer) {
         clearTimeout(this.timer);

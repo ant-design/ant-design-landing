@@ -6,6 +6,7 @@ export default class PhoneNav extends React.PureComponent {
   state = {
     show: false,
   }
+
   componentWillReceiveProps() {
     if (this.state.show) {
       this.setState({
@@ -13,11 +14,13 @@ export default class PhoneNav extends React.PureComponent {
       });
     }
   }
+
   onMenuVisibleChange = (show) => {
     this.setState({
       show,
     });
   }
+
   render() {
     const { children } = this.props;
     const { show } = this.state;

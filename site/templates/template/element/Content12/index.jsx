@@ -14,6 +14,7 @@ class Content12 extends React.PureComponent {
         {...item}
         /* replace-start */
         data-edit="Col"
+        /* replace-end */
       >
         <div {...item.children.wrapper}>
           <span {...item.children.img}>
@@ -40,6 +41,7 @@ class Content12 extends React.PureComponent {
             {...dataSource.titleWrapper}
             /* replace-start */
             data-edit="titleWrapper"
+            /* replace-end */
           >
             {
               dataSource.titleWrapper.children.map((item, i) => (

@@ -1,7 +1,6 @@
 import React from 'react';
 import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';
 import QueueAnim from 'rc-queue-anim';
-import TweenOne from 'rc-tween-one';
 /* replace-start */
 import './index.less';
 /* replace-end */

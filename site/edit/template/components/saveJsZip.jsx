@@ -123,7 +123,7 @@ const jsToZip = () => {
     indexLessStr += `@import './${key.toLocaleLowerCase()}.less';\n`;
     zip.file(`less/${key.toLocaleLowerCase()}.less`, lessComp[key]);
   });
-  let propsStr = '';// 'import React from \'react\';\n';
+  let propsStr = 'import React from \'react\';\n';
   Object.keys(templateStrObj).forEach((key) => {
     const item = templateStrObj[key];
     if (key === 'PROPS') {
@@ -186,10 +186,16 @@ export function saveJsZip(templateData, callBack) {
     const dataSource = mergeEditDataToDefault(config[key], webData[keys[0]], true);
     const props = `export const ${key.replace('_', '')}DataSource =${
       JSON.stringify(dataSource)
-        // .replace(/"(<.*?>)"/g, '<span>$1</span>')//  to react;
-        .replace(/\\"/g, '"')
+        .replace(/\\n/g, '')
         .replace(/href="(.*?)"/g, 'href=\\"$1\\"')
-        .replace(/<br>/g, '<br />')}`;
+        .replace(/<br>/g, '<br />')
+        .replace(/"(<.*?>)"/g, (_, s1) => {
+          if (s1.match(/^<span>.*?<\/span>?/g)) {
+            return s1;
+          }
+          return `<span>${s1}</span>`;
+        })
+        .replace(/\\"/g, '"')}`;
     promiseObject[`PROPS-${key}`] = { value: props };
     /*  formatCode(props).then((value) => {
       templateStrObj.PROPS[key] = value;

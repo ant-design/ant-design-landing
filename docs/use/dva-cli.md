@@ -1,17 +1,17 @@
 ---
-order: 1
+order: 2
 category:
   zh-CN: 如何使用
   en-US: getting-started
 title: 
   zh-CN: dva-cli 里使用
-  en-US: use witch dva
+  en-US: use in dva
 ---
 [dva](https://github.com/dvajs/dva) 脚手架为 ant design 提供的基于 redux、redux-saga 和 react-router 比较完善的轻量级前端框架，具体教程[请查看](https://github.com/sorrycc/blog/issues/18)。
 
 如何使用 demo 地址请查看 [dva-cli-example](https://github.com/ant-motion/ant-motion-dva-cli-example);
 
-基本配置请查看 [开始使用](docs/getting-started);
+基本配置请查看 [开始使用](docs/use/getting-started);
 
 ## 文件路径
 
@@ -54,7 +54,7 @@ dva 默认使用了 `css-modules`，同样我们提供了两套解决方案。
 
 ### 使用 global
 
-使用 `css-modules` 的 `global`, 在 `index.less` 里添加 `:global`, 将样式不作转换, `global` 具体使用[请查看开始使用](/docs/getting-started#样式)。
+使用 `css-modules` 的 `global`, 在 `index.less` 里添加 `:global`, 将样式不作转换, `global` 具体使用[请查看开始使用](/docs/use/getting-started#样式)。
 
 
 ## 按需加载
@@ -82,3 +82,7 @@ dva 里使用 `babel-plugin-import` 我们只需要 `.roadhogrc` 文件里添加
   },
 }
 ```
+
+## 完成
+
+完成以上频骤之后，我们再启动 `npm start` 即可查看在 landing 上下载的模板。

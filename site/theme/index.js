@@ -24,7 +24,8 @@ module.exports = {
   },
   pick: {
     docs: pickerGenerator(),
-    // 'docs/instructions': pickerGenerator('instructions'),
+    'docs/guide': pickerGenerator('guide'),
+    'docs/use': pickerGenerator('use'),
   },
   plugins: [
     'bisheng-plugin-description',
@@ -43,6 +44,10 @@ module.exports = {
       },
       {
         path: '/docs/:children',
+        component: contentTmpl,
+      },
+      {
+        path: '/docs/:file/:children',
         component: contentTmpl,
       },
     ],

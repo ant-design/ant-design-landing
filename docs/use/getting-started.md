@@ -14,13 +14,13 @@ Landing 编辑器里下载的文件为 Home 文件包，导出的文件为 [Reac
 
 ```
 |── less
-| └── index.less              
-| └── common.less            # 通用样式
-| └── content.less           # 内容模块通用样式
-| └── custom.less            # less 变量文件
-| └── edit.less              # 编辑器里编辑后生成的样式
-| └── Banner0.less *         # 相关模块样式
-| └── Content0.less *
+|   └── index.less              
+|   └── common.less            # 通用样式
+|   └── content.less           # 内容模块通用样式
+|   └── custom.less            # less 变量文件
+|   └── edit.less              # 编辑器里编辑后生成的样式
+|   └── Banner0.less *         # 相关模块样式
+|   └── Content0.less *
 |     ...
 |── data.source.js           # 内容数据文件
 |── index.js                 # 主入口
@@ -76,6 +76,8 @@ npm install rc-banner-anim --save;// 如果用的是多屏滑动型的 banner，
 ```
 
 ### 按需加载 ant design
+
+> umi 或 ant design pro 无需安装此项;
 
 ```
 npm install babel-plugin-import --save-dev;

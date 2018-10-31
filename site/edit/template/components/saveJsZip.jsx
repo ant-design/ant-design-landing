@@ -221,7 +221,7 @@ export function saveJsZip(templateData, callBack) {
       .replace(replaceValueStr, '$1')).then((v) => {
       templateStrObj.JS[keys[0]] = v;
     }); */
-    templateStrObj.LESS[keys[0]] = less.replace('../../../static/custom.less', './custom.less');
+    templateStrObj.LESS[keys[0]] = less.replace('@import \'../../../static/custom.less\';\n', '');
   });
   templateStrObj.OTHER.index = templateStrObj.OTHER.index.replace('&scrollAnim&',
     other.full ? 'import scrollScreen from \'rc-scroll-anim/lib/ScrollScreen\';' : ''

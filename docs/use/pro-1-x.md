@@ -1,20 +1,18 @@
 ---
-order: 2
+order: 4
 category:
   zh-CN: 如何使用
   en-US: getting-started
 title: 
-  zh-CN: pro 里使用
-  en-US: use witch pro
+  zh-CN: pro 1.x 里使用
+  en-US: use in pro 1.x
 ---
 
 > 蚂蚁金服用户同学可直接查看 [Bigfish 的新增页面](https://docs.antfin.com/basement/bigfish/newpage)
 
 [Ant Design pro](https://pro.ant.design) 是 Ant Design 推出的一个开箱即用的中台前端/设计解决方案。
 
-基本配置请查看 [开始使用](docs/getting-started);
-
-
+基本配置请查看 [开始使用](docs/use/getting-started);
 
 ## 文件路径 
 
@@ -185,4 +183,4 @@ export default class LandingLayout extends React.Component {
 
 ## CSS Modules
 
-具体参考 [开如使用里的 global](docs/getting-started#样式);
+具体参考 [开如使用里的 global](docs/use/getting-started#样式);

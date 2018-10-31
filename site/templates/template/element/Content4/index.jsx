@@ -30,6 +30,7 @@ function Content4(props) {
           {...dataSource.titleWrapper}
           /* replace-start */
           data-edit="titleWrapper"
+          /* replace-end */
         >
           {
             dataSource.titleWrapper.children.map((item, i) => (

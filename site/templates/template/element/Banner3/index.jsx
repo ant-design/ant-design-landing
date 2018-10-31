@@ -2,7 +2,6 @@ import React from 'react';
 import { Button } from 'antd';
 import QueueAnim from 'rc-queue-anim';
 import Texty from 'rc-texty';
-import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';
 import 'rc-texty/assets/index.css';
 /* replace-start */
 import './index.less';
@@ -46,7 +45,7 @@ class Banner extends React.PureComponent {
                 </Texty>
               )
               : (
-                /* replace-start-value = : item.children */
+                /* replace-start-value = item.children */
                 React.createElement('span', { dangerouslySetInnerHTML: { __html: item.children } })
                 /* replace-end-value */
               )

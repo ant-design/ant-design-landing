@@ -5,7 +5,7 @@ import { enquireScreen } from 'enquire-js';
 &scrollAnim&
 &import&
 &dataSource&
-import './less/antMotion_style.less';
+import './less/antMotionStyle.less';
 
 let isMobile;
 enquireScreen((b) => {

@@ -16,7 +16,7 @@
     "leancloud-storage": "^3.5.0",
     "raw-loader": "^0.5.1",
     "rc-animate": "^2.4.4",
-    "rc-banner-anim": "^2.0.0",
+    "rc-banner-anim": "^2.1.0",
     "rc-drawer": "^1.5.0",
     "rc-editor-list": "^1.1.0",
     "rc-queue-anim": "^1.6.0",

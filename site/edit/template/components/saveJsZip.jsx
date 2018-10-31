@@ -140,7 +140,7 @@ const jsToZip = () => {
     }
   });
   zip.file('data.source.js', propsStr);
-  zip.file('less/antMotion_style.less', indexLessStr);
+  zip.file('less/antMotionStyle.less', indexLessStr);
   zip.generateAsync({ type: 'blob' }).then((content) => {
     saveAs(content, 'Home.zip');
   });

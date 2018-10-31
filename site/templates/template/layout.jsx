@@ -8,7 +8,7 @@ import {
   getEditDomData,
   setDataIdToDataSource,
 } from './utils';
-import { getState, mergeEditDataToDefault, getDataSourceValue, mdId } from '../../utils';
+import { getState, mergeEditDataToDefault, mdId } from '../../utils';
 import { getURLData } from '../../theme/template/utils';
 import { getUserData } from '../../edit-module/actions';
 
@@ -33,7 +33,6 @@ class Layout extends React.Component {
       <style type="text/css">body::-webkit-scrollbar{display:none;}</style>
       `);
     }
-    console.log(props.templateData)
     this.styleTag = this.createStyle();
     this.state = {
       templateData: props.templateData,

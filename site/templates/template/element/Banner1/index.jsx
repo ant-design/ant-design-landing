@@ -4,7 +4,6 @@ import QueueAnim from 'rc-queue-anim';
 import TweenOne, { TweenOneGroup } from 'rc-tween-one';
 import BannerAnim, { Element } from 'rc-banner-anim';
 import 'rc-banner-anim/assets/index.css';
-import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';
 /* replace-start */
 import './index.less';
 /* replace-end */

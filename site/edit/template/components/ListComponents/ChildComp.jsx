@@ -48,7 +48,6 @@ export default class ChildComp extends React.PureComponent {
   }
 
   onAdd = (ids, currentData) => {
-    console.log(this.editAddDefault);
     let newData;
     if (this.editAddDefault) {
       const name = this.editType || this.editAddDefault[0];
@@ -76,7 +75,6 @@ export default class ChildComp extends React.PureComponent {
     const tempDataSource = tempData[cid];
     const newTempDataSource = mergeEditDataToDefault(templateData.data.config[ids[0]],
       tempDataSource);
-    console.log(newTempDataSource);
     let currentEditTemplateData = getDataSourceValue(ids[1], newTempDataSource);
     const idChildArray = ids[1].split('&');
     const childIsArray = Array.isArray(currentEditTemplateData.children);

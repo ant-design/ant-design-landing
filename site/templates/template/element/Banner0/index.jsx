@@ -2,7 +2,6 @@ import React from 'react';
 import { Button, Icon } from 'antd';
 import QueueAnim from 'rc-queue-anim';
 import TweenOne from 'rc-tween-one';
-import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';
 /* replace-start */
 import './index.less';
 /* replace-end */

@@ -28,8 +28,8 @@ export function currentScrollTop() {
   return window.pageYOffset || document.body.scrollTop || document.documentElement.scrollTop;
 }
 export function windowHeight() {
-  return window.innerHeight ||
-    document.documentElement.clientHeight || document.body.clientHeight;
+  return window.innerHeight
+    || document.documentElement.clientHeight || document.body.clientHeight;
 }
 
 

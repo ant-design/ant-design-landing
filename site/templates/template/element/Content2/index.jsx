@@ -47,7 +47,7 @@ function Content2(props) {
         {...dataSource.OverPack}
         component={Row}
         /* replace-start */
-        data-edit="Row"
+        data-edit="Row,OverPack"
       /* replace-end */
       >
         {isMobile && img}

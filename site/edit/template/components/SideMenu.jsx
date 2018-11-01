@@ -8,6 +8,8 @@ import {
 } from '../../../edit-module/actions';
 import { hasErrors } from '../utils';
 
+import { getNewHref } from '../../../utils';
+
 const FormItem = Form.Item;
 
 class SideMenu extends React.PureComponent {
@@ -73,7 +75,8 @@ class SideMenu extends React.PureComponent {
     });
   }
 
-  onSignUp = () => {
+  onSignUp = (e) => {
+    e.preventDefault();
     const { templateData, dispatch } = this.props;
     signUpUser(templateData, this.password, dispatch, () => {
       this.onLockData();
@@ -117,14 +120,18 @@ class SideMenu extends React.PureComponent {
             )
           }
         </FormItem>
-        <FormItem>
+        <FormItem style={{ marginBottom: 0 }}>
           <Button
-            disabled={hasErrors(getFieldsError())}
+            disabled={hasErrors(getFieldsError()) || !this.password}
             type="primary"
             htmlType="submit"
           >
             确定
           </Button>
+          <p>
+            <Icon type="warning" style={{ marginRight: 8 }} />
+            确定后，请记得保存，不然将无效!!!
+          </p>
         </FormItem>
       </Form>
     );
@@ -174,12 +181,16 @@ class SideMenu extends React.PureComponent {
             </Tooltip>
             <Tooltip title="视频教程" placement="right">
               <li>
-                <Icon type="video-camera" />
+                <a href={`${getNewHref('7111', '', true)}/docs/edit/video`} target="_blank">
+                  <Icon type="video-camera" />
+                </a>
               </li>
             </Tooltip>
-            <Tooltip title="注意事项" placement="right">
+            <Tooltip title="查看帮助" placement="right">
               <li>
-                <Icon type="exclamation-circle-o" />
+                <a href={`${getNewHref('7111', '', true)}/docs/edit/edit-block`} target="_blank">
+                  <Icon type="exclamation-circle-o" />
+                </a>
               </li>
             </Tooltip>
           </ul>

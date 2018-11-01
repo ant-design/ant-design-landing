@@ -2,14 +2,14 @@
   {
     "templateId": "template",
     "name": "基础模板",
-    "preview": "uid=template",
+    "preview": "previewId=template",
     "image": "https://gw.alipayobjects.com/zos/rmsportal/zoItfYZBNMHPvqZDxuda.jpg",
     "type": "edit"
   },
   {
     "templateId": "seeconf",
     "name": "seeconf 官网",
-    "preview": "uid=seeconf",
+    "preview": "previewId=seeconf",
     "image": "https://gw.alipayobjects.com/zos/rmsportal/GnDiHuTNxcXpSaJxhmRl.jpg",
     "type": "edit"
   },

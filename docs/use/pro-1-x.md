@@ -1,11 +1,11 @@
 ---
 order: 4
 category:
-  zh-CN: 如何使用
-  en-US: getting-started
+  zh-CN: 下载使用
+  en-US: download-use
 title: 
   zh-CN: pro 1.x 里使用
-  en-US: use in pro 1.x
+  en-US: Use in pro 1.x
 ---
 
 > 蚂蚁金服用户同学可直接查看 [Bigfish 的新增页面](https://docs.antfin.com/basement/bigfish/newpage)

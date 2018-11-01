@@ -74,6 +74,17 @@ export const getUserData = data => (dispatch) => {
   // 获取 url 上是否有 user id;
   const hash = getURLData('uid');
   const cloneId = getURLData('cloneId');
+  const previewId = getURLData('previewId');
+  if (previewId) {
+    dispatch({
+      type: postType.POST_SUCCESS,
+      templateData: {
+        id: previewId,
+        attributes: defaultData[previewId],
+      },
+    });
+    return;
+  }
   if (cloneId) {
     const d = defaultData[cloneId];
     setURLData('cloneId');

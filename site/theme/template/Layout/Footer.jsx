@@ -149,7 +149,7 @@ class Footer extends React.Component {
             </span>
             <span style={{ marginRight: 12 }}>ICP 证浙 B2-2-100257</span>
             <span style={{ marginRight: 12 }}>
-Copyright ©
+              Copyright ©
               {' '}
               <FormattedMessage id="app.footer.company" />
             </span>

@@ -1,11 +1,11 @@
 ---
 order: 3
 category:
-  zh-CN: 如何使用
-  en-US: getting-started
+  zh-CN: 下载使用
+  en-US: download-use
 title: 
   zh-CN: pro 2.x 里使用
-  en-US: use in pro 2.x
+  en-US: Use in pro 2.x
 ---
 
 [Ant Design pro](https://pro.ant.design) 是 Ant Design 推出的一个开箱即用的中台前端/设计解决方案。

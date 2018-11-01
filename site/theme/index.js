@@ -26,6 +26,7 @@ module.exports = {
     docs: pickerGenerator(),
     'docs/guide': pickerGenerator('guide'),
     'docs/use': pickerGenerator('use'),
+    'docs/edit': pickerGenerator('edit'),
   },
   plugins: [
     'bisheng-plugin-description',

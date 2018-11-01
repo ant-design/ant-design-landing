@@ -13,12 +13,14 @@ module.exports = Object.assign({
     categoryOrder: {
       介绍: 0,
       设计指引: 1,
-      如何使用: 2,
-      实践案例: 3,
-      设计资源: 4,
+      编辑器教程: 2,
+      下载使用: 3,
+      实践案例: 4,
+      设计资源: 5,
       Introduce: 0,
       Guide: 1,
-      'getting-started': 2,
+      'edit-help': 2,
+      'download-use': 3,
     },
   },
 }, commonConfig);

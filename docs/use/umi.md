@@ -1,11 +1,11 @@
 ---
 order: 1
 category:
-  zh-CN: 如何使用
-  en-US: getting-started
+  zh-CN: 下载使用
+  en-US: download-use
 title: 
   zh-CN: umi 里使用
-  en-US: use in umi
+  en-US: Use in umi
 ---
 
 [umi](https://umijs.org/) 脚手架为 [ant design](https://ant.design) 提供的可插拔的企业级 react 应用框架，具体教程[请查看](https://www.youtube.com/watch?v=vkAUGUlYm24&feature=youtu.be)。

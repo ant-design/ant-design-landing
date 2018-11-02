@@ -5,30 +5,46 @@ import { Link } from 'bisheng/router';
 import { Row, Col, Menu } from 'antd';
 
 import PhoneNav from './PhoneNav';
-import { getLocalizedPathname } from '../utils';
+import * as utils from '../utils';
 import { getNewHref } from '../../../utils';
+
 
 class Header extends React.Component {
   static contextTypes = {
     router: PropTypes.object.isRequired,
   }
 
-  getMenuToRender = () => {
+  handleLangChange = () => {
+    const { pathname } = this.props.location;
+    const currentProtocol = `${window.location.protocol}//`;
+    const currentHref = window.location.href.substr(currentProtocol.length);
+
+    if (utils.isLocalStorageNameSupported()) {
+      localStorage.setItem('locale', utils.isZhCN(pathname) ? 'en-US' : 'zh-CN');
+    }
+
+    window.location.href = currentProtocol + currentHref.replace(
+      window.location.pathname,
+      utils.getLocalizedPathname(pathname, !utils.isZhCN(pathname)),
+    );
+  }
+
+  getMenuToRender = (lang) => {
     const { isMobile, location, intl } = this.props;
     const isZhCN = intl.locale === 'zh-CN';
     const menuMode = isMobile ? 'inline' : 'horizontal';
-    const module = location.pathname.replace(/(^\/|\/$)/g, '').split('/').slice(0, -1).join('/');
+    const module = location.pathname.replace(/(^\/|\/$)/g, '').split('/')[0];// .slice(0, -1).join('/');
     const activeMenuItem = module || 'home';
     const href = getNewHref('7112');
     return (
       <Menu mode={menuMode} selectedKeys={[activeMenuItem]} id="nav" key="nav">
         <Menu.Item key="home">
-          <Link to={getLocalizedPathname('/', isZhCN)}>
+          <Link to={utils.getLocalizedPathname('/', isZhCN)}>
             <FormattedMessage id="app.header.menu.home" />
           </Link>
         </Menu.Item>
         <Menu.Item key="docs">
-          <Link to={getLocalizedPathname('/docs/introduce', isZhCN)}>
+          <Link to={utils.getLocalizedPathname('/docs/introduce', isZhCN)}>
             <FormattedMessage id="app.header.menu.language" />
           </Link>
         </Menu.Item>
@@ -48,13 +64,21 @@ class Header extends React.Component {
             </a>
           </Menu.Item>
         )}
+        {
+          isMobile && (
+            <Menu.Item key="lang" onClick={this.handleLangChange}>
+              {lang}
+            </Menu.Item>
+          )
+        }
       </Menu>
     );
   }
 
   render() {
-    const menu = this.getMenuToRender();
     const { isMobile, intl } = this.props;
+    const lang = (<FormattedMessage id="app.footer.lang" />);
+    const menu = this.getMenuToRender(lang);
     const isZhCN = intl.locale === 'zh-CN';
     return (
       <div id="header" className="header page-wrapper">
@@ -65,7 +89,7 @@ class Header extends React.Component {
         )}
         <Row className="page">
           <Col md={6} sm={24}>
-            <Link className="logo" to={getLocalizedPathname('/', isZhCN)}>
+            <Link className="logo" to={utils.getLocalizedPathname('/', isZhCN)}>
               <img alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/SVDdpZEbAlWBFuRGIIIL.svg" />
               <span>
                 LANDING
@@ -84,6 +108,9 @@ class Header extends React.Component {
                     className="gitbtn"
                   >
                     Github
+                  </a>
+                  <a className="gitbtn" onClick={this.handleLangChange}>
+                    {lang}
                   </a>
                 </div>
               </Col>

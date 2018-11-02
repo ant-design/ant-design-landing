@@ -1,24 +1,9 @@
 import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import { Row, Col, Button } from 'antd';
+import { Row, Col } from 'antd';
 import * as utils from '../utils';
 
-class Footer extends React.Component {
-  handleLangChange = () => {
-    const { pathname } = this.props.location;
-    const currentProtocol = `${window.location.protocol}//`;
-    const currentHref = window.location.href.substr(currentProtocol.length);
-
-    if (utils.isLocalStorageNameSupported()) {
-      localStorage.setItem('locale', utils.isZhCN(pathname) ? 'en-US' : 'zh-CN');
-    }
-
-    window.location.href = currentProtocol + currentHref.replace(
-      window.location.pathname,
-      utils.getLocalizedPathname(pathname, !utils.isZhCN(pathname)),
-    );
-  }
-
+class Footer extends React.PureComponent {
   render() {
     const { pathname } = this.props.location;
     const isZhCN = utils.isZhCN(pathname);
@@ -101,60 +86,60 @@ class Footer extends React.Component {
             <Col md={6} sm={24} xs={24}>
               <div className="footer-center">
                 <h2>
-                  <img className="title-icon" src="https://gw.alipayobjects.com/zos/rmsportal/nBVXkrFdWHxbZlmMbsaH.svg" alt="" />
+                  <img
+                    className="title-icon"
+                    src="https://gw.alipayobjects.com/zos/rmsportal/nBVXkrFdWHxbZlmMbsaH.svg"
+                    alt="AFX Cloud"
+                  />
                   <FormattedMessage id="app.footer.more-product" />
                 </h2>
                 <div>
-                  <a target="_blank" rel="noopener" href="https://antv.alipay.com/">AntV</a>
+                  <a target="_blank" rel="noopener noreferrer" href="https://yuque.com/">
+                    <FormattedMessage id="app.footer.yuque" />
+                  </a>
+                  <span> - </span>
+                  <FormattedMessage id="app.footer.yuque.slogan" />
+                </div>
+                <div>
+                  <a target="_blank" rel="noopener noreferrer" href="https://yunfengdie.com/">
+                    <FormattedMessage id="app.footer.fengdie" />
+                  </a>
+                  <span> - </span>
+                  <FormattedMessage id="app.footer.fengdie.slogan" />
+                </div>
+                <div>
+                  <a target="_blank" rel="noopener noreferrer" href="https://antv.alipay.com/">
+                    AntV
+                  </a>
                   <span> - </span>
                   <FormattedMessage id="app.footer.data-vis" />
                 </div>
                 <div>
-                  <a target="_blank" rel="noopener" href="https://eggjs.org/">Egg</a>
+                  <a target="_blank" rel="noopener noreferrer" href="https://eggjs.org/">
+                    Egg
+                  </a>
                   <span> - </span>
                   <FormattedMessage id="app.footer.eggjs" />
+                </div>
+                <div>
+                  <a target="_blank" rel="noopener noreferrer" href="http://xcloud.alipay.com/">
+                    <FormattedMessage id="app.footer.xcloud" />
+                  </a>
                 </div>
               </div>
             </Col>
           </Row>
         </div>
-        <Row className="bottom-bar">
-          <Col md={6} sm={24}>
-            <div className="translate-button">
-              <Button ghost size="small" onClick={this.handleLangChange}>
-                <FormattedMessage id="app.footer.lang" />
-              </Button>
-            </div>
-          </Col>
-          <Col md={18} sm={24}>
-            <span
-              style={{ lineHeight: '16px', paddingRight: 12, marginRight: 11, borderRight: '1px solid rgba(255, 255, 255, 0.55)' }}
-            >
-              <a
-                href="https://docs.alipay.com/policies/privacy/antfin"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <FormattedMessage id="app.footer.privacy" />
-              </a>
-            </span>
-            <span style={{ marginRight: 24 }}>
-              <a
-                href="https://render.alipay.com/p/f/fd-izto3cem/index.html"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <FormattedMessage id="app.footer.commitment" />
-              </a>
-            </span>
-            <span style={{ marginRight: 12 }}>ICP 证浙 B2-2-100257</span>
-            <span style={{ marginRight: 12 }}>
-              Copyright ©
-              {' '}
-              <FormattedMessage id="app.footer.company" />
-            </span>
-          </Col>
-        </Row>
+        <div className="bottom-bar">
+          Made with
+          {' '}
+          <span className="heart">❤</span>
+          {' '}
+          by
+          <a target="_blank" rel="noopener noreferrer" href="https://yuque.com/afx/blog">
+            AFX
+          </a>
+        </div>
       </footer>
     );
   }

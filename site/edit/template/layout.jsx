@@ -69,7 +69,6 @@ class Layout extends React.PureComponent {
         </div>
       );
     }
-    console.log(templateData.data);
     if (templateData.data.user && templateData.data.user.userId && !templateData.data.user.delete && !userIsLogin) {
       const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = form;
       const passwordError = isFieldTouched('password') && getFieldError('password');

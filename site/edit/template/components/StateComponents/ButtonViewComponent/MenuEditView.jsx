@@ -26,7 +26,6 @@ class MenuEditView extends React.PureComponent {
 
   onValueChange = (e, i, key, ids, currentData, isLink) => {
     if (isLink) {
-      console.log(currentData.children);
       currentData.children[i][key] = e;
     } else {
       const c = e ? '_black' : '';

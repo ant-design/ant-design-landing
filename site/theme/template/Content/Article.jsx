@@ -71,7 +71,7 @@ export default class Article extends React.PureComponent {
                 <span>
                   This article has not been translated yet. Wan&apos;t to help us out?
                   {' '}
-                  <a href="https://github.com/ant-design/ant-design-pro/issues/120">
+                  <a href="https://github.com/ant-design/landing/issues/1">
                     See this issue on GitHub.
                   </a>
                 </span>

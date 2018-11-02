@@ -1,8 +1,8 @@
 ---
 order: 0
 category:
-  zh-CN: 下载使用
-  en-US: download-use
+  zh-CN: 使用教程
+  en-US: Tutorial
 title: 
   zh-CN: 开始使用
   en-US: Getting-started
@@ -87,7 +87,11 @@ npm install babel-plugin-import --save-dev;
 
 详细使用请查看 [babel-plugin-import](https://github.com/ant-design/babel-plugin-import)
 
-### 配置 html scale
+## 配置自定义皮肤
+
+[参考](https://ant.design/docs/react/customize-theme-cn) 里面的 package.theme（推荐);
+
+## 配置 html scale
 
 为更好的响应无线端的使用，Landing 需要你在你的 html 文件的 head 里配置以下代码：
 ```html

@@ -81,6 +81,7 @@ class SideMenu extends React.PureComponent {
     signUpUser(templateData, this.password, dispatch, () => {
       this.onLockData();
       message.success('加密成功，请保存。');
+      this.props.form.resetFields();
     });
   }
 

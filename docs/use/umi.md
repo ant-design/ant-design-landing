@@ -1,8 +1,8 @@
 ---
 order: 1
 category:
-  zh-CN: 下载使用
-  en-US: download-use
+  zh-CN: 使用教程
+  en-US: Tutorial
 title: 
   zh-CN: umi 里使用
   en-US: Use in umi

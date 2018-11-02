@@ -2,7 +2,7 @@
 order: 3
 title: 
   zh-CN: 实践案例
-  en-US: case
+  en-US: Case
 ---
 
 目前在外部也有许多产品实践，如果你的页面想在这里展现，[欢迎留言](https://github.com/ant-design/ant-motion/issues/30)。

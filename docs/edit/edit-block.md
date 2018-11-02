@@ -2,10 +2,10 @@
 order: 0
 category:
   zh-CN: 编辑器教程
-  en-US: edit-help
+  en-US: Edit-help
 title: 
-  zh-CN: 编辑器介绍
-  en-US: Editor block
+  zh-CN: 编辑器使用介绍
+  en-US: Editor help
 ---
 
 这里我们将介绍如何使用编辑器与编辑器里的几块功能，如果在编辑过程中遇到任何问题，都可以在我们的 [issue](https://github.com/ant-design/landing/issues) 或 `Hotjar` 里反馈。

@@ -1,8 +1,8 @@
 ---
 order: 4
 category:
-  zh-CN: 下载使用
-  en-US: download-use
+  zh-CN: 使用教程
+  en-US: Tutorial
 title: 
   zh-CN: pro 1.x 里使用
   en-US: Use in pro 1.x

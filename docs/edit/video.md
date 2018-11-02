@@ -2,7 +2,7 @@
 order: 1
 category:
   zh-CN: 编辑器教程
-  en-US: edit-help
+  en-US: Edit-help
 title: 
   zh-CN: 视频教程
   en-US: Video help

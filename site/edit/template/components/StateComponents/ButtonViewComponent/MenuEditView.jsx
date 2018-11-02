@@ -24,9 +24,14 @@ class MenuEditView extends React.PureComponent {
     onChildChange(this.props.dispatch, this.props.templateData, ids, currentData);
   }
 
-  onValueChange = (e, i, key, ids, currentData) => {
-    const c = e ? '_black' : '';
-    currentData.children[i].a[key] = key === 'target' ? c : e;
+  onValueChange = (e, i, key, ids, currentData, isLink) => {
+    if (isLink) {
+      console.log(currentData.children);
+      currentData.children[i][key] = e;
+    } else {
+      const c = e ? '_black' : '';
+      currentData.children[i].a[key] = key === 'target' ? c : e;
+    }
     onChildChange(this.props.dispatch, this.props.templateData, ids, currentData);
   }
 
@@ -45,14 +50,17 @@ class MenuEditView extends React.PureComponent {
     if (!currentEditTemplateData.children) {
       return null;
     }
+    const templateIds = templateData.data.template;// .filter(key => !key.match(/Nav|Footer/ig));
+    let isLink;
     const childrenToRender = currentEditTemplateData.children.filter(c => c && !c.delete).map((item, i) => {
+      isLink = !!item.to;
       return (
         <div key={item.name} className="sort-manage">
           <div className="sort-manage-name">
             <Input
-              defaultValue={item.a.children}
+              defaultValue={isLink ? item.children : item.a.children}
               onChange={(e) => {
-                this.onValueChange(e.target.value, i, 'children', ids, currentEditTemplateData);
+                this.onValueChange(e.target.value, i, 'children', ids, currentEditTemplateData, isLink);
               }}
             />
           </div>
@@ -69,25 +77,27 @@ class MenuEditView extends React.PureComponent {
                     <Col span={16}>
                       <Input
                         onChange={(e) => {
-                          this.onValueChange(e.target.value, i, 'href', ids, currentEditTemplateData);
+                          this.onValueChange(e.target.value, i, isLink ? 'to' : 'href', ids, currentEditTemplateData, isLink);
                         }}
-                        defaultValue={item.a.href}
+                        defaultValue={isLink ? item.to : item.a.href}
                       />
                     </Col>
                   </Row>
-                  <Row style={{ marginTop: 16 }}>
-                    <Col span={8}>
-                      弹出页面:
-                    </Col>
-                    <Col span={16}>
-                      <Switch size="small"
-                        checked={!!item.a.target}
-                        onChange={(e) => {
-                          this.onValueChange(e, i, 'target', ids, currentEditTemplateData);
-                        }}
-                      />
-                    </Col>
-                  </Row>
+                  {!isLink && (
+                    <Row style={{ marginTop: 16 }}>
+                      <Col span={8}>
+                        弹出页面:
+                      </Col>
+                      <Col span={16}>
+                        <Switch size="small"
+                          checked={!!item.a.target}
+                          onChange={(e) => {
+                            this.onValueChange(e, i, 'target', ids, currentEditTemplateData);
+                          }}
+                        />
+                      </Col>
+                    </Row>
+                  )}
                 </div>
               )}
               trigger="click"
@@ -115,6 +125,17 @@ class MenuEditView extends React.PureComponent {
     });
     return (
       <div>
+        {isLink && (
+          <div style={{ marginBottom: 16 }}>
+            <Icon type="exclamation-circle" theme="outlined" />
+            {' '}
+            此导航为 Link 导航, 链接里请填写以下 id 名称；
+            <br />
+            当前页面所有 ID：
+            <br />
+            {templateIds.join(', ')}
+          </div>
+        )}
         <ListSort
           dragClassName="list-drag-selected"
           className="sort-manage-list"

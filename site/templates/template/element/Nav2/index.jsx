@@ -40,10 +40,16 @@ class Header extends React.Component {
     delete props.dataSource;
     delete props.isMobile;
     const { menuHeight, phoneOpen } = this.state;
-    const navData = dataSource.menuLink.children;
+    const navData = dataSource.Menu.children;
     const navChildren = Object.keys(navData)
       .map((key, i) => (
-        <Link key={i.toString()} {...navData[key]}>
+        <Link
+          key={i.toString()}
+          {...navData[key]}
+         /* replace-start */
+          data-edit="Menu"
+         /* replace-end */
+        >
           {
             /* replace-start-value = navData[key].children} */
             React.createElement('span', { dangerouslySetInnerHTML: { __html: navData[key].children } })
@@ -84,7 +90,7 @@ class Header extends React.Component {
             </div>)
           }
           <TweenOne
-            {...dataSource.menuLink}
+            {...dataSource.Menu}
             animation={{ x: 30, type: 'from', ease: 'easeOutQuad' }}
             ref={(c) => { this.menu = c; }}
             style={isMobile ? { height: menuHeight } : null}

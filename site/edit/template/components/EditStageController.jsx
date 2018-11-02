@@ -407,7 +407,7 @@ class EditStateController extends React.PureComponent {
     };
     // 添加 scrollLink 导航的时候，自动添加数据。
     if (add) {
-      // this.addNavLinkData(templateData);
+      this.addNavLinkData(templateData);
     }
     const { dispatch } = this.props;
     dispatch(setTemplateData(templateData));
@@ -502,7 +502,7 @@ class EditStateController extends React.PureComponent {
     const config = templateData.data.config;
     let change = false;
     nav2Array.forEach((key) => {
-      const menuLink = getDataSourceValue('menuLink', config, [key, 'dataSource']);
+      const menuLink = getDataSourceValue('Menu', config, [key, 'dataSource']);
       ([].concat(pageArray)).forEach((cKey) => {
         const menuChild = menuLink.children || [];
         if (menuChild.findIndex(item => item.name === cKey) === -1) {

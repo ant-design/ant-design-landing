@@ -20,7 +20,7 @@ Landing is a template built by Ant Motion's motion components. It has a rich hom
 
 [Specifications](https://landing.ant.design/docs/introduce)
 
-[Download](https://landing.ant.design/docs/download)
+[Download Sketch](https://landing.ant.design/docs/download)
 
 [Responsive](https://landing.ant.design/docs/guide/layout)
 

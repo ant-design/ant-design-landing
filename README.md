@@ -7,7 +7,10 @@
 <div align="center">Landing Pages of Ant Design System</div>
 
 <div align="center">
-  The content of this website is split from the <a href="https://motion.ant.design">ant motion</a> template block.
+
+[![Dependencies](https://img.shields.io/david/ant-design/ant-design-landing.svg)](https://david-dm.org/ant-design/ant-design-landing)
+[![DevDependencies](https://img.shields.io/david/dev/ant-design/ant-design-landing.svg)](https://david-dm.org/ant-design/ant-design-landing?type=dev)
+
 </div>
 
 <div align="center">English | <a href="./README-zh_CN.md">简体中文</a></div>

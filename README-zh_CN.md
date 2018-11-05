@@ -19,8 +19,11 @@ Landing 是运用 Ant Motion 动效组件来搭建完成的页面模板，拥有
 ## 三大特性
 
 [设计指引](https://landing.ant.design/docs/introduce);
+
 [源文件下载](https://landing.ant.design/docs/download);
-[响应式布局](https://landing.ant.design/docs/guide/layout)
+
+[响应式布局](https://landing.ant.design/docs/guide/layout);
+
 
 ## 丰富的模板
 

@@ -53,6 +53,9 @@ class NavController extends React.PureComponent {
     /* this.onSave(e, () => {
       message.success('生成预览成功。');
     }); */
+    if (!location.port && window.gtag) {
+      window.gtag('event', 'preview');
+    }
     message.success('生成预览成功。');
     const { templateData } = this.props;
     const url = `${location.port ? `${location.protocol}//${location.hostname}:7113/`
@@ -61,6 +64,9 @@ class NavController extends React.PureComponent {
   }
 
   onSave = (e, cb) => {
+    if (!location.port && window.gtag) {
+      window.gtag('event', 'save');
+    }
     this.setState({
       isLoad: '保存',
     }, () => {
@@ -78,14 +84,9 @@ class NavController extends React.PureComponent {
   }
 
   onSaveCode = () => {
-    /*     if (!location.port && window.ga) {
-      window.ga('send', 'event', 'button', 'click', 'download');
-    } */
-    /* this.onSave(e, () => {
-      saveJsZip(this.props.templateData, () => {
-        message.success('生成代码成功。');
-      });
-    }); */
+    if (!location.port && window.gtag) {
+      window.gtag('event', 'download');
+    }
     this.setState({
       isLoad: '下载',
     }, () => {
@@ -99,6 +100,9 @@ class NavController extends React.PureComponent {
   }
 
   onClickNew = () => {
+    if (!location.port && window.gtag) {
+      window.gtag('event', 'newTemplate');
+    }
     newTemplate(() => {
       location.reload();
     });
@@ -161,7 +165,7 @@ class NavController extends React.PureComponent {
       </Menu>);
   }
 
-  onMoadlOpenClose = () => {
+  onChangeDataOpenModal = () => {
     this.setState({
       codeModalShow: !this.state.codeModalShow,
     });
@@ -176,6 +180,9 @@ class NavController extends React.PureComponent {
 
   onSaveData = () => {
     // json 保存
+    if (!location.port && window.gtag) {
+      window.gtag('event', 'saveJson');
+    }
     const { code } = this.state;
     const { templateData, dispatch, currentEditData } = this.props;
     templateData.data = JSON.parse(code);
@@ -217,7 +224,7 @@ class NavController extends React.PureComponent {
         icon: this.state.isLoad === '下载' ? 'loading' : 'code-o',
         onClick: this.state.isLoad === '下载' ? null : this.onSaveCode,
       },
-      { name: '编辑数据', icon: 'tool', onClick: this.onMoadlOpenClose },
+      { name: '编辑数据', icon: 'tool', onClick: this.onChangeDataOpenModal },
     ].map((item, i) => (
       <li key={i.toString()} onClick={item.onClick} disabled={!item.onClick}>
         <Icon type={item.icon} />
@@ -256,7 +263,7 @@ class NavController extends React.PureComponent {
           visible={this.state.codeModalShow}
           width={800}
           footer={null}
-          onCancel={this.onMoadlOpenClose}
+          onCancel={this.onChangeDataOpenModal}
         >
           <p style={{ marginBottom: 16 }}>
             <Icon type="exclamation-circle" style={{ marginRight: 8 }} />

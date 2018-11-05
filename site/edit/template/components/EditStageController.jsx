@@ -12,8 +12,6 @@ import tempData from '../../../templates/template/element/template.config';
 import EditButtton from './StateComponents/EditButtonView';
 import SwitchSlideView from './StateComponents/SwitchSlideView';
 
-const $ = window.$ || {};
-
 class EditStateController extends React.PureComponent {
   static defaultProps = {
     className: 'edit-stage',
@@ -34,7 +32,7 @@ class EditStateController extends React.PureComponent {
     // window.addEventListener('message', this.receiveDomData);
     window.receiveDomData = this.receiveDomData;
     // 重置框
-    $(window).resize(this.reRect);
+    window.addEventListener('resize', this.reRect);
     // 拖动
     let newId;
     this.side = document.querySelector('.edit-side-drawer .drawer-content .img-content-wrapper');
@@ -81,10 +79,10 @@ class EditStateController extends React.PureComponent {
       stateChild = null;
       this.isDrap = true;
       this.reRect();
-      $(this.stage).addClass('drag');
+      this.state.className = `${this.state.className} drag`;
     })
       .on('dragend', () => {
-        $(this.stage).removeClass('drag');
+        this.state.className = this.stage.className.replace('drag', '').trim();
         this.isDrap = false;
       })
       .on('drop', (el) => {

@@ -14,7 +14,6 @@ import { getUserData } from '../../edit-module/actions';
 
 import Point from './other/Point';
 
-const $ = window.$ || {};
 const stateSort = { default: 0, hover: 1, focus: 2, active: 3 };
 let isMobile;
 enquireScreen((b) => {
@@ -29,9 +28,10 @@ class Layout extends React.Component {
       const { dispatch } = props;
       dispatch(getUserData());
     } else {
-      $(document.body).append(`
-      <style type="text/css">body::-webkit-scrollbar{display:none;}</style>
-      `);
+      const style = document.createElement('style');
+      style.type = 'text/css';
+      style.innerHTML = 'body::-webkit-scrollbar{display:none;}';
+      document.body.appendChild(style);
     }
     this.styleTag = this.createStyle();
     this.state = {

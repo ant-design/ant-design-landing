@@ -8,11 +8,11 @@ title:
 
 
 <div class="file-logo">
-  <div style="width: 150px; height: 150px;">
+  <div class="ant-logo">
    <img src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg" height="100%"/>
   </div>
   <span>+</span>
-  <div style="width: 150px; height: 150px; padding: 10px;background: #2F54EB;border-radius: 8px;text-align:center;">
+  <div class="landing-logo">
     <img src="https://gw.alipayobjects.com/zos/rmsportal/SVDdpZEbAlWBFuRGIIIL.svg" height="100%">
   </div>
 </div>

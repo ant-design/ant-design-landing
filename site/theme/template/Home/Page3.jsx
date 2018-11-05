@@ -153,6 +153,9 @@ export default class Page3 extends React.Component {
 
   render() {
     const { type, imgData } = this.state;
+    if (this.props.isMobile) {
+      return null;
+    }
     return (
       <div className="home-page-wrapper page3">
         <div className="home-page">

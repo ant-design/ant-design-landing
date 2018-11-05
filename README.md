@@ -7,7 +7,7 @@
 <div align="center">Ant Design Landing templates and specifications</div>
 
 <div align="center">
-  The content of this website is split from the <a href="https://motion.ant.design">ant motion</a> template block.
+  The content of this website is split from the <a href="https://motion.ant.design">Ant Motion</a> template block.
 </div>
 
 <div align="center">English | <a href="./README-zh_CN.md">简体中文</a></div>

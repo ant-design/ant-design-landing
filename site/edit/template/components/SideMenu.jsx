@@ -173,9 +173,9 @@ class SideMenu extends React.PureComponent {
                 <Icon type={isLock ? 'lock' : 'unlock'} />
               </li>
             </Tooltip>
-            <Tooltip title="dva-cli 例子" placement="right">
+            <Tooltip title="umi 例子" placement="right">
               <li>
-                <a href="https://github.com/ant-motion/ant-motion-dva-cli-example" target="_blank">
+                <a href="https://github.com/ant-motion/landing-umi-example" target="_blank">
                   <Icon type="folder" />
                 </a>
               </li>

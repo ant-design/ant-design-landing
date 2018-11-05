@@ -50,7 +50,6 @@ export const newTemplate = (cb, data = {
 }) => {
   const TemplateObject = AV.Object.extend(fileName);
   const tempData = new TemplateObject();
-  console.log(data);
   tempData.set('template', data.template);
   tempData.set('config', data.config);
   tempData.set('style', data.style);
@@ -104,13 +103,11 @@ export const getUserData = data => (dispatch) => {
     && window.localStorage.getItem(userName).split(',').filter(c => c)) || [];
   const uid = hash || userId[localNum];
   localNum += 1;
-  console.log(uid);
   if (!hash && uid) {
     setURLData('uid', uid);
   }
   let userIsLogin;
   if (!uid) {
-    console.log(data);
     newTemplate((obj) => {
       dispatch({
         type: postType.POST_SUCCESS,
@@ -148,7 +145,6 @@ export const getUserData = data => (dispatch) => {
           userIsLogin,
         });
       }, (error) => {
-        console.log(JSON.stringify(error));
         if (error.code === 101) {
           window.localStorage.setItem(userName, userId.filter(key => key !== uid).join(','));
           setURLData('uid');
@@ -182,7 +178,6 @@ export const setTemplateData = (data) => {
 export const saveData = (templateData, dispatch, cb) => {
   const { uid, data } = templateData;
   const { user } = data;
-  console.log(user);
   const saveFile = (d) => {
     const templateObject = AV.Object.createWithoutData(fileName, uid);
     Object.keys(data).forEach((key) => {

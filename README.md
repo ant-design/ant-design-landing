@@ -4,9 +4,10 @@
   </a>
 </p>
 <h1 align="center">Ant Design Landing</h1>
-<div align="center">Landing Pages of Ant Design System</div>
 
 <div align="center">
+  
+Landing Pages of Ant Design System
 
 [![Dependencies](https://img.shields.io/david/ant-design/ant-design-landing.svg)](https://david-dm.org/ant-design/ant-design-landing)
 [![DevDependencies](https://img.shields.io/david/dev/ant-design/ant-design-landing.svg)](https://david-dm.org/ant-design/ant-design-landing?type=dev)

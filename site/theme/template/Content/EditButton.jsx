@@ -4,7 +4,7 @@ import { Tooltip, Icon } from 'antd';
 export default function EditButton({
   title,
   filename,
-  sourcePath = 'https://github.com/ant-design/landing/edit/master/',
+  sourcePath = 'https://github.com/ant-design/ant-design-landing/edit/master/',
 }) {
   return (
     <Tooltip title={title}>

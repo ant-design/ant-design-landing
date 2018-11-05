@@ -6,7 +6,7 @@
   "homepage": "http://landing.ant.design/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ant-design/landing"
+    "url": "https://github.com/ant-design/ant-design-landing"
   },
   "license": "MIT",
   "dependencies": {

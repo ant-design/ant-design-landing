@@ -8,7 +8,7 @@ title:
   en-US: Editor help
 ---
 
-这里我们将介绍如何使用编辑器与编辑器里的几块功能，如果在编辑过程中遇到任何问题，都可以在我们的 [issue](https://github.com/ant-design/landing/issues) 或 `Hotjar` 里反馈。
+这里我们将介绍如何使用编辑器与编辑器里的几块功能，如果在编辑过程中遇到任何问题，都可以在我们的 [issue](https://github.com/ant-design/ant-design-landing/issues) 或 `Hotjar` 里反馈。
 
 ## 区块介绍
 

@@ -8,7 +8,7 @@ title:
   en-US: Getting-started
 ---
 
-Landing 编辑器里下载的文件为 Home 文件包，导出的文件为 [React](https://reactjs.org/) 文件 `.jsx`， 样式采用的为 [less](http://lesscss.org/) 文件 `.less`， 如遇到问题时，建议先学习一下相关的语言特性，再前往 [Landing issues](https://github.com/ant-design/landing/issues) 提问。
+Landing 编辑器里下载的文件为 Home 文件包，导出的文件为 [React](https://reactjs.org/) 文件 `.jsx`， 样式采用的为 [less](http://lesscss.org/) 文件 `.less`， 如遇到问题时，建议先学习一下相关的语言特性，再前往 [Landing issues](https://github.com/ant-design/ant-design-landing/issues) 提问。
 
 ## 目录结构
 

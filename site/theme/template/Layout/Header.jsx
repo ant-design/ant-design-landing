@@ -102,7 +102,7 @@ class Header extends React.Component {
                 <div className="menu">
                   {menu}
                   <a
-                    href="https://github.com/ant-design/landing"
+                    href="https://github.com/ant-design/ant-design-landing"
                     alt="git"
                     target="_blank"
                     className="gitbtn"

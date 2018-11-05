@@ -15,7 +15,7 @@ class Footer extends React.PureComponent {
               <div className="footer-center">
                 <h2>Ant Design Landing</h2>
                 <div>
-                  <a target="_blank " href="https://github.com/ant-design/landing">
+                  <a target="_blank " href="https://github.com/ant-design/ant-design-landing">
                     <FormattedMessage id="app.footer.repo" />
                   </a>
                 </div>
@@ -68,7 +68,7 @@ class Footer extends React.PureComponent {
               <div className="footer-center">
                 <h2><FormattedMessage id="app.footer.community" /></h2>
                 <div>
-                  <a target="_blank" rel="noopener" href="https://github.com/ant-design/landing/issues">
+                  <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design-landing/issues">
                     <FormattedMessage id="app.footer.issues" />
                   </a>
                 </div>

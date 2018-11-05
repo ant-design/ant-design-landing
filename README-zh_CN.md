@@ -1,6 +1,6 @@
 <p align="center">
-  <a href="http://landing.ant.design" style="display: block; width: 140px; height: 140px; background: #2F54EB; border-radius: 8px; padding: 8px">
-    <img height="100%" src="https://gw.alipayobjects.com/zos/rmsportal/SVDdpZEbAlWBFuRGIIIL.svg"/>
+  <a href="http://landing.ant.design">
+    <img height="150px" src="https://gw.alipayobjects.com/zos/rmsportal/hSYPdZJwZeXAgfkktcEu.svg"/>
   </a>
 </p>
 <h1 align="center">Landing</h1>
@@ -34,7 +34,7 @@ Landing 是运用 Ant Motion 动效组件来搭建完成的页面模板，拥�
 
 
 <div style="max-width: 600px">
-<img src="https://user-images.githubusercontent.com/6802825/47980280-ec459480-e101-11e8-8a94-1ada4ff61faa.jpg)" width="100%">
+<img src="https://user-images.githubusercontent.com/6802825/47980280-ec459480-e101-11e8-8a94-1ada4ff61faa.jpg" width="100%">
 </div>
 
 [>> 查看详细](https://landing.ant.design/edit);

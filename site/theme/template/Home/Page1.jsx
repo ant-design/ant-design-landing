@@ -5,21 +5,23 @@ import ScrollOverPack from 'rc-scroll-anim/lib/ScrollOverPack';
 import QueueAnim from 'rc-queue-anim';
 import { Link } from 'react-router';
 import { Row, Col } from 'antd';
+import { isZhCN } from '../utils';
 
+const isCN = isZhCN(location.href);
 const page1 = [
   {
     title: <FormattedMessage id="app.home.fatures.language" />,
-    link: '/docs/introduce-cn',
+    link: `/docs/introduce${isCN ? '-cn' : ''}`,
     src: 'https://gw.alipayobjects.com/zos/rmsportal/QCcDSfdbCIbVSsUZJaQK.svg',
   },
   {
     title: <FormattedMessage id="app.home.fatures.sketch" />,
-    link: '/docs/download-cn',
+    link: `/docs/download${isCN ? '-cn' : ''}`,
     src: 'https://gw.alipayobjects.com/zos/rmsportal/hMSnSxMzmiGSSIXxFtNf.svg',
   },
   {
     title: <FormattedMessage id="app.home.fatures.responsive" />,
-    link: '/docs/layout-cn',
+    link: `/docs/guide/layout${isCN ? '-cn' : ''}`,
     src: 'https://gw.alipayobjects.com/zos/rmsportal/OMEOieDFPYDcWXMpqqzd.svg',
   },
 ];

@@ -3,7 +3,7 @@
     <img width="150px" height="150px" src="https://gw.alipayobjects.com/zos/rmsportal/hSYPdZJwZeXAgfkktcEu.svg"/>
   </a>
 </p>
-<h1 align="center">Landing</h1>
+<h1 align="center">Ant Design Landing</h1>
 <div align="center">Ant Design 的 Landing Page 模板与设计指引</div>
 
 <div align="center">
@@ -18,11 +18,9 @@ Landing 是运用 Ant Motion 动效组件来搭建完成的页面模板，拥有
 
 ## 三大特性
 
-[设计指引](https://landing.ant.design/docs/introduce);
-
-[源文件下载](https://landing.ant.design/docs/download);
-
-[响应式布局](https://landing.ant.design/docs/guide/layout);
+- [设计指引](https://landing.ant.design/docs/introduce);
+- [源文件下载](https://landing.ant.design/docs/download);
+- [响应式布局](https://landing.ant.design/docs/guide/layout);
 
 
 ## 丰富的模板
@@ -40,7 +38,7 @@ Landing 是运用 Ant Motion 动效组件来搭建完成的页面模板，拥有
 <img src="https://user-images.githubusercontent.com/6802825/47980280-ec459480-e101-11e8-8a94-1ada4ff61faa.jpg" width="100%">
 </div>
 
-[>> 查看详细](https://landing.ant.design/edit);
+[进入编辑 😀](https://landing.ant.design/edit);
 
 ## 脚手架里的示例
 

@@ -43,8 +43,9 @@
   font-weight: 500;
   margin-bottom: 20px;
   margin-top: 8px;
-  font-family: Lato, @font-family;
-
+  font-family: Lato, @font-family, sans-serif;
+  font-size: 30px;
+  line-height: 38px;
   .subtitle {
     margin-left: 12px;
   }
@@ -56,16 +57,12 @@
 .markdown h5,
 .markdown h6 {
   color: @site-heading-color;
-  font-family: Lato, @font-family;
+  font-family: Lato, @font-family, sans-serif;
   margin: 1.6em 0 0.6em;
   font-weight: 500;
   clear: both;
 }
 
-.markdown h1 {
-  font-size: 30px;
-  line-height: 38px;
-}
 .markdown h2 {
   font-size: 24px;
   line-height: 32px;
@@ -151,6 +148,7 @@
   white-space: nowrap;
   color: #5c6b77;
   font-weight: 500;
+  background: rgba(0, 0, 0, 0.02);
 }
 
 .markdown > table th,
@@ -158,10 +156,6 @@
   border: 1px solid @site-border-color-split;
   padding: 16px 24px;
   text-align: left;
-}
-
-.markdown > table th {
-  background: rgba(0, 0, 0, 0.02);
 }
 
 .markdown blockquote {
@@ -327,25 +321,23 @@
 }
 
 // For Changelog
-.markdown {
-  ul.ant-timeline {
-    li.ant-timeline-item {
-      list-style: none;
-      margin: 0;
-      padding: 0 0 30px;
-      .ant-timeline-item-content {
-        font-size: 14px;
-        padding-left: 32px;
-        position: relative;
-        top: -14px;
-        > h2 {
-          margin-top: 0;
-          padding-top: 0.5px;
-        }
+.markdown ul.ant-timeline {
+  li.ant-timeline-item {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 30px;
+    .ant-timeline-item-content {
+      font-size: 14px;
+      padding-left: 32px;
+      position: relative;
+      top: -14px;
+      > h2 {
+        margin-top: 0;
+        padding-top: 0.5px;
       }
     }
-    li.ant-timeline-item:first-child {
-      margin-top: 40px;
-    }
+  }
+  li.ant-timeline-item:first-child {
+    margin-top: 40px;
   }
 }

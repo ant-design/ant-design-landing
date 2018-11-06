@@ -18,6 +18,10 @@ class Layout extends React.PureComponent {
     loading: false,
   }
 
+  componentDidMount() {
+    message.warning('目前为测试阶段，如果有编辑完成的，请保存 JSON 数据，我们会随时清除数据！！！', 5);
+  }
+
   componentWillMount() {
     const { dispatch } = this.props;
     dispatch(getUserData());

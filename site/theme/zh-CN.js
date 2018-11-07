@@ -24,6 +24,7 @@ module.exports = {
     'app.content.edit-page': '在 Github 上编辑此页！',
     'app.footer.repo': '源码仓库',
     'app.footer.template': '模板仓库',
+    'app.footer.chinamirror': '国内镜像站点 🇨🇳',
     'app.footer.scaffolds': '脚手架市场',
     'app.footer.links': '相关站点',
     'app.footer.data-vis': '蚂蚁数据可视化方案',

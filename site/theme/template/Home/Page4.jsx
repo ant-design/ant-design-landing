@@ -4,6 +4,7 @@ import ScrollOverPack from 'rc-scroll-anim/lib/ScrollOverPack';
 import { FormattedMessage } from 'react-intl';
 
 import { svgBgToParallax } from './utils';
+import { getNewHref } from '../../../utils';
 
 const svgBg = [
   <circle id="Oval-8" stroke="#13C2C2" cx="530" cy="195" r="5" />,
@@ -37,7 +38,7 @@ export default function Page2() {
             <FormattedMessage id="app.home.edit-slogen" />
           </p>
           <div key="a">
-            <a className="home-button" href="https://landing.ant.design/edit">
+            <a className="home-button" href={getNewHref('7112')}>
               <FormattedMessage id="app.home.enter-editor" />
             </a>
           </div>

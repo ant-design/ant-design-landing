@@ -24,6 +24,7 @@ module.exports = {
     'app.content.edit-page': 'Edit this page on GitHub!',
     'app.footer.repo': 'GitHub',
     'app.footer.template': 'Template GitHub',
+    'app.footer.chinamirror': 'China Mirror 🇨🇳',
     'app.footer.scaffolds': 'Scaffold Market',
     'app.footer.links': 'Sites',
     'app.footer.data-vis': 'Data Visualization',

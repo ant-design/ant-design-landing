@@ -24,6 +24,11 @@ class Footer extends React.PureComponent {
                     <FormattedMessage id="app.footer.template" />
                   </a>
                 </div>
+                <div>
+                  <a href="http://ant-design-landing.gitee.io/" target="_blank ">
+                    <FormattedMessage id="app.footer.chinamirror" />
+                  </a>
+                </div>
               </div>
             </Col>
             <Col md={6} sm={24} xs={24}>

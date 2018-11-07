@@ -9,7 +9,7 @@ title:
 
 ```__react
 const downloadData = [
-  { title: '基础模板', content: '百搭型产品 Landing 模板，拼搭自已的专属产品 Landing Page', url: 'https://github.com/ant-design/ant-design/releases/download/resource/Ant.Design.Landing.Template.sketch', img: 'https://gw.alipayobjects.com/zos/rmsportal/rTsbUasdHJKVmTgSSWtv.jpg' },
+  { title: '基础模板', content: '百搭型产品 Landing 模板，拼搭自已的专属产品 Landing Page', name: 'basic', url: 'https://github.com/ant-design/ant-design/releases/download/resource/Ant.Design.Landing.Template.sketch', img: 'https://gw.alipayobjects.com/zos/rmsportal/rTsbUasdHJKVmTgSSWtv.jpg' },
 ];
 
 import React from 'react';

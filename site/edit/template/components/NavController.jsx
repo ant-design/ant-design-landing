@@ -239,14 +239,14 @@ class NavController extends React.PureComponent {
     );
     return (
       <div className={this.props.className}>
-        <div className="logo">
-          <a href={getNewHref('7111', null, true)} target="_blank">
+        <a href={getNewHref('7111', null, true)}>
+          <div className="logo">
             <img
               src="https://gw.alipayobjects.com/zos/rmsportal/SVDdpZEbAlWBFuRGIIIL.svg"
               alt="logo"
             />
-          </a>
-        </div>
+          </div>
+        </a>
         <ul className="menu">
           {menuChild}
         </ul>

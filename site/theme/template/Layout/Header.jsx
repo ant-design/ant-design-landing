@@ -57,7 +57,6 @@ class Header extends React.Component {
         {!isMobile && (
           <Menu.Item key="edit">
             <a
-              target="_blank"
               href={href}
             >
               <FormattedMessage id="app.header.menu.edit" />

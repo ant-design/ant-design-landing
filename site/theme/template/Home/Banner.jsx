@@ -126,7 +126,6 @@ export default function Banner({ isMobile }) {
             {!isMobile && (
               <a
                 className="btn-editor home-button"
-                target="_blank"
                 href={getNewHref('7112')}
               >
                 <FormattedMessage id="app.home.enter-editor" />

@@ -7,7 +7,7 @@ module.exports = {
     'app.header.menu.home': 'Home',
     'app.header.menu.language': 'Doc',
     'app.header.menu.edit': 'Editor',
-    'app.home.introduce': 'LANDING platform has a variety of  templates, download template package, you can use it quickly, you can also use the  editor to quickly build a dedicated page for you.',
+    'app.home.introduce': 'Ant Design Landing platform has a variety of  templates, download template package, you can use it quickly, you can also use the  editor to quickly build a dedicated page for you.',
     'app.home.select-template': 'Templates',
     'app.home.enter-editor': 'Editor',
     'app.home.module': 'Modular',

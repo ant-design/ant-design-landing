@@ -1,0 +1,30 @@
+@import '../../static/antd.less';
+@import '../../static/default.less';
+.resource-wrapper {
+  margin-bottom: 24px;
+}
+.resource-cards {
+  padding: 10px;
+  background: #fff;
+  border-radius: 4px;
+  border: 1px solid #f0f0f0;
+  .mouseHover(#999);
+  display: block;
+
+  .img-wrapper {
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .text-wrapper {
+    h3 {
+      margin: 16px auto 8px;
+      line-height: 1.5;
+    }
+    p {
+      font-size: 12px;
+      margin: auto;
+      color: fade(@text-color, 75);
+    }
+  }
+}

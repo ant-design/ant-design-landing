@@ -5,7 +5,7 @@ title:
   en-US: Download Sketch
 ---
 
-这里提供以 Ant Design 设计规范完成的相关设计资源，更多设计次源正在整理和完善中。
+这里提供以 Ant Design 设计规范完成的相关设计资源，更多设计资源正在整理和完善中。
 
 ```__react
 const downloadData = [

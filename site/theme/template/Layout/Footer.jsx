@@ -53,6 +53,11 @@ class Footer extends React.PureComponent {
                   <FormattedMessage id="app.footer.motion" />
                 </div>
                 <div>
+                  <a target="_blank" rel="noopener noreferrer" href="http://kitchen.alipay.com">Kitchen</a>
+                  <span> - </span>
+                  <FormattedMessage id="app.footer.kitchen" />
+                </div>
+                <div>
                   <a href="http://scaffold.ant.design">Scaffolds</a>
                   <span> - </span>
                   <FormattedMessage id="app.footer.scaffolds" />
@@ -66,6 +71,16 @@ class Footer extends React.PureComponent {
                   <a target="_blank" rel="noopener" href="http://ux.ant.design">Ant UX</a>
                   <span> - </span>
                   <FormattedMessage id="app.footer.antux" />
+                </div>
+                <div>
+                  <a target="_blank" rel="noopener noreferrer" href="http://umijs.org/">Umi</a>
+                  <span> - </span>
+                  <FormattedMessage id="app.footer.umi" />
+                </div>
+                <div>
+                  <a target="_blank" rel="noopener noreferrer" href="https://github.com/dvajs/dva">dva</a>
+                  <span> - </span>
+                  <FormattedMessage id="app.footer.dva" />
                 </div>
               </div>
             </Col>

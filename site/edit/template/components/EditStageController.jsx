@@ -474,7 +474,7 @@ class EditStateController extends React.PureComponent {
   onFuncClick = (type, key) => {
     this.reRect();
     const { templateData } = this.props;
-    const template = templateData.data.template;
+    const { template, style } = templateData.data;
     const config = templateData.data.config;
     const current = template.indexOf(key);
     switch (type) {
@@ -486,6 +486,7 @@ class EditStateController extends React.PureComponent {
         break;
       default:
         template.splice(current, 1);
+        templateData.data.style = style.filter(item => item.id.split('-')[0] !== key);
         delete config[key];
         this.removeNavLinkData(templateData, key);
         break;

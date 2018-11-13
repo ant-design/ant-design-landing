@@ -128,7 +128,14 @@ class NavController extends React.PureComponent {
 
   onSyncData = (key) => {
     window.localStorage.removeItem(key);
-    location.reload();
+    const current = getURLData('uid');
+    if (current === key) {
+      message.success('数据已刷新。', 0.1, () => {
+        location.reload();
+      });
+    } else {
+      message.success('数据已刷新, 当前模板不是你刷新的模板，请自行切换。');
+    }
   }
 
   getNewMenu = () => {

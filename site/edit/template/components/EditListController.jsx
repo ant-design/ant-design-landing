@@ -38,7 +38,7 @@ class EditListController extends React.PureComponent {
         <TabPane
           key="1"
           tab={(
-            <Tooltip title="编辑样式">
+            <Tooltip title="基本编辑">
               <Icon type="edit" />
             </Tooltip>
           )}
@@ -50,11 +50,11 @@ class EditListController extends React.PureComponent {
         </TabPane>
         {/* <TabPane
           key="2"
-          tab={
-            <Tooltip title="全局样式">
-              <Icon type="bars" />
+          tab={(
+            <Tooltip title="通用样式">
+              <Icon type="form" />
             </Tooltip>
-          }
+          )}
           className="edit-list-tab"
         >
           1

@@ -10,7 +10,7 @@ import Page4 from './Page4';
 
 function Home(props) {
   return (
-    <DocumentTitle title={`Ant Design Landing - ${props.intl.formatMessage({ id: 'app.home.slogan' })}`}>
+    <DocumentTitle title={`Ant Design Landing Page - ${props.intl.formatMessage({ id: 'app.home.slogan' })}`}>
       <div className="home-wrapper">
         <Banner isMobile={props.isMobile} />
         <Page1 isMobile={props.isMobile} />

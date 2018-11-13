@@ -128,7 +128,7 @@ ReactDOM.render(<Demo />, mountNode);
 
 <img class="preview-img" align="right" alt="子级增删" description="可选择添加类型，移动区块与删除区块" src="https://gw.alipayobjects.com/zos/rmsportal/RWDgXBsrZEpDxAIflBNJ.jpg">
 
-带添加类型的添加功能，只功能只限制于标题上使用。
+带添加类型的添加功能，此功能只限制于标题上使用。
 
 ### Props 编辑
 
@@ -142,7 +142,7 @@ ReactDOM.render(<Demo />, mountNode);
 
 <img class="preview-img" align="right" alt="样式编辑" src="https://gw.alipayobjects.com/zos/rmsportal/MGezUVWlekggsYPeZKLP.jpg">
 
-调整当前元素的样式可视化编辑。提供主流功能，如没有你想要的功能可以在 `样式代码编辑` 里直接添加 css 样式。
+调整当前元素的样式可视化编辑。提供主流功能，如没有你想要的功能可以在 `样式代码编辑` 里直接添加 css 样式，必需要添加正确的 css 格式内容，否则下载时将会出现代码格式化错误。
 
 ### 其它功能
 

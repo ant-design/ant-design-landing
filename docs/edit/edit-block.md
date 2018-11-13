@@ -21,7 +21,9 @@ title:
 - 预览：时时查看你当前编辑
 - 下载代码：下载当前编辑的区块代码，我们提供一个 `Home` 的文件包，详细可参考[开始使用](/docs/use/getting-started)
 - 编辑数据：保存或粘帖你的编辑 json 数据
-- 新建页面：新建页面或切换你以往新建的页面
+- 新建页面：新建页面或切换你以往新建的页面，下拉菜单上两个按钮功能： 
+  - <img src="https://gw.alipayobjects.com/zos/rmsportal/zTiJvnQFzPgdEMsRjxvB.jpg" class="img-basic"/> 直接删除本地数据，更新为线上最后一次保存数据，不同机子上编辑时使用。
+  - <img src="https://gw.alipayobjects.com/zos/rmsportal/ZGylAJNxayVfdXMlYYcG.jpg" class="img-basic"/>  删除当前数据。
 
 **添加内容区块**
 - 添加内容：选择你需要的模块

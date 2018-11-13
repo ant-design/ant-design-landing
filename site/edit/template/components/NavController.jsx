@@ -126,12 +126,16 @@ class NavController extends React.PureComponent {
     }
   }
 
+  onSyncData = (key) => {
+    window.localStorage.removeItem(key);
+    location.reload();
+  }
+
   getNewMenu = () => {
     const { localStorage } = this.state;
     const localChild = localStorage.map(key => (
       <Item
         key={key}
-
         title={key}
       >
         <span
@@ -148,6 +152,16 @@ class NavController extends React.PureComponent {
           <Button
             onClick={(e) => {
               e.stopPropagation();
+              this.onSyncData(key);
+            }}
+            size="small"
+            shape="circle"
+            icon="sync"
+            style={{ margin: '0 8px' }}
+          />
+          <Button
+            onClick={(e) => {
+              e.stopPropagation();
               this.onRemoveLocalStorage(key);
             }}
             size="small"
@@ -158,7 +172,7 @@ class NavController extends React.PureComponent {
       </Item>
     ));
     return localChild.length && (
-      <Menu style={{ width: 150, textAlign: 'center' }} onClick={this.onClickItem}>
+      <Menu style={{ width: 280, textAlign: 'center' }} onClick={this.onClickItem}>
         <ItemGroup title="近期所建" key="0">
           {localChild}
         </ItemGroup>

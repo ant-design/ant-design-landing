@@ -20,6 +20,10 @@ Landing Pages of Ant Design System
 
 Landing is a template built by Ant Motion's motion components. It has a rich homepage template, downloads the template code package, and can be used quickly. You can also use the editor to quickly build your own dedicated page.
 
+<div align="center">
+  <a href="https://landing.ant.design/edit">Go Editing 📝</a>
+</div>
+
 ## Features
 
 - [Specifications](https://landing.ant.design/docs/introduce)
@@ -39,8 +43,6 @@ Diverse modules, you can quickly and flexibly configure the page template you wa
 <div style="max-width: 600px">
   <img src="https://user-images.githubusercontent.com/6802825/47980280-ec459480-e101-11e8-8a94-1ada4ff61faa.jpg" width="100%">
 </div>
-
-[Go Editing 😀](https://landing.ant.design/edit)
 
 ## Example in scaffolding
 

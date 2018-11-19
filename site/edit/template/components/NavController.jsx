@@ -179,7 +179,7 @@ class NavController extends React.PureComponent {
       </Item>
     ));
     return localChild.length && (
-      <Menu style={{ width: 280, textAlign: 'center' }} onClick={this.onClickItem}>
+      <Menu style={{ width: 282, textAlign: 'center' }} onClick={this.onClickItem}>
         <ItemGroup title="近期所建" key="0">
           {localChild}
         </ItemGroup>

@@ -28,9 +28,11 @@ export default {
       xs: 24,
     },
     title: {
+      className: 'content2-title',
       children: '分布式中间件',
     },
     content: {
+      className: 'content2-content',
       children: '金融级联机交易处理中间件，大规模分布式计算机，数万笔/秒级并发能力，严格保证交易数据统一性。'
       + '金融级联机交易处理中间件，大规模分布式计算机，数万笔/秒级并发能力，严格保证交易数据统一性。',
     },

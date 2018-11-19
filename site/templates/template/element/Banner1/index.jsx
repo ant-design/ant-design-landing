@@ -7,7 +7,7 @@ import 'rc-banner-anim/assets/index.css';
 /* replace-start */
 import './index.less';
 /* replace-end */
-const BgElement = Element.BgElement;
+const { BgElement } = Element;
 class Banner extends React.PureComponent {
   /* replace-start */
   constructor(props) {
@@ -47,11 +47,7 @@ class Banner extends React.PureComponent {
       const elem = item.BannerElement;
       const elemClassName = elem.className;
       delete elem.className;
-      const bg = item.bg;
-      const textWrapper = item.textWrapper;
-      const title = item.title;
-      const content = item.content;
-      const button = item.button;
+      const { bg, textWrapper, title, content, button } = item;
       return (
         <Element
           key={i.toString()}
@@ -76,7 +72,7 @@ class Banner extends React.PureComponent {
             /* replace-end */
             >
               {
-                title.children.match(/\.(svg|gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/) ? (
+                typeof title.children === 'string' && title.children.match(/\.(svg|gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/) ? (
                   <img src={title.children} width="100%" alt="img" />
                 ) : /* replace-start-value = title.children */React.createElement('span', { dangerouslySetInnerHTML: { __html: title.children } })
                 /* replace-end-value */

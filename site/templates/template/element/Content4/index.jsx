@@ -35,7 +35,7 @@ function Content4(props) {
           {
             dataSource.titleWrapper.children.map((item, i) => (
               React.createElement(item.name.indexOf('title') === 0 ? 'h1' : 'div', { key: i.toString(), ...item }, (
-                item.children.match(/\.(svg|gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/)
+                typeof item.children === 'string' && item.children.match(/\.(svg|gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/)
                   ? React.createElement('img', { src: item.children, alt: 'img' })
                   : /* replace-start-value = item.children */React.createElement('span', { dangerouslySetInnerHTML: { __html: item.children } })
                 /* replace-end-value */

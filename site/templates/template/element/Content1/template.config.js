@@ -28,9 +28,11 @@ export default {
       xs: 24,
     },
     title: {
+      className: 'content1-title',
       children: '企业资源管理',
     },
     content: {
+      className: 'content1-content',
       children: '云资源集中编排、弹性伸缩、持续发布和部署，高可用及容灾。'
         + '云资源集中编排、弹性伸缩、持续发布和部署，高可用及容灾。'
         + '云资源集中编排、弹性伸缩、持续发布和部署，高可用及容灾。',

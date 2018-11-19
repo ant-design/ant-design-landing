@@ -6,8 +6,7 @@ import { Menu, Icon } from 'antd';
 import './index.less';
 /* replace-end */
 
-const Item = Menu.Item;
-const SubMenu = Menu.SubMenu;
+const { Item, SubMenu } = Menu;
 
 class Header extends React.Component {
   constructor(props) {
@@ -52,6 +51,7 @@ class Header extends React.Component {
           key={i.toString()}
           /* replace-start */
           data-edit="Menu"
+          /* replace-end */
         >
           <a
             {...navData[key].a}

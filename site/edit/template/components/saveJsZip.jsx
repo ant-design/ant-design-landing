@@ -73,7 +73,7 @@ const setChildrenToIndex = (other, template) => {
   });
   const dataSourceStr = `import {${templateStrObj.TEMPLATE
     .map(s => `${s.replace('_', '')}DataSource`)
-    .join(',')}} from './data.source.js'`;
+    .join(',')}} from './data.source'`;
 
   if (templateStrObj.OTHER.point && templateStrObj.TEMPLATE.length) {
     let pointProps = '';

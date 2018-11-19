@@ -31,13 +31,13 @@ class Content9 extends React.PureComponent {
             /* replace-end-value */
           }
         </h2>
-        <p key="p" {...item.content}>
+        <div key="p" {...item.content}>
           {
             /* replace-start-value = item.content.children */
             React.createElement('span', { dangerouslySetInnerHTML: { __html: item.content.children } })
             /* replace-end-value */
           }
-        </p>
+        </div>
       </QueueAnim>
     );
     return (
@@ -61,20 +61,20 @@ class Content9 extends React.PureComponent {
             <img src={item.img.children} alt="img" />
           </div>
           <div key="name" className="name-wrapper">
-            <p key="name" {...item.name}>
+            <div key="name" {...item.name}>
               {
                 /* replace-start-value = item.name.children */
                 React.createElement('span', { dangerouslySetInnerHTML: { __html: item.name.children } })
                 /* replace-end-value */
               }
-            </p>
-            <p key="post" {...item.post}>
+            </div>
+            <div key="post" {...item.post}>
               {
                 /* replace-start-value = item.post.children */
                 React.createElement('span', { dangerouslySetInnerHTML: { __html: item.post.children } })
                 /* replace-end-value */
               }
-            </p>
+            </div>
           </div>
         </QueueAnim>
 
@@ -104,7 +104,7 @@ class Content9 extends React.PureComponent {
             {
               dataSource.titleWrapper.children.map((item, i) => (
                 React.createElement(item.name.indexOf('title') === 0 ? 'h1' : 'div', { key: i.toString(), ...item }, (
-                  item.children.match(/\.(svg|gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/)
+                  typeof item.children === 'string' && item.children.match(/\.(svg|gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/)
                     ? React.createElement('img', { src: item.children, alt: 'img' })
                     : /* replace-start-value = item.children */React.createElement('span', { dangerouslySetInnerHTML: { __html: item.children } })
                   /* replace-end-value */

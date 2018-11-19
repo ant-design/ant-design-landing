@@ -12,7 +12,7 @@ enquireScreen((b) => {
   isMobile = b;
 });
 
-const location = window.location;
+const { location } = window;
 
 export default class Home extends React.Component {
   constructor(props) {

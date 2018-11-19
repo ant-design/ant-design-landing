@@ -27,13 +27,13 @@ class Content extends React.PureComponent {
             /* replace-end-value */
           }
         </h3>
-        <p {...children.content}>
+        <div {...children.content}>
           {
             /* replace-start-value = children.content.children */
             React.createElement('span', { dangerouslySetInnerHTML: { __html: children.content.children } })
             /* replace-end-value */
           }
-        </p>
+        </div>
       </Col>
     );
   });
@@ -59,7 +59,7 @@ class Content extends React.PureComponent {
             {
               dataSource.titleWrapper.children.map((item, i) => (
                 React.createElement(item.name.indexOf('title') === 0 ? 'h1' : 'div', { key: i.toString(), ...item }, (
-                  item.children.match(/\.(svg|gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/)
+                  typeof item.children === 'string' && item.children.match(/\.(svg|gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/)
                     ? React.createElement('img', { src: item.children, height: '100%', alt: 'img' })
                     : /* replace-start-value = item.children */React.createElement('span', { dangerouslySetInnerHTML: { __html: item.children } })
                   /* replace-end-value */

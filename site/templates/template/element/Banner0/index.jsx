@@ -30,7 +30,7 @@ class Banner extends React.PureComponent {
             /* replace-end */
           >
             {
-            dataSource.title.children.match(/\.(svg|gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/) ? (
+            typeof dataSource.title.children === 'string' && dataSource.title.children.match(/\.(svg|gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/) ? (
               <img src={dataSource.title.children} width="100%" alt="img" />
             ) : /* replace-start-value = dataSource.title.children */React.createElement('span', { dangerouslySetInnerHTML: { __html: dataSource.title.children } })
             /* replace-end-value */

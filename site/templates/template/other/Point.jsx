@@ -1,7 +1,6 @@
 import React from 'react';
-import ScrollAnim from 'rc-scroll-anim';
+import Link from 'rc-scroll-anim/lib/ScrollLink';
 
-const Link = ScrollAnim.Link;
 export default function Point(props) {
   const { data, size, position, type, stroke } = props;
   const children = data.map((item) => {

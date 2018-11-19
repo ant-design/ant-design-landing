@@ -69,13 +69,13 @@ function Content1(props) {
               /* replace-end-value */
             }
           </h2>
-          <p key="p" {...dataSource.content}>
+          <div key="p" {...dataSource.content}>
             {
               /* replace-start-value = dataSource.content.children */
               React.createElement('span', { dangerouslySetInnerHTML: { __html: dataSource.content.children } })
               /* replace-end-value */
             }
-          </p>
+          </div>
         </QueueAnim>
       </OverPack>
     </div>

@@ -5,23 +5,23 @@ const templateStr = require('!raw-loader!./index');
 
 const getBlock = children => ({
   name: children.name,
-  className: 'block',
+  className: 'content3-block',
   md: 8,
   xs: 24,
   children: {
     icon: {
-      className: 'icon',
+      className: 'content3-icon',
       children: children.icon,
     },
     textWrapper: {
-      className: 'text',
+      className: 'content3-text',
     },
     title: {
-      className: 'title',
+      className: 'content3-title',
       children: children.title,
     },
     content: {
-      className: 'content',
+      className: 'content3-content',
       children: children.content,
     },
   },

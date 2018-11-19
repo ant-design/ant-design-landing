@@ -22,7 +22,7 @@ class Footer extends React.Component {
       >
         <h2 {...item.title}>
           {
-            item.title.children.match(/\.(svg|gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/) ? (
+            typeof item.title.children === 'string' && item.title.children.match(/\.(svg|gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/) ? (
               <img src={item.title.children} width="100%" alt="img" />
             ) : /* replace-start-value = item.title.children */React.createElement('span', { dangerouslySetInnerHTML: { __html: item.title.children } })
             /* replace-end-value */

@@ -40,6 +40,7 @@ export default {
               children: 'https://zos.alipayobjects.com/rmsportal/WBnVOjtIlGWbzyQivuyq.png',
             },
             title: {
+              className: 'content0-title',
               children: '一站式业务接入',
             },
             content: {
@@ -58,6 +59,7 @@ export default {
               children: 'https://zos.alipayobjects.com/rmsportal/YPMsLQuCEXtuEkmXTTdk.png',
             },
             title: {
+              className: 'content0-title',
               children: '一站式事中风险监控',
             },
             content: {
@@ -76,6 +78,7 @@ export default {
               children: 'https://zos.alipayobjects.com/rmsportal/EkXWVvAaFJKCzhMmQYiX.png',
             },
             title: {
+              className: 'content0-title',
               children: '一站式数据运营',
             },
             content: {

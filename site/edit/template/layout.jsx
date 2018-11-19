@@ -28,7 +28,7 @@ class Layout extends React.PureComponent {
         <p>
           目前编辑器处于测试阶段，如果你在编辑的过程中出现任何问题，都可以在
           {' '}
-          <a href="https://github.com/ant-design/ant-design-landing/issues" target="_black">Landing issue</a>
+          <a href="https://github.com/ant-design/ant-design-landing/issues" target="_black">Landing issues</a>
           {' '}
           上提出，我们会及时解决你的问题，谢谢！
         </p>),

@@ -146,7 +146,6 @@ export const getDataSourceValue = (id, templateData, parent) => {
         });
       }
       if (isNaN(i)) {
-        console.log(nameKey[1]);
         t = null;
       } else {
         t[i] = elem || {
@@ -156,7 +155,6 @@ export const getDataSourceValue = (id, templateData, parent) => {
       }
     } else if (t) {
       const isArray = key === 'children' && childIds.length > 1;
-      // console.log(t, key);
       t[key] = t[key] || (isArray ? deepCopy(tt[key]) : {});
       t = t[key];
       if (tt) {

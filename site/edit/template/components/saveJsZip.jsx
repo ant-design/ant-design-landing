@@ -190,7 +190,9 @@ export function saveJsZip(templateData, callBack) {
         .replace(/href="(.*?)"/g, 'href=\\"$1\\"')
         .replace(/<br>/g, '<br />')
         .replace(/"(<.*?>)"/g, (_, s1) => {
-          if (s1.match(/^<span>.*?<\/span>?/g)) {
+          const tagIsSpanMatch = s1.match(/<span>.*?<\/span>/g);
+          const startSpanMatch = s1.match(/^<span>.*?<\/span>?/g);
+          if (startSpanMatch && tagIsSpanMatch.length === 1) {
             return s1;
           }
           return `<span>${s1}</span>`;

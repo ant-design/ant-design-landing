@@ -127,13 +127,17 @@ export const getDataSourceValue = (id, templateData, parent) => {
     const nameKey = key.split('=');
     if (nameKey.length > 1 && nameKey[0] === 'array_name') {
       let i = parseFloat(nameKey[1].replace(/[a-z]/g, ''));
-      const elem = t.filter((item, ii) => {
+      let elem = t.filter((item, ii) => {
         if (item && item.name === nameKey[1]) {
           i = ii;
           return item;
         }
         return null;
       })[0];
+      if (nameKey[1].split('~').length >= 2) {
+        i = t.length - 1;
+        elem = deepCopy(t[i]);
+      }
       if (!elem && tt) {
         tt.forEach((item, ii) => {
           if (item.name === nameKey[1]) {
@@ -142,6 +146,7 @@ export const getDataSourceValue = (id, templateData, parent) => {
         });
       }
       if (isNaN(i)) {
+        console.log(nameKey[1]);
         t = null;
       } else {
         t[i] = elem || {
@@ -149,8 +154,9 @@ export const getDataSourceValue = (id, templateData, parent) => {
         };
         t = t[i];
       }
-    } else {
+    } else if (t) {
       const isArray = key === 'children' && childIds.length > 1;
+      // console.log(t, key);
       t[key] = t[key] || (isArray ? deepCopy(tt[key]) : {});
       t = t[key];
       if (tt) {

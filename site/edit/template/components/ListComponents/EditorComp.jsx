@@ -15,7 +15,7 @@ class EditorComp extends React.Component {
     const cid = ids[0].split('_')[0];
     const tempDataSource = tempData[cid].dataSource;
     const currentEditTemplateData = getDataSourceValue(ids[1], tempDataSource);
-    const newClassName = `${currentEditTemplateData.className || ''} ${cssName}`.trim();
+    const newClassName = `${currentEditTemplateData ? currentEditTemplateData.className : ''} ${cssName}`.trim();
     const newTemplateData = deepCopy(templateData);
     setDataSourceValue(ids, 'className', newClassName, newTemplateData.data.config);
     const data = {

@@ -34,7 +34,7 @@ class Header extends React.Component {
     const isZhCN = intl.locale === 'zh-CN';
     const menuMode = isMobile ? 'inline' : 'horizontal';
     const module = location.pathname.replace(/(^\/|\/$)/g, '').split('/')[0];// .slice(0, -1).join('/');
-    const activeMenuItem = module || 'home';
+    const activeMenuItem = (module.match('index') && 'home') || module;
     const href = getNewHref('7112');
     return (
       <Menu mode={menuMode} selectedKeys={[activeMenuItem]} id="nav" key="nav">

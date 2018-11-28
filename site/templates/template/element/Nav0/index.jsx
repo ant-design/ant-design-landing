@@ -58,7 +58,11 @@ class Header extends React.Component {
             href={navData[key].a.href}
             target={navData[key].a.target}
           >
-            {navData[key].a.children}
+            {
+              /* replace-start-value = navData[key].a.children */
+              React.createElement('span', { dangerouslySetInnerHTML: { __html: navData[key].a.children } })
+              /* replace-end-value */
+            }
           </a>
         </Item>)
       );

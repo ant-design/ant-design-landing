@@ -44,5 +44,5 @@ Landing 是运用 Ant Motion 动效组件来搭建完成的页面模板，拥有
 
 [生成首页在 dva-cli 里运行的例子](https://github.com/ant-motion/ant-motion-dva-cli-example)
 
-[生成首页在 umin 里运行的例子](https://github.com/ant-motion/landing-umi-example)
+[生成首页在 umi 里运行的例子](https://github.com/ant-motion/landing-umi-example)
 

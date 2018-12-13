@@ -11,7 +11,7 @@ import {
 import { getState, mergeEditDataToDefault, mdId } from '../../utils';
 import { getURLData } from '../../theme/template/utils';
 import { getUserData } from '../../edit-module/actions';
-
+import BottomBar from './BottomBar';
 import Point from './other/Point';
 
 const stateSort = { default: 0, hover: 1, focus: 2, active: 3 };
@@ -83,6 +83,9 @@ class Layout extends React.Component {
 
   messageHandle = (e) => {
     if (e.data.type && e.data.type.indexOf('webpack') === -1) {
+      Object.keys(localStorage).forEach((key) => {
+        localStorage.removeItem(key);
+      });
       window.localStorage.setItem(e.data.uid, JSON.stringify({
         id: e.data.uid,
         attributes: e.data.data,
@@ -117,21 +120,27 @@ class Layout extends React.Component {
           return css[key].trim() && `${className}:${key} {${css[key]}}`;
       }
     }).filter(c => c);
+    let styleStr = '';
     let cssStyle = '';
     let cssMobileCss = '';
     style.forEach((item) => {
-      const cssName = item.className;
-      const css = getCssToString(item.css, cssName);
-      const mobileCss = getCssToString(item.mobileCss, cssName);
-      if (css.length) {
-        cssStyle += css.join();
-      }
-      if (mobileCss.length) {
-        cssMobileCss += mobileCss.join();
+      if (item.cssString) {
+        styleStr += item.cssString;
+      } else {
+        const cssName = item.className;
+        const css = getCssToString(item.css, cssName);
+        const mobileCss = getCssToString(item.mobileCss, cssName);
+        if (css.length) {
+          cssStyle += css.join();
+        }
+        if (mobileCss.length) {
+          cssMobileCss += mobileCss.join();
+        }
       }
     });
+    // 版本兼容，两个 css render 都带上；
     this.styleTag.innerHTML = `${cssStyle || ''}${cssMobileCss
-      ? `${mobileTitle}${cssMobileCss}}` : ''}`;
+      ? `${mobileTitle}${cssMobileCss}}` : ''}${styleStr}`;
   }
 
   getDataToChildren = () => {
@@ -139,6 +148,7 @@ class Layout extends React.Component {
     const { data, funcData } = templateData;
     const func = { ...funcData };
     const template = data.template;
+    console.log(data.style);
     this.setStyleData(data.style);
     const otherData = data.other;
     const configData = data.config || {};
@@ -227,14 +237,19 @@ class Layout extends React.Component {
 
   render() {
     const children = this.getTemplatesToChildren();
-    return (
-      <div
-        id="templates-wrapper"
-        className="templates-wrapper"
-        ref={(c) => { this.dom = c; }}
-      >
-        {children}
-      </div>);
+    return [
+      (
+        <div
+          id="templates-wrapper"
+          className="templates-wrapper"
+          ref={(c) => { this.dom = c; }}
+          key="templates"
+        >
+          {children}
+        </div>
+      ),
+      !this.isEdit && <BottomBar key="bar" />,
+    ];
   }
 }
 

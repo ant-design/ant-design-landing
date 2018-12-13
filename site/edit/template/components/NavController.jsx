@@ -1,10 +1,10 @@
 import React from 'react';
-import { Icon, message, Menu, Dropdown, Button, Modal } from 'antd';
+import { Icon, message, Menu, Dropdown, Button, Modal, Popconfirm } from 'antd';
 import CodeMirror from 'rc-editor-list/lib/components/common/CodeMirror';
 import 'codemirror/mode/javascript/javascript.js';
 
 import { formatCode } from '../utils';
-import { getNewHref } from '../../../utils';
+import { getNewHref, RemoveLocalStorage } from '../../../utils';
 import { getURLData, setURLData } from '../../../theme/template/utils';
 import {
   saveData, userName, newTemplate, removeTemplate, setTemplateData,
@@ -58,6 +58,8 @@ class NavController extends React.PureComponent {
     }
     message.success('生成预览成功。');
     const { templateData } = this.props;
+    // 如果在预览页清除数据，再生成预览将没有数据，手动写入；
+    window.document.getElementById('myIframe').contentWindow.postMessage(templateData, '*');
     const url = `${location.port ? `${location.protocol}//${location.hostname}:7113/`
       : `${location.origin}/templates/`}#uid=${templateData.uid}`;
     window.open(url);
@@ -116,6 +118,7 @@ class NavController extends React.PureComponent {
   onRemoveLocalStorage = (key) => {
     const localStorage = this.state.localStorage.filter(c => c !== key);
     window.localStorage.setItem(userName, localStorage.join(','));
+    window.localStorage.removeItem(key);
     this.setState({
       localStorage,
     });
@@ -124,6 +127,18 @@ class NavController extends React.PureComponent {
     if (current === key) {
       this.onClickItem({ key: localStorage[0] });
     }
+  }
+
+  onRemoveAllLocalStorage = () => {
+    console.log(window.localStorage);
+    window.localStorage.getItem(userName).split(',').forEach((key) => {
+      if (!key) {
+        return;
+      }
+      window.localStorage.removeItem(key);
+    });
+    window.localStorage.removeItem(userName);
+    location.href = location.origin;
   }
 
   onSyncData = (key) => {
@@ -163,7 +178,7 @@ class NavController extends React.PureComponent {
             }}
             size="small"
             shape="circle"
-            icon="sync"
+            icon="sync"// 等 antd 发布, 更换成 清除缓存 icon
             style={{ margin: '0 8px' }}
           />
           <Button
@@ -246,12 +261,34 @@ class NavController extends React.PureComponent {
         onClick: this.state.isLoad === '下载' ? null : this.onSaveCode,
       },
       { name: '编辑数据', icon: 'tool', onClick: this.onChangeDataOpenModal },
-    ].map((item, i) => (
-      <li key={i.toString()} onClick={item.onClick} disabled={!item.onClick}>
-        <Icon type={item.icon} />
-        {item.name}
-      </li>
-    ));
+      {
+        name: '清除缓存',
+        compoennt: RemoveLocalStorage,
+        onClick: this.onRemoveAllLocalStorage,
+        tooltip: '清除全部的缓存，重新从服务器读取最后保存的数据；只需清除单个缓存请在新建文件的下拉菜单里清除。',
+      },
+    ].map((item, i) => {
+      const iconProps = item.compoennt ? { component: item.compoennt } : { type: item.icon };
+      let children = [<Icon {...iconProps} key="icon" />, item.name];
+      if (item.tooltip) {
+        children = (
+          <Popconfirm
+            title={item.tooltip}
+            onConfirm={item.onClick}
+            okText="确定"
+            cancelText="取消"
+            overlayStyle={{ width: 320 }}
+          >
+            {children}
+          </Popconfirm>
+        );
+      }
+      return (
+        <li key={i.toString()} onClick={item.tooltip ? null : item.onClick} disabled={!item.onClick}>
+          {children}
+        </li>
+      );
+    });
     const menuNewDropdown = this.getNewMenu();
     const newIcon = (
       <div className="right-icon" onClick={this.onClickNew}>

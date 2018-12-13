@@ -1,14 +1,15 @@
 import React from 'react';
 import EditorList from 'rc-editor-list';
+import { Collapse } from 'antd';
 import EditorProps from './PropsComp';
 import EditorChild from './ChildComp';
 import { setTemplateData } from '../../../../edit-module/actions';
 import { deepCopy, getDataSourceValue, setDataSourceValue } from '../../../../utils';
 import tempData from '../../../../templates/template/element/template.config';
 
+const { Panel } = Collapse;
 class EditorComp extends React.Component {
-  onChange = (e) => {
-    const cssName = e.cssName;
+  onChange = ({ cssName, cssString }) => {
     const { currentEditData, dispatch, templateData } = this.props;
     const { id } = currentEditData;
     const ids = id.split('-');
@@ -19,9 +20,10 @@ class EditorComp extends React.Component {
     const newTemplateData = deepCopy(templateData);
     setDataSourceValue(ids, 'className', newClassName, newTemplateData.data.config);
     const data = {
-      className: e.className,
-      css: e.css,
-      mobileCss: e.mobileCss,
+      // className: e.className,
+      // cssValue,
+      cssString,
+      // parentClassName,
       id,
     };
     newTemplateData.data.style = (newTemplateData.data.style || []).filter(c => c.id !== id);
@@ -73,14 +75,17 @@ class EditorComp extends React.Component {
       [
         <EditorChild edit={edit} {...this.props} key="child" onChange={this.onChildChange} />,
         <EditorProps edit={edit} {...this.props} key="props" onChange={this.onPropsChange} />,
-        <EditorList
-          key="css"
-          editorElem={currentEditData.dom}
-          onChange={this.onChange}
-          cssToDom={false} // 避免多次样式。
-          isMobile={mediaStateSelect === 'Mobile'}
-          defaultActiveKey={['EditorClassName', 'EditorState', 'EditorFont', 'EditorInterface']}
-        />,
+        <Collapse key="csslist" bordered={false} defaultActiveKey="css" className="collapes-style-list">
+          <Panel header="样式编辑" key="css">
+            <EditorList
+              editorElem={currentEditData.dom}
+              onChange={this.onChange}
+              cssToDom={false} // 避免多次样式。
+              isMobile={mediaStateSelect === 'Mobile'}
+              defaultActiveKey={['EditorClassName', 'EditorState', 'EditorFont', 'EditorInterface']}
+            />
+          </Panel>
+        </Collapse>,
       ]
     );
   }

@@ -178,9 +178,10 @@ class NavController extends React.PureComponent {
             }}
             size="small"
             shape="circle"
-            icon="sync"// 等 antd 发布, 更换成 清除缓存 icon
             style={{ margin: '0 8px' }}
-          />
+          >
+            <Icon component={() => RemoveLocalStorage('14')} />
+          </Button>
           <Button
             onClick={(e) => {
               e.stopPropagation();
@@ -263,7 +264,7 @@ class NavController extends React.PureComponent {
       { name: '编辑数据', icon: 'tool', onClick: this.onChangeDataOpenModal },
       {
         name: '清除缓存',
-        compoennt: RemoveLocalStorage,
+        compoennt: () => RemoveLocalStorage('18'),
         onClick: this.onRemoveAllLocalStorage,
         tooltip: '清除全部的缓存，重新从服务器读取最后保存的数据；只需清除单个缓存请在新建文件的下拉菜单里清除。',
       },

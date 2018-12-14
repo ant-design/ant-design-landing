@@ -148,7 +148,6 @@ class Layout extends React.Component {
     const { data, funcData } = templateData;
     const func = { ...funcData };
     const template = data.template;
-    console.log(data.style);
     this.setStyleData(data.style);
     const otherData = data.other;
     const configData = data.config || {};

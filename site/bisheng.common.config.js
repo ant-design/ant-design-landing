@@ -16,9 +16,20 @@ const pluginAntdConfig = {
 function alertTheme(rules) {
   rules.forEach((rule) => {
     if (Array.isArray(rule.use) && (rule.use.indexOf('less-loader') >= 0
-      || rule.use.some(c => c.loader === 'less-loader'))) {
+      || rule.use.some(c => c.loader && (c.loader.indexOf('less-loader') >= 0 || c.loader === 'less-loader')))) {
       rule.use = rule.use.map((item) => {
-        if (item === 'less-loader' || item.loader === 'less-loader') {
+        if (item.loader && item.loader.indexOf('less-loader') >= 0) {
+          item.options = {
+            sourceMap: true,
+            javascriptEnabled: true,
+            modifyVars: {
+              '@primary-color': '#2F54EB',
+              '@text-color': '#314659',
+            },
+          };
+          return item;
+        }
+        if (item === 'less-loader') {
           return {
             loader: 'less-loader',
             options: {
@@ -31,6 +42,7 @@ function alertTheme(rules) {
           };
         }
         if (typeof item === 'object') {
+          item.options = item.options || {};
           item.options.sourceMap = true;
         }
         return item;
@@ -40,7 +52,7 @@ function alertTheme(rules) {
 }
 function alertBabelConfig(rules) {
   rules.forEach((rule) => {
-    if (rule.loader && rule.loader === 'babel-loader') {
+    if (rule.loader && rule.loader.indexOf('babel-loader') >= 0) {
       if (rule.options.plugins.indexOf(replaceLib) === -1) {
         rule.options.plugins.push(replaceLib);
       }

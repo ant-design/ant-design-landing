@@ -130,7 +130,6 @@ class NavController extends React.PureComponent {
   }
 
   onRemoveAllLocalStorage = () => {
-    console.log(window.localStorage);
     window.localStorage.getItem(userName).split(',').forEach((key) => {
       if (!key) {
         return;

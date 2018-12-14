@@ -53,7 +53,7 @@ export default class BottomBar extends React.Component {
               cancelText="取消"
               overlayStyle={{ width: 320 }}
             >
-              <Icon component={RemoveLocalStorage} />
+              <Icon component={() => RemoveLocalStorage('14')} />
                 清除缓存
             </Popconfirm>
           </li>

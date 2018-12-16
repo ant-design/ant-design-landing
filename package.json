@@ -14,6 +14,7 @@
     "autoresponsive-react": "^1.1.31",
     "enquire-js": "^0.2.1",
     "leancloud-storage": "^3.5.0",
+    "opencollective-postinstall": "^2.0.1",
     "raw-loader": "^0.5.1",
     "rc-animate": "^2.4.4",
     "rc-banner-anim": "^2.1.0",
@@ -23,7 +24,8 @@
     "rc-scroll-anim": "^2.5.0",
     "rc-texty": "^0.2.0",
     "rc-tween-one": "^2.2.0",
-    "react-document-title": "^2.0.1"
+    "react-document-title": "^2.0.1",
+    "opencollective": "^1.0.3"
   },
   "devDependencies": {
     "antd-tools": "^5.1.5",
@@ -98,6 +100,11 @@
     "lint:es": "eslint --fix --ext '.js,.jsx' site",
     "lint:style": "stylelint \"site/**/*.less\" --syntax less",
     "lint:demo": "cross-env RUN_ENV=DEMO eslint ./ --ext '.md' -c ./.eslintrc.js",
-    "test": "npm run lint"
+    "test": "npm run lint",
+    "postinstall": "opencollective-postinstall"
+  },
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/ant-design-landing"
   }
 }

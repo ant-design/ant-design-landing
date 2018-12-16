@@ -11,6 +11,8 @@ Landing Pages of Ant Design System
 
 [![Dependencies](https://img.shields.io/david/ant-design/ant-design-landing.svg)](https://david-dm.org/ant-design/ant-design-landing)
 [![DevDependencies](https://img.shields.io/david/dev/ant-design/ant-design-landing.svg)](https://david-dm.org/ant-design/ant-design-landing?type=dev)
+[![Backers on Open Collective](https://opencollective.com/ant-design-landing/backers/badge.svg)](#backers) 
+[![Sponsors on Open Collective](https://opencollective.com/ant-design-landing/sponsors/badge.svg)](#sponsors) 
 
 </div>
 
@@ -48,3 +50,32 @@ Diverse modules, you can quickly and flexibly configure the page template you wa
 
 - [dva-cli-example](https://github.com/ant-motion/ant-motion-dva-cli-example)
 - [umi-example](https://github.com/ant-motion/landing-umi-example)
+
+## Contributors
+
+This project exists thanks to all the people who contribute. <img src="https://opencollective.com/ant-design-landing/contributors.svg?width=890&button=false" />
+
+
+## Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/ant-design-landing#backer)]
+
+<a href="https://opencollective.com/ant-design-landing#backers" target="_blank"><img src="https://opencollective.com/ant-design-landing/backers.svg?width=890"></a>
+
+
+## Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/ant-design-landing#sponsor)]
+
+<a href="https://opencollective.com/ant-design-landing/sponsor/0/website" target="_blank"><img src="https://opencollective.com/ant-design-landing/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/ant-design-landing/sponsor/1/website" target="_blank"><img src="https://opencollective.com/ant-design-landing/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/ant-design-landing/sponsor/2/website" target="_blank"><img src="https://opencollective.com/ant-design-landing/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/ant-design-landing/sponsor/3/website" target="_blank"><img src="https://opencollective.com/ant-design-landing/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/ant-design-landing/sponsor/4/website" target="_blank"><img src="https://opencollective.com/ant-design-landing/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/ant-design-landing/sponsor/5/website" target="_blank"><img src="https://opencollective.com/ant-design-landing/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/ant-design-landing/sponsor/6/website" target="_blank"><img src="https://opencollective.com/ant-design-landing/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/ant-design-landing/sponsor/7/website" target="_blank"><img src="https://opencollective.com/ant-design-landing/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/ant-design-landing/sponsor/8/website" target="_blank"><img src="https://opencollective.com/ant-design-landing/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/ant-design-landing/sponsor/9/website" target="_blank"><img src="https://opencollective.com/ant-design-landing/sponsor/9/avatar.svg"></a>
+
+

@@ -7,7 +7,6 @@ class Iframe extends React.Component {
   componentWillReceiveProps(nextProps) {
     const { templateData } = nextProps;
     const { type } = templateData;
-    console.log(templateData);
     if (type === 'success'
       && this.iframe.contentWindow
       && this.iframe.contentWindow.postMessage) {

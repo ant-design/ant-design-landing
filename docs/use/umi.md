@@ -118,4 +118,4 @@ export default {
 
 ## 完成
 
-完成以上频骤之后，我们再启动 `umi dev` 即可查看在 landing 上下载的模板。
+完成以上步骤之后，我们再启动 `umi dev` 即可查看在 landing 上下载的模板。

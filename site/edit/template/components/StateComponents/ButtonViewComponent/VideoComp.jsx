@@ -1,5 +1,6 @@
 import React from 'react';
 import { Icon, Button, Popover, Input, Row, Col } from 'antd';
+import { FormattedMessage } from 'react-intl';
 import { isImg } from '../../../../../utils';
 
 export default class VideoComp extends React.Component {
@@ -14,25 +15,25 @@ export default class VideoComp extends React.Component {
       <div style={{ width: 350, lineHeight: '32px' }}>
         <Row>
           <Col span={4}>
-            视频地址
+            <FormattedMessage id="app.state.image.header" />
           </Col>
           <Col span={20}>
             <Input
               onChange={(e) => { this.onVideoChange(e, editText, 'video'); }}
               defaultValue={editText.video}
-              placeholder="请粘贴 video 地址"
+              placeholder={<FormattedMessage id="app.state.image.placeholder" />}
             />
           </Col>
         </Row>
         <Row style={{ marginTop: 16 }}>
           <Col span={4}>
-            预览图片
+            <FormattedMessage id="app.state.image.preview" />
           </Col>
           <Col span={20}>
             <Input
               onChange={(e) => { this.onVideoChange(e, editText, 'image'); }}
               defaultValue={editText.image && editText.image.match(isImg) ? editText.image : ''}
-              placeholder="请粘贴图片地址"
+              placeholder={<FormattedMessage id="app.state.image.placeholder" />}
             />
           </Col>
         </Row>
@@ -41,7 +42,7 @@ export default class VideoComp extends React.Component {
     return (
       <Popover
         placement="bottomRight"
-        title="video 地址"
+        title={<FormattedMessage id="app.state.video.header" />}
         content={popContent}
         trigger="click"
       >

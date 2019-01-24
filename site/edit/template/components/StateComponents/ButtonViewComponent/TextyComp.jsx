@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Popover, Input } from 'antd';
+import { FormattedMessage } from 'react-intl';
 
 export default class TextyComp extends React.Component {
   onImageBtnChange = (e) => {
@@ -12,13 +13,13 @@ export default class TextyComp extends React.Component {
     return (
       <Popover
         placement="bottomRight"
-        title="请输入 texty 的文本"
+        title={<FormattedMessage id="app.state.texty.header" />}
         content={(
           <Input
             style={{ width: 250 }}
             onChange={this.onImageBtnChange}
             defaultValue={editText || ''}
-            placeholder="请输入 texty 的文本"
+            placeholder={<FormattedMessage id="app.state.texty.header" />}
           />
         )}
         trigger="click"

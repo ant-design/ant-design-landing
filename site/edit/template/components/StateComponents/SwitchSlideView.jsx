@@ -1,5 +1,6 @@
 import React from 'react';
 import { Pagination, Popover, Button, Icon } from 'antd';
+import { FormattedMessage } from 'react-intl';
 import { getRandomKey } from 'rc-editor-list/lib/utils';
 import { mergeEditDataToDefault } from '../../../../utils';
 import tempData from '../../../../templates/template/element/template.config';
@@ -122,7 +123,7 @@ export default class SwitchSlideView extends React.Component {
       </ListSort>,
       <div key="button" className="manage-button">
         <Button onClick={() => { this.onSlideAdd(dataSource); }} type="primary">
-          添加分页
+          <FormattedMessage id="app.state.banner.add" />
         </Button>
       </div>,
     ];
@@ -144,7 +145,13 @@ export default class SwitchSlideView extends React.Component {
           />
           <Popover
             content={popChild}
-            title={`管理 ${name} 页数`}
+            title={(
+              <span>
+                <FormattedMessage id="app.state.banner.header" />
+                {' '}
+                {name}
+              </span>
+            )}
             getPopupContainer={triggerNode => triggerNode.parentNode}
             overlayClassName="manage-wrapper"
             ref={(c) => {

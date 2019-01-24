@@ -1,5 +1,6 @@
 import React from 'react';
 import { Collapse, Row, Col, Tooltip, Icon, Switch, Select, InputNumber } from 'antd';
+import { FormattedMessage } from 'react-intl';
 import InputGroup from './InputGroup';
 import tempData from '../../../../templates/template/element/template.config';
 import compConfig from '../../component.config';
@@ -145,12 +146,12 @@ export default class PropsComp extends React.PureComponent {
               <p>
                 {item}
                 {' '}
-                编辑
+                <FormattedMessage id="app.common.edit" />
                 {' '}
                 {
                   compConfig[item].apiLink && (
                     <a target="_blank" href={compConfig[item].apiLink}>
-                      查看 API
+                      <FormattedMessage id="app.edit.look-api" />
                     </a>
                   )}
               </p>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Collapse, Col, Radio, Switch, Row, Tooltip, Icon } from 'antd';
-
+import { FormattedMessage } from 'react-intl';
 import { isImg, deepCopy } from '../../../../utils';
 import { setTemplateData } from '../../../../edit-module/actions';
 
@@ -10,30 +10,30 @@ const RadioGroup = Radio.Group;
 
 const otherData = [
   {
-    name: '侧边按钮点',
+    name: <FormattedMessage id="app.other.point" />,
     type: 'radio',
     key: 'point',
     children: {
       switch: {
-        name: '是否开启侧边小点',
+        name: <FormattedMessage id="app.other.switch" />,
         value: false,
         type: 'switch',
       },
       position: {
         isChild: true,
-        name: '位置',
+        name: <FormattedMessage id="app.other.point.position" />,
         value: ['left', 'right'],
       },
       stroke: {
-        name: '样式',
+        name: <FormattedMessage id="app.other.point.style" />,
         value: ['solid', 'point-stroke'],
       },
       type: {
-        name: '形状',
+        name: <FormattedMessage id="app.other.point.type" />,
         value: ['circ', 'point-rect', 'point-prismatic'],
       },
       size: {
-        name: '大小',
+        name: <FormattedMessage id="app.other.point.size" />,
         value: [
           'point-large', 'default', 'point-small',
         ],
@@ -41,15 +41,15 @@ const otherData = [
     },
   },
   {
-    name: '全屏滚动',
+    name: <FormattedMessage id="app.other.full" />,
     type: 'switch',
     key: 'full',
     demo: 'https://os.alipayobjects.com/rmsportal/pwggipnVeoQkgGwmWilN.mp4',
     children: {
       full: {
-        name: '开关全屏滚动',
+        name: <FormattedMessage id="app.other.switch" />,
         value: false,
-        remark: '此功能需要保存生成预览查看。',
+        remark: <FormattedMessage id="app.other.full.remark" />,
       },
     },
   },
@@ -169,9 +169,6 @@ class EditorOther extends React.PureComponent {
             <Col>
               {item.name}
               {' '}
-              -
-              {' '}
-              {key}
               {tip}
             </Col>
           </Row>,

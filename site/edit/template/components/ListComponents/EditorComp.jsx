@@ -1,10 +1,14 @@
 import React from 'react';
 import EditorList from 'rc-editor-list';
+import editorEn from 'rc-editor-list/lib/locale/en_US';
+import editorZh from 'rc-editor-list/lib/locale/zh_CN';
 import { Collapse } from 'antd';
+import { FormattedMessage } from 'react-intl';
 import EditorProps from './PropsComp';
 import EditorChild from './ChildComp';
 import { setTemplateData } from '../../../../edit-module/actions';
 import { deepCopy, getDataSourceValue, setDataSourceValue } from '../../../../utils';
+import { isZhCN } from '../../../../theme/template/utils';
 import tempData from '../../../../templates/template/element/template.config';
 
 const { Panel } = Collapse;
@@ -62,11 +66,12 @@ class EditorComp extends React.Component {
   }
 
   render() {
-    const { currentEditData, mediaStateSelect } = this.props;
+    const { currentEditData, mediaStateSelect, location } = this.props;
+    const isCN = isZhCN(location.pathname);
     if (!currentEditData) {
       return (
         <p className="props-explain">
-          请选择左侧进行编辑...
+          <FormattedMessage id="app.edit.default" />
         </p>
       );
     }
@@ -76,11 +81,12 @@ class EditorComp extends React.Component {
         <EditorChild edit={edit} {...this.props} key="child" onChange={this.onChildChange} />,
         <EditorProps edit={edit} {...this.props} key="props" onChange={this.onPropsChange} />,
         <Collapse key="csslist" bordered={false} defaultActiveKey="css" className="collapes-style-list">
-          <Panel header="样式编辑" key="css">
+          <Panel header={<FormattedMessage id="app.edit.style.header" />} key="css">
             <EditorList
               editorElem={currentEditData.dom}
               onChange={this.onChange}
               cssToDom={false} // 避免多次样式。
+              locale={!isCN ? editorEn : editorZh}
               isMobile={mediaStateSelect === 'Mobile'}
               defaultActiveKey={['EditorClassName', 'EditorState', 'EditorFont', 'EditorInterface']}
             />

@@ -1,13 +1,15 @@
 import React from 'react';
 import { Icon, message, Menu, Dropdown, Button, Modal, Popconfirm } from 'antd';
+import PropTypes from 'prop-types';
 import CodeMirror from 'rc-editor-list/lib/components/common/CodeMirror';
+import { FormattedMessage } from 'react-intl';
 import 'codemirror/mode/javascript/javascript.js';
 
 import { formatCode } from '../utils';
 import { getNewHref, RemoveLocalStorage } from '../../../utils';
 import { getURLData, setURLData } from '../../../theme/template/utils';
 import {
-  saveData, userName, newTemplate, removeTemplate, setTemplateData,
+  saveData, userName, newTemplate, setTemplateData,
 } from '../../../edit-module/actions';
 import { saveJsZip, saveJSON } from './saveJsZip';
 
@@ -16,6 +18,10 @@ const { Item, ItemGroup } = Menu;
 class NavController extends React.PureComponent {
   static defaultProps = {
     className: 'edit-nav',
+  };
+
+  static contextTypes = {
+    intl: PropTypes.object.isRequired,
   };
 
   constructor(props) {
@@ -56,7 +62,7 @@ class NavController extends React.PureComponent {
     if (!location.port && window.gtag) {
       window.gtag('event', 'preview');
     }
-    message.success('生成预览成功。');
+    message.success(this.context.intl.formatMessage({ id: 'app.header.preview.message' }));
     const { templateData } = this.props;
     // 如果在预览页清除数据，再生成预览将没有数据，手动写入；
     window.document.getElementById('myIframe').contentWindow.postMessage(templateData, '*');
@@ -74,9 +80,9 @@ class NavController extends React.PureComponent {
     }, () => {
       saveData(this.props.templateData, this.props.dispatch, (b) => {
         if (b.code) {
-          message.error('保存出错，请重试。');
+          message.error(this.context.intl.formatMessage({ id: 'app.header.save.message.error' }));
         } else if (!cb) {
-          message.success('保存成功。');
+          message.success(this.context.intl.formatMessage({ id: 'app.header.save.message' }));
         } else {
           cb();
         }
@@ -93,7 +99,9 @@ class NavController extends React.PureComponent {
       isLoad: '下载',
     }, () => {
       saveJsZip(this.props.templateData, () => {
-        message.success('生成代码成功。');
+        message.success(
+          this.context.intl.formatMessage({ id: 'app.header.download.message' })
+        );
         this.setState({
           isLoad: null,
         });
@@ -122,7 +130,8 @@ class NavController extends React.PureComponent {
     this.setState({
       localStorage,
     });
-    removeTemplate(key);
+    // 删除线上数据
+    // removeTemplate(key);
     const current = getURLData('uid');
     if (current === key) {
       this.onClickItem({ key: localStorage[0] });
@@ -144,11 +153,16 @@ class NavController extends React.PureComponent {
     window.localStorage.removeItem(key);
     const current = getURLData('uid');
     if (current === key) {
-      message.success('数据已刷新。', 0.1, () => {
-        location.reload();
-      });
+      message.success(
+        this.context.intl.formatMessage({ id: 'app.header.new-file.message' }),
+        0.1,
+        () => {
+          location.reload();
+        });
     } else {
-      message.success('数据已刷新, 当前模板不是你刷新的模板，请自行切换。');
+      message.success(
+        this.context.intl.formatMessage({ id: 'app.header.new-file.message2' })
+      );
     }
   }
 
@@ -195,7 +209,7 @@ class NavController extends React.PureComponent {
     ));
     return localChild.length && (
       <Menu style={{ width: 282, textAlign: 'center' }} onClick={this.onClickItem}>
-        <ItemGroup title="近期所建" key="0">
+        <ItemGroup title={<FormattedMessage id="app.header.new-file.header" />} key="0">
           {localChild}
         </ItemGroup>
       </Menu>
@@ -211,7 +225,7 @@ class NavController extends React.PureComponent {
   onSaveJSON = () => {
     const { data } = this.props.templateData;
     saveJSON(JSON.stringify(data), () => {
-      message.success('保存成功。');
+      message.success(this.context.intl.formatMessage({ id: 'app.header.save.message' }));
     });
   }
 
@@ -247,26 +261,26 @@ class NavController extends React.PureComponent {
   render() {
     const menuChild = [
       {
-        name: '保存',
+        name: <FormattedMessage id="app.header.save" key="m" />,
         icon: this.state.isLoad === '保存' ? 'loading' : 'save',
         onClick: this.state.isLoad === '保存' ? null : this.onSave,
       },
       {
-        name: '预览',
+        name: <FormattedMessage id="app.header.preview" key="m" />,
         icon: 'eye-o',
         onClick: this.onPreview,
       },
       {
-        name: '下载',
+        name: <FormattedMessage id="app.header.download" key="m" />,
         icon: this.state.isLoad === '下载' ? 'loading' : 'code-o',
         onClick: this.state.isLoad === '下载' ? null : this.onSaveCode,
       },
-      { name: '编辑数据', icon: 'tool', onClick: this.onChangeDataOpenModal },
+      { name: <FormattedMessage id="app.header.edit-data" key="m" />, icon: 'tool', onClick: this.onChangeDataOpenModal },
       {
-        name: '清除缓存',
+        name: <FormattedMessage id="app.header.clear-cache" key="m" />,
         compoennt: () => RemoveLocalStorage('18'),
         onClick: this.onRemoveAllLocalStorage,
-        tooltip: '清除全部的缓存，重新从服务器读取最后保存的数据；只需清除单个缓存请在新建文件的下拉菜单里清除。',
+        tooltip: <FormattedMessage id="app.header.clear-exp" key="t" />,
       },
     ].map((item, i) => {
       const iconProps = item.compoennt ? { component: item.compoennt } : { type: item.icon };
@@ -276,8 +290,8 @@ class NavController extends React.PureComponent {
           <Popconfirm
             title={item.tooltip}
             onConfirm={item.onClick}
-            okText="确定"
-            cancelText="取消"
+            okText={<FormattedMessage id="app.common.ok" />}
+            cancelText={<FormattedMessage id="app.common.cancel" />}
             overlayStyle={{ width: 320 }}
           >
             {children}
@@ -319,7 +333,7 @@ class NavController extends React.PureComponent {
           </Dropdown>
         ) : newIcon}
         <Modal
-          title="当前编辑数据"
+          title={<FormattedMessage id="app.header.edit-data.header" />}
           visible={this.state.codeModalShow}
           width={800}
           footer={null}
@@ -327,7 +341,7 @@ class NavController extends React.PureComponent {
         >
           <p style={{ marginBottom: 16 }}>
             <Icon type="exclamation-circle" style={{ marginRight: 8 }} />
-            将下载的 JSON 复制到此处，请不要随便改更数据。如果数据出错请刷新。
+            <FormattedMessage id="app.header.edit-data.remarks" />
           </p>
           <CodeMirror
             value={this.state.code}
@@ -340,13 +354,13 @@ class NavController extends React.PureComponent {
             }}
           />
           <Button type="primary" style={{ marginTop: '1em' }} onClick={this.onSaveData}>
-            保存
+            <FormattedMessage id="app.header.save" />
           </Button>
           <Button key="re" style={{ marginLeft: 8 }} onClick={this.onReData}>
-            重置
+            <FormattedMessage id="app.header.reset" />
           </Button>
           <Button onClick={this.onSaveJSON} style={{ marginLeft: 8 }}>
-            下载 JSON
+            <FormattedMessage id="app.header.edit-data.download" />
           </Button>
         </Modal>
       </div>

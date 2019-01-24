@@ -34,12 +34,20 @@
     }
   }
   .add {
-    padding: 16px 12px;
+    padding: 16px 0;
     border-bottom: 1px solid @edit-line-color;
     cursor: pointer;
+    writing-mode: tb-rl;
     line-height: 18px;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    align-items: center;
     >i {
       margin: 0 0 8px;
+    }
+    &.add-zh {
+      letter-spacing: 4px;
     }
   }
   .other {

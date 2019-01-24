@@ -1,5 +1,6 @@
 import React from 'react';
 import { Tabs, Icon, Tooltip } from 'antd';
+import { FormattedMessage } from 'react-intl';
 import EditorComp from './ListComponents/EditorComp';
 import EditorOther from './ListComponents/EditorOther';
 
@@ -38,7 +39,7 @@ class EditListController extends React.PureComponent {
         <TabPane
           key="1"
           tab={(
-            <Tooltip title="基本编辑">
+            <Tooltip title={<FormattedMessage id="app.header.edit" />}>
               <Icon type="edit" />
             </Tooltip>
           )}
@@ -62,7 +63,7 @@ class EditListController extends React.PureComponent {
         <TabPane
           key="3"
           tab={(
-            <Tooltip title="其它功能">
+            <Tooltip title={<FormattedMessage id="app.header.other" />}>
               <Icon type="appstore-o" />
             </Tooltip>
           )}

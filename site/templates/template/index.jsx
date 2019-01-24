@@ -9,7 +9,8 @@ function Index() {
   return (
     <Provider store={store}>
       <Layout />
-    </Provider>);
+    </Provider>
+  );
 }
 
 export default Index;

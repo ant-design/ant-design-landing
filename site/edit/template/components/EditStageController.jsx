@@ -368,7 +368,8 @@ class EditStateController extends React.PureComponent {
                   }`,
                 }}
               />
-            </div>) : null}
+            </div>
+          ) : null}
         </div>
       );
     }
@@ -617,7 +618,8 @@ class EditStateController extends React.PureComponent {
             {this.getFuncIconChild(i, dataArray, key)}
           </div>
           {item.comp && this.getFuncCompChild(item.comp, key)}
-        </div>);
+        </div>
+      );
     });
     const overlayHeight = iframe && iframe.document.getElementById('react-content').offsetHeight;
     return (

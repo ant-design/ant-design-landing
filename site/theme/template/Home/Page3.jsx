@@ -207,6 +207,7 @@ export default class Page3 extends React.Component {
             </WaterfallLayout>
           </ScrollOverPack>
         </div>
-      </div>);
+      </div>
+    );
   }
 }

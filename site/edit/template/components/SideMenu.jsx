@@ -31,7 +31,8 @@ class SideMenu extends React.PureComponent {
             {child.isVideo ? (
               <video src={child.src} width="100%" height="100%" autoPlay loop>
                 <track kind="captions" />
-              </video>)
+              </video>
+            )
               : <img src={child.src} width="100%" alt="img" draggable="false" />}
           </div>
           <p>

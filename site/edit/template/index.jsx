@@ -10,7 +10,8 @@ function Edit() {
   return (
     <Provider store={store}>
       <Layout />
-    </Provider>);
+    </Provider>
+  );
 }
 
 export default Edit;

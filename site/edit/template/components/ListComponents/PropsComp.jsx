@@ -48,7 +48,8 @@ export default class PropsComp extends React.PureComponent {
                 </Select.Option>
               );
             })}
-          </Select>);
+          </Select>
+        );
       case 'checkbox':
         return (
           <CheckboxGroup
@@ -56,7 +57,8 @@ export default class PropsComp extends React.PureComponent {
             {...(func ? {} : { value: currentValue })}
             size="small"
             onChange={(data) => { this.props.onChange(key, data, func); }}
-          />);
+          />
+        );
       case 'inputNumber':
         return (
           <InputNumber
@@ -64,7 +66,8 @@ export default class PropsComp extends React.PureComponent {
             size="small"
             {...(func ? {} : { value: currentValue })}
             onChange={(data) => { this.props.onChange(key, data, func); }}
-          />);
+          />
+        );
       default:
         break;
     }
@@ -82,7 +85,8 @@ export default class PropsComp extends React.PureComponent {
               {' '}
               {defaultData}
             </Col>
-          </Row>);
+          </Row>
+        );
       }
       const compChild = this.getCompChild(defaultData, templateData, key);
       const tip = defaultData.remark && (

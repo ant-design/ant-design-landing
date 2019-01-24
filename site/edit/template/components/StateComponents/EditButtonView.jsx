@@ -34,7 +34,8 @@ export default class EditButtonView extends React.PureComponent {
     return (
       <Menu onClick={this.onParentDropdonw}>
         {children}
-      </Menu>);
+      </Menu>
+    );
   }
 
   render() {
@@ -52,7 +53,8 @@ export default class EditButtonView extends React.PureComponent {
             {this.getStr(currentData.dataId)}
             <Icon type="down" />
           </Button>
-        </Dropdown>);
+        </Dropdown>
+      );
     }
     const buttons = editButtonArray && editButtonArray.map((key) => {
       switch (key) {
@@ -60,7 +62,8 @@ export default class EditButtonView extends React.PureComponent {
           return (
             <Button key={key} type="primary" size="small" onClick={this.props.openEditTextFunc}>
               T
-            </Button>);
+            </Button>
+          );
         case 'image':
           return (<ImageComp {...this.props} key={key} />);
         case 'Menu':

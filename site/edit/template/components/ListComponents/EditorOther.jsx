@@ -202,8 +202,10 @@ class EditorOther extends React.PureComponent {
                   }
                 </div>
               </Col>
-            </Row>)}
-        </Panel>);
+            </Row>
+          )}
+        </Panel>
+      );
     });
   }
 

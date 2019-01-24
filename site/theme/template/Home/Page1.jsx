@@ -110,7 +110,8 @@ export default class Page1 extends React.PureComponent {
               {item.title}
             </div>
           </Link>
-        </Col>);
+        </Col>
+      );
     });
   }
 
@@ -128,6 +129,7 @@ export default class Page1 extends React.PureComponent {
             </QueueAnim>
           </ScrollOverPack>
         </div>
-      </div>);
+      </div>
+    );
   }
 }

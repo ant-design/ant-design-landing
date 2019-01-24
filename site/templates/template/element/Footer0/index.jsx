@@ -28,7 +28,8 @@ class Footer extends React.PureComponent {
             }
           </TweenOne>
         </OverPack>
-      </div>);
+      </div>
+    );
   }
 }
 

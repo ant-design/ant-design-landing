@@ -161,7 +161,8 @@ class MenuEditView extends React.PureComponent {
             添加
           </Button>
         </div>
-      </div>);
+      </div>
+    );
   }
 }
 

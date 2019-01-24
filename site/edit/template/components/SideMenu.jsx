@@ -42,7 +42,7 @@ class SideMenu extends React.PureComponent {
               : <img src={child.src} width="100%" alt="img" draggable="false" />}
           </div>
           <p>
-            {isZhCN ? child.text : child.textEn}
+            {child[`text${isZhCN ? '' : 'En'}`]}
           </p>
         </div>
       ));
@@ -138,7 +138,7 @@ class SideMenu extends React.PureComponent {
             type="primary"
             htmlType="submit"
           >
-            确定
+            <FormattedMessage id="app.common.ok" />
           </Button>
         </FormItem>
         <p>

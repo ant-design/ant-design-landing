@@ -81,7 +81,7 @@ module.exports = {
     'app.edit.col.md': 'Desktop 栅格',
     'app.edit.col.xs': 'Mobile 栅格',
     'app.state.input': '请输入...',
-    'app.state.drag': '放在此处',
+    'app.state.drag': '拖拽此处或点击右侧按钮可更换位置',
     'app.state.banner.header': '管理',
     'app.state.banner.add': '添加分页',
     'app.state.icon.header': '粘贴 Icon 的 type 名称',

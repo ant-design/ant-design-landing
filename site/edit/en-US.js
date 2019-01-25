@@ -81,7 +81,7 @@ module.exports = {
     'app.edit.col.md': 'Desktop grid',
     'app.edit.col.xs': 'Mobile grid',
     'app.state.input': 'Please enter...',
-    'app.state.drag': 'Placed here',
+    'app.state.drag': 'Drag here or click the button on the right to change position',
     'app.state.banner.header': 'Manage',
     'app.state.banner.add': 'Add paging',
     'app.state.icon.header': 'Paste the type name of the Icon',

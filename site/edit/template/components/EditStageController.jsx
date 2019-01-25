@@ -615,7 +615,7 @@ class EditStateController extends React.PureComponent {
           <div className="drag-hints">
             <Icon type="bars" />
             {' '}
-            拖拽此处加中键滚动或点击右侧按钮可更换位置
+            <FormattedMessage id="app.state.drag" />
           </div>
           <div className="func-wrapper">
             {this.getFuncIconChild(i, dataArray, key)}

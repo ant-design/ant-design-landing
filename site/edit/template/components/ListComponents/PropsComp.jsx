@@ -131,7 +131,6 @@ export default class PropsComp extends React.PureComponent {
       return null;
     }
 
-    console.log(editArray, edit);
     const { id } = currentEditData;
     const ids = id.split('-');
     const cid = ids[0].split('_')[0];

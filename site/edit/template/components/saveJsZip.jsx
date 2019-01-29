@@ -47,7 +47,6 @@ const getEditCss = (dataArray) => {
   };
   let cssString = '';
   dataArray.forEach((item) => {
-    console.log(item);
     if ('cssString' in item) {
       cssString += item.cssString;
     } else {

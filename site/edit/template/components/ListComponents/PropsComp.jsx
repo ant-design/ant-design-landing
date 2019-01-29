@@ -77,7 +77,7 @@ export default class PropsComp extends React.PureComponent {
   getChildrenToRender = (config, template) => {
     const t = Object.keys(config).filter(key => key !== 'apiLink').map((key) => {
       const defaultData = config[key];
-      const templateData = template[key];
+      const templateData = template && template[key];
       if (key === 'remark') {
         return (
           <Row key="remark">
@@ -130,6 +130,8 @@ export default class PropsComp extends React.PureComponent {
     if (!edit || !editArray.length) {
       return null;
     }
+
+    console.log(editArray, edit);
     const { id } = currentEditData;
     const ids = id.split('-');
     const cid = ids[0].split('_')[0];

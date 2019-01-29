@@ -77,7 +77,7 @@ export default class ChildComp extends React.PureComponent {
       tempDataSource);
     let currentEditTemplateData = getDataSourceValue(ids[1], newTempDataSource);
     const idChildArray = ids[1].split('&');
-    const childIsArray = Array.isArray(currentEditTemplateData.children);
+    const childIsArray = currentEditTemplateData && Array.isArray(currentEditTemplateData.children);
     const parentIsArray = idChildArray[idChildArray.length - 1].indexOf('array_name') >= 0;
     if ((!childIsArray && !parentIsArray) || isNoShow) {
       return null;

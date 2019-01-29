@@ -103,9 +103,10 @@ class Layout extends React.Component {
     }
   }
 
-  createStyle = () => {
+  createStyle = (id = '') => {
     const style = document.createElement('style');
     document.body.appendChild(style);
+    style.id = id;
     return style;
   }
 
@@ -120,12 +121,12 @@ class Layout extends React.Component {
           return css[key].trim() && `${className}:${key} {${css[key]}}`;
       }
     }).filter(c => c);
-    let styleStr = '';
     let cssStyle = '';
     let cssMobileCss = '';
     style.forEach((item) => {
-      if (item.cssString) {
-        styleStr += item.cssString;
+      if ('cssString' in item) {
+        const styleTag = document.getElementById(item.id) || this.createStyle(item.id);
+        styleTag.innerHTML = item.cssString;
       } else {
         const cssName = item.className;
         const css = getCssToString(item.css, cssName);
@@ -140,7 +141,7 @@ class Layout extends React.Component {
     });
     // 版本兼容，两个 css render 都带上；
     this.styleTag.innerHTML = `${cssStyle || ''}${cssMobileCss
-      ? `${mobileTitle}${cssMobileCss}}` : ''}${styleStr}`;
+      ? `${mobileTitle}${cssMobileCss}}` : ''}`;
   }
 
   getDataToChildren = () => {

@@ -13,24 +13,37 @@ import tempData from '../../../../templates/template/element/template.config';
 
 const { Panel } = Collapse;
 class EditorComp extends React.Component {
-  onChange = ({ cssName, cssString }) => {
+  onChange = (cb) => {
+    const { cssName, currentEditCssString } = cb;
     const { currentEditData, dispatch, templateData } = this.props;
     const { id } = currentEditData;
     const ids = id.split('-');
     const cid = ids[0].split('_')[0];
-    const tempDataSource = tempData[cid].dataSource;
+    console.log(ids);
+    let tempDataSource = tempData[cid].dataSource;
+    tempDataSource = tempDataSource.isScrollLink && ids[1].match('Menu') ? templateData.data.config[ids[0]].dataSource : tempDataSource;
+    console.log(tempDataSource);
     const currentEditTemplateData = getDataSourceValue(ids[1], tempDataSource);
-    const newClassName = `${currentEditTemplateData ? currentEditTemplateData.className : ''} ${cssName}`.trim();
+    console.log(currentEditTemplateData);
+    if (tempDataSource.isScrollLink) {
+      console.log(templateData);
+    }
+    console.log(currentEditTemplateData);
+    const newClassName = `${currentEditTemplateData && currentEditTemplateData.className
+      ? currentEditTemplateData.className.split(' ').filter(c => c !== cssName).join(' ')
+      : ''} ${cssName}`.trim();
     const newTemplateData = deepCopy(templateData);
+    console.log(cssName, tempDataSource, currentEditTemplateData, newClassName);
     setDataSourceValue(ids, 'className', newClassName, newTemplateData.data.config);
     const data = {
       // className: e.className,
       // cssValue,
-      cssString,
+      cssString: currentEditCssString,
       // parentClassName,
-      id,
+      id: cb.id,
     };
-    newTemplateData.data.style = (newTemplateData.data.style || []).filter(c => c.id !== id);
+    console.log(cb);
+    newTemplateData.data.style = (newTemplateData.data.style || []).filter(c => c.id !== cb.id);
     newTemplateData.data.style.push(data);
     dispatch(setTemplateData(newTemplateData));
   }

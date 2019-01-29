@@ -45,12 +45,18 @@ const getEditCss = (dataArray) => {
     }).filter(c => c)
       .join('');
   };
+  let cssString = '';
   dataArray.forEach((item) => {
-    const { className, css, mobileCss } = item;
-    cssStr += getCssToString(css, className);
-    mobileCssStr += getCssToString(mobileCss, className);
+    console.log(item);
+    if ('cssString' in item) {
+      cssString += item.cssString;
+    } else {
+      const { className, css, mobileCss } = item;
+      cssStr += getCssToString(css, className);
+      mobileCssStr += getCssToString(mobileCss, className);
+    }
   });
-  return `${cssStr}${mobileCssStr ? `${mobileTitle}${mobileCssStr}}` : ''}`;
+  return `${cssStr}${mobileCssStr ? `${mobileTitle}${mobileCssStr}}` : ''}${cssString}`;
 };
 const setChildrenToIndex = (other, template) => {
   let importStr = '';

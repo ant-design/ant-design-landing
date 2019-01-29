@@ -80,17 +80,17 @@ export default {
     style: [
       {
         cssString:
-          'div > .templates-wrapper > .jrhtw9ph4a-editor_css {\n  position: absolute;\n  background-color: rgba(0, 21, 41, 0);\n  box-shadow: none;\n}\ndiv > .templates-wrapper > .jrhtw9ph4a-editor_css:hover {\n\n}\ndiv > .templates-wrapper > .jrhtw9ph4a-editor_css:active {\n\n}\ndiv > .templates-wrapper > .jrhtw9ph4a-editor_css:focus {\n\n}\n\n@media screen and (max-width: 767px) {\ndiv > .templates-wrapper > .jrhtw9ph4a-editor_css {\n\n}\ndiv > .templates-wrapper > .jrhtw9ph4a-editor_css:active {\n\n}\ndiv > .templates-wrapper > .jrhtw9ph4a-editor_css:focus {\n\n}\n}',
+          'div > .templates-wrapper > .jrhtw9ph4a-editor_css {\n  position: absolute;\n  background-color: rgba(0, 21, 41, 0);\n  box-shadow: none;\n}',
         id: 'div_templates-wrapper_jrhtw9ph4a-editor_css',
       },
       {
         cssString:
-          '.home-page > .header2-menu > .active {\n  color: #ffffff;\n}\n.home-page > .header2-menu > .active:hover {\n\n}\n.home-page > .header2-menu > .active:active {\n\n}\n.home-page > .header2-menu > .active:focus {\n\n}\n\n@media screen and (max-width: 767px) {\n.home-page > .header2-menu > .active {\n\n}\n.home-page > .header2-menu > .active:active {\n\n}\n.home-page > .header2-menu > .active:focus {\n\n}\n}',
+          '.home-page > .header2-menu > .active {\n  color: #ffffff;\n}',
         id: 'home-page_header2-menu_active',
       },
       {
         cssString:
-          '.home-page > .header2-menu > .menu-item {\n\n}\n.home-page > .header2-menu > .menu-item:hover {\n  color: #e0e7ff;\n  border-bottom-color: #ffffff;\n}\n.home-page > .header2-menu > .menu-item:active {\n\n}\n.home-page > .header2-menu > .menu-item:focus {\n\n}\n\n@media screen and (max-width: 767px) {\n.home-page > .header2-menu > .menu-item {\n\n}\n.home-page > .header2-menu > .menu-item:active {\n\n}\n.home-page > .header2-menu > .menu-item:focus {\n\n}\n}',
+          '.home-page > .header2-menu > .menu-item:hover {\n  color: #e0e7ff;\n  border-bottom-color: #ffffff;\n}',
         id: 'home-page_header2-menu_menu-item',
       },
     ],

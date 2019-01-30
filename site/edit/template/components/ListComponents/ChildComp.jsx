@@ -1,6 +1,7 @@
 import React from 'react';
 import { Collapse, Button, Row, Col, Icon, Select } from 'antd';
 import { getRandomKey } from 'rc-editor-list/lib/utils';
+import { FormattedMessage } from 'react-intl';
 import ListSort from '../StateComponents/ListSort';
 import tempData from '../../../../templates/template/element/template.config';
 import { mergeEditDataToDefault, getDataSourceValue, deepCopy } from '../../../../utils';
@@ -123,9 +124,7 @@ export default class ChildComp extends React.PureComponent {
       <Collapse bordered={false} defaultActiveKey={['1']} className="child-wrapper">
         <Panel
           header={(
-            <p>
-              子级增删
-            </p>
+            <FormattedMessage id="app.edit.children.header" />
           )}
           key="1"
         >
@@ -151,7 +150,7 @@ export default class ChildComp extends React.PureComponent {
           {this.editAddDefault && (
             <Row className={this.editAddDefault ? 'add-type' : ''}>
               <Col span={6}>
-                添加类型
+                <FormattedMessage id="app.edit.children.type" />
               </Col>
               <Col span={18}>
                 <Select defaultValue={this.editAddDefault[0]} size="small" onChange={this.onAddSelect}>

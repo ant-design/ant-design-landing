@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Popover, Input } from 'antd';
+import { FormattedMessage } from 'react-intl';
 
 export default class IconComp extends React.Component {
   onIconChange = (e) => {
@@ -11,26 +12,25 @@ export default class IconComp extends React.Component {
     const popContent = (
       <div>
         <p style={{ marginBottom: 8 }}>
-          只能使用
+          <FormattedMessage id="app.state.icon.only-use" />
           <a href="https://ant.design/components/icon-cn/" target="_blank">
             {' '}
-            ant design 的 Icon
+            ant design Icon
             {' '}
           </a>
-          名称
         </p>
         <Input
           style={{ width: 250 }}
           onChange={this.onIconChange}
           defaultValue={editText}
-          placeholder="请粘贴 Icon 名称"
+          placeholder={<FormattedMessage id="app.state.icon.paste" />}
         />
       </div>
     );
     return (
       <Popover
         placement="bottomRight"
-        title="粘贴 Icon 的 type 名称"
+        title={<FormattedMessage id="app.state.icon.header" />}
         content={popContent}
         trigger="click"
       >

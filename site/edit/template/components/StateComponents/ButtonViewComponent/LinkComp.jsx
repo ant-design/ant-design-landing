@@ -1,10 +1,11 @@
 import React from 'react';
 import { Icon, Button, Popover, Input, Row, Col, Switch } from 'antd';
+import { FormattedMessage } from 'react-intl';
 
 export default class LinkComp extends React.Component {
   onValueChange = (v, key) => {
     const { editData } = this.props;
-    const c = v ? '_black' : '';
+    const c = v ? '_blank' : '';
     editData[key] = key === 'target' ? c : v;
     this.props.setTemplateConfigObject(editData);
   }
@@ -14,12 +15,12 @@ export default class LinkComp extends React.Component {
     return (
       <Popover
         placement="bottomRight"
-        title="粘贴图片地址"
+        title={<FormattedMessage id="app.state.link.header" />}
         content={(
           <div>
             <Row>
               <Col span={8}>
-                链接地址:
+                <FormattedMessage id="app.state.link.url" />
               </Col>
               <Col span={16}>
                 <Input
@@ -32,7 +33,7 @@ export default class LinkComp extends React.Component {
             </Row>
             <Row style={{ marginTop: 16 }}>
               <Col span={8}>
-                弹出页面:
+                <FormattedMessage id="app.state.link.blank" />
               </Col>
               <Col span={16}>
                 <Switch size="small"

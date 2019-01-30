@@ -64,7 +64,8 @@ class Header extends React.Component {
               /* replace-end-value */
             }
           </a>
-        </Item>)
+        </Item>
+      )
       );
 
     // user 涉及到数据，请自行替换。
@@ -86,7 +87,8 @@ class Header extends React.Component {
         <span>
           用户名
         </span>
-      </div>);
+      </div>
+    );
     navChildren.push(
       (
         <Item {...dataSource.help} key="help">
@@ -148,7 +150,8 @@ class Header extends React.Component {
               <em />
               <em />
               <em />
-            </div>)
+            </div>
+          )
           }
           <TweenOne
             {...dataSource.Menu}

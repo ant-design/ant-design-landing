@@ -74,7 +74,8 @@ class Templates extends React.PureComponent {
                 </Col>
               </Row>
             </div>
-          </TweenOne>);
+          </TweenOne>
+        );
       }
       return null;
     });

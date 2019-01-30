@@ -1,5 +1,6 @@
 import React from 'react';
 import { Icon, Button, Popover, Input } from 'antd';
+import { FormattedMessage } from 'react-intl';
 import { isImg } from '../../../../../utils';
 
 export default class ImageComp extends React.Component {
@@ -15,13 +16,13 @@ export default class ImageComp extends React.Component {
     return (
       <Popover
         placement="bottomRight"
-        title="粘贴图片地址"
+        title={<FormattedMessage id="app.state.image.header" />}
         content={(
           <Input
             style={{ width: 250 }}
             onChange={this.onImageBtnChange}
             defaultValue={editText && editText.match(isImg) ? editText : ''}
-            placeholder="请粘贴图片"
+            placeholder={<FormattedMessage id="app.state.image.placeholder" />}
           />
         )}
         trigger="click"

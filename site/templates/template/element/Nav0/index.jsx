@@ -1,5 +1,4 @@
 import React from 'react';
-import { findDOMNode } from 'react-dom';
 import TweenOne from 'rc-tween-one';
 import { Menu } from 'antd';
 /* replace-start */
@@ -15,25 +14,33 @@ class Header extends React.Component {
       phoneOpen: false,
       menuHeight: 0,
     };
+    this.menu = React.createRef();
   }
-  /* replace-start */
 
+  /*
+  componentDidMount() {
+    // 如果是 react 16.3 以下版本请使用 findDOMNode;
+    this.menuDom = findDOMNode(this.menu);
+  }
+  */
+
+  /* replace-start */
   componentWillReceiveProps(nextProps) {
     const { func } = nextProps;
     if (func) {
       this.setState({
         phoneOpen: func.open,
+        menuHeight: func.open ? this.menu.current.dom.scrollHeight : 0,
       });
     }
   }
-
   /* replace-end */
+
   phoneClick = () => {
-    const menu = findDOMNode(this.menu);
     const phoneOpen = !this.state.phoneOpen;
     this.setState({
       phoneOpen,
-      menuHeight: phoneOpen ? menu.scrollHeight : 0,
+      menuHeight: phoneOpen ? this.menu.current.dom.scrollHeight : 0,
     });
   }
 
@@ -64,7 +71,8 @@ class Header extends React.Component {
               /* replace-end-value */
             }
           </a>
-        </Item>)
+        </Item>
+      )
       );
     return (
       <TweenOne
@@ -96,12 +104,13 @@ class Header extends React.Component {
               <em />
               <em />
               <em />
-            </div>)
+            </div>
+          )
           }
           <TweenOne
             {...dataSource.Menu}
             animation={{ x: 30, type: 'from', ease: 'easeOutQuad' }}
-            ref={(c) => { this.menu = c; }}
+            ref={this.menu}// {(c) => { this.menu = c; }}
             style={isMobile ? { height: menuHeight } : null}
             /* replace-start */
             data-edit="Menu"
@@ -116,7 +125,8 @@ class Header extends React.Component {
             </Menu>
           </TweenOne>
         </div>
-      </TweenOne>);
+      </TweenOne>
+    );
   }
 }
 

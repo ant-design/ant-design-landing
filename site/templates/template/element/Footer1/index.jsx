@@ -35,7 +35,8 @@ class Footer extends React.Component {
             /* replace-end-value */
           }
         </div>
-      </Col>);
+      </Col>
+    );
   });
 
   render() {
@@ -74,7 +75,8 @@ class Footer extends React.Component {
             </div>
           </TweenOne>
         </OverPack>
-      </div>);
+      </div>
+    );
   }
 }
 

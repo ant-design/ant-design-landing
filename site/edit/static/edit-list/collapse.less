@@ -1,10 +1,25 @@
 @prefixCls: ant-collapse;
 .@{editorList} {
+  > .tab-scroll > .@{prefixCls} > .@{prefixCls}-item > .@{prefixCls}-header {
+    font-weight: bold;
+    font-size: 16px;
+  }
   .@{prefixCls} {
     background-color: @bgColor;
     border-radius: 0;
     color: @edit-list-text-color;
+    border: none;
     border-bottom: 1px solid #000;
+    &.collapes-style-list > .ant-collapse-item {
+
+      > .ant-collapse-content {
+        padding: 0;
+        & > .ant-collapse-content-box {
+          margin-top: 8px;
+          margin-bottom: 0;
+        }
+      }
+    }
     >.@{prefixCls}-item {
       border-top: 1px solid #000;
       border-bottom: none;
@@ -23,7 +38,7 @@
         font-weight: normal;
         border-bottom: 1px solid transparent;
         transition: border .3s @ease-in-out;
-        .arrow {
+        .@{prefixCls}-arrow {
           display: inline-block;
           position: absolute;
           right: 20px;
@@ -62,6 +77,7 @@
       color: @edit-list-text-color;
       padding: 1px 16px;
       background-color: @bgColor;
+      border-top: none;
       >.@{prefixCls}-content-box {
         margin-top: 16px;
         margin-bottom: 16px;

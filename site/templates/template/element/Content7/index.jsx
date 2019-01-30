@@ -73,7 +73,8 @@ class Content7 extends React.Component {
                 /* replace-end-value */
               }
             </div>
-          </div>)}
+          </div>
+)}
         className={item.className}
         /* replace-start */
         {...item}
@@ -122,7 +123,8 @@ class Content7 extends React.Component {
               >
                 <img src={img.children} width="100%" alt="img" />
               </Col>
-            </Row>)}
+            </Row>
+          )}
         </TweenOne.TweenOneGroup>
       </TabPane>
     );

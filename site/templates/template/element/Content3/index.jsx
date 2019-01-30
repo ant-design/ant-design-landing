@@ -72,7 +72,8 @@ class Content3 extends React.PureComponent {
               }
             </TweenOne>
           </div>
-        </TweenOne>);
+        </TweenOne>
+      );
     });
     return (
       <div {...props} {...dataSource.wrapper}>

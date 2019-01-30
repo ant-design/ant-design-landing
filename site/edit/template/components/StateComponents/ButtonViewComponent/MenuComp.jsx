@@ -1,5 +1,6 @@
 import React from 'react';
 import { Icon, Button, Modal } from 'antd';
+import { FormattedMessage } from 'react-intl';
 import MenuEditView from './MenuEditView';
 
 export default class ImageComp extends React.Component {
@@ -20,7 +21,7 @@ export default class ImageComp extends React.Component {
           <Icon type="bars" />
         </Button>
         <Modal
-          title="编辑导航"
+          title={<FormattedMessage id="app.state.menu.header" />}
           visible={this.state.editMenuShow}
           onCancel={this.switchEditMenuFunc}
           footer={null}

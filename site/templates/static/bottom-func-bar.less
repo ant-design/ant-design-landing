@@ -1,0 +1,82 @@
+@bottomBar: bottom-func-bar;
+.@{bottomBar} {
+  position: fixed;
+  bottom: 0;
+  height: 32px;
+  line-height: 32px;
+  left: 4%;
+  text-align: center;
+  box-shadow: 0 -2px 6px fade(#000, 15);
+  transform: translateY(0%);
+  transition: transform .3s @ease-in-out;
+  ul {
+    display: inline-block;
+    border-radius: 4px 4px 0 0;
+    overflow: hidden;
+    background: @bottom-bar-bg-color;
+    li {
+      cursor: pointer;
+      display: inline-block;
+      width: 120px;
+      border-right: 1px solid @bottom-bar-line-color;
+      color: @template-text-color;
+      .anticon {
+        margin-right: 8px;
+      }
+      &:last-child {
+        border-right: none;
+      }
+    }
+  }
+  .bar-icon {
+    background: @bottom-bar-bg-color;
+    position: absolute;
+    top: -12px;
+    width: 32px;
+    height: 13px;
+    margin: auto;
+    left: 0;
+    right: 0;
+    border-radius: 4px 4px 0 0;
+    box-shadow: 0 -2px 6px fade(#000, 15);
+    cursor: pointer;
+    .arrow {
+      display: inline-block;
+      position: absolute;
+      top: 50%;
+      left: ~"calc(50% - 2.8px)";
+      svg {
+        display: none;
+      }
+      &:after,
+      &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 6px;
+        height: 2px;
+        background: #fff;
+        transition: transform .3s @ease-in-out;
+      }
+      &:after {
+        transform: rotate(45deg) translateX(-2px);
+      }
+      &:before {
+        transform: rotate(-45deg) translateX(2px);
+      }
+      transition: transform .3s @ease-in-out;
+    }
+  }
+  &.close {
+    transform: translateY(100%);
+    .arrow {
+      transform: translateY(-3px);
+      &:after {
+        transform: rotate(-45deg) translateX(-2px);
+      }
+      &:before {
+        transform: rotate(45deg) translateX(2px);
+      }
+    }
+  }
+}

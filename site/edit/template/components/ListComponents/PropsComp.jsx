@@ -1,5 +1,6 @@
 import React from 'react';
 import { Collapse, Row, Col, Tooltip, Icon, Switch, Select, InputNumber } from 'antd';
+import { FormattedMessage } from 'react-intl';
 import InputGroup from './InputGroup';
 import tempData from '../../../../templates/template/element/template.config';
 import compConfig from '../../component.config';
@@ -48,7 +49,8 @@ export default class PropsComp extends React.PureComponent {
                 </Select.Option>
               );
             })}
-          </Select>);
+          </Select>
+        );
       case 'checkbox':
         return (
           <CheckboxGroup
@@ -56,7 +58,8 @@ export default class PropsComp extends React.PureComponent {
             {...(func ? {} : { value: currentValue })}
             size="small"
             onChange={(data) => { this.props.onChange(key, data, func); }}
-          />);
+          />
+        );
       case 'inputNumber':
         return (
           <InputNumber
@@ -64,7 +67,8 @@ export default class PropsComp extends React.PureComponent {
             size="small"
             {...(func ? {} : { value: currentValue })}
             onChange={(data) => { this.props.onChange(key, data, func); }}
-          />);
+          />
+        );
       default:
         break;
     }
@@ -73,7 +77,7 @@ export default class PropsComp extends React.PureComponent {
   getChildrenToRender = (config, template) => {
     const t = Object.keys(config).filter(key => key !== 'apiLink').map((key) => {
       const defaultData = config[key];
-      const templateData = template[key];
+      const templateData = template && template[key];
       if (key === 'remark') {
         return (
           <Row key="remark">
@@ -82,7 +86,8 @@ export default class PropsComp extends React.PureComponent {
               {' '}
               {defaultData}
             </Col>
-          </Row>);
+          </Row>
+        );
       }
       const compChild = this.getCompChild(defaultData, templateData, key);
       const tip = defaultData.remark && (
@@ -125,6 +130,7 @@ export default class PropsComp extends React.PureComponent {
     if (!edit || !editArray.length) {
       return null;
     }
+
     const { id } = currentEditData;
     const ids = id.split('-');
     const cid = ids[0].split('_')[0];
@@ -141,12 +147,12 @@ export default class PropsComp extends React.PureComponent {
               <p>
                 {item}
                 {' '}
-                编辑
+                <FormattedMessage id="app.common.edit" />
                 {' '}
                 {
                   compConfig[item].apiLink && (
                     <a target="_blank" href={compConfig[item].apiLink}>
-                      查看 API
+                      <FormattedMessage id="app.edit.look-api" />
                     </a>
                   )}
               </p>

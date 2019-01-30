@@ -1,13 +1,15 @@
 import React from 'react';
 import { Icon, Tooltip, Modal, Form, Button, Input, message } from 'antd';
 import DrawerMenu from 'rc-drawer';
+import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import webData from '../template.config';
 import {
   signUpUser,
   removeUser,
 } from '../../../edit-module/actions';
 import { hasErrors } from '../utils';
-
+import * as utils from '../../../theme/template/utils';
 import { getNewHref } from '../../../utils';
 
 const FormItem = Form.Item;
@@ -18,7 +20,11 @@ class SideMenu extends React.PureComponent {
     lockModalShow: false,
   }
 
-  getDrawer = () => {
+  static contextTypes = {
+    intl: PropTypes.object.isRequired,
+  };
+
+  getDrawer = (isZhCN) => {
     const children = [];
     const pushData = (child, i, key) => {
       children.push((
@@ -31,11 +37,12 @@ class SideMenu extends React.PureComponent {
             {child.isVideo ? (
               <video src={child.src} width="100%" height="100%" autoPlay loop>
                 <track kind="captions" />
-              </video>)
+              </video>
+            )
               : <img src={child.src} width="100%" alt="img" draggable="false" />}
           </div>
           <p>
-            {child.text}
+            {child[`text${isZhCN ? '' : 'En'}`]}
           </p>
         </div>
       ));
@@ -80,7 +87,9 @@ class SideMenu extends React.PureComponent {
     const { templateData, dispatch } = this.props;
     signUpUser(templateData, this.password, dispatch, () => {
       this.onLockData();
-      message.success('加密成功，请保存。');
+      message.success(
+        this.context.intl.formattedMessage({ id: 'app.side.encryption.message' })
+      );
       this.props.form.resetFields();
     });
   }
@@ -88,7 +97,9 @@ class SideMenu extends React.PureComponent {
   oonUnLockData = () => {
     const { templateData, dispatch } = this.props;
     removeUser(templateData, dispatch, () => {
-      message.success('解除密码成功，请保存');
+      message.success(
+        this.context.intl.formattedMessage({ id: 'app.side.encryption.decrypt' })
+      );
     });
   }
 
@@ -100,7 +111,7 @@ class SideMenu extends React.PureComponent {
       <Form onSubmit={this.onSignUp}>
         <p style={{ marginBottom: '1em' }}>
           <Icon type="exclamation-circle" style={{ marginRight: 8 }} />
-          设定密码后，编辑此页面需要输入密码才可以编辑。
+          <FormattedMessage id="app.side.encryption.remarks" />
         </p>
         <FormItem
           validateStatus={passwordError ? 'error' : ''}
@@ -127,25 +138,41 @@ class SideMenu extends React.PureComponent {
             type="primary"
             htmlType="submit"
           >
-            确定
+            <FormattedMessage id="app.common.ok" />
           </Button>
-          <p>
-            <Icon type="warning" style={{ marginRight: 8 }} />
-            确定后，请记得保存，不然将无效!!!
-          </p>
         </FormItem>
+        <p>
+          <Icon type="warning" style={{ marginRight: 8 }} />
+          <FormattedMessage id="app.side.encryption.remarks2" />
+        </p>
       </Form>
     );
   }
 
+  handleLangChange = () => {
+    const { pathname } = this.props.location;
+    const currentProtocol = `${window.location.protocol}//`;
+    const currentHref = window.location.href.substr(currentProtocol.length);
+
+    if (utils.isLocalStorageNameSupported()) {
+      localStorage.setItem('locale', utils.isZhCN(pathname) ? 'en-US' : 'zh-CN');
+    }
+
+    window.location.href = currentProtocol + currentHref.replace(
+      window.location.pathname,
+      utils.getLocalizedPathname(pathname, !utils.isZhCN(pathname)),
+    );
+  }
+
   render() {
-    const drawerChild = this.getDrawer();
-    const { templateData } = this.props;
+    const { templateData, location } = this.props;
     const isLock = templateData.data
       && templateData.data.user
       && templateData.data.user.username
       && !templateData.data.user.delete;
     const passwordChild = this.getPasswordChild();
+    const isZhCN = utils.isZhCN(location.pathname);
+    const drawerChild = this.getDrawer(isZhCN);
     return (
       <div
         className="edit-side-menu-wrapper"
@@ -163,31 +190,39 @@ class SideMenu extends React.PureComponent {
           </div>
         </DrawerMenu>
         <div className="edit-side-menu">
-          <div className="add" onMouseEnter={this.showMenu}>
+          <div className={isZhCN ? 'add add-zh' : 'add'} onMouseEnter={this.showMenu}>
             <Icon type="plus-circle-o" />
-            添加内容
+            <FormattedMessage id="app.side.add" />
           </div>
           <ul className="other" onMouseEnter={this.hideMenu}>
-            <Tooltip title={isLock ? '取消加密' : '编辑加密'} placement="right">
+            <Tooltip title={<FormattedMessage id="app.side.lang" />} placement="right">
+              <li onClick={this.handleLangChange}>
+                {isZhCN ? 'En' : 'Zh'}
+              </li>
+            </Tooltip>
+            <Tooltip title={isLock ? <FormattedMessage id="app.side.decrypt" />
+              : <FormattedMessage id="app.side.encryption" />}
+              placement="right"
+            >
               <li onClick={isLock ? this.oonUnLockData : this.onLockData}>
                 <Icon type={isLock ? 'lock' : 'unlock'} />
               </li>
             </Tooltip>
-            <Tooltip title="umi 例子" placement="right">
+            <Tooltip title={<FormattedMessage id="app.side.umi-example" />} placement="right">
               <li>
                 <a href="https://github.com/ant-motion/landing-umi-example" target="_blank">
                   <Icon type="folder" />
                 </a>
               </li>
             </Tooltip>
-            <Tooltip title="视频教程" placement="right">
+            <Tooltip title={<FormattedMessage id="app.side.video-help" />} placement="right">
               <li>
                 <a href={`${getNewHref('7111', '', true)}/docs/edit/video`} target="_blank">
                   <Icon type="video-camera" />
                 </a>
               </li>
             </Tooltip>
-            <Tooltip title="查看帮助" placement="right">
+            <Tooltip title={<FormattedMessage id="app.side.help" />} placement="right">
               <li>
                 <a href={`${getNewHref('7111', '', true)}/docs/edit/edit-block`} target="_blank">
                   <Icon type="exclamation-circle-o" />
@@ -197,7 +232,7 @@ class SideMenu extends React.PureComponent {
           </ul>
         </div>
         <Modal
-          title="编辑加密"
+          title={<FormattedMessage id="app.side.encryption" />}
           visible={this.state.lockModalShow}
           width={400}
           footer={null}

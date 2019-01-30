@@ -1,4 +1,11 @@
 .@{editorList} {
+  .icon {
+    font-size: 16px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .ant-collapse {
     line-height: 22px;
     font-size: 12px;
@@ -9,7 +16,7 @@
       }
     }
     .ant-radio-group-small .ant-radio-button-wrapper {
-      padding: 0 12px;
+      padding: 0 8px;
     }
     .ant-row {
       margin-bottom: 8px;
@@ -171,6 +178,19 @@
     .editor-transition-tween {
       .ant-row {
         overflow: hidden;
+      }
+    }
+    .ant-tag-checkable {
+      color: @edit-list-text-color;
+      margin-bottom: 8px;
+      border: 1px solid @input-line-color;
+      &:hover {
+        color: @edit-list-text-color;
+      }
+      &:active, &.ant-tag-checkable-checked {
+        border-color: @input-line-color-hover;
+        color: @edit-list-text-color-hover;
+        background: @heiColor;
       }
     }
     .ant-checkbox-group {

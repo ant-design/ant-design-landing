@@ -132,7 +132,8 @@ export default class MainContent extends React.PureComponent {
         disabled={disabled}
       >
         {text}
-      </Link>)
+      </Link>
+    )
       : (
         <a
           href={item.link}

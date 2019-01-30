@@ -33,7 +33,8 @@ class Content7 extends React.Component {
             /* replace-end-value */
           }
         </div>
-      </li>);
+      </li>
+    );
   });
 
 

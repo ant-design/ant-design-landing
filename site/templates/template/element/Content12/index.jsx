@@ -21,7 +21,8 @@ class Content12 extends React.PureComponent {
             <img src={item.children.img.children} alt="img" />
           </span>
         </div>
-      </Col>);
+      </Col>
+    );
   });
 
   render() {

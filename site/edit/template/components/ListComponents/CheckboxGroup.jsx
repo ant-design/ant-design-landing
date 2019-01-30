@@ -1,5 +1,6 @@
 import React from 'react';
 import { Checkbox, Row, Col } from 'antd';
+import { FormattedMessage } from 'react-intl';
 
 const AntCheckboxGroup = Checkbox.Group;
 
@@ -22,7 +23,7 @@ export default class CheckboxGroup extends React.PureComponent {
             checked={checkAll}
             onChange={this.onCheckAllChange}
           >
-            全部
+            <FormattedMessage id="app.common.all" />
           </Checkbox>
         </div>
         <div>

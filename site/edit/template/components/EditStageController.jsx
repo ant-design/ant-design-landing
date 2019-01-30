@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Icon, Button } from 'antd';
+import { FormattedMessage } from 'react-intl';
 import deepEql from 'deep-eql';
 import dragula from 'dragula';
 import Editor from './MediumEditor';
 import { setTemplateData, setCurrentData } from '../../../edit-module/actions';
 import { getChildRect, getCurrentDom } from '../utils';
 import { isImg, deepCopy, mergeEditDataToDefault, getDataSourceValue, mdId } from '../../../utils';
+import * as utils from '../../../theme/template/utils';
 import webData from '../template.config';
 import tempData from '../../../templates/template/element/template.config';
 import EditButtton from './StateComponents/EditButtonView';
@@ -97,7 +99,8 @@ class EditStateController extends React.PureComponent {
         // 占位符
         if (e.className.indexOf('img-wrapper') >= 0) {
           e.className = 'placeholder';
-          e.innerHTML = '放在此处';
+          const isZhCN = utils.isZhCN(this.props.location.pathname);
+          e.innerHTML = isZhCN ? '放在此处' : 'Placed here';
         }
       })
       .on('out', (el, source) => {
@@ -368,7 +371,8 @@ class EditStateController extends React.PureComponent {
                   }`,
                 }}
               />
-            </div>) : null}
+            </div>
+          ) : null}
         </div>
       );
     }
@@ -452,7 +456,7 @@ class EditStateController extends React.PureComponent {
     const currentConfigDataSource = mergeEditDataToDefault(
       this.props.templateData.data.config[this.currentIdArray[0]], tempData[this.editId]);
     let editText = this.getDataSourceChildren(currentConfigDataSource, this.editChildId).children;
-    editText = editText.match(isImg) ? '请输入...' : editText;
+    editText = editText.match(isImg) ? <FormattedMessage id="app.state.input" /> : editText;
     this.setState({
       editText,
       openEditText: true,
@@ -611,13 +615,14 @@ class EditStateController extends React.PureComponent {
           <div className="drag-hints">
             <Icon type="bars" />
             {' '}
-            拖拽此处加中键滚动或点击右侧按钮可更换位置
+            <FormattedMessage id="app.state.drag" />
           </div>
           <div className="func-wrapper">
             {this.getFuncIconChild(i, dataArray, key)}
           </div>
           {item.comp && this.getFuncCompChild(item.comp, key)}
-        </div>);
+        </div>
+      );
     });
     const overlayHeight = iframe && iframe.document.getElementById('react-content').offsetHeight;
     return (

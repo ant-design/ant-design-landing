@@ -28,7 +28,8 @@ class Content5 extends React.PureComponent {
             }
           </p>
         </div>
-      </Col>);
+      </Col>
+    );
   });
 
   render() {

@@ -92,7 +92,8 @@ class Banner extends React.PureComponent {
               </Button>
             </QueueAnim>
           </div>
-        </Element>);
+        </Element>
+      );
     });
     return (
       <div

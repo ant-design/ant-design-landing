@@ -12,15 +12,7 @@ const replaceValueStr = /\/\*\s+replace-start-value\s+=\s+(.*)\s+\*\/([\S\s]*?)\
 
 const stateSort = { default: 0, hover: 1, focus: 2, active: 3 };
 
-const templateStrObj = {
-  JS: {},
-  LESS: {},
-  PROPS: {},
-  OTHER: {
-    index: otherComp.index,
-    documentation: otherComp.documentation,
-  },
-};
+let templateStrObj;
 
 const setScrollScreen = () => {
   const str = `// 实现整屏滚动
@@ -53,12 +45,17 @@ const getEditCss = (dataArray) => {
     }).filter(c => c)
       .join('');
   };
+  let cssString = '';
   dataArray.forEach((item) => {
-    const { className, css, mobileCss } = item;
-    cssStr += getCssToString(css, className);
-    mobileCssStr += getCssToString(mobileCss, className);
+    if ('cssString' in item) {
+      cssString += item.cssString;
+    } else {
+      const { className, css, mobileCss } = item;
+      cssStr += getCssToString(css, className);
+      mobileCssStr += getCssToString(mobileCss, className);
+    }
   });
-  return `${cssStr}${mobileCssStr ? `${mobileTitle}${mobileCssStr}}` : ''}`;
+  return `${cssStr}${mobileCssStr ? `${mobileTitle}${mobileCssStr}}` : ''}${cssString}`;
 };
 const setChildrenToIndex = (other, template) => {
   let importStr = '';
@@ -171,6 +168,16 @@ const jsToZip = () => {
 }; */
 
 export function saveJsZip(templateData, callBack) {
+  // 每次保存重置保存对象数据。。
+  templateStrObj = {
+    JS: {},
+    LESS: {},
+    PROPS: {},
+    OTHER: {
+      index: otherComp.index,
+      documentation: otherComp.documentation,
+    },
+  };
   const { data } = templateData;
   const { config, style, template, other } = data;
   templateStrObj.TEMPLATE = template;

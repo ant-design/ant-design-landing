@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Input, Icon, Popover, Row, Col, Switch } from 'antd';
+import { FormattedMessage } from 'react-intl';
 import { getRandomKey } from 'rc-editor-list/lib/utils';
 import { connect } from 'react-redux';
 import ListSort from '../ListSort';
@@ -66,12 +67,12 @@ class MenuEditView extends React.PureComponent {
           <div className="sort-manage-delete">
             <Popover
               placement="bottomRight"
-              title="修改链接地址"
+              title={<FormattedMessage id="app.state.menu.edit.link.header" />}
               content={(
                 <div>
                   <Row>
                     <Col span={8}>
-                      链接地址:
+                      <FormattedMessage id="app.state.link.url" />
                     </Col>
                     <Col span={16}>
                       <Input
@@ -85,7 +86,7 @@ class MenuEditView extends React.PureComponent {
                   {!isLink && (
                     <Row style={{ marginTop: 16 }}>
                       <Col span={8}>
-                        弹出页面:
+                        <FormattedMessage id="app.state.link.blank" />
                       </Col>
                       <Col span={16}>
                         <Switch size="small"
@@ -128,9 +129,9 @@ class MenuEditView extends React.PureComponent {
           <div style={{ marginBottom: 16 }}>
             <Icon type="exclamation-circle" theme="outlined" />
             {' '}
-            此导航为 Link 导航, 链接里请填写以下 id 名称；
+            <FormattedMessage id="app.state.menu.type-link.remark" />
             <br />
-            当前页面所有 ID：
+            <FormattedMessage id="app.state.menu.type-link.current" />
             <br />
             {templateIds.join(', ')}
           </div>
@@ -158,10 +159,11 @@ class MenuEditView extends React.PureComponent {
             icon="plus"
             type="primary"
           >
-            添加
+            <FormattedMessage id="app.common.add" />
           </Button>
         </div>
-      </div>);
+      </div>
+    );
   }
 }
 

@@ -1,29 +1,29 @@
-const Nav0 = require('./Nav0/template.config');
-const Nav1 = require('./Nav1/template.config');
-const Nav2 = require('./Nav2/template.config');
-const Banner0 = require('./Banner0/template.config');
-const Banner1 = require('./Banner1/template.config');
-const Banner2 = require('./Banner2/template.config');
-const Banner3 = require('./Banner3/template.config');
-const Content0 = require('./Content0/template.config');
-const Content1 = require('./Content1/template.config');
-const Content2 = require('./Content2/template.config');
-const Content3 = require('./Content3/template.config');
-const Content4 = require('./Content4/template.config');
-const Content5 = require('./Content5/template.config');
-const Content6 = require('./Content6/template.config');
-const Content7 = require('./Content7/template.config');
-const Content8 = require('./Content8/template.config');
-const Content9 = require('./Content9/template.config');
-const Content10 = require('./Content10/template.config');
-const Content11 = require('./Content11/template.config');
-const Content12 = require('./Content12/template.config');
-const Content13 = require('./Content13/template.config');
+import Nav0 from './Nav0/template.config';
+import Nav1 from './Nav1/template.config';
+import Nav2 from './Nav2/template.config';
+import Banner0 from './Banner0/template.config';
+import Banner1 from './Banner1/template.config';
+import Banner2 from './Banner2/template.config';
+import Banner3 from './Banner3/template.config';
+import Content0 from './Content0/template.config';
+import Content1 from './Content1/template.config';
+import Content2 from './Content2/template.config';
+import Content3 from './Content3/template.config';
+import Content4 from './Content4/template.config';
+import Content5 from './Content5/template.config';
+import Content6 from './Content6/template.config';
+import Content7 from './Content7/template.config';
+import Content8 from './Content8/template.config';
+import Content9 from './Content9/template.config';
+import Content10 from './Content10/template.config';
+import Content11 from './Content11/template.config';
+import Content12 from './Content12/template.config';
+import Content13 from './Content13/template.config';
 
 
-const Footer0 = require('./Footer0/template.config');
-const Footer1 = require('./Footer1/template.config');
-const Footer2 = require('./Footer2/template.config');
+import Footer0 from './Footer0/template.config';
+import Footer1 from './Footer1/template.config';
+import Footer2 from './Footer2/template.config';
 
 export default {
   Nav0,

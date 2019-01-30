@@ -33,7 +33,6 @@
     "bisheng-plugin-description": "^0.1.4",
     "bisheng-plugin-react": "^1.0.0",
     "bisheng-plugin-toc": "^0.4.0",
-    "bluebird": "^3.5.0",
     "blueimp-md5": "^2.10.0",
     "classnames": "^2.2.5",
     "codemirror": "^5.36.0",

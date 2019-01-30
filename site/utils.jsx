@@ -98,10 +98,10 @@ export function getNewHref(port, hash, remHash, $path = '', setLocal = true) {
   let child = '';
   switch (port) {
     case '7113':
-      child = '/templates';
+      child = 'templates';
       break;
     case '7112':
-      child = '/edit';
+      child = 'edit';
       break;
     default:
       break;

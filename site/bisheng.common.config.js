@@ -4,15 +4,7 @@ const replaceLib = require('antd-tools/lib/replaceLib');
 
 const isDev = process.env.NODE_ENV === 'development';
 const antdImport = ['import', { libraryName: 'antd', style: true }];
-const pluginAntdConfig = {
-  babelConfig: JSON.stringify({
-    plugins: [
-      'transform-class-properties',
-      'transform-object-rest-spread',
-      'transform-decorators-legacy',
-    ],
-  }),
-};
+
 function alertTheme(rules) {
   rules.forEach((rule) => {
     if (Array.isArray(rule.use) && (rule.use.indexOf('less-loader') >= 0
@@ -81,13 +73,12 @@ module.exports = {
     }
     return filePath;
   },
-  doraConfig: {},
-  devServerConfig: {
-    hot: false,
+  doraConfig: {
+    verbose: true,
   },
-  plugins: [
-    `bisheng-plugin-react?${JSON.stringify(pluginAntdConfig)}`,
-  ],
+  lessConfig: {
+    javascriptEnabled: true,
+  },
   webpackConfig(config) {
     alertTheme(config.module.rules);
     alertBabelConfig(config.module.rules);

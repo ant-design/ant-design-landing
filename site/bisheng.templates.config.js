@@ -8,4 +8,6 @@ module.exports = Object.assign({
   theme: './site/templates',
   htmlTemplate: './site/templates/static/index.html',
   port: 7113,
+  themeConfig: {
+  },
 }, commonConfig);

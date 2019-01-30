@@ -9,4 +9,6 @@ module.exports = Object.assign({
   theme: './site/edit',
   htmlTemplate: './site/edit/static/index.html',
   port: 7112,
+  themeConfig: {
+  },
 }, commonConfig);

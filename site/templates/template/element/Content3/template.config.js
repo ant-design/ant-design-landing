@@ -1,7 +1,7 @@
+import component from './index';
 
-const less = require('!raw-loader!./index.less');
-const component = require('./index');
-const templateStr = require('!raw-loader!./index');
+import less from '!raw-loader!./index.less';
+import templateStr from '!raw-loader!./index';
 
 const getBlock = children => ({
   name: children.name,

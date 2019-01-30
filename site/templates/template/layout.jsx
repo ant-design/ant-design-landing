@@ -156,25 +156,6 @@ class Layout extends React.Component {
       const keys = key.split('_');
       const componentName = keys[0];
       const componentData = webData[componentName];
-      /*       if (key.indexOf('Nav2') >= 0) {
-              const pageArray = template.filter(cKey => !cKey.match(/Nav|Footer/ig));
-              const menuLink = getDataSourceValue('menuLink', configData, [key, 'dataSource']);
-              console.log(menuLink);
-              ([].concat(pageArray)).forEach((cKey) => {
-                const menuChild = menuLink.children || [];
-                console.log(cKey, menuChild.map(item => item.name), menuChild.findIndex(item => item.name === cKey) === -1)
-                if (menuChild.findIndex(item => item.name === cKey) === -1) {
-                  const index = pageArray.indexOf(cKey);
-                  const obj = {
-                    name: cKey,
-                    to: cKey,
-                    children: cKey,
-                  };
-                  menuChild.splice(index, 0, obj);
-                  menuLink.children = menuChild;
-                }
-              });
-            } */
       const d = configData[key] || {};
       const dataSource = this.isEdit ? setDataIdToDataSource(mergeEditDataToDefault(d, componentData, true), key)
         : mergeEditDataToDefault(d, componentData, true);

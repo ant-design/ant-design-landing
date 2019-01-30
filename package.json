@@ -93,6 +93,8 @@
     "dist/*",
     "es/**/style/*",
     "lib/**/style/*",
-    "*.less"
+    "site/**/static/*.js",
+    "*.less",
+    "*.css"
   ]
 }

@@ -106,7 +106,7 @@ export function getNewHref(port, hash, remHash, $path = '', setLocal = true) {
     default:
       break;
   }
-  child = isLocalMode ? '' : `/${child}`;
+  child = isLocalMode || !child ? '' : `/${child}`;
   let path = '';
   if (setLocal) {
     path = getLocalizedPathname($path, isZhCN(location.pathname));

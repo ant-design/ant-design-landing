@@ -88,7 +88,7 @@ export function mergeEditDataToDefault(newData, defaultData, useDelete) {
 export const mdId = {};
 
 
-export function getNewHref(port, hash, remHash, $child = '', setLocal = true) {
+export function getNewHref(port, hash, remHash, $path = '', setLocal = true) {
   const winLocation = window.location;
   const userHash = hash ? `#${hash}` : '';
   let newHash = winLocation.hash ? `${winLocation.hash}${hash ? `&${hash}` : ''}` : userHash;
@@ -98,20 +98,20 @@ export function getNewHref(port, hash, remHash, $child = '', setLocal = true) {
   let child = '';
   switch (port) {
     case '7113':
-      child = 'templates';
+      child = '/templates';
       break;
     case '7112':
-      child = 'edit';
+      child = '/edit';
       break;
     default:
       break;
   }
-  child = isLocalMode ? '' : child;
-  child += $child;
+  child = isLocalMode ? '' : `/${child}`;
+  let path = '';
   if (setLocal) {
-    child = getLocalizedPathname(child, isZhCN(location.pathname));
+    path = getLocalizedPathname($path, isZhCN(location.pathname));
   }
-  const href = `${protocol}//${winLocation.hostname}${isLocalMode ? `:${port}` : ''}${child}${newHash}`;
+  const href = `${protocol}//${winLocation.hostname}${isLocalMode ? `:${port}` : ''}${child}${path}${newHash}`;
   return href;
 }
 

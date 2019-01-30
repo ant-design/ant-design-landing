@@ -52,7 +52,7 @@ class Templates extends React.PureComponent {
           >
             <div className="item-wrapper">
               <div className="img-wrapper">
-                <a href={typeIsEdit ? getNewHref('7113', item.preview) : item.preview} target="_blank">
+                <a href={typeIsEdit ? getNewHref('7113', item.preview, false, '', false) : item.preview} target="_blank">
                   <ImageLoadComp src={item.image} />
                 </a>
               </div>
@@ -61,7 +61,7 @@ class Templates extends React.PureComponent {
               </p>
               <Row className="handle">
                 <Col span={12}>
-                  <a href={typeIsEdit ? getNewHref('7113', item.preview) : item.preview} target="_blank">
+                  <a href={typeIsEdit ? getNewHref('7113', item.preview, false, '', false) : item.preview} target="_blank">
                     <Icon type="eye-o" />
                     <FormattedMessage id="app.home.preview" />
                   </a>

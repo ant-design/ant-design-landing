@@ -217,14 +217,14 @@ class SideMenu extends React.PureComponent {
             </Tooltip>
             <Tooltip title={<FormattedMessage id="app.side.video-help" />} placement="right">
               <li>
-                <a href={`${getNewHref('7111', '', true)}/docs/edit/video`} target="_blank">
+                <a href={`${getNewHref('7111', '', true, '/docs/edit/video')}`} target="_blank">
                   <Icon type="video-camera" />
                 </a>
               </li>
             </Tooltip>
             <Tooltip title={<FormattedMessage id="app.side.help" />} placement="right">
               <li>
-                <a href={`${getNewHref('7111', '', true)}/docs/edit/edit-block`} target="_blank">
+                <a href={`${getNewHref('7111', '', true, '/docs/edit/edit-block')}`} target="_blank">
                   <Icon type="exclamation-circle-o" />
                 </a>
               </li>

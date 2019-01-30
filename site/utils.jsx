@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 import rootReducer from './edit-module/reducers';
 
 import tempData from './templates/template/element/template.config';
+import { isZhCN, getLocalizedPathname } from './theme/template/utils';
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));
 
@@ -87,7 +88,7 @@ export function mergeEditDataToDefault(newData, defaultData, useDelete) {
 export const mdId = {};
 
 
-export function getNewHref(port, hash, remHash) {
+export function getNewHref(port, hash, remHash, $child = '', setLocal = true) {
   const winLocation = window.location;
   const userHash = hash ? `#${hash}` : '';
   let newHash = winLocation.hash ? `${winLocation.hash}${hash ? `&${hash}` : ''}` : userHash;
@@ -106,7 +107,11 @@ export function getNewHref(port, hash, remHash) {
       break;
   }
   child = isLocalMode ? '' : child;
-  const href = `${protocol}//${winLocation.hostname}${isLocalMode ? `:${port}` : ''}/${child}${newHash}`;
+  child += $child;
+  if (setLocal) {
+    child = getLocalizedPathname(child, isZhCN(location.pathname));
+  }
+  const href = `${protocol}//${winLocation.hostname}${isLocalMode ? `:${port}` : ''}${child}${newHash}`;
   return href;
 }
 

@@ -153,14 +153,17 @@ class SideMenu extends React.PureComponent {
     const { pathname } = this.props.location;
     const currentProtocol = `${window.location.protocol}//`;
     const currentHref = window.location.href.substr(currentProtocol.length);
-
+    const isZhCN = utils.isZhCN(pathname);
     if (utils.isLocalStorageNameSupported()) {
-      localStorage.setItem('locale', utils.isZhCN(pathname) ? 'en-US' : 'zh-CN');
+      localStorage.setItem('locale', isZhCN ? 'en-US' : 'zh-CN');
     }
 
     window.location.href = currentProtocol + currentHref.replace(
       window.location.pathname,
-      utils.getLocalizedPathname(pathname, !utils.isZhCN(pathname)),
+      utils.getLocalizedPathname(
+        isZhCN ? window.location.pathname : `${window.location.pathname}index`,
+        !isZhCN
+      ),
     );
   }
 

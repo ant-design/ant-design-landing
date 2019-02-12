@@ -26,10 +26,10 @@
     "react-document-title": "^2.0.1"
   },
   "devDependencies": {
-    "antd-tools": "^6.5.0",
+    "antd-tools": "^7.0.0",
     "babel-eslint": "^10.0.1",
     "bisheng": "^1.0.1",
-    "bisheng-plugin-antd": "^0.17.0",
+    "bisheng-plugin-antd": "^1.0.0",
     "bisheng-plugin-description": "^0.1.4",
     "bisheng-plugin-react": "^1.0.0",
     "bisheng-plugin-toc": "^0.4.0",

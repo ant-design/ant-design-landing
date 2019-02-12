@@ -198,17 +198,33 @@ class Layout extends React.Component {
     switch (type) {
       case 'default':
         return (
-          <div>
+          <div
+            style={{
+              height: '100vh',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              fontSize: '24px',
+            }}
+          >
             {' '}
-            加载中。。。
+            Loading data...
             {' '}
           </div>
         );
       case 'error':
         return (
-          <div>
+          <div
+            style={{
+              height: '100vh',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              fontSize: '24px',
+            }}
+          >
             {' '}
-            数据加载错误。。。
+            Data loading error...
           </div>
         );
       default:

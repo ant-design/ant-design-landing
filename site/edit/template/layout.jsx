@@ -78,8 +78,15 @@ class Layout extends React.PureComponent {
     const { templateData, userIsLogin, form } = this.props;
     if (!templateData.data) {
       return (
-        <div>
-          加载中。。。
+        <div
+          style={{
+            height: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          Loading...
         </div>
       );
     }

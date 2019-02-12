@@ -456,7 +456,7 @@ class EditStateController extends React.PureComponent {
     const currentConfigDataSource = mergeEditDataToDefault(
       this.props.templateData.data.config[this.currentIdArray[0]], tempData[this.editId]);
     let editText = this.getDataSourceChildren(currentConfigDataSource, this.editChildId).children;
-    editText = editText.match(isImg) ? <FormattedMessage id="app.state.input" /> : editText;
+    editText = editText.match(isImg) ? 'Please enter...' : editText;
     this.setState({
       editText,
       openEditText: true,
@@ -495,7 +495,15 @@ class EditStateController extends React.PureComponent {
         this.removeNavLinkData(templateData, key);
         break;
     }
-    this.props.dispatch(setTemplateData(templateData));
+    if (this.state.openEditText) {
+      this.setState({
+        openEditText: false,
+      }, () => {
+        this.props.dispatch(setTemplateData(templateData));
+      });
+    } else {
+      this.props.dispatch(setTemplateData(templateData));
+    }
   }
 
   addNavLinkData = (templateData) => {

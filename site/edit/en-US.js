@@ -80,7 +80,6 @@ module.exports = {
     'app.edit.col.remark': 'Here is the antd grid layout, please don\'t feel free to change the width of the style below, please modify the grid here',
     'app.edit.col.md': 'Desktop grid',
     'app.edit.col.xs': 'Mobile grid',
-    'app.state.input': 'Please enter...',
     'app.state.drag': 'Drag here or click the button on the right to change position',
     'app.state.banner.header': 'Manage',
     'app.state.banner.add': 'Add paging',

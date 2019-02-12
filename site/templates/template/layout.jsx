@@ -83,9 +83,9 @@ class Layout extends React.Component {
 
   messageHandle = (e) => {
     if (e.data.type && e.data.type.indexOf('webpack') === -1) {
-      Object.keys(localStorage).forEach((key) => {
+      /* Object.keys(localStorage).forEach((key) => {
         localStorage.removeItem(key);
-      });
+      }); */
       window.localStorage.setItem(e.data.uid, JSON.stringify({
         id: e.data.uid,
         attributes: e.data.data,

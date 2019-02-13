@@ -9,7 +9,6 @@ import {
   setDataIdToDataSource,
 } from './utils';
 import { getState, mergeEditDataToDefault, mdId } from '../../utils';
-import { getURLData } from '../../theme/template/utils';
 import { getUserData } from '../../edit-module/actions';
 import BottomBar from './BottomBar';
 import Point from './other/Point';
@@ -23,7 +22,7 @@ class Layout extends React.Component {
   constructor(props) {
     super(props);
     this.scrollScreen = false;
-    this.isEdit = getURLData('isEdit');
+    this.isEdit = window.frameElement && window.frameElement.tagName === 'IFRAME';
     if (!this.isEdit) {
       const { dispatch } = props;
       dispatch(getUserData());

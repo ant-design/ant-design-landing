@@ -32,10 +32,10 @@ class Iframe extends React.Component {
     const isLocalMode = location.port;
     const port = isLocalMode ? ':7113' : '';
     const mainPath = isLocalMode ? '' : '/templates';
-    let iframeSrc = `${protocol}//${location.hostname}${port}${mainPath}/#isEdit=true`;
+    let iframeSrc = `${protocol}//${location.hostname}${port}${mainPath}`;
     if (type === 'success') {
       // 通过路由刷新 iframe 里 props;
-      iframeSrc = `${protocol}//${location.hostname}${port}${mainPath}/#uid=${uid}&isEdit=true`;
+      iframeSrc = `${protocol}//${location.hostname}${port}${mainPath}/#uid=${uid}`;
     }
     return (
       <iframe

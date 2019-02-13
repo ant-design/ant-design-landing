@@ -68,7 +68,7 @@ Ant Design Landing 是针对产品首页的解决方案，我们秉承 [Ant Desi
 
 ### For 开发者
 
-如果你是工程师，只需将你下载的以『Home』为名的文件包替换掉你的项目里的首页即可，具体介绍请查看 [使用文档](/docs/spec/getting-started)。
+如果你是工程师，只需将你下载的以『Home』为名的文件包替换掉你的项目里的首页即可，具体介绍请查看 [使用文档](/docs/use/getting-started)。
 
 
 ## 如何贡献

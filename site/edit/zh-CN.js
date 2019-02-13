@@ -99,5 +99,8 @@ module.exports = {
     'app.state.video.header': 'Video 地址',
     'app.state.video.placeholder': '请粘贴 Video 地址',
     'app.state.video.preview': '预览图片',
+    'app.login.title': '此页面已加锁，请输入密码。',
+    'app.login.noPassword': '不知道密码请删除当前面页或新建',
+    'app.login.new': '新建页面',
   },
 };

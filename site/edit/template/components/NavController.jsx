@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, message, Menu, Dropdown, Button, Modal, Popconfirm } from 'antd';
+import { Icon, message, Button, Modal, Popconfirm } from 'antd';
 import PropTypes from 'prop-types';
 import CodeMirror from 'rc-editor-list/lib/components/common/CodeMirror';
 import { FormattedMessage } from 'react-intl';
@@ -7,13 +7,11 @@ import 'codemirror/mode/javascript/javascript.js';
 
 import { formatCode } from '../utils';
 import { getNewHref, RemoveLocalStorage } from '../../../utils';
-import { getURLData, setURLData } from '../../../theme/template/utils';
 import {
-  saveData, userName, newTemplate, setTemplateData,
+  saveData, userName, setTemplateData,
 } from '../../../edit-module/actions';
 import { saveJsZip, saveJSON } from './saveJsZip';
-
-const { Item, ItemGroup } = Menu;
+import NewFileButton from './NewFileButton';
 
 class NavController extends React.PureComponent {
   static defaultProps = {
@@ -26,9 +24,7 @@ class NavController extends React.PureComponent {
 
   constructor(props) {
     super(props);
-    const user = window.localStorage.getItem(userName) || '';
     this.state = {
-      localStorage: user.split(',').filter(c => c),
       code: JSON.stringify(props.templateData.data),
       isLoad: null,
     };
@@ -39,7 +35,6 @@ class NavController extends React.PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    const user = window.localStorage.getItem(userName) || '';
     formatCode({
       code: JSON.stringify(nextProps.templateData.data),
       cb: (code) => {
@@ -50,7 +45,6 @@ class NavController extends React.PureComponent {
       parser: 'json',
     });
     this.setState({
-      localStorage: user.split(',').filter(c => c),
       codeModalShow: false,
     });
   }
@@ -109,35 +103,6 @@ class NavController extends React.PureComponent {
     });
   }
 
-  onClickNew = () => {
-    if (!location.port && window.gtag) {
-      window.gtag('event', 'newTemplate');
-    }
-    newTemplate(() => {
-      location.reload();
-    });
-  }
-
-  onClickItem = (e) => {
-    setURLData('uid', e.key);
-    location.reload();
-  }
-
-  onRemoveLocalStorage = (key) => {
-    const localStorage = this.state.localStorage.filter(c => c !== key);
-    window.localStorage.setItem(userName, localStorage.join(','));
-    window.localStorage.removeItem(key);
-    this.setState({
-      localStorage,
-    });
-    // 删除线上数据
-    // removeTemplate(key);
-    const current = getURLData('uid');
-    if (current === key) {
-      this.onClickItem({ key: localStorage[0] });
-    }
-  }
-
   onRemoveAllLocalStorage = () => {
     window.localStorage.getItem(userName).split(',').forEach((key) => {
       if (!key) {
@@ -147,73 +112,6 @@ class NavController extends React.PureComponent {
     });
     window.localStorage.removeItem(userName);
     location.href = location.origin;
-  }
-
-  onSyncData = (key) => {
-    window.localStorage.removeItem(key);
-    const current = getURLData('uid');
-    if (current === key) {
-      message.success(
-        this.context.intl.formatMessage({ id: 'app.header.new-file.message' }),
-        0.1,
-        () => {
-          location.reload();
-        });
-    } else {
-      message.success(
-        this.context.intl.formatMessage({ id: 'app.header.new-file.message2' })
-      );
-    }
-  }
-
-  getNewMenu = () => {
-    const { localStorage } = this.state;
-    const localChild = localStorage.map(key => (
-      <Item
-        key={key}
-        title={key}
-      >
-        <span
-          style={{
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
-          }}
-          className="bar-list-text"
-        >
-          {key}
-        </span>
-        <span className="bar-list-remove">
-          <Button
-            onClick={(e) => {
-              e.stopPropagation();
-              this.onSyncData(key);
-            }}
-            size="small"
-            shape="circle"
-            style={{ margin: '0 8px' }}
-          >
-            <Icon component={() => RemoveLocalStorage('14')} />
-          </Button>
-          <Button
-            onClick={(e) => {
-              e.stopPropagation();
-              this.onRemoveLocalStorage(key);
-            }}
-            size="small"
-            shape="circle"
-            icon="delete"
-          />
-        </span>
-      </Item>
-    ));
-    return localChild.length && (
-      <Menu style={{ width: 282, textAlign: 'center' }} onClick={this.onClickItem}>
-        <ItemGroup title={<FormattedMessage id="app.header.new-file.header" />} key="0">
-          {localChild}
-        </ItemGroup>
-      </Menu>
-    );
   }
 
   onChangeDataOpenModal = () => {
@@ -304,12 +202,7 @@ class NavController extends React.PureComponent {
         </li>
       );
     });
-    const menuNewDropdown = this.getNewMenu();
-    const newIcon = (
-      <div className="right-icon" onClick={this.onClickNew}>
-        <Icon type="file-add" />
-      </div>
-    );
+
     return (
       <div className={this.props.className}>
         <a href={getNewHref('7111', null, true)}>
@@ -324,14 +217,7 @@ class NavController extends React.PureComponent {
           {menuChild}
         </ul>
 
-        {menuNewDropdown ? (
-          <Dropdown
-            overlay={menuNewDropdown}
-            placement="bottomRight"
-          >
-            {newIcon}
-          </Dropdown>
-        ) : newIcon}
+        <NewFileButton />
         <Modal
           title={<FormattedMessage id="app.header.edit-data.header" />}
           visible={this.state.codeModalShow}

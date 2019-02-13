@@ -99,5 +99,8 @@ module.exports = {
     'app.state.video.header': 'Video url',
     'app.state.video.placeholder': 'Please video url',
     'app.state.video.preview': 'Preview image',
+    'app.login.title': 'This page is locked. Please enter your password.',
+    'app.login.noPassword': 'If you don\'t know the password, please delete current page or create a new page',
+    'app.login.new': 'New Page',
   },
 };

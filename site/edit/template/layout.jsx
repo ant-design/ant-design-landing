@@ -1,6 +1,7 @@
 import React from 'react';
 import { Icon, message, notification, Button, Input, Form } from 'antd';
 import { connect } from 'react-redux';
+import { FormattedMessage } from 'react-intl';
 import NavController from './components/NavController';
 import SideMenu from './components/SideMenu';
 import EditInfluence from './components/EditInfluence';
@@ -10,6 +11,8 @@ import EditListController from './components/EditListController';
 import { getState, getNewHref } from '../../utils';
 import { hasErrors } from './utils';
 import { getUserData, loginIn } from '../../edit-module/actions';
+import NewFileButton from './components/NewFileButton';
+
 
 const FormItem = Form.Item;
 
@@ -107,7 +110,7 @@ class Layout extends React.PureComponent {
             <Form onSubmit={this.onLogin}>
               <p>
                 <Icon type="exclamation-circle" style={{ marginRight: 8 }} />
-                此页面已加锁，请输入密码。
+                <FormattedMessage id="app.login.title" />
               </p>
               <FormItem
                 validateStatus={passwordError ? 'error' : ''}
@@ -136,10 +139,21 @@ class Layout extends React.PureComponent {
                   htmlType="submit"
                   style={{ width: '100%' }}
                 >
-                  确定
+                  <FormattedMessage id="app.common.ok" />
                 </Button>
+
               </FormItem>
             </Form>
+            <div>
+              <p>
+                <Icon type="warning" />
+                {' '}
+                <FormattedMessage id="app.login.noPassword" />
+              </p>
+              <NewFileButton>
+                <Button style={{ width: '100%' }}><FormattedMessage id="app.login.new" /></Button>
+              </NewFileButton>
+            </div>
           </div>
         </div>
       );

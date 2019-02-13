@@ -1,5 +1,6 @@
 
 import AV from 'leancloud-storage';
+import xss from 'xss';
 import { getURLData, setURLData } from '../theme/template/utils';
 import defaultData from './default.template.config.js';
 
@@ -117,7 +118,7 @@ export const getUserData = data => (dispatch) => {
   } else {
     const storageDataStr = window.localStorage.getItem(uid);
     if (storageDataStr) {
-      const obj = JSON.parse(storageDataStr);
+      const obj = JSON.parse(xss(storageDataStr));
       userIsLogin = obj.attributes.user
         && obj.attributes.user.userId
         && window.localStorage.getItem(`antd-landing-login-${obj.attributes.user.userId}`);
@@ -128,12 +129,14 @@ export const getUserData = data => (dispatch) => {
       });
     } else {
       const tempData = new AV.Query(fileName);
-      tempData.get(uid).then((obj) => {
+      tempData.get(uid).then(($obj) => {
+        const obj = { ...$obj };
         const inLocal = userId.some(key => key === uid);
         let localStr = userId.join(',');
         if (!inLocal) {
           localStr = `${uid},${localStr}`;
         }
+        obj.attributes.config = JSON.parse(xss(JSON.stringify(obj.attributes.config)));
         window.localStorage.setItem(userName, localStr);
         dataToLocalStorage(obj);
         userIsLogin = obj.attributes.user
@@ -178,13 +181,17 @@ export const setTemplateData = (data) => {
 export const saveData = (templateData, dispatch, cb) => {
   const { uid, data } = templateData;
   const { user } = data;
-  const saveFile = (d) => {
+
+  const saveFile = () => {
+    if (data.config) {
+      data.config = JSON.parse(xss(JSON.stringify(data.config)));
+    }
     const templateObject = AV.Object.createWithoutData(fileName, uid);
     Object.keys(data).forEach((key) => {
       templateObject.set(key, data[key]);
     });
     templateObject.save().then((e) => {
-      dispatch(setTemplateData(d));
+      dispatch(setTemplateData(templateData));
       cb(e);
     }, cb);
   };
@@ -199,7 +206,7 @@ export const saveData = (templateData, dispatch, cb) => {
     userData.save().then((obj) => {
       user.userId = obj.id;
       window.localStorage.setItem(`antd-landing-login-${obj.id}`, 'true');
-      saveFile(templateData);
+      saveFile();
     }, (error) => {
       console.log(JSON.stringify(error));
     });
@@ -208,19 +215,19 @@ export const saveData = (templateData, dispatch, cb) => {
     userData.set('password', user.password);
     delete user.password;
     userData.save().then(() => {
-      saveFile(templateData);
+      saveFile();
     });
   } else if (user && user.delete) {
     userData = AV.Object.createWithoutData(userAvName, user.userId);
     userData.destroy().then(() => {
       window.localStorage.setItem(`antd-landing-login-${user.userId}`, '');
       delete templateData.data.user;
-      saveFile(templateData);
+      saveFile();
     }, (error) => {
       console.log(JSON.stringify(error));
     });
   } else {
-    saveFile(templateData);
+    saveFile();
   }
 };
 

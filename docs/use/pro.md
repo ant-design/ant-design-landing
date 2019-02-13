@@ -42,11 +42,11 @@ export default [
 
 ## 安装依赖
 
-详细参考[开始使用里的安装依赖](docs/use/getting-started-cn#安装依赖);
+详细参考[开始使用里的安装依赖](docs/use/getting-started#安装依赖);
 
 ## CSS Modules
 
-多方案请查看 [umi 里使用的 css module](/docs/use/umi-cn#CSS-Modules);
+多方案请查看 [umi 里使用的 css module](/docs/use/umi#CSS-Modules);
 
 这里推荐使用 css-module 的 global;
 

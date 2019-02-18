@@ -118,7 +118,8 @@ export const getUserData = data => (dispatch) => {
   } else {
     const storageDataStr = window.localStorage.getItem(uid);
     if (storageDataStr) {
-      const obj = JSON.parse(xss(storageDataStr));
+      const obj = JSON.parse(storageDataStr);
+      obj.attributes.config = JSON.parse(xss(JSON.stringify(obj.attributes.config)));
       userIsLogin = obj.attributes.user
         && obj.attributes.user.userId
         && window.localStorage.getItem(`antd-landing-login-${obj.attributes.user.userId}`);

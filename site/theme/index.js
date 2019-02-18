@@ -3,15 +3,16 @@ const path = require('path');
 const homeTmpl = './template/Home/index';
 const contentTmpl = './template/Content/index';
 
-function pickerGenerator() {
-  const tester = new RegExp('^docs/');
+function pickerGenerator(module) {
+  const tester = new RegExp(`^docs/${module || ''}`);
   return (markdownData) => {
-    const filename = markdownData.meta.filename;
+    const { filename } = markdownData.meta;
     if (tester.test(filename) && !/\/demo$/.test(path.dirname(filename))) {
       return {
         meta: markdownData.meta,
       };
     }
+    return null;
   };
 }
 
@@ -24,9 +25,9 @@ module.exports = {
   },
   pick: {
     docs: pickerGenerator(),
-    'docs/guide': pickerGenerator('guide'),
-    'docs/use': pickerGenerator('use'),
-    'docs/edit': pickerGenerator('edit'),
+    'docs/guide': pickerGenerator(),
+    'docs/use': pickerGenerator(),
+    'docs/edit': pickerGenerator(),
   },
   plugins: [
     'bisheng-plugin-description',

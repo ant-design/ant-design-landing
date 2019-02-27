@@ -34,7 +34,7 @@ Landing is a template built by Ant Motion's motion components. It has a rich hom
 
 Has a wealth of various page templates to provide downloads.
 
-[![](https://user-images.githubusercontent.com/6802825/47977555-ac77b080-e0f3-11e8-90f3-6aa04cce5351.jpg)](http://landing.ant.design)
+[![](https://user-images.githubusercontent.com/6802825/47977555-ac77b080-e0f3-11e8-90f3-6aa04cce5351.jpg)](http://landing.ant.design) [![Greenkeeper badge](https://badges.greenkeeper.io/ant-design/ant-design-landing.svg)](https://greenkeeper.io/)
 
 ## Modules
 

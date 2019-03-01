@@ -36,11 +36,12 @@ export default class ChildComp extends React.PureComponent {
   }
 
   onSlideDelete = (e, ids, currentData) => {
-    /*  const children = currentData.children;
+    const children = currentData.children;
     const i = children.indexOf(e);
-    children.splice(i, 1); */
-    currentData.children = currentData.children
-      .map(node => (node === e ? { ...node, delete: true } : node));
+    children.splice(i, 1);
+    currentData.children = children;
+    /* currentData.children
+      .map(node => (node === e ? { ...node, delete: true } : node)); */
     this.props.onChange(ids, currentData);
   }
 
@@ -147,7 +148,7 @@ export default class ChildComp extends React.PureComponent {
               </ListSort>
             </Col>
           </Row>
-          {this.editAddDefault && (
+          {this.editAddDefault ? (
             <Row className={this.editAddDefault ? 'add-type' : ''}>
               <Col span={6}>
                 <FormattedMessage id="app.edit.children.type" />
@@ -162,6 +163,12 @@ export default class ChildComp extends React.PureComponent {
                 </Select>
               </Col>
             </Row>
+          ) : (
+            <div style={{ margin: '8px 0' }}>
+              <Icon type="exclamation-circle" />
+              {' '}
+              <FormattedMessage id="app.edit.children.remarks" />
+            </div>
           )}
           <Row gutter={8}>
             <Col>

@@ -14,7 +14,7 @@ class Banner extends React.PureComponent {
     delete currentProps.isMobile;
     const children = dataSource.textWrapper.children.map((item) => {
       const { name, texty, ...$item } = item;
-      if (name === 'button') {
+      if (name.match('button')) {
         return (
           <Button
             type="primary"

@@ -52,6 +52,7 @@ module.exports = {
     'app.edit.style.header': 'Style edit',
     'app.edit.children.header': 'Children edit',
     'app.edit.children.type': 'Type',
+    'app.edit.children.remarks': 'Click "+": The last element will be copied.',
     'app.edit.look-api': 'API',
     'app.edit.overpack.appear': 'Appear',
     'app.edit.overpack.appear.remark': 'Whether to open the appear animation.',

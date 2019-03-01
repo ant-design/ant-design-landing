@@ -52,6 +52,7 @@ module.exports = {
     'app.edit.style.header': '样式编辑',
     'app.edit.children.header': '子级编辑',
     'app.edit.children.type': '添加类型',
+    'app.edit.children.remarks': '点击 "+": 将复制最后一个元素。',
     'app.edit.look-api': '查看 API',
     'app.edit.overpack.appear': '首次出现',
     'app.edit.overpack.appear.remark': '是否开启进场动画, 关闭则不做第一次进场动画',

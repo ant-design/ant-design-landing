@@ -65,7 +65,7 @@ function mergeDataToChild(newData, _data, useDelete) {
       data[key] = mergeDataToChild(newData[key], deepCopy(data[key])
         || (Array.isArray(newData[key]) ? [] : {}), useDelete);
       if (Array.isArray(newData[key])) {
-        data[key] = data[key].filter(c => c || c === 0);
+        data[key] = newData[key].length ? newData[key] : data[key].filter(c => c || c === 0);
       }
     } else {
       data[key] = newData[key];
@@ -150,12 +150,13 @@ export const getDataSourceValue = (id, templateData, parent) => {
           }
         });
       }
-      if (isNaN(i)) {
+      if (isNaN(i) || !elem) {
         t = null;
       } else {
-        t[i] = elem || {
-          name: nameKey[1],
-        };
+        t[i] = elem;
+        /* || {
+         name: nameKey[1],
+       }; */
         t = t[i];
       }
     } else if (t) {

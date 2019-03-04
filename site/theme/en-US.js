@@ -10,7 +10,7 @@ module.exports = {
     'app.home.introduce': 'Ant Design Landing platform has a variety of  templates, download template package, you can use it quickly, you can also use the  editor to quickly build a dedicated page for you.',
     'app.home.select-template': 'Templates',
     'app.home.enter-editor': 'Editor',
-    'app.home.module': 'Modular',
+    'app.home.module': 'Modules',
     'app.home.features': 'Features',
     'app.home.fatures.language': 'Design guide',
     'app.home.fatures.sketch': 'Sketch',

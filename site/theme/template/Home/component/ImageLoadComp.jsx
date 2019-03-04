@@ -43,7 +43,7 @@ export default class ImageLoadComp extends React.PureComponent {
   }
 
   render() {
-    const { src } = this.props;
+    const { src, className } = this.props;
     const { isLoad, anim } = this.state;
     const enter = Array.isArray(anim);
     return (
@@ -51,7 +51,7 @@ export default class ImageLoadComp extends React.PureComponent {
         <TweenOne
           repeat={enter ? -1 : null}
           animation={anim}
-          className="img"
+          className={className || 'img'}
           style={{ backgroundImage: `url(${src})` }}
           onMouseEnter={this.onEnter}
           onMouseLeave={this.onLeave}

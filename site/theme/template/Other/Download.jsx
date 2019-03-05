@@ -8,7 +8,7 @@ export default function Download({ data }) {
   return (
     <Row gutter={24}>
       {data.map(item => (
-        <Col sm={24} md={12} xxl={8} className="resource-wrapper">
+        <Col key={item.title} sm={24} md={12} xxl={8} className="resource-wrapper">
           <a className="resource-cards"
             href={item.url}
             target="_blank"

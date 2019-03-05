@@ -1,5 +1,5 @@
 ---
-order: 2
+order: 3
 category:
   zh-CN: 使用教程
   en-US: Tutorial

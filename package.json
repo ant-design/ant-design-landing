@@ -86,7 +86,7 @@
     "deploy": "npm run site && bisheng gh-pages --push-only",
     "lint": "npm run lint:es && npm run lint:style",
     "lint:es": "eslint --fix --ext '.js,.jsx' site",
-    "lint:style": "stylelint \"site/**/*.less\" --syntax less",
+    "lint:style": "stylelint --fix \"site/**/*.less\" --syntax less",
     "lint:demo": "cross-env RUN_ENV=DEMO eslint ./ --ext '.md' -c ./.eslintrc.js",
     "test": "npm run lint"
   },

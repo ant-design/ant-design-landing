@@ -141,6 +141,12 @@ export default {
         textEn: 'Case 2 - no text',
         uid: 12,
       },
+      {
+        src: 'https://gw.alipayobjects.com/mdn/rms_ae7ad9/afts/img/A*LFhwRq0WQtAAAAAAAAAAAABjARQnAQ',
+        text: '价目表格',
+        textEn: 'pricing card',
+        uid: 14,
+      },
       /* { disabled: true, src: 'https://zos.alipayobjects.com/rmsportal/MnbozfSRmOwdxvH.jpg' },
       { disabled: true, src: 'https://zos.alipayobjects.com/rmsportal/cMigmCVGBaJkuYG.jpg' },
       { disabled: true, src: 'https://zos.alipayobjects.com/rmsportal/VKeYAOSRQVtMccj.jpg' },

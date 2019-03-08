@@ -1,17 +1,15 @@
 @import '../../../static/custom.less';
 @pricing0: pricing0;
 .@{pricing0}-wrapper {
-  min-height: 370px;
   .@{pricing0} {
-    height: 100%;
+    min-height: 370px;
     padding: 0 24px;
+    display: flex;
+    align-items: flex-end;
     &-img-wrapper {
       height: 100%;
       transform-origin: top;
-      padding: 48px 32px 0;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
+      padding: 0 32px;
       .@{pricing0}-img {
         display: block;
         width: 100%;
@@ -22,8 +20,10 @@
       }
     }
     &-text-wrapper {
+      min-height: 320px;
       padding: 0 40px;
       max-width: 560px;
+      margin-bottom: 32px;
       .@{pricing0}-content,
       .@{pricing0}-title {
         position: relative !important;
@@ -52,8 +52,8 @@
   .@{pricing0}-wrapper {
     min-height: 720px;
     .@{pricing0} {
+      display: block;
       &-img-wrapper {
-        height: 200px;
         padding: 0;
         text-align: center;
         margin-top: 24px;
@@ -65,9 +65,9 @@
       }
       &-text-wrapper {
         height: auto;
-        margin-bottom: 20px;
         text-align: center;
         padding: 0;
+        max-width: 100%;
         .@{pricing0}-content,
         .@{pricing0}-title {
           width: 100%;

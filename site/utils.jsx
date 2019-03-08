@@ -8,7 +8,7 @@ import { isZhCN, getLocalizedPathname } from './theme/template/utils';
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));
 
-export const isImg = /\.(gif|jpg|jpeg|png|svg|JPG|PNG|GIF|JPEG|SVG)$/;
+export const isImg = /^http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w-./?%&=]*)?/; // /\.(gif|jpg|jpeg|png|svg|JPG|PNG|GIF|JPEG|SVG)$/; url 都判为图片
 
 export const getState = (state) => {
   return state;

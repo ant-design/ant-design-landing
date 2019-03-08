@@ -16,7 +16,7 @@ export default {
     },
     title: {
       className: 'banner0-title',
-      children: 'https://zos.alipayobjects.com/rmsportal/HqnZZjBjWRbjyMr.png',
+      children: 'https://gw.alipayobjects.com/mdn/rms_ae7ad9/afts/img/A*OnyWT4Nsxy0AAAAAAAAAAABjARQnAQ',
     },
     content: {
       className: 'banner0-content',

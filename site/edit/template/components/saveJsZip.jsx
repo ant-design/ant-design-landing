@@ -2,7 +2,7 @@ import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 import { mobileTitle } from 'rc-editor-list/lib/utils';
 import { formatCode } from '../utils';
-import { mergeEditDataToDefault } from '../../../utils';
+import { mergeEditDataToDefault, isImg } from '../../../utils';
 import webData from '../../../templates/template/element/template.config';
 import otherComp from '../../../templates/template/other/otherToString';
 import lessComp from '../../../templates/static/lessToString';
@@ -13,6 +13,25 @@ const replaceValueStr = /\/\*\s+replace-start-value\s+=\s+(.*)\s+\*\/([\S\s]*?)\
 const stateSort = { default: 0, hover: 1, focus: 2, active: 3 };
 
 let templateStrObj;
+
+const utils = `
+import React from 'react';
+import { Button } from 'antd';
+
+export const isImg = ${isImg};
+export const getChildrenToRender = (item, i) => {
+  const tag = item.name.indexOf('title') === 0 ? 'h1' : 'div';
+  let children = typeof item.children === 'string' && item.children.match(isImg)
+    ? React.createElement('img', { src: item.children, alt: 'img' })
+    : item.children;
+  children = typeof item.children === 'object' && item.name.indexOf('button') === 0 ? (
+    React.createElement(Button, {
+      ...item.children,
+    })
+  ) : children;
+  return React.createElement(tag, { key: i.toString(), ...item }, children);
+};
+`;
 
 const setScrollScreen = () => {
   const str = `// 实现整屏滚动
@@ -137,6 +156,7 @@ const jsToZip = () => {
     }
   });
   zip.file('data.source.js', propsStr);
+  zip.file('utils.js', utils);
   zip.file('less/antMotionStyle.less', indexLessStr);
   zip.generateAsync({ type: 'blob' }).then((content) => {
     saveAs(content, 'Home.zip');

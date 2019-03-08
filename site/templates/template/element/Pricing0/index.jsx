@@ -2,26 +2,14 @@ import React from 'react';
 import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';
 import QueueAnim from 'rc-queue-anim';
 import TweenOne from 'rc-tween-one';
-import { Row, Col, Button } from 'antd';
+import { Row, Col } from 'antd';
+/* replace-start-value = import { getChildrenToRender } from './utils'; */
+import { getChildrenToRender } from '../../utils';
+/* replace-end-value */
 /* replace-start */
 import './index.less';
 /* replace-end */
-const getChildrenToRender = (item, i) => {
-  const tag = item.name.indexOf('title') === 0 ? 'h1' : 'div';
-  let children = typeof item.children === 'string' && item.children.match(/\.(svg|gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/)
-    ? React.createElement('img', { src: item.children, alt: 'img' })
-    : /* replace-start-value = item.children; */React.createElement('span', { dangerouslySetInnerHTML: { __html: item.children } });
-  /* replace-end-value */
-  children = typeof item.children === 'object' && item.name.indexOf('button') === 0 ? (
-    React.createElement(Button, {
-      ...item.children,
-      /* replace-start */
-      'data-edit': 'link,text',
-      /* replace-end */
-    })
-  ) : children;
-  return React.createElement(tag, { key: i.toString(), ...item }, children);
-};
+
 function Pricing0(props) {
   const { ...tagProps } = props;
   const { dataSource, isMobile } = tagProps;
@@ -70,15 +58,15 @@ function Pricing0(props) {
           type={animType.queue}
           leaveReverse
           ease={['easeOutQuad', 'easeInQuad']}
-          {...dataSource.textWrapper}
+          {...dataSource.childAll}
           component={Col}
-          componentProps={{ md: dataSource.textWrapper.md, xs: dataSource.textWrapper.xs }}
+          componentProps={{ md: dataSource.childAll.md, xs: dataSource.childAll.xs }}
           /* replace-start */
-          data-edit="Col"
+          data-edit="Col,childAll"
         /* replace-end */
         >
           {
-            dataSource.textWrapper.children.map(getChildrenToRender)
+            dataSource.childAll.children.map(getChildrenToRender)
           }
         </QueueAnim>
       </OverPack>

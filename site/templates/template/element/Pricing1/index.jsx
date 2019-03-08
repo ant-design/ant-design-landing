@@ -1,7 +1,10 @@
 import React from 'react';
 import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';
 import QueueAnim from 'rc-queue-anim';
-import { Row, Col } from 'antd';
+import { Row, Col, Button } from 'antd';
+/* replace-start-value = import { getChildrenToRender } from './utils'; */
+import { getChildrenToRender } from '../../utils';
+/* replace-end-value */
 /* replace-start */
 import './index.less';
 /* replace-end */
@@ -31,7 +34,7 @@ class Pricing1 extends React.PureComponent {
           </div>
           <i {...line} key="line" />
           <div {...buttonWrapper} key="button">
-            <a
+            <Button
               {...buttonWrapper.children.a}
               /* replace-start */
               data-edit="link,text"
@@ -64,14 +67,7 @@ class Pricing1 extends React.PureComponent {
           /* replace-end */
           >
             {
-              dataSource.titleWrapper.children.map((item, i) => (
-                React.createElement(item.name.indexOf('title') === 0 ? 'h1' : 'div', { key: i.toString(), ...item }, (
-                  typeof item.children === 'string' && item.children.match(/\.(svg|gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/)
-                    ? React.createElement('img', { src: item.children, alt: 'img' })
-                    : /* replace-start-value = item.children */React.createElement('span', { dangerouslySetInnerHTML: { __html: item.children } })
-                  /* replace-end-value */
-                ))
-              ))
+              dataSource.titleWrapper.children.map(getChildrenToRender)
             }
           </div>
           <OverPack {...dataSource.OverPack}>

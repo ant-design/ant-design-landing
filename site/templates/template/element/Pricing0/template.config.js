@@ -26,7 +26,7 @@ export default {
       name: 'image',
       children: 'https://gw.alipayobjects.com/mdn/rms_ae7ad9/afts/img/A*OnyWT4Nsxy0AAAAAAAAAAABjARQnAQ',
     },
-    textWrapper: {
+    childAll: {
       className: 'pricing0-text-wrapper',
       md: 12,
       xs: 24,

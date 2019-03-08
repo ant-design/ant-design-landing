@@ -5,36 +5,36 @@ import templateStr from '!raw-loader!./index';
 
 const getBlock = (name, children = {}) => ({
   name,
-  className: 'content14-block',
+  className: 'pricing1-block',
   md: 8,
   xs: 24,
   children: {
     wrapper: {
-      className: `content14-block-box ${children.wrapperClass || ''}`,
+      className: `pricing1-block-box ${children.wrapperClass || ''}`,
     },
     topWrapper: {
-      className: 'content14-top-wrapper',
+      className: 'pricing1-top-wrapper',
     },
     name: {
-      className: 'content14-name',
+      className: 'pricing1-name',
       children: children.name,
     },
     money: {
-      className: 'content14-money',
+      className: 'pricing1-money',
       children: children.money,
     },
     content: {
-      className: 'content14-content',
+      className: 'pricing1-content',
       children: children.content,
     },
     line: {
-      className: 'content14-line',
+      className: 'pricing1-line',
     },
     buttonWrapper: {
-      className: 'content14-button-wrapper',
+      className: 'pricing1-button-wrapper',
       children: {
         a: {
-          className: 'content14-button',
+          className: 'pricing1-button',
           href: '#',
           children: children.button,
         },
@@ -49,28 +49,28 @@ export default {
   less,
   dataSource: {
     wrapper: {
-      className: 'home-page-wrapper content14-wrapper',
+      className: 'home-page-wrapper pricing1-wrapper',
 
     },
     page: {
-      className: 'home-page content14',
+      className: 'home-page pricing1',
     },
     OverPack: {
       playScale: 0.3,
-      className: 'content14-content-wrapper',
+      className: 'pricing1-content-wrapper',
     },
     titleWrapper: {
-      className: 'content14-title-wrapper',
+      className: 'pricing1-title-wrapper',
       children: [
         {
           name: 'title',
           children: '价目表',
-          className: 'content14-title-h1',
+          className: 'pricing1-title-h1',
         },
       ],
     },
     block: {
-      className: 'content14-block-wrapper',
+      className: 'pricing1-block-wrapper',
       children: [
         getBlock('block0', {
           button: '免费试用',

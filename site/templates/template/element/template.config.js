@@ -19,7 +19,8 @@ import Content10 from './Content10/template.config';
 import Content11 from './Content11/template.config';
 import Content12 from './Content12/template.config';
 import Content13 from './Content13/template.config';
-import Content14 from './Content14/template.config';
+import Pricing0 from './Pricing0/template.config';
+import Pricing1 from './Pricing1/template.config';
 
 
 import Footer0 from './Footer0/template.config';
@@ -48,7 +49,8 @@ export default {
   Content11,
   Content12,
   Content13,
-  Content14,
+  Pricing0,
+  Pricing1,
   Footer0,
   Footer1,
   Footer2,

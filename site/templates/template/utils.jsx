@@ -53,7 +53,7 @@ export const setDataIdToDataSource = (data, dataId) => {
         if (key in compConfig) {
           item['data-edit'] = key;
         } else if (item.children && typeof item.children !== 'object') {
-          if (item.children.match(isImg)) {
+          if (item.children.match(isImg) || (item.name && item.name.indexOf('image') === 0)) {
             item['data-edit'] = 'image';
           } else {
             item['data-edit'] = 'text';

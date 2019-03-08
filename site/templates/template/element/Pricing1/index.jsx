@@ -6,7 +6,7 @@ import { Row, Col } from 'antd';
 import './index.less';
 /* replace-end */
 
-class Content14 extends React.PureComponent {
+class Pricing1 extends React.PureComponent {
   getChildrenToRender = (item) => {
     const { wrapper, topWrapper, name, buttonWrapper, line, content, money } = item.children;
     return (
@@ -94,4 +94,4 @@ class Content14 extends React.PureComponent {
   }
 }
 
-export default Content14;
+export default Pricing1;

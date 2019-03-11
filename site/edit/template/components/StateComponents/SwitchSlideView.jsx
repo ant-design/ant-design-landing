@@ -45,11 +45,11 @@ export default class SwitchSlideView extends React.Component {
 
   onSlideDelete = (item, dataSource) => {
     const data = this.getDataSourceChild(dataSource);
-    /*  const children = data.children;
+    const children = data.children;
     const i = children.indexOf(item);
-    children.splice(i, 1); */
-    data.children = data.children
-      .map(node => (node === item ? { ...node, delete: true } : node));
+    children.splice(i, 1);
+    /* data.children = data.children
+      .map(node => (node === item ? { ...node, delete: true } : node)); */
     this.setDataToTemplateData(dataSource);
   }
 

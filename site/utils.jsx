@@ -117,7 +117,7 @@ export function getNewHref(port, hash, remHash, $path = '', setLocal = true) {
 
 export const getDataSourceValue = (id, templateData, parent) => {
   const array = parent || [];
-  const childIds = id.split('&');
+  const childIds = id ? id.split('&') : [];
   let t = templateData;
   let tt;
   if (parent) {

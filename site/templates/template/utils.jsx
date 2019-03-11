@@ -1,9 +1,11 @@
 import md5 from 'blueimp-md5';
 import React from 'react';
 import { Button } from 'antd';
-import { isImg, mdId } from '../../utils';
+import { isImg as imgStr, mdId } from '../../utils';
 
 import compConfig from '../../edit/template/component.config';
+
+export const isImg = imgStr;
 
 export const getChildrenToRender = (item, i) => {
   const tag = item.name.indexOf('title') === 0 ? 'h1' : 'div';

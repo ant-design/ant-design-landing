@@ -98,11 +98,10 @@ export default class ChildComp extends React.PureComponent {
         this.editAddDefault = addDefault[c];
       }
     });
+
     if (parentIsArray) {
-      console.log(idChildArray);
       idChildArray.splice(idChildArray.length - 1, 1);
-      idChildArray.splice(idChildArray.length - 1, 1); // children
-      console.log(idChildArray);
+      idChildArray.splice(idChildArray.length - 1, 1);
       idChildArray.forEach((c) => {
         if (addDefault[c]) {
           this.editAddDefault = addDefault[c];

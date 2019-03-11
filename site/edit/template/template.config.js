@@ -159,9 +159,15 @@ export default {
       },
       {
         src: 'https://gw.alipayobjects.com/mdn/rms_ae7ad9/afts/img/A*LFhwRq0WQtAAAAAAAAAAAABjARQnAQ',
-        text: '价目表格',
-        textEn: 'pricing card',
+        text: '价目表块',
+        textEn: 'pricing card block',
         uid: 1,
+      },
+      {
+        src: 'https://gw.alipayobjects.com/mdn/rms_ae7ad9/afts/img/A*LFhwRq0WQtAAAAAAAAAAAABjARQnAQ',
+        text: '价目表-表格',
+        textEn: 'pricing card table',
+        uid: 2,
       },
     ],
   },

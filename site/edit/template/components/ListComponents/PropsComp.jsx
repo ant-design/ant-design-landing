@@ -1,19 +1,22 @@
 import React from 'react';
-import { Collapse, Row, Col, Tooltip, Icon, Switch, Select, InputNumber } from 'antd';
+import { Collapse, Row, Col, Button, Tooltip, Icon, Switch, Select, InputNumber } from 'antd';
 import { FormattedMessage } from 'react-intl';
+import { getRandomKey } from 'rc-editor-list/lib/utils';
 import InputGroup from './InputGroup';
 import tempData from '../../../../templates/template/element/template.config';
 import compConfig from '../../component.config';
-import { mergeEditDataToDefault, getDataSourceValue } from '../../../../utils';
+import { mergeEditDataToDefault, getDataSourceValue, deepCopy } from '../../../../utils';
 import CheckboxGroup from './CheckboxGroup';
+import ListSort from '../StateComponents/ListSort';
 
 const Panel = Collapse.Panel;
 
 const noProps = ['text', 'image', 'video', 'icon', 'texty', 'titleWrapper', 'textAndImage', 'childAll', 'link', 'Content'];
 
 export default class PropsComp extends React.PureComponent {
-  getCompChild = (defaultValue, v, key) => {
-    const { type, value, props, func } = defaultValue;
+  getCompChild = (defaultValue, template, key) => {
+    const { type, value, props, func, join, parentKey } = defaultValue;
+    const v = template && template[key];
     const currentValue = typeof v !== 'undefined' ? v : value;
     switch (type) {
       case 'switch':
@@ -44,8 +47,8 @@ export default class PropsComp extends React.PureComponent {
           >
             {props.children.map((k) => {
               return (
-                <Select.Option key={k}>
-                  {k}
+                <Select.Option key={k.key} value={k.key}>
+                  {k.name}
                 </Select.Option>
               );
             })}
@@ -69,15 +72,185 @@ export default class PropsComp extends React.PureComponent {
             onChange={(data) => { this.props.onChange(key, data, func); }}
           />
         );
+      case 'array':
+        return this.getArrayChild(currentValue, template, join, parentKey, key, func);
       default:
         break;
     }
   }
 
+  onDelete = (e, value) => {
+    const children = value.children;
+    const i = children.indexOf(e);
+    children.splice(i, 1);
+    value.children = children;
+  }
+
+  onSlideDelete = (e, value, key, func, { template, join, i, parentKey }) => {
+    this.onDelete(e, value);
+    if (join) {
+      let $item;
+      join.forEach((k) => {
+        $item = $item ? $item[k] : template[k];
+      });
+      let mapBoolNum;
+      let j;
+      for (j = 0; j < join.length; j += 1) {
+        const k = join[j];
+        if (k === '$all') {
+          mapBoolNum = j;
+          break;
+        } else {
+          $item = $item ? $item[k] : template[k];
+        }
+      }
+      if (mapBoolNum) {
+        $item.forEach((aItem) => {
+          let cItem;
+          for (j = mapBoolNum + 1; j < join.length; j += 1) {
+            const k = join[j];
+            cItem = cItem ? cItem[k] : aItem[k];
+            cItem.splice(i, 1);
+          }
+        });
+      } else {
+        $item.splice(i, 1);
+      }
+      this.props.onChange(parentKey, template, func, true);
+    } else {
+      this.props.onChange(key, value, func);
+    }
+  }
+
+  copyData = (currentData) => {
+    const newData = deepCopy(currentData[currentData.length - 1]);
+    delete newData.delete;
+    const randomName = getRandomKey();
+    if (newData.name) {
+      newData.name = `${newData.name.split('~')[0].replace(/[0-9]/ig, '')}~${randomName}`;
+    }
+    if (newData.key) {
+      newData.key = `${newData.key.split('~')[0].replace(/[0-9]/ig, '')}~${randomName}`;
+    }
+    // Table
+    if (newData.dataIndex) {
+      newData.dataIndex = `${newData.dataIndex.split('~')[0].replace(/[0-9]/ig, '')}~${randomName}`;
+    }
+    return newData;
+  }
+
+  onAdd = (currentData, key, func, { template, join, parentKey }) => {
+    let newData = this.copyData(currentData.children);
+    currentData.children.push(newData);
+    if (join) {
+      let $item;
+      join.forEach((k) => {
+        $item = $item ? $item[k] : template[k];
+      });
+      let mapBoolNum;
+      let j;
+      for (j = 0; j < join.length; j += 1) {
+        const k = join[j];
+        if (k === '$all') {
+          mapBoolNum = j;
+          break;
+        } else {
+          $item = $item ? $item[k] : template[k];
+        }
+      }
+      if (mapBoolNum) {
+        $item.forEach((aItem) => {
+          let cItem;
+          for (j = mapBoolNum + 1; j < join.length; j += 1) {
+            const k = join[j];
+            cItem = cItem ? cItem[k] : aItem[k];
+            console.log(cItem);
+            newData = this.copyData(cItem);
+            console.log(newData);
+            cItem.push(newData);
+            // cItem.splice(i, 1);
+          }
+        });
+      } else {
+        newData = this.copyData($item);
+        console.log(newData);
+        $item.push(newData);
+      }
+      this.props.onChange(parentKey, template, func, true);
+    } else {
+      this.props.onChange(key, currentData, func);
+    }
+  }
+
+  onListChange = (e, currentData, key, func) => {
+    currentData.children = e.map((item) => {
+      return currentData.children.filter((node) => {
+        return node.name === item.key;
+      })[0];
+    });
+    this.props.onChange(key, currentData, func);
+  }
+
+  getArrayChild = (value, template, join, parentKey, key, func) => {
+    const childrenToRender = value.children.map((item, i) => {
+      return (
+        <div key={item.name} className="sort-manage">
+          <div className="sort-manage-name">
+            {item.name}
+          </div>
+          <div className="sort-manage-delete">
+            <Button
+              onClick={() => {
+                this.onSlideDelete(item, value, key, func, { template, join, i, parentKey });
+              }}
+              size="small"
+              shape="circle"
+              icon="delete"
+              disabled={value.children.length === 1}
+            />
+          </div>
+        </div>
+      );
+    });
+    return (
+      <Row className="child-wrapper">
+        <Col>
+          <ListSort
+            dragClassName="list-drag-selected"
+            className="sort-manage-list"
+            key="list"
+            dragElement={(
+              <div className="sort-manage-icon">
+                <Icon type="bars" />
+              </div>
+            )}
+            onChange={(e) => {
+              this.onListChange(e, value, key, func);
+            }}
+          >
+            {childrenToRender}
+          </ListSort>
+        </Col>
+        <Row gutter={8} style={{ marginTop: 8 }}>
+          <Col>
+            <a
+              onClick={() => {
+                this.onAdd(value, key, func, { template, join, parentKey });
+              }}
+              className="add-button"
+            >
+              <Icon type="plus" />
+            </a>
+          </Col>
+        </Row>
+      </Row>
+    );
+  }
+
   getChildrenToRender = (config, template) => {
     const t = Object.keys(config).filter(key => key !== 'apiLink').map((key) => {
       const defaultData = config[key];
-      const templateData = template && template[key];
+
       if (key === 'remark') {
         return (
           <Row key="remark">
@@ -89,7 +262,7 @@ export default class PropsComp extends React.PureComponent {
           </Row>
         );
       }
-      const compChild = this.getCompChild(defaultData, templateData, key);
+      const compChild = this.getCompChild(defaultData, template, key);
       const tip = defaultData.remark && (
         <Tooltip
           placement="topRight"
@@ -107,10 +280,6 @@ export default class PropsComp extends React.PureComponent {
         <Row gutter={8} key={`${defaultData.name}-1`}>
           <Col>
             {defaultData.name}
-            {' '}
-            -
-            {' '}
-            {key}
             {tip}
           </Col>
         </Row>,

@@ -58,7 +58,7 @@ class Header extends React.Component {
          /* replace-end */
         >
           {
-            /* replace-start-value = navData[key].children} */
+            /* replace-start-value = navData[key].children */
             React.createElement('span', { dangerouslySetInnerHTML: { __html: navData[key].children } })
             /* replace-end-value */
           }

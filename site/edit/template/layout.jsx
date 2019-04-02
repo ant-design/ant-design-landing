@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, message, notification, Button, Input, Form } from 'antd';
+import { Icon, message, Button, Input, Form } from 'antd';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import NavController from './components/NavController';
@@ -24,7 +24,7 @@ class Layout extends React.PureComponent {
   componentWillMount() {
     const { dispatch } = this.props;
     dispatch(getUserData());
-    notification.open({
+    /* notification.open({
       placement: 'bottomRight',
       message: '问题收集',
       description: (
@@ -37,7 +37,7 @@ class Layout extends React.PureComponent {
         </p>),
       icon: <Icon type="smile" style={{ color: '#108ee9' }} />,
       duration: 0,
-    });
+    }); */
   }
 
   componentDidUpdate() {

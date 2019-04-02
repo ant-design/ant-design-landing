@@ -33,6 +33,13 @@ export const getChildrenToRender = (item, i) => {
 };
 `;
 
+const publishJSON = [
+  {
+    file: 'pages/index.js',
+    data: 'import React from \'react\';\nimport Home from \'../components/index\';\n\nexport default () => <Home />;',
+  },
+];
+
 const setScrollScreen = () => {
   const str = `// 实现整屏滚动
     const docHeight = this.dom.getBoundingClientRect().height;
@@ -109,7 +116,7 @@ const setChildrenToIndex = (other, template) => {
     .replace('&scrollScreen&', '')
     .replace('&scrollScreen-pragma&', '');
 };
-const jsToZip = () => {
+const jsToZip = (getJSON) => {
   const zip = new JSZip();
   let indexLessStr = '';
   const forEachToFile = (key, name, parent) => {
@@ -130,14 +137,31 @@ const jsToZip = () => {
         }
         break;
     }
-    zip.file(fileName, content);
+    if (getJSON) {
+      if (!fileName.match('.md')) {
+        publishJSON.push({
+          file: `components/${fileName}`,
+          data: content,
+        });
+      }
+    } else {
+      zip.file(fileName, content);
+    }
   };
   Object.keys(lessComp).forEach((key) => {
     if (key === 'point' && !('point' in templateStrObj.OTHER)) {
       return;
     }
     indexLessStr += `@import './${key.toLocaleLowerCase()}.less';\n`;
-    zip.file(`less/${key.toLocaleLowerCase()}.less`, lessComp[key]);
+    const lessName = `less/${key.toLocaleLowerCase()}.less`;
+    if (getJSON) {
+      publishJSON.push({
+        file: `components/${lessName}`,
+        data: lessComp[key],
+      });
+    } else {
+      zip.file(lessName, lessComp[key]);
+    }
   });
   let propsStr = 'import React from \'react\';\n';
   Object.keys(templateStrObj).forEach((key) => {
@@ -151,16 +175,33 @@ const jsToZip = () => {
         Object.keys(item).forEach((k) => { forEachToFile(k, key, item); });
       } else if (key === 'EDITCSS') {
         indexLessStr += '@import \'./edit.less\';';
-        zip.file('less/edit.less', templateStrObj[key]);
+        if (getJSON) {
+          publishJSON.push({
+            file: 'components/less/edit.less',
+            data: templateStrObj[key] || '@edit: .edit;',
+          });
+        } else {
+          zip.file('less/edit.less', templateStrObj[key]);
+        }
       }
     }
   });
-  zip.file('data.source.js', propsStr);
-  zip.file('utils.js', utils);
-  zip.file('less/antMotionStyle.less', indexLessStr);
-  zip.generateAsync({ type: 'blob' }).then((content) => {
-    saveAs(content, 'Home.zip');
-  });
+  if (getJSON) {
+    [
+      { file: 'components/data.source.js', data: propsStr },
+      { file: 'components/utils.js', data: utils },
+      { file: 'components/less/antMotionStyle.less', data: indexLessStr },
+    ].forEach((item) => {
+      publishJSON.push(item);
+    });
+  } else {
+    zip.file('data.source.js', propsStr);
+    zip.file('utils.js', utils);
+    zip.file('less/antMotionStyle.less', indexLessStr);
+    zip.generateAsync({ type: 'blob' }).then((content) => {
+      saveAs(content, 'Home.zip');
+    });
+  }
 };
 /* const imgToTag = (data) => {
   let forEachData;
@@ -187,7 +228,7 @@ const jsToZip = () => {
   return data;
 }; */
 
-export function saveJsZip(templateData, callBack) {
+export function saveJsZip(templateData, callBack, getJSON) {
   // 每次保存重置保存对象数据。。
   templateStrObj = {
     JS: {},
@@ -277,26 +318,29 @@ export function saveJsZip(templateData, callBack) {
   promiseObject['OTHER-index'] = { value: setChildrenToIndex(other, fileNameObject) };
   let i = 0;
   const promiseArray = Object.keys(promiseObject);
-  function startSvae() {
-    if (i >= promiseArray.length) {
-      jsToZip();
-      callBack();
-    }
+  function startSave() {
+    jsToZip(getJSON);
+    callBack(publishJSON);
   }
+  const setTemplateStrObj = (key, v) => {
+    const keys = key.split('-');
+    if (keys[1]) {
+      templateStrObj[keys[0]][keys[1]] = v;
+    } else {
+      templateStrObj[key] = v;
+    }
+  };
   promiseArray.forEach((key) => {
     const item = promiseObject[key];
     formatCode({
       code: item.value,
       parser: item.type,
       cb: (v, cKey) => {
-        const keys = cKey.split('-');
-        if (keys[1]) {
-          templateStrObj[keys[0]][keys[1]] = v;
-        } else {
-          templateStrObj[cKey] = v;
-        }
+        setTemplateStrObj(cKey, v);
         i += 1;
-        startSvae();
+        if (i >= promiseArray.length) {
+          startSave();
+        }
       },
       key,
     });

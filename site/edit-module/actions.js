@@ -48,6 +48,7 @@ export const newTemplate = (cb, data = {
   config: {},
   style: [],
   other: {},
+  page: {},
 }) => {
   const TemplateObject = AV.Object.extend(fileName);
   const tempData = new TemplateObject();
@@ -55,6 +56,7 @@ export const newTemplate = (cb, data = {
   tempData.set('config', data.config);
   tempData.set('style', data.style);
   tempData.set('other', data.other);
+  tempData.set('page', data.page);
   tempData.save().then((obj) => {
     setURLData('uid', obj.id);
     window.localStorage.setItem(userName, `${obj.id},${
@@ -123,6 +125,7 @@ export const getUserData = data => (dispatch) => {
       userIsLogin = obj.attributes.user
         && obj.attributes.user.userId
         && window.localStorage.getItem(`antd-landing-login-${obj.attributes.user.userId}`);
+      console.log(obj);
       dispatch({
         type: postType.POST_SUCCESS,
         templateData: obj,

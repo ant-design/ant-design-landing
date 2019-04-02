@@ -10,6 +10,8 @@ const { TextArea } = Input;
 
 const buildId = 'antd-landing-build';
 
+const nowURL = 'https://antd-landing.now.sh/';
+
 const remarks = {
   'en-US': (
     <span>
@@ -92,7 +94,7 @@ class PublishModal extends React.Component {
   onMonitorPublishState = (id) => {
     ticker.clear(this.getPublishState);
     this.getPublishState = ticker.interval(() => {
-      fetch(`https://ant-design-landing-build-l2ccvqkbw.now.sh/api/deploy/${id}`, {
+      fetch(`${nowURL}api/deploy/${id}`, {
         method: 'GET',
         mode: 'cors',
         headers: {
@@ -132,7 +134,7 @@ class PublishModal extends React.Component {
 
   onPublish = (templateData, pageData) => {
     saveJsZip(templateData, (data) => {
-      fetch('https://ant-design-landing-build-l2ccvqkbw.now.sh/api/deploy', {
+      fetch(`${nowURL}api/deploy`, {
         method: 'POST',
         mode: 'cors',
         headers: {

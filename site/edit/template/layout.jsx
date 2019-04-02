@@ -24,20 +24,6 @@ class Layout extends React.PureComponent {
   componentWillMount() {
     const { dispatch } = this.props;
     dispatch(getUserData());
-    /* notification.open({
-      placement: 'bottomRight',
-      message: '问题收集',
-      description: (
-        <p>
-          目前编辑器处于测试阶段，如果你在编辑的过程中出现任何问题，都可以在
-          {' '}
-          <a href="https://github.com/ant-design/ant-design-landing/issues" target="_black">Landing issues</a>
-          {' '}
-          上提出，我们会及时解决你的问题，谢谢！
-        </p>),
-      icon: <Icon type="smile" style={{ color: '#108ee9' }} />,
-      duration: 0,
-    }); */
   }
 
   componentDidUpdate() {

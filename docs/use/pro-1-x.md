@@ -168,7 +168,7 @@ export default class LandingLayout extends React.Component {
 + const BasicLayout = routerData['/dashboards'].component;
 - const BasicLayout = routerData['/'].component;  
   ...
-+     <Route path="/" component={PageLayout} />
++     <Route exact path="/" component={PageLayout} />
       <Route path="/user" component={UserLayout} />
       <AuthorizedRoute
 +       path="/dashboards"

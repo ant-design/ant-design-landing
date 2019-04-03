@@ -6,19 +6,19 @@ export default {
       {
         src: 'https://zos.alipayobjects.com/rmsportal/ZjfIAdkDVlpnilf.jpg',
         text: '普通型导航',
-        textEn: 'Ordinary nav',
+        textEn: 'Ordinary Nav',
         uid: 0,
       },
       {
         src: 'https://zos.alipayobjects.com/rmsportal/ZjfIAdkDVlpnilf.jpg',
         text: 'Link 导航(页面滚动)',
-        textEn: 'Link nav',
+        textEn: 'Link Nav',
         uid: 2,
       },
       {
         src: 'https://zos.alipayobjects.com/rmsportal/UTHsfGMNXXbpEoL.jpg',
         text: '带用户型导航',
-        textEn: 'User nav',
+        textEn: 'User Nav',
         uid: 1,
       },
     ],
@@ -30,13 +30,13 @@ export default {
       {
         src: 'https://zos.alipayobjects.com/rmsportal/gyseCGEPqWjQpYF.jpg',
         text: '单图Banner',
-        textEn: 'Single banner',
+        textEn: 'Single Banner',
         uid: 0,
       },
       {
         src: 'https://zos.alipayobjects.com/rmsportal/chnhazooyzrjWSv.jpg',
         text: '多图Banner',
-        textEn: 'Multiple banner',
+        textEn: 'Multiple Banner',
         uid: 1,
       },
       {
@@ -51,6 +51,12 @@ export default {
         textEn: 'Banner Texty',
         uid: 3,
       },
+      {
+        src: 'https://gw.alipayobjects.com/mdn/rms/afts/img/A*7KXOT7LOsr8AAAAAAAAAAABjARQnAQ',
+        text: '产品型Banner',
+        textEn: 'Product Type Banner',
+        uid: 4,
+      },
     ],
   },
   Content: {
@@ -60,7 +66,7 @@ export default {
       {
         src: 'https://zos.alipayobjects.com/rmsportal/tFEFnHEpyPhRnFCsKjdR.jpg',
         text: '产品介绍',
-        textEn: 'Product desc',
+        textEn: 'Product Desc',
         uid: 0,
       },
       {
@@ -96,13 +102,13 @@ export default {
       {
         src: 'https://zos.alipayobjects.com/rmsportal/yNbeUIWcDNZFKTY.jpg',
         text: '单模块介绍',
-        textEn: 'Single module',
+        textEn: 'Single Module',
         uid: 6,
       },
       {
         src: 'https://zos.alipayobjects.com/rmsportal/CfSeDOXHJzJuPbz.jpg',
         text: '多模块介绍',
-        textEn: 'Multiple modules',
+        textEn: 'Multiple Modules',
         uid: 7,
       },
       {
@@ -126,13 +132,13 @@ export default {
       {
         src: 'https://gw.alipayobjects.com/zos/rmsportal/hEmKNrtthHJqUGAWXfun.jpg',
         text: '标题文字',
-        textEn: 'Title text',
+        textEn: 'Title Text',
         uid: 13,
       },
       {
         src: 'https://gw.alipayobjects.com/zos/rmsportal/bDZgyDGRJtLCmrcODFax.jpg',
         text: '标题按钮',
-        textEn: 'Title button',
+        textEn: 'Title Button',
         uid: 11,
       },
       {
@@ -154,19 +160,19 @@ export default {
       {
         src: 'https://gw.alipayobjects.com/mdn/rms_ae7ad9/afts/img/A*PWraQ5aEPjsAAAAAAAAAAABjARQnAQ',
         text: '产品价格',
-        textEn: 'product pricing',
+        textEn: 'Product Pricing',
         uid: 0,
       },
       {
         src: 'https://gw.alipayobjects.com/mdn/rms_ae7ad9/afts/img/A*LFhwRq0WQtAAAAAAAAAAAABjARQnAQ',
         text: '价目表块',
-        textEn: 'pricing card block',
+        textEn: 'Pricing Card Block',
         uid: 1,
       },
       {
         src: 'https://gw.alipayobjects.com/mdn/rms_ae7ad9/afts/img/A*LFhwRq0WQtAAAAAAAAAAAABjARQnAQ',
         text: '价目表-表格',
-        textEn: 'pricing card table',
+        textEn: 'Pricing Card Table',
         uid: 2,
       },
     ],

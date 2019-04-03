@@ -180,7 +180,6 @@ class PublishModal extends React.Component {
     const { getFieldDecorator } = form;
     const { isLoad } = this.state;
     const locale = isZhCN(location.pathname) ? 'zh-CN' : 'en-US';
-    console.log(this.props);
     const page = templateData.data.page || {};
     return (
       <Modal

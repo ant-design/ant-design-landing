@@ -170,7 +170,7 @@ export default {
         uid: 1,
       },
       {
-        src: 'https://gw.alipayobjects.com/mdn/rms_ae7ad9/afts/img/A*LFhwRq0WQtAAAAAAAAAAAABjARQnAQ',
+        src: 'https://gw.alipayobjects.com/mdn/rms_ae7ad9/afts/img/A*cpZrSL2IpokAAAAAAAAAAABjARQnAQ',
         text: '价目表-表格',
         textEn: 'Pricing Card Table',
         uid: 2,

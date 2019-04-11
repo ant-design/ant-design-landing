@@ -177,9 +177,21 @@ export default {
       },
     ],
   },
+  Teams: {
+    name: 'Team',
+    order: 4,
+    data: [
+      {
+        src: 'https://gw.alipayobjects.com/mdn/rms_ae7ad9/afts/img/A*dNbdTpOlg90AAAAAAAAAAABjARQnAQ',
+        text: '名人介绍',
+        textEn: 'Celebrity',
+        uid: 0,
+      },
+    ],
+  },
   Footer: {
     name: 'Footer',
-    order: 3,
+    order: 5,
     data: [
       {
         src: 'https://gw.alipayobjects.com/zos/rmsportal/wEeRbkdWEpxGIQBqqcoM.jpg',

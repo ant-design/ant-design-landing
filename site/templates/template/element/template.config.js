@@ -23,7 +23,7 @@ import Content13 from './Content13/template.config';
 import Pricing0 from './Pricing0/template.config';
 import Pricing1 from './Pricing1/template.config';
 import Pricing2 from './Pricing2/template.config';
-
+import Teams0 from './Teams0/template.config';
 
 import Footer0 from './Footer0/template.config';
 import Footer1 from './Footer1/template.config';
@@ -55,6 +55,7 @@ export default {
   Pricing0,
   Pricing1,
   Pricing2,
+  Teams0,
   Footer0,
   Footer1,
   Footer2,

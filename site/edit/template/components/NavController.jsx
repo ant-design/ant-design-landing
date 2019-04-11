@@ -105,7 +105,6 @@ class NavController extends React.PureComponent {
       formatCode({
         code: JSON.stringify(this.props.templateData.data),
         cb: (code) => {
-          console.log(code);
           this.setState({
             code,
           });

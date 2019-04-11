@@ -100,10 +100,8 @@ class PublishModal extends React.Component {
         headers: {
           'Content-Type': 'application/json',
         },
-      }).then(res => res.json()).then(({ url, lambdas: [item], ...props }) => {
-        console.log(props);
+      }).then(res => res.json()).then(({ url, lambdas: [item] }) => {
         if (item) {
-          console.log(item);
           switch (item.readyState) {
             case 'READY':
               notification.open({
@@ -117,7 +115,7 @@ class PublishModal extends React.Component {
                   </p>
                 ),
               });
-              console.log(url);
+              console.log('当前生成的 URL:', url);
               this.publishEnd();
               break;
             case 'ERROR':

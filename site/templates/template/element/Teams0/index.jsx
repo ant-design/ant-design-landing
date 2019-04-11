@@ -44,7 +44,6 @@ class Teams extends React.PureComponent {
   getChildrenToRender = (children) => {
     return children.map((item, i) => {
       const { titleWrapper, ...elementPros } = item;
-      console.log(elementPros);
       return (
         <Element
           {...elementPros}

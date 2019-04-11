@@ -164,16 +164,13 @@ export default class PropsComp extends React.PureComponent {
           for (j = mapBoolNum + 1; j < join.length; j += 1) {
             const k = join[j];
             cItem = cItem ? cItem[k] : aItem[k];
-            console.log(cItem);
             newData = this.copyData(cItem);
-            console.log(newData);
             cItem.push(newData);
             // cItem.splice(i, 1);
           }
         });
       } else {
         newData = this.copyData($item);
-        console.log(newData);
         $item.push(newData);
       }
       this.props.onChange(parentKey, template, func, true);

@@ -17,11 +17,12 @@ class MenuEditView extends React.PureComponent {
   }
 
   onSlideDelete = (e, ids, currentData) => {
-    /*  const children = currentData.children;
+    const children = currentData.children;
     const i = children.indexOf(e);
-    children.splice(i, 1); */
-    currentData.children = currentData.children
-      .map(node => (node === e ? { ...node, delete: true } : node));
+    children.splice(i, 1);
+    currentData.children = children;
+    /* currentData.children = currentData.children
+      .map(node => (node === e ? { ...node, delete: true } : node)); */
     onChildChange(this.props.dispatch, this.props.templateData, ids, currentData);
   }
 

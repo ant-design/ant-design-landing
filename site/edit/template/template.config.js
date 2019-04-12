@@ -183,7 +183,7 @@ export default {
     data: [
       {
         src: 'https://gw.alipayobjects.com/mdn/rms_ae7ad9/afts/img/A*dNbdTpOlg90AAAAAAAAAAABjARQnAQ',
-        text: '名人介绍',
+        text: '名人名言',
         textEn: 'Celebrity',
         uid: 0,
       },

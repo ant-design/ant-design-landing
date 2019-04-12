@@ -38,7 +38,7 @@ export default {
             dataIndex: 'name',
             key: 'name',
             name: 'name',
-            childAll: {
+            childWrapper: {
               children: [
                 {
                   name: 'name',
@@ -55,7 +55,7 @@ export default {
             dataIndex: 'free',
             key: 'free',
             name: 'free',
-            childAll: {
+            childWrapper: {
               className: 'pricing2-table-name-block',
               children: [
                 {
@@ -82,7 +82,7 @@ export default {
             dataIndex: 'basic',
             key: 'basic',
             name: 'basic',
-            childAll: {
+            childWrapper: {
               className: 'pricing2-table-name-block',
               children: [
                 {
@@ -109,7 +109,7 @@ export default {
             dataIndex: 'pro',
             key: 'pro',
             name: 'pro',
-            childAll: {
+            childWrapper: {
               className: 'pricing2-table-name-block',
               children: [
                 {
@@ -137,7 +137,7 @@ export default {
             dataIndex: 'unlimited',
             key: 'unlimited',
             name: 'unlimited',
-            childAll: {
+            childWrapper: {
               className: 'pricing2-table-name-block',
               children: [
                 {

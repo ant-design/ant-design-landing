@@ -11,7 +11,7 @@ const Option = Select.Option;
 const addDefault = {
   titleWrapper: ['title', 'content', 'image'],
   textAndImage: ['content', 'image'],
-  childAll: ['title', 'content', 'image', 'button'],
+  childWrapper: ['title', 'content', 'image', 'button'],
 };
 
 const noChildProps = ['BannerAnim', 'Menu', 'Content'];

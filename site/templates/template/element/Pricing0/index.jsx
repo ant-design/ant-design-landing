@@ -58,15 +58,15 @@ function Pricing0(props) {
           type={animType.queue}
           leaveReverse
           ease={['easeOutQuad', 'easeInQuad']}
-          {...dataSource.childAll}
+          {...dataSource.childWrapper}
           component={Col}
-          componentProps={{ md: dataSource.childAll.md, xs: dataSource.childAll.xs }}
+          componentProps={{ md: dataSource.childWrapper.md, xs: dataSource.childWrapper.xs }}
           /* replace-start */
-          data-edit="Col,childAll"
+          data-edit="Col,childWrapper"
         /* replace-end */
         >
           {
-            dataSource.childAll.children.map(getChildrenToRender)
+            dataSource.childWrapper.children.map(getChildrenToRender)
           }
         </QueueAnim>
       </OverPack>

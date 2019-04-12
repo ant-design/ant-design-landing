@@ -12,17 +12,17 @@ import './index.less';
 class Pricing2 extends React.PureComponent {
   getColumns = (columns) => {
     return columns.map((item) => {
-      const { childAll, ...$item } = item;
+      const { childWrapper, ...$item } = item;
       return {
         ...$item,
         title: (
           <div
-            {...childAll}
+            {...childWrapper}
             /* replace-start */
-            data-edit="childAll"
+            data-edit="childWrapper"
           /* replace-end */
           >
-            {childAll.children.map(getChildrenToRender)}
+            {childWrapper.children.map(getChildrenToRender)}
           </div>
         ),
       };

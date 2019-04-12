@@ -11,7 +11,7 @@ import ListSort from '../StateComponents/ListSort';
 
 const Panel = Collapse.Panel;
 
-const noProps = ['text', 'image', 'video', 'icon', 'texty', 'titleWrapper', 'textAndImage', 'childAll', 'link', 'Content'];
+const noProps = ['text', 'image', 'video', 'icon', 'texty', 'titleWrapper', 'textAndImage', 'childWrapper', 'link', 'Content'];
 
 export default class PropsComp extends React.PureComponent {
   getCompChild = (defaultValue, template, key) => {

@@ -26,22 +26,38 @@ class SideMenu extends React.PureComponent {
 
   getDrawer = (isZhCN) => {
     const children = [];
-    const pushData = (child, i, key) => {
+    const pushData = (child, i, key, item) => {
+      const img = child.isVideo ? (
+        <video src={child.src} width="100%" height="100%" autoPlay loop>
+          <track kind="captions" />
+        </video>
+      )
+        : <img src={child.src} width="100%" alt="img" draggable="false" />;
       children.push((
         <div
           className="img-wrapper"
           key={`${key}${child.uid || i}`}
           data-key={`${key}${child.uid || i}`}
         >
-          <div className="img">
-            {child.isVideo ? (
-              <video src={child.src} width="100%" height="100%" autoPlay loop>
-                <track kind="captions" />
-              </video>
-            )
-              : <img src={child.src} width="100%" alt="img" draggable="false" />}
-          </div>
+          <Tooltip
+            placement="right"
+            title={(
+              <div style={{ width: 500 }}>
+                {img}
+              </div>
+            )}
+            overlayStyle={{ maxWidth: 'none' }}
+          >
+            <div className="img">
+              {img}
+            </div>
+          </Tooltip>
           <p>
+            {item.name}
+            {child.uid}
+            {' '}
+            -
+            {' '}
             {child[`text${isZhCN ? '' : 'En'}`]}
           </p>
         </div>
@@ -57,7 +73,7 @@ class SideMenu extends React.PureComponent {
             </div>));
           item.data // .sort((a, b) => (a.order - b.order))
             .forEach((child, i) => {
-              pushData(child, i, key);
+              pushData(child, i, key, item);
             });
         }
       });

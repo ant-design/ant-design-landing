@@ -292,7 +292,7 @@ export default class PropsComp extends React.PureComponent {
 
   render() {
     const { edit, currentEditData, templateData } = this.props;
-    const editArray = edit ? edit.split(',').filter(c => noProps.indexOf(c) === -1) : [];
+    const editArray = edit ? edit.split(',').map(c => c.trim()).filter(c => noProps.indexOf(c) === -1) : [];
     if (!edit || !editArray.length) {
       return null;
     }

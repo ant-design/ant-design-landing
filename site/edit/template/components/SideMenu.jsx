@@ -27,6 +27,9 @@ class SideMenu extends React.PureComponent {
   getDrawer = (isZhCN) => {
     const children = [];
     const pushData = (child, i, key, item) => {
+      if (child.disabled) {
+        return null;
+      }
       const img = child.isVideo ? (
         <video src={child.src} width="100%" height="100%" autoPlay loop>
           <track kind="captions" />

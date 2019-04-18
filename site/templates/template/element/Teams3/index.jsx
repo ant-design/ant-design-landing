@@ -78,7 +78,7 @@ class Teams3 extends React.PureComponent {
             <QueueAnim type="bottom" key="tween" leaveReverse>
               <QueueAnim
                 type="bottom"
-                key="block"
+                key="blockTop"
                 {...dataSource.blockTop}
                 component={Row}
                 /* replace-start */

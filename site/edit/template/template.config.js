@@ -67,6 +67,116 @@ export default {
         src: 'https://zos.alipayobjects.com/rmsportal/tFEFnHEpyPhRnFCsKjdR.jpg',
         text: '产品介绍',
         textEn: 'Product Desc',
+        disabled: true,
+        uid: 0,
+      },
+      {
+        src: 'https://zos.alipayobjects.com/rmsportal/CXrFvvZqkMwMHZo.jpg',
+        text: '产品特性1',
+        textEn: 'Product Feature 1',
+        disabled: true,
+        uid: 1,
+      },
+      {
+        src: 'https://zos.alipayobjects.com/rmsportal/WxCxyIKjMdCUUSJ.jpg',
+        text: '产品特性2',
+        textEn: 'Product Feature 2',
+        disabled: true,
+        uid: 2,
+      },
+      {
+        src: 'https://zos.alipayobjects.com/rmsportal/pUFfIJXizTljrgZ.jpg',
+        text: '多功能介绍',
+        textEn: 'Multifunction',
+        disabled: true,
+        uid: 3,
+      },
+      {
+        src: 'https://zos.alipayobjects.com/rmsportal/ndmJrWwkQloTtKg.jpg',
+        text: 'video 展示',
+        textEn: 'Video',
+        uid: 4,
+      },
+      {
+        src: 'https://zos.alipayobjects.com/rmsportal/sgTBpfjKcsXWDtq.jpg',
+        text: '案例介绍',
+        textEn: 'Case',
+        uid: 5,
+      },
+      {
+        src: 'https://zos.alipayobjects.com/rmsportal/yNbeUIWcDNZFKTY.jpg',
+        text: '单模块介绍',
+        textEn: 'Single Module',
+        disabled: true,
+        uid: 6,
+      },
+      {
+        src: 'https://zos.alipayobjects.com/rmsportal/CfSeDOXHJzJuPbz.jpg',
+        text: '多模块介绍',
+        textEn: 'Multiple Modules',
+        disabled: true,
+        uid: 7,
+      },
+      {
+        src: 'https://gw.alipayobjects.com/zos/rmsportal/UOyWjlYKpHewBsDAzaMi.jpg',
+        text: '嘉宾介绍',
+        textEn: 'Guest',
+        disabled: true,
+        uid: 8,
+      },
+      {
+        src: 'https://gw.alipayobjects.com/zos/rmsportal/LDBMKOrfaecPagkrDCIP.jpg',
+        text: '时间日程',
+        textEn: 'Timeline',
+        uid: 9,
+      },
+      {
+        src: 'https://gw.alipayobjects.com/zos/rmsportal/xsPGUBDpYRjOxsiTJDEt.jpg',
+        text: '大会地址',
+        textEn: 'Address',
+        disabled: true,
+        uid: 10,
+      },
+      {
+        src: 'https://gw.alipayobjects.com/zos/rmsportal/hEmKNrtthHJqUGAWXfun.jpg',
+        text: '标题文字',
+        textEn: 'Title Text',
+        uid: 13,
+      },
+      {
+        src: 'https://gw.alipayobjects.com/zos/rmsportal/bDZgyDGRJtLCmrcODFax.jpg',
+        text: '标题按钮',
+        textEn: 'Title Button',
+        uid: 11,
+      },
+      {
+        src: 'https://gw.alipayobjects.com/zos/rmsportal/OmIIrSdGdZIhUBREQrFT.jpg',
+        text: '案例介绍2',
+        textEn: 'No Text',
+        uid: 12,
+      },
+    ],
+  },
+  Contact: {
+    name: 'Contact',
+    order: 3,
+    data: [
+      {
+        src: 'https://gw.alipayobjects.com/zos/rmsportal/xsPGUBDpYRjOxsiTJDEt.jpg',
+        text: '大会地址',
+        textEn: 'Address',
+        uid: 0,
+      },
+    ],
+  },
+  Feature: {
+    name: 'Feature',
+    order: 4,
+    data: [
+      {
+        src: 'https://zos.alipayobjects.com/rmsportal/tFEFnHEpyPhRnFCsKjdR.jpg',
+        text: '产品介绍',
+        textEn: 'Product Desc',
         uid: 0,
       },
       {
@@ -88,74 +198,22 @@ export default {
         uid: 3,
       },
       {
-        src: 'https://zos.alipayobjects.com/rmsportal/ndmJrWwkQloTtKg.jpg',
-        text: 'video 展示',
-        textEn: 'Video',
-        uid: 4,
-      },
-      {
-        src: 'https://zos.alipayobjects.com/rmsportal/sgTBpfjKcsXWDtq.jpg',
-        text: '案例介绍',
-        textEn: 'Case',
-        uid: 5,
-      },
-      {
         src: 'https://zos.alipayobjects.com/rmsportal/yNbeUIWcDNZFKTY.jpg',
         text: '单模块介绍',
         textEn: 'Single Module',
-        uid: 6,
+        uid: 4,
       },
       {
         src: 'https://zos.alipayobjects.com/rmsportal/CfSeDOXHJzJuPbz.jpg',
         text: '多模块介绍',
         textEn: 'Multiple Modules',
-        uid: 7,
+        uid: 5,
       },
-      {
-        src: 'https://gw.alipayobjects.com/zos/rmsportal/UOyWjlYKpHewBsDAzaMi.jpg',
-        text: '嘉宾介绍',
-        textEn: 'Guest',
-        uid: 8,
-      },
-      {
-        src: 'https://gw.alipayobjects.com/zos/rmsportal/LDBMKOrfaecPagkrDCIP.jpg',
-        text: '时间日程',
-        textEn: 'Timeline',
-        uid: 9,
-      },
-      {
-        src: 'https://gw.alipayobjects.com/zos/rmsportal/xsPGUBDpYRjOxsiTJDEt.jpg',
-        text: '大会地址',
-        textEn: 'Address',
-        uid: 10,
-      },
-      {
-        src: 'https://gw.alipayobjects.com/zos/rmsportal/hEmKNrtthHJqUGAWXfun.jpg',
-        text: '标题文字',
-        textEn: 'Title Text',
-        uid: 13,
-      },
-      {
-        src: 'https://gw.alipayobjects.com/zos/rmsportal/bDZgyDGRJtLCmrcODFax.jpg',
-        text: '标题按钮',
-        textEn: 'Title Button',
-        uid: 11,
-      },
-      {
-        src: 'https://gw.alipayobjects.com/zos/rmsportal/OmIIrSdGdZIhUBREQrFT.jpg',
-        text: '案例介绍2',
-        textEn: 'No Text',
-        uid: 12,
-      },
-      /* { disabled: true, src: 'https://zos.alipayobjects.com/rmsportal/MnbozfSRmOwdxvH.jpg' },
-      { disabled: true, src: 'https://zos.alipayobjects.com/rmsportal/cMigmCVGBaJkuYG.jpg' },
-      { disabled: true, src: 'https://zos.alipayobjects.com/rmsportal/VKeYAOSRQVtMccj.jpg' },
-      { disabled: true, src: 'https://zos.alipayobjects.com/rmsportal/TAvpiZHalFQVewZ.jpg' }, */
     ],
   },
   Pricing: {
     name: 'Pricing',
-    order: 3,
+    order: 5,
     data: [
       {
         src: 'https://gw.alipayobjects.com/mdn/rms_ae7ad9/afts/img/A*PWraQ5aEPjsAAAAAAAAAAABjARQnAQ',
@@ -179,7 +237,7 @@ export default {
   },
   Teams: {
     name: 'Team',
-    order: 4,
+    order: 6,
     data: [
       {
         src: 'https://gw.alipayobjects.com/mdn/rms_ae7ad9/afts/img/A*dNbdTpOlg90AAAAAAAAAAABjARQnAQ',
@@ -205,11 +263,17 @@ export default {
         textEn: 'Team Member 3',
         uid: 3,
       },
+      {
+        src: 'https://gw.alipayobjects.com/zos/rmsportal/UOyWjlYKpHewBsDAzaMi.jpg',
+        text: '嘉宾介绍',
+        textEn: 'Guest',
+        uid: 4,
+      },
     ],
   },
   Footer: {
     name: 'Footer',
-    order: 5,
+    order: 7,
     data: [
       {
         src: 'https://gw.alipayobjects.com/zos/rmsportal/wEeRbkdWEpxGIQBqqcoM.jpg',

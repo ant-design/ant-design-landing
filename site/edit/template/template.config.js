@@ -193,6 +193,12 @@ export default {
         textEn: 'Teams',
         uid: 1,
       },
+      {
+        src: 'https://gw.alipayobjects.com/mdn/rms_ae7ad9/afts/img/A*YW9tRZeXzZAAAAAAAAAAAABjARQnAQ',
+        text: '团队成员2',
+        textEn: 'Teams',
+        uid: 2,
+      },
     ],
   },
   Footer: {

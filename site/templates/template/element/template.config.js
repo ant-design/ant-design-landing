@@ -25,6 +25,7 @@ import Pricing1 from './Pricing1/template.config';
 import Pricing2 from './Pricing2/template.config';
 import Teams0 from './Teams0/template.config';
 import Teams1 from './Teams1/template.config';
+import Teams2 from './Teams2/template.config';
 
 import Footer0 from './Footer0/template.config';
 import Footer1 from './Footer1/template.config';
@@ -58,6 +59,7 @@ export default {
   Pricing2,
   Teams0,
   Teams1,
+  Teams2,
   Footer0,
   Footer1,
   Footer2,

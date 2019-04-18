@@ -190,14 +190,20 @@ export default {
       {
         src: 'https://gw.alipayobjects.com/mdn/rms_ae7ad9/afts/img/A*PWUeRbxiLfgAAAAAAAAAAABjARQnAQ',
         text: '团队成员',
-        textEn: 'Teams',
+        textEn: 'Team Member',
         uid: 1,
       },
       {
         src: 'https://gw.alipayobjects.com/mdn/rms_ae7ad9/afts/img/A*YW9tRZeXzZAAAAAAAAAAAABjARQnAQ',
         text: '团队成员2',
-        textEn: 'Teams',
+        textEn: 'Team Member 2',
         uid: 2,
+      },
+      {
+        src: 'https://gw.alipayobjects.com/mdn/rms_ae7ad9/afts/img/A*SPpKS5onJGAAAAAAAAAAAABjARQnAQ',
+        text: '团队成员3',
+        textEn: 'Team Member 3',
+        uid: 3,
       },
     ],
   },

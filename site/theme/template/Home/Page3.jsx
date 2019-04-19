@@ -61,7 +61,7 @@ export default class Page3 extends React.Component {
     key !== 'Other' && (
       <RadioButton value={key} key={key}>
         {key}
-        s
+        {key === 'Teams' ? '' : 's'}
       </RadioButton>
     )
   ));

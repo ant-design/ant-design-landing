@@ -23,8 +23,13 @@ module.exports = {
     'app.header.publish-cloud.explain': '发布说明',
     'app.header.publish-cloud.remarks': '域名绑定功能我们暂不开放，如果有需求同样可以在 issues 上给我们留言。',
     'app.header.publish-cloud.remarks2': '发布布署大约需要 2~3 分钟，请耐心等待。',
-    'app.header.publish-cloud.pageEdit': '页面 META 参数配置',
+    'app.header.publish-cloud.meta': '页面 META 参数配置',
     'app.header.publish-cloud.favicon': '网站的 icon, 只支持 ico, png 或 jpg, 推荐使用 png.',
+    'app.header.publish-cloud.build': '你的网站站正在发布，请稍后...',
+    'app.header.publish-cloud.state': '当前状态:',
+    'app.header.publish-cloud.success': '发布成功',
+    'app.header.publish-cloud.successRemarks': '你的网站已发布成功，URL地址:',
+    'app.header.publish-cloud.error': '发布失败!!!',
     'app.header.edit-data': '编辑数据',
     'app.header.edit-data.header': '当前编辑数据',
     'app.header.edit-data.remarks': '将下载的 JSON 粘贴到此处，请不要随便改更数据。如果数据出错请刷新。',
@@ -117,5 +122,6 @@ module.exports = {
     'app.login.title': '此页面已加锁，请输入密码。',
     'app.login.noPassword': '不知道密码请删除当前面页或新建',
     'app.login.new': '新建页面',
+
   },
 };

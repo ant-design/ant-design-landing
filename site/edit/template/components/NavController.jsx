@@ -186,7 +186,7 @@ class NavController extends React.PureComponent {
       {
         name: <FormattedMessage id="app.header.publish-cloud" key="m" />,
         icon: publishLoad ? 'loading' : 'cloud-upload',
-        onClick: publishLoad ? null : this.onUploadCloud,
+        onClick: this.onUploadCloud,
       },
       { name: <FormattedMessage id="app.header.edit-data" key="m" />, icon: 'tool', onClick: this.onChangeDataOpenModal },
       {

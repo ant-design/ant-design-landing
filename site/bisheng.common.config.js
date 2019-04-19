@@ -87,10 +87,10 @@ module.exports = {
     };
     config.externals = config.externals || {};
     config.externals['react-router-dom'] = 'ReactRouterDOM';
-    config.externals = Object.assign({}, config.externals, {
+    /* config.externals = Object.assign({}, config.externals, {
       react: 'React',
       'react-dom': 'ReactDOM',
-    });
+    }); */
     if (isDev) {
       config.devtool = 'source-map';
     }

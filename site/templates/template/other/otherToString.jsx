@@ -1,13 +1,9 @@
-const index = require('!raw-loader!../../../../index.text');
-
-let point = require('!raw-loader!./Point.jsx');
-
-point = point.replace('../static/point.less', './less/point.less');
-
-const documentation = require('!raw-loader!../../../../documentation.md');
+import point from '!raw-loader!./Point.jsx';
+import index from '!raw-loader!../../../../index.text';
+import documentation from '!raw-loader!../../../../documentation.md';
 
 export default {
   index,
   documentation,
-  point,
+  point: point.replace('../static/point.less', './less/point.less'),
 };

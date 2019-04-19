@@ -85,11 +85,6 @@
   <div id="react-content">
     {{ content | safe }}
   </div>
-  {% if isDev %}
-  <script src="https://as.alipayobjects.com/g/component/??react/16.3.0/react.development.js,react/16.3.0/react-dom.development.js"></script>
-  {% else %}
-  <script src="https://as.alipayobjects.com/g/component/??react/16.3.0/react.production.min.js,react/16.3.0/react-dom.production.min.js"></script>
-  {% endif %}
   <script src="{{ root }}common.js"></script>
   <script src="{{ root }}index.js"></script>
 </body>

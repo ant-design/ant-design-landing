@@ -46,6 +46,13 @@ const remarks = {
 class PublishModal extends React.Component {
   state = {
     isLoad: false,
+    explain: [
+      <p key="0"><FormattedMessage id="app.header.publish-cloud.build" /></p>,
+      <p key="1">
+        <FormattedMessage id="app.header.publish-cloud.state" />
+        {' BUILDING'}
+      </p>,
+    ],
   };
 
   componentDidMount() {
@@ -53,8 +60,10 @@ class PublishModal extends React.Component {
     const { templateData } = this.props;
     const currentBuild = JSON.parse(window.localStorage.getItem(buildId));
     if (currentBuild && currentBuild[templateData.uid]) {
-      this.props.changePublishState(true);
-      this.onMonitorPublishState(currentBuild[templateData.uid]);
+      this.setState({ isLoad: true }, () => {
+        this.props.changePublishState(true);
+        this.onMonitorPublishState(currentBuild[templateData.uid]);
+      });
     }
   }
 
@@ -92,6 +101,7 @@ class PublishModal extends React.Component {
   }
 
   onMonitorPublishState = (id) => {
+    const { explain } = this.state;
     ticker.clear(this.getPublishState);
     this.getPublishState = ticker.interval(() => {
       fetch(`${nowURL}api/deploy/${id}`, {
@@ -100,15 +110,16 @@ class PublishModal extends React.Component {
         headers: {
           'Content-Type': 'application/json',
         },
-      }).then(res => res.json()).then(({ url, lambdas: [item] }) => {
+      }).then(res => res.json()).then((res) => {
+        const { url, lambdas: [item] } = res;
         if (item) {
           switch (item.readyState) {
             case 'READY':
               notification.open({
-                message: '发布成功',
+                message: <FormattedMessage id="app.header.publish-cloud.success" />,
                 description: (
                   <p>
-                    你的网站已发布成功，URL地址:
+                    <FormattedMessage id="app.header.publish-cloud.successRemarks" />
                     <a href={`https://${url}`} target="_blank">
                       {url}
                     </a>
@@ -119,10 +130,18 @@ class PublishModal extends React.Component {
               this.publishEnd();
               break;
             case 'ERROR':
-              message.error('发布失败。');
+              message.error(<FormattedMessage id="app.header.publish-cloud.error" />);
               this.publishEnd();
               break;
             default:
+              explain.push((
+                <p key={explain.length.toString()}>
+                  <FormattedMessage id="app.header.publish-cloud.state" />
+                  {' '}
+                  {item.readyState}
+                </p>
+              ));
+              this.setState({ explain });
               break;
           }
         }
@@ -176,66 +195,83 @@ class PublishModal extends React.Component {
   render() {
     const { templateData, location, onSave, changePublishState, form, ...props } = this.props;
     const { getFieldDecorator } = form;
-    const { isLoad } = this.state;
+    const { isLoad, explain } = this.state;
     const locale = isZhCN(location.pathname) ? 'zh-CN' : 'en-US';
     const page = templateData.data.page || {};
     return (
       <Modal
         {...props}
       >
-        <h3 style={{ marginBottom: 16 }}>
-          <FormattedMessage id="app.header.publish-cloud.explain" />
-        </h3>
-        <p>
-          <Icon type="profile" />
-          {' '}
-          {remarks[locale]}
-        </p>
-        <p style={{ margin: '8px 0' }}>
-          <Icon type="experiment" />
-          {' '}
-          <FormattedMessage id="app.header.publish-cloud.remarks" />
-        </p>
-        <p>
-          <Icon type="exclamation-circle" />
-          {' '}
-          <FormattedMessage id="app.header.publish-cloud.remarks2" />
-        </p>
-        <h3 style={{ marginTop: 16 }}>
-          <FormattedMessage id="app.header.publish-cloud.pageEdit" />
-        </h3>
-        <p />
-        <Form onSubmit={this.onClick} className="modal-form">
-          <Item label="Title">
-            {getFieldDecorator('title', {
-              initialValue: page.title,
-            })(<Input />)}
-          </Item>
-          <Item label="Description">
-            {getFieldDecorator('description', {
-              initialValue: page.description,
-            })(<TextArea />)}
-          </Item>
-          <Item
-            label={(
-              <span>
-                Favicon (ico, png or jpg)
-                <Tooltip title={<FormattedMessage id="app.header.publish-cloud.favicon" />}>
-                  <Icon type="question-circle" style={{ margin: '0 8px' }} />
-                </Tooltip>
-              </span>
-            )}
+        {isLoad ? (
+          <div
+            style={{
+              color: '#E6E1DC',
+              backgroundColor: '#202020',
+              boxShadow: 'inset 0 0 10px black',
+              height: 300,
+              overflowY: 'auto',
+              padding: 16,
+            }}
           >
-            {getFieldDecorator('favicon', {
-              initialValue: page.favicon,
-            })(<Input />)}
-          </Item>
-          <Item style={{ marginTop: 16 }}>
-            <Button disabled={isLoad} type="primary" icon={isLoad ? 'loading' : 'cloud-upload'} htmlType="submit">
-              <FormattedMessage id="app.header.publish-cloud.button" />
-            </Button>
-          </Item>
-        </Form>
+            {explain}
+          </div>
+        ) : (
+          <>
+            <h3 style={{ marginBottom: 16 }}>
+              <FormattedMessage id="app.header.publish-cloud.explain" />
+            </h3>
+            <p>
+              <Icon type="profile" />
+              {' '}
+              {remarks[locale]}
+            </p>
+            <p style={{ margin: '8px 0' }}>
+              <Icon type="experiment" />
+              {' '}
+              <FormattedMessage id="app.header.publish-cloud.remarks" />
+            </p>
+            <p>
+              <Icon type="exclamation-circle" />
+              {' '}
+              <FormattedMessage id="app.header.publish-cloud.remarks2" />
+            </p>
+            <h3 style={{ marginTop: 16 }}>
+              <FormattedMessage id="app.header.publish-cloud.meta" />
+            </h3>
+            <p />
+            <Form onSubmit={this.onClick} className="modal-form">
+              <Item label="Title">
+                {getFieldDecorator('title', {
+                  initialValue: page.title,
+                })(<Input />)}
+              </Item>
+              <Item label="Description">
+                {getFieldDecorator('description', {
+                  initialValue: page.description,
+                })(<TextArea />)}
+              </Item>
+              <Item
+                label={(
+                  <span>
+                      Favicon (ico, png or jpg)
+                    <Tooltip title={<FormattedMessage id="app.header.publish-cloud.favicon" />}>
+                      <Icon type="question-circle" style={{ margin: '0 8px' }} />
+                    </Tooltip>
+                  </span>
+                  )}
+              >
+                {getFieldDecorator('favicon', {
+                  initialValue: page.favicon,
+                })(<Input />)}
+              </Item>
+              <Item style={{ marginTop: 16 }}>
+                <Button disabled={isLoad} type="primary" icon={isLoad ? 'loading' : 'cloud-upload'} htmlType="submit">
+                  <FormattedMessage id="app.header.publish-cloud.button" />
+                </Button>
+              </Item>
+            </Form>
+          </>
+        )}
       </Modal>
     );
   }

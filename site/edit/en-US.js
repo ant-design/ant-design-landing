@@ -30,6 +30,7 @@ module.exports = {
     'app.header.publish-cloud.success': 'Publish Succeeded',
     'app.header.publish-cloud.successRemarks': 'Your website has been publish succeeded, URL:',
     'app.header.publish-cloud.error': 'Publish Error!!!',
+    'app.header.publish-cloud.currentURL': 'If the publication is successful, visit the URL: ',
     'app.header.edit-data': 'Edit data',
     'app.header.edit-data.header': 'Current edit data',
     'app.header.edit-data.remarks': 'Paste the downloaded JSON here, please don\'t change the data. Please refresh if the data is wrong.',

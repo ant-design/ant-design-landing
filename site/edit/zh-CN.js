@@ -30,6 +30,7 @@ module.exports = {
     'app.header.publish-cloud.success': '发布成功',
     'app.header.publish-cloud.successRemarks': '你的网站已发布成功，URL地址:',
     'app.header.publish-cloud.error': '发布失败!!!',
+    'app.header.publish-cloud.currentURL': '如果发布成功，请访问 URL: ',
     'app.header.edit-data': '编辑数据',
     'app.header.edit-data.header': '当前编辑数据',
     'app.header.edit-data.remarks': '将下载的 JSON 粘贴到此处，请不要随便改更数据。如果数据出错请刷新。',

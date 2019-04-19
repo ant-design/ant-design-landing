@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Icon, Button, Form, Modal, Input, Tooltip, message, notification } from 'antd';
 import { FormattedMessage } from 'react-intl';
 import ticker from 'rc-tween-one/lib/ticker';
@@ -50,9 +51,13 @@ class PublishModal extends React.Component {
       <p key="0"><FormattedMessage id="app.header.publish-cloud.build" /></p>,
       <p key="1">
         <FormattedMessage id="app.header.publish-cloud.state" />
-        {' BUILDING'}
+        {' FORMAT'}
       </p>,
     ],
+  };
+
+  static contextTypes = {
+    intl: PropTypes.object.isRequired,
   };
 
   componentDidMount() {
@@ -102,7 +107,9 @@ class PublishModal extends React.Component {
 
   onMonitorPublishState = (id) => {
     const { explain } = this.state;
+    const { templateData } = this.props;
     ticker.clear(this.getPublishState);
+    const currentUrl = `${templateData.uid}.antdlanding.now.sh`;
     this.getPublishState = ticker.interval(() => {
       fetch(`${nowURL}api/deploy/${id}`, {
         method: 'GET',
@@ -116,12 +123,12 @@ class PublishModal extends React.Component {
           switch (item.readyState) {
             case 'READY':
               notification.open({
-                message: <FormattedMessage id="app.header.publish-cloud.success" />,
+                message: this.context.intl.formatMessage({ id: 'app.header.publish-cloud.success' }),
                 description: (
                   <p>
-                    <FormattedMessage id="app.header.publish-cloud.successRemarks" />
-                    <a href={`https://${url}`} target="_blank">
-                      {url}
+                    {this.context.intl.formatMessage({ id: 'app.header.publish-cloud.successRemarks' })}
+                    <a href={`https://${currentUrl}`} target="_blank">
+                      {currentUrl}
                     </a>
                   </p>
                 ),
@@ -130,7 +137,7 @@ class PublishModal extends React.Component {
               this.publishEnd();
               break;
             case 'ERROR':
-              message.error(<FormattedMessage id="app.header.publish-cloud.error" />);
+              message.error(this.context.intl.formatMessage({ id: 'pp.header.publish-cloud.error' }));
               this.publishEnd();
               break;
             default:
@@ -198,6 +205,7 @@ class PublishModal extends React.Component {
     const { isLoad, explain } = this.state;
     const locale = isZhCN(location.pathname) ? 'zh-CN' : 'en-US';
     const page = templateData.data.page || {};
+    const url = `${templateData.uid}.antdlanding.now.sh`;
     return (
       <Modal
         {...props}
@@ -238,7 +246,6 @@ class PublishModal extends React.Component {
             <h3 style={{ marginTop: 16 }}>
               <FormattedMessage id="app.header.publish-cloud.meta" />
             </h3>
-            <p />
             <Form onSubmit={this.onClick} className="modal-form">
               <Item label="Title">
                 {getFieldDecorator('title', {
@@ -268,8 +275,15 @@ class PublishModal extends React.Component {
                 <Button disabled={isLoad} type="primary" icon={isLoad ? 'loading' : 'cloud-upload'} htmlType="submit">
                   <FormattedMessage id="app.header.publish-cloud.button" />
                 </Button>
+
               </Item>
             </Form>
+            <p style={{ lineHeight: 2, fontSize: 14, marginTop: 8 }}>
+              <FormattedMessage id="app.header.publish-cloud.currentURL" />
+              <a href={`https://${url}`} target="_blank">
+                {url}
+              </a>
+            </p>
           </>
         )}
       </Modal>

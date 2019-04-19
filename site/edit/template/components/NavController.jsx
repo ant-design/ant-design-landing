@@ -12,6 +12,7 @@ import {
 } from '../../../edit-module/actions';
 import { saveJsZip, saveJSON } from './saveJsZip';
 import NewFileButton from './NewFileButton';
+import PublishModal from './PublishModal';
 
 class NavController extends React.PureComponent {
   static defaultProps = {
@@ -26,27 +27,12 @@ class NavController extends React.PureComponent {
     super(props);
     this.state = {
       code: JSON.stringify(props.templateData.data),
-      isLoad: null,
+      publishModalShow: false,
     };
   }
 
   componentDidMount() {
     this.props.form.validateFields();
-  }
-
-  componentWillReceiveProps(nextProps) {
-    formatCode({
-      code: JSON.stringify(nextProps.templateData.data),
-      cb: (code) => {
-        this.setState({
-          code,
-        });
-      },
-      parser: 'json',
-    });
-    this.setState({
-      codeModalShow: false,
-    });
   }
 
   onPreview = () => {
@@ -65,14 +51,14 @@ class NavController extends React.PureComponent {
     window.open(url);
   }
 
-  onSave = (e, cb) => {
-    if (!location.port && window.gtag) {
+  onSave = (e, type, templateData, cb) => {
+    if (type === 'menu' && !location.port && window.gtag) {
       window.gtag('event', 'save');
     }
     this.setState({
-      isLoad: '保存',
+      saveLoad: true,
     }, () => {
-      saveData(this.props.templateData, this.props.dispatch, (b) => {
+      saveData(templateData || this.props.templateData, this.props.dispatch, (b) => {
         if (b.code) {
           message.error(this.context.intl.formatMessage({ id: 'app.header.save.message.error' }));
         } else if (!cb) {
@@ -80,7 +66,7 @@ class NavController extends React.PureComponent {
         } else {
           cb();
         }
-        this.setState({ isLoad: null });
+        this.setState({ saveLoad: false });
       });
     });
   }
@@ -90,14 +76,14 @@ class NavController extends React.PureComponent {
       window.gtag('event', 'download');
     }
     this.setState({
-      isLoad: '下载',
+      downloadLoad: true,
     }, () => {
       saveJsZip(this.props.templateData, () => {
         message.success(
           this.context.intl.formatMessage({ id: 'app.header.download.message' })
         );
         this.setState({
-          isLoad: null,
+          downloadLoad: false,
         });
       });
     });
@@ -115,6 +101,17 @@ class NavController extends React.PureComponent {
   }
 
   onChangeDataOpenModal = () => {
+    if (!this.state.codeModalShow) {
+      formatCode({
+        code: JSON.stringify(this.props.templateData.data),
+        cb: (code) => {
+          this.setState({
+            code,
+          });
+        },
+        parser: 'json',
+      });
+    }
     this.setState({
       codeModalShow: !this.state.codeModalShow,
     });
@@ -156,12 +153,25 @@ class NavController extends React.PureComponent {
     });
   }
 
+  onUploadCloud = () => {
+    this.setState({
+      publishModalShow: !this.state.publishModalShow,
+    });
+  }
+
+  changePublishState = (b) => {
+    this.setState({
+      publishLoad: b,
+    });
+  }
+
   render() {
+    const { saveLoad, downloadLoad, publishLoad, code, codeModalShow, publishModalShow } = this.state;
     const menuChild = [
       {
         name: <FormattedMessage id="app.header.save" key="m" />,
-        icon: this.state.isLoad === '保存' ? 'loading' : 'save',
-        onClick: this.state.isLoad === '保存' ? null : this.onSave,
+        icon: saveLoad ? 'loading' : 'save',
+        onClick: saveLoad ? null : e => this.onSave(e, 'menu'),
       },
       {
         name: <FormattedMessage id="app.header.preview" key="m" />,
@@ -170,18 +180,23 @@ class NavController extends React.PureComponent {
       },
       {
         name: <FormattedMessage id="app.header.download" key="m" />,
-        icon: this.state.isLoad === '下载' ? 'loading' : 'code-o',
-        onClick: this.state.isLoad === '下载' ? null : this.onSaveCode,
+        icon: downloadLoad ? 'loading' : 'code-o',
+        onClick: downloadLoad ? null : this.onSaveCode,
+      },
+      {
+        name: <FormattedMessage id="app.header.publish-cloud" key="m" />,
+        icon: publishLoad ? 'loading' : 'cloud-upload',
+        onClick: publishLoad ? null : this.onUploadCloud,
       },
       { name: <FormattedMessage id="app.header.edit-data" key="m" />, icon: 'tool', onClick: this.onChangeDataOpenModal },
       {
         name: <FormattedMessage id="app.header.clear-cache" key="m" />,
-        compoennt: () => RemoveLocalStorage('18'),
+        component: () => RemoveLocalStorage('18'),
         onClick: this.onRemoveAllLocalStorage,
         tooltip: <FormattedMessage id="app.header.clear-exp" key="t" />,
       },
     ].map((item, i) => {
-      const iconProps = item.compoennt ? { component: item.compoennt } : { type: item.icon };
+      const iconProps = item.component ? { component: item.component } : { type: item.icon };
       let children = [<Icon {...iconProps} key="icon" />, item.name];
       if (item.tooltip) {
         children = (
@@ -216,11 +231,10 @@ class NavController extends React.PureComponent {
         <ul className="menu">
           {menuChild}
         </ul>
-
         <NewFileButton />
         <Modal
           title={<FormattedMessage id="app.header.edit-data.header" />}
-          visible={this.state.codeModalShow}
+          visible={codeModalShow}
           width={800}
           footer={null}
           onCancel={this.onChangeDataOpenModal}
@@ -230,7 +244,7 @@ class NavController extends React.PureComponent {
             <FormattedMessage id="app.header.edit-data.remarks" />
           </p>
           <CodeMirror
-            value={this.state.code}
+            value={code}
             options={{
               mode: { name: 'javascript', json: true },
               theme: 'ambiance',
@@ -249,6 +263,18 @@ class NavController extends React.PureComponent {
             <FormattedMessage id="app.header.edit-data.download" />
           </Button>
         </Modal>
+        <PublishModal
+          title={<FormattedMessage id="app.header.publish-cloud.header" />}
+          visible={publishModalShow}
+          width={640}
+          footer={null}
+          location={this.props.location}
+          dispatch={this.props.dispatch}
+          onCancel={this.onUploadCloud}
+          templateData={this.props.templateData}
+          onSave={this.onSave}
+          changePublishState={this.changePublishState}
+        />
       </div>
     );
   }

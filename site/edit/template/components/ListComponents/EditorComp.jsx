@@ -39,10 +39,13 @@ class EditorComp extends React.Component {
     dispatch(setTemplateData(newTemplateData));
   }
 
-  onPropsChange = (key, value, func) => {
+  onPropsChange = (key, value, func, isGroup) => {
     const { dispatch, templateData, currentEditData } = this.props;
     const { id } = currentEditData;
     const ids = id.split('-');
+    if (isGroup) {
+      ids.splice(ids.length - 1, 1);
+    }
     if (func) {
       const dataId = currentEditData.id.split('-')[0];
       const template = {
@@ -56,7 +59,6 @@ class EditorComp extends React.Component {
       currentEditData.iframe.postMessage(template, '*');
     } else {
       const newTemplateData = deepCopy(templateData);
-
       setDataSourceValue(ids, key, value, newTemplateData.data.config);
       dispatch(setTemplateData(newTemplateData));
     }

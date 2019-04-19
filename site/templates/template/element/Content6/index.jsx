@@ -3,6 +3,9 @@ import TweenOne from 'rc-tween-one';
 import { Row, Col } from 'antd';
 import QueueAnim from 'rc-queue-anim';
 import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';
+/* replace-start-value = import { getChildrenToRender } from './utils'; */
+import { getChildrenToRender } from '../../utils';
+/* replace-end-value */
 /* replace-start */
 import './index.less';
 /* replace-end */
@@ -80,14 +83,7 @@ class Content7 extends React.Component {
             /* replace-end */
             >
               {
-                dataSource.titleWrapper.children.map((item, i) => (
-                  React.createElement(item.name.indexOf('title') === 0 ? 'h1' : 'div', { key: i.toString(), ...item }, (
-                    typeof item.children === 'string' && item.children.match(/\.(svg|gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/)
-                      ? React.createElement('img', { src: item.children, alt: 'img' })
-                      : /* replace-start-value = item.children */React.createElement('span', { dangerouslySetInnerHTML: { __html: item.children } })
-                    /* replace-end-value */
-                  ))
-                ))
+                dataSource.titleWrapper.children.map(getChildrenToRender)
               }
             </div>
             <QueueAnim

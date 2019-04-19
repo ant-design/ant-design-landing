@@ -1,12 +1,11 @@
 import React from 'react';
 import { Icon, Button, Popover, Input } from 'antd';
 import { FormattedMessage } from 'react-intl';
-import { isImg } from '../../../../../utils';
 
 export default class ImageComp extends React.Component {
   onImageBtnChange = (e) => {
     const value = e.target.value;
-    if (value.match(isImg)) {
+    if (value !== this.props.editText) {
       this.props.setTemplateConfigData(value);
     }
   }
@@ -20,8 +19,8 @@ export default class ImageComp extends React.Component {
         content={(
           <Input
             style={{ width: 250 }}
-            onChange={this.onImageBtnChange}
-            defaultValue={editText && editText.match(isImg) ? editText : ''}
+            onBlur={this.onImageBtnChange}
+            defaultValue={editText}
             placeholder={<FormattedMessage id="app.state.image.placeholder" />}
           />
         )}

@@ -26,7 +26,7 @@ export default class Page3 extends React.Component {
   state = {
     type: 'all',
     imgData: {},
-    pageSize: 5,
+    pageSize: 10,
   };
 
   imgInLoad = {};
@@ -44,7 +44,7 @@ export default class Page3 extends React.Component {
     if (parseFloat(this.waterfallDom.style.height)
       && this.num + this.state.pageSize < maxLength
       && showHeight > parseFloat(this.waterfallDom.style.height) + 200) {
-      this.num += 5;
+      this.num += 10;
       ticker.clear(this.timeout);
       this.timeout = ticker.timeout(() => {
         // 添加延时处理增加页面，避逸图片加载完后的刷新冲突。。
@@ -70,7 +70,7 @@ export default class Page3 extends React.Component {
     const type = v.target.value;
     this.setState({
       type,
-      pageSize: 5,
+      pageSize: 10,
       isSwitchTween: true,
     });
   }
@@ -81,7 +81,7 @@ export default class Page3 extends React.Component {
     } else {
       delete this.inQueue[e.key];
     }
-    if (Object.keys(this.inQueue).length >= this.chidlrenLength) {
+    if (Object.keys(this.inQueue).length >= this.childrenLength) {
       this.setState({
         isSwitchTween: false,
       });
@@ -123,6 +123,9 @@ export default class Page3 extends React.Component {
       const d = data[key].data;
       if (key !== 'Other' && (v === 'all' || v === key)) {
         d.forEach((item, i) => {
+          if (item.disabled) {
+            return;
+          }
           const tKey = `${key}_${i}`;
           const style = imgData[tKey];
           if (num < this.state.pageSize) {
@@ -147,7 +150,7 @@ export default class Page3 extends React.Component {
         });
       }
     });
-    this.chidlrenLength = children.length;
+    this.childrenLength = children.length;
     return children;
   }
 

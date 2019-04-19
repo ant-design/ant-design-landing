@@ -1,12 +1,17 @@
 import React from 'react';
-import { Icon, Button, Popover, Input, Row, Col, Switch } from 'antd';
+import { Icon, Button, Popover, Input, Row, Col, Switch, Select, Tooltip } from 'antd';
 import { FormattedMessage } from 'react-intl';
 
+const { Option } = Select;
 export default class LinkComp extends React.Component {
   onValueChange = (v, key) => {
     const { editData } = this.props;
     const c = v ? '_blank' : '';
-    editData[key] = key === 'target' ? c : v;
+    if (key === 'icon' && !v) {
+      delete editData[key];
+    } else {
+      editData[key] = key === 'target' ? c : v;
+    }
     this.props.setTemplateConfigObject(editData);
   }
 
@@ -19,11 +24,50 @@ export default class LinkComp extends React.Component {
         content={(
           <div>
             <Row>
-              <Col span={8}>
+              <Col span={8} style={{ textAlign: 'right', paddingRight: '8px' }}>
+                <FormattedMessage id="app.state.link.type" />
+              </Col>
+              <Col span={16}>
+                <Select
+                  onChange={(value) => {
+                    this.onValueChange(value, 'type');
+                  }}
+                  size="small"
+                  defaultValue={editData.type}
+                  style={{ width: '100%' }}
+                >
+                  <Option value="default">default</Option>
+                  <Option value="primary">primary</Option>
+                  <Option value="dashed">dashed</Option>
+                </Select>
+              </Col>
+            </Row>
+            <Row style={{ marginTop: 16 }}>
+              <Col span={8} style={{ textAlign: 'right', paddingRight: '8px' }}>
+                <FormattedMessage id="app.state.link.icon" />
+              </Col>
+              <Col span={14}>
+                <Input
+                  size="small"
+                  onChange={(e) => {
+                    this.onValueChange(e.target.value, 'icon');
+                  }}
+                  defaultValue={editData.icon}
+                />
+              </Col>
+              <Col span={2} style={{ lineHeight: '24px', textAlign: 'center' }}>
+                <Tooltip title={<FormattedMessage id="app.state.link.icon.remarks" />}>
+                  <Icon type="question-circle" />
+                </Tooltip>
+              </Col>
+            </Row>
+            <Row style={{ marginTop: 16 }}>
+              <Col span={8} style={{ textAlign: 'right', paddingRight: '8px' }}>
                 <FormattedMessage id="app.state.link.url" />
               </Col>
               <Col span={16}>
                 <Input
+                  size="small"
                   onChange={(e) => {
                     this.onValueChange(e.target.value, 'href');
                   }}
@@ -32,7 +76,7 @@ export default class LinkComp extends React.Component {
               </Col>
             </Row>
             <Row style={{ marginTop: 16 }}>
-              <Col span={8}>
+              <Col span={8} style={{ textAlign: 'right', paddingRight: '8px' }}>
                 <FormattedMessage id="app.state.link.blank" />
               </Col>
               <Col span={16}>

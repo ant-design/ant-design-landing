@@ -3,6 +3,9 @@ import { Button, Icon } from 'antd';
 import QueueAnim from 'rc-queue-anim';
 import TweenOne, { TweenOneGroup } from 'rc-tween-one';
 import BannerAnim, { Element } from 'rc-banner-anim';
+/* replace-start-value = import { isImg } from './utils'; */
+import { isImg } from '../../../../utils';
+/* replace-end-value */
 import 'rc-banner-anim/assets/index.css';
 /* replace-start */
 import './index.less';
@@ -63,7 +66,7 @@ class Banner extends React.PureComponent {
               /* replace-end */
               >
                 {
-                  typeof title.children === 'string' && title.children.match(/\.(svg|gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/) ? (
+                  typeof title.children === 'string' && title.children.match(isImg) ? (
                     <img src={title.children} width="100%" alt="img" />
                   ) : /* replace-start-value = title.children */React.createElement('span', { dangerouslySetInnerHTML: { __html: title.children } })
                   /* replace-end-value */

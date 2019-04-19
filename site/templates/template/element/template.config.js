@@ -5,6 +5,7 @@ import Banner0 from './Banner0/template.config';
 import Banner1 from './Banner1/template.config';
 import Banner2 from './Banner2/template.config';
 import Banner3 from './Banner3/template.config';
+import Banner4 from './Banner4/template.config';
 import Content0 from './Content0/template.config';
 import Content1 from './Content1/template.config';
 import Content2 from './Content2/template.config';
@@ -19,7 +20,13 @@ import Content10 from './Content10/template.config';
 import Content11 from './Content11/template.config';
 import Content12 from './Content12/template.config';
 import Content13 from './Content13/template.config';
-
+import Pricing0 from './Pricing0/template.config';
+import Pricing1 from './Pricing1/template.config';
+import Pricing2 from './Pricing2/template.config';
+import Teams0 from './Teams0/template.config';
+import Teams1 from './Teams1/template.config';
+import Teams2 from './Teams2/template.config';
+import Teams3 from './Teams3/template.config';
 
 import Footer0 from './Footer0/template.config';
 import Footer1 from './Footer1/template.config';
@@ -33,6 +40,7 @@ export default {
   Banner1,
   Banner2,
   Banner3,
+  Banner4,
   Content0,
   Content1,
   Content2,
@@ -47,6 +55,21 @@ export default {
   Content11,
   Content12,
   Content13,
+  Pricing0,
+  Pricing1,
+  Pricing2,
+  Teams0,
+  Teams1,
+  Teams2,
+  Teams3,
+  Teams4: Content8,
+  Contact0: Content10,
+  Feature0: Content0,
+  Feature1: Content1,
+  Feature2: Content2,
+  Feature3: Content3,
+  Feature4: Content6,
+  Feature5: Content7,
   Footer0,
   Footer1,
   Footer2,

@@ -3,6 +3,9 @@ import TweenOne from 'rc-tween-one';
 import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';
 import QueueAnim from 'rc-queue-anim';
 import { Row, Col } from 'antd';
+/* replace-start-value = import { isImg } from './utils'; */
+import { isImg } from '../../../../utils';
+/* replace-end-value */
 /* replace-start */
 import './index.less';
 /* replace-end */
@@ -22,7 +25,7 @@ class Footer extends React.Component {
       >
         <h2 {...item.title}>
           {
-            typeof item.title.children === 'string' && item.title.children.match(/\.(svg|gif|jpg|jpeg|png|JPG|PNG|GIF|JPEG)$/) ? (
+            typeof item.title.children === 'string' && item.title.children.match(isImg) ? (
               <img src={item.title.children} width="100%" alt="img" />
             ) : /* replace-start-value = item.title.children */React.createElement('span', { dangerouslySetInnerHTML: { __html: item.title.children } })
             /* replace-end-value */

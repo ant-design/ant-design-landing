@@ -1,0 +1,72 @@
+@import '../../../static/custom.less';
+@teams2: teams2;
+
+.@{teams2}-wrapper {
+  min-height: 446px;
+  overflow: hidden;
+
+  .@{teams2} {
+    overflow: hidden;
+    height: 100%;
+    padding: 64px 24px;
+
+    >.title-wrapper {
+      margin: 0 auto 48px;
+    }
+
+    .block-wrapper {
+      position: relative;
+      height: 100%;
+      overflow: hidden;
+      padding: 20px 0;
+      min-height: 456px;
+
+      .block {
+        margin-bottom: 48px;
+        vertical-align: text-top;
+
+        &.queue-anim-leaving {
+          position: relative !important;
+        }
+      }
+    }
+
+    &-image {
+      color: #404040;
+      width: 100%;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    &-textWrapper {
+      padding-left: 16px;
+    }
+
+    &-title {
+      font-size: 18px;
+      margin-bottom: 2px;
+    }
+
+    &-job {
+      margin-bottom: 4px;
+    }
+
+    &-job,
+    &-content {
+      font-size: 12px;
+      color: #919191;
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .@{teams2}-wrapper {
+    min-height: 1440px;
+
+    .@{teams2}.home-page {
+      padding-bottom: 0;
+    }
+  }
+}

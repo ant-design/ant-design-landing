@@ -55,7 +55,8 @@ const eslintrc = {
     'import/no-webpack-loader-syntax': 0,
     'react/forbid-prop-types': 0,
     'react/destructuring-assignment': 0,
-    'react/no-access-state-in-setstate': 0
+    'react/no-access-state-in-setstate': 0,
+    'import/no-cycle': 0
   },
 };
 

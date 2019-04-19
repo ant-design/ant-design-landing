@@ -1,7 +1,25 @@
 import md5 from 'blueimp-md5';
-import { isImg, mdId } from '../../utils';
+import React from 'react';
+import { Button } from 'antd';
+import { isImg as imgStr, mdId } from '../../utils';
 
 import compConfig from '../../edit/template/component.config';
+
+export const isImg = imgStr;
+
+export const getChildrenToRender = (item, i) => {
+  const tag = item.name.indexOf('title') === 0 ? 'h1' : 'div';
+  let children = typeof item.children === 'string' && item.children.match(/^http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w-./?%&=]*)?/)
+    ? React.createElement('img', { src: item.children, alt: 'img' })
+    : React.createElement('span', { dangerouslySetInnerHTML: { __html: item.children } });
+  children = typeof item.children === 'object' && item.name.indexOf('button') === 0 ? (
+    React.createElement(Button, {
+      ...item.children,
+      'data-edit': 'link,text',
+    })
+  ) : children;
+  return React.createElement(tag, { key: i.toString(), ...item }, children);
+};
 
 export function getEditDomData(children) {
   const data = {};
@@ -53,7 +71,7 @@ export const setDataIdToDataSource = (data, dataId) => {
         if (key in compConfig) {
           item['data-edit'] = key;
         } else if (item.children && typeof item.children !== 'object') {
-          if (item.children.match(isImg)) {
+          if (item.children.match(isImg) || (item.name && item.name.indexOf('image') === 0)) {
             item['data-edit'] = 'image';
           } else {
             item['data-edit'] = 'text';

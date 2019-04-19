@@ -1,0 +1,86 @@
+@import '../../../static/custom.less';
+@pricing1: pricing1;
+.@{pricing1}-wrapper {
+  min-height: 760px;
+  .@{pricing1} {
+    >p {
+      text-align: center;
+    }
+    &-content-wrapper {
+      min-height: 400px;
+    }
+    &-block-box {
+      width: 260px;
+      border-radius: 4px;
+      background: #eef0f3;
+      text-align: center;
+      color: #666;
+      min-height: 400px;
+      margin: auto;
+      border: 1px solid transparent;
+      .page-pro();
+      &.active {
+        border-color: @primary-color;
+        background: #fff;
+        .@{pricing1} {
+          &-top-wrapper {
+            background: @primary-color;
+          }
+          &-name,
+          &-money,
+          &-button {
+            color: #fff;
+          }
+          &-button {
+            background: @primary-color;
+          }
+        }
+      }
+    }
+    &-block {
+      margin-bottom: 24px;
+    }
+    &-top-wrapper {
+      width: 100%;
+      padding: 16px 24px;
+    }
+    &-name {
+      font-size: 14px;
+    }
+    &-money {
+      font-family: 'Helvetica Neue', sans-serif;
+      font-size: 32px;
+      color: #666;
+    }
+    &-content {
+      font-size: 12px;
+      line-height: 2;
+      font-weight: 300;
+      margin: 32px 24px 48px;
+    }
+    &-line {
+      display: block;
+      height: 1px;
+      background: #d9d9d9;
+      margin: 0 24px;
+    }
+    &-button-wrapper {
+      margin: 18px 24px;
+    }
+    &-button {
+      padding: 0 24px;
+    }
+  }
+  &.home-page-wrapper {
+    .@{pricing1}-title-wrapper {
+      margin-bottom: 64px;
+      text-align: center;
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .@{pricing1}-wrapper {
+    padding-bottom: 0;
+  }
+}

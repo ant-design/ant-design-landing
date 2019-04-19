@@ -11,6 +11,7 @@ const Option = Select.Option;
 const addDefault = {
   titleWrapper: ['title', 'content', 'image'],
   textAndImage: ['content', 'image'],
+  childWrapper: ['title', 'content', 'image', 'button'],
 };
 
 const noChildProps = ['BannerAnim', 'Menu', 'Content'];
@@ -58,6 +59,13 @@ export default class ChildComp extends React.PureComponent {
         className: '',
         children: name === 'image' ? 'https://zos.alipayobjects.com/rmsportal/HzvPfCGNCtvGrdk.png' : '新增文字',
       };
+      if (name === 'button') {
+        newData.children = {
+          children: newData.children,
+          href: '#',
+          type: 'default',
+        };
+      }
     } else {
       newData = deepCopy(currentData.children[currentData.children.length - 1]);
       delete newData.delete;
@@ -90,9 +98,10 @@ export default class ChildComp extends React.PureComponent {
         this.editAddDefault = addDefault[c];
       }
     });
+
     if (parentIsArray) {
       idChildArray.splice(idChildArray.length - 1, 1);
-      idChildArray.splice(idChildArray.length - 1, 1); // children
+      idChildArray.splice(idChildArray.length - 1, 1);
       idChildArray.forEach((c) => {
         if (addDefault[c]) {
           this.editAddDefault = addDefault[c];

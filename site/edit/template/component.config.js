@@ -155,4 +155,36 @@ export default {
       },
     },
   },
+  Table: {
+    size: {
+      name: <FormattedMessage id="app.edit.table.size" />,
+      type: 'select',
+      props: {
+        children: [
+          {
+            key: 'default',
+            name: 'default',
+          },
+          {
+            key: 'middle',
+            name: 'middle',
+          },
+          {
+            key: 'small',
+            name: 'small',
+          },
+        ],
+      },
+    },
+    columns: {
+      name: <FormattedMessage id="app.edit.table.columns" />,
+      join: ['dataSource', 'children', '$all', 'children'],
+      parentKey: 'Table',
+      type: 'array',
+    },
+    dataSource: {
+      name: <FormattedMessage id="app.edit.table.dataSource" />,
+      type: 'array',
+    },
+  },
 };

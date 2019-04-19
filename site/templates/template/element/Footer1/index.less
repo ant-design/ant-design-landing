@@ -3,32 +3,32 @@
   background: @template-bg-color;
   overflow: hidden;
   position: relative;
-  min-height: 400px;
+  min-height: 360px;
   color: @template-footer-text-color;
   .footer1 {
     .home-page {
       padding: 64px 24px 80px;
     }
-    .block {
-      padding: 0 32px;
-      .logo {
-        max-width: 180px;
-      }
-      .slogan {
-        font-size: 12px;
-        margin-top: -20px;
-      }
-      >h2 {
-        margin-bottom: 24px;
-        color: @template-text-color;
-      }
-      >div {
-        line-height: 24px;
-        a {
-          color: @template-footer-text-color;
-          &:hover {
-            color: @primary-color;
-          }
+  }
+  .block {
+    padding: 0 32px;
+    .logo {
+      max-width: 180px;
+    }
+    .slogan {
+      font-size: 12px;
+      margin-top: -20px;
+    }
+    >h2 {
+      margin-bottom: 24px;
+      color: @template-text-color;
+    }
+    >div {
+      line-height: 24px;
+      a {
+        color: @template-footer-text-color;
+        &:hover {
+          color: @primary-color;
         }
       }
     }
@@ -41,17 +41,31 @@
       overflow: hidden;
     }
     .copyright {
-      height: 100px;
-      text-align: right;
+      height: 80px;
+      text-align: center;
       line-height: 80px;
-      float: right;
     }
   }
 }
 
 @media screen and (max-width: 767px) {
   .footer1 {
-    height: 550px;
+    min-height: 550px;
+    &-wrapper {
+      .footer1 {
+        .home-page {
+          padding: 64px 24px 32px;
+        }
+      }
+    }
+    .logo {
+      margin: 0 auto 24px;
+    }
+    .block {
+      text-align: center;
+      margin-bottom: 32px;
+      padding: 0;
+    }
     >ul {
       width: 90%;
       margin: 20px auto 0;
@@ -68,6 +82,15 @@
       }
     }
     .copyright {
+      &-wrapper {
+        .home-page {
+          padding: 0;
+          .copyright {
+            font-size: 12px;
+          }
+        }
+      }
+
       span {
         width: 90%;
       }

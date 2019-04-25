@@ -258,19 +258,19 @@ export function saveJsZip(templateData, callBack, getJSON) {
         .replace(/href="(.*?)"/g, 'href=\\"$1\\"')
         .replace(/<br>/g, '<br />')
         .replace(/"(<.*?>)"/g, (_, s1) => {
-          const tagIsSpanMatch = s1.match(/<span>.*?<\/span>/g);
+          // https://github.com/ant-design/ant-design-landing/issues/61 去除 span 标签，编辑时可能会出现 span 标签。。
+          /* const tagIsSpanMatch = s1.match(/<span>.*?<\/span>/g);
           const startSpanMatch = s1.match(/^<span>.*?<\/span>?/g);
           if (startSpanMatch && tagIsSpanMatch.length === 1) {
             return s1;
-          }
-          return `<span>${s1}</span>`;
+          } */
+          return `<>${s1}</>`;
         })
         .replace(/\\"/g, '"')}`;
     promiseObject[`PROPS-${key}`] = { value: props };
     /*  formatCode(props).then((value) => {
       templateStrObj.PROPS[key] = value;
     }); */
-
     // 转换 antd;
     const l = templateStr.match(/import\s+(.+?)\s+'antd\/lib\/(.+?)';/g);
     let newTemplateStr = templateStr.replace(/import\s+(.+?)\s+'antd\/lib\/(.+?)';/g, '&antd&');

@@ -158,6 +158,13 @@ class PublishModal extends React.Component {
 
   onPublish = (templateData, pageData) => {
     saveJsZip(templateData, (data) => {
+      if (data === 'error') {
+        this.setState({
+          isLoad: false,
+        });
+        this.props.changePublishState(false);
+        return;
+      }
       fetch(`${nowURL}api/deploy`, {
         method: 'POST',
         mode: 'cors',

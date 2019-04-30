@@ -12,6 +12,8 @@ import { isZhCN } from '../../../../theme/template/utils';
 import tempData from '../../../../templates/template/element/template.config';
 
 const { Panel } = Collapse;
+
+const { State, Font, BackGround, Border, Interface, Margin, Shadow, Transition } = EditorList;
 class EditorComp extends React.Component {
   onChange = (cb) => {
     const { cssName, currentEditCssString } = cb;
@@ -95,7 +97,16 @@ class EditorComp extends React.Component {
               locale={!isCN ? editorEn : editorZh}
               isMobile={mediaStateSelect === 'Mobile'}
               defaultActiveKey={['EditorClassName', 'EditorState', 'EditorFont', 'EditorInterface']}
-            />
+            >
+              <State />
+              <Font />
+              <Interface />
+              <BackGround />
+              <Border />
+              <Margin />
+              <Shadow />
+              <Transition />
+            </EditorList>
           </Panel>
         </Collapse>,
       ]

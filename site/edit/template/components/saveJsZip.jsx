@@ -1,6 +1,7 @@
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 import { mobileTitle } from 'rc-editor-list/lib/utils';
+import { Modal } from 'antd';
 import { formatCode } from '../utils';
 import { mergeEditDataToDefault, isImg } from '../../../utils';
 import webData from '../../../templates/template/element/template.config';
@@ -330,12 +331,24 @@ export function saveJsZip(templateData, callBack, getJSON) {
       templateStrObj[key] = v;
     }
   };
+  let modalOpen = false;
   promiseArray.forEach((key) => {
     const item = promiseObject[key];
     formatCode({
       code: item.value,
       parser: item.type,
       cb: (v, cKey) => {
+        if (modalOpen) {
+          return;
+        }
+        if (v.match('Error:')) {
+          modalOpen = true;
+          callBack('error');
+          Modal.error({
+            title: 'Error formatting code.',
+            content: `${cKey}: ${v}`,
+          });
+        }
         setTemplateStrObj(cKey, v);
         i += 1;
         if (i >= promiseArray.length) {

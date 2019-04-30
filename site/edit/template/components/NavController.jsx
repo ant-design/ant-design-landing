@@ -78,10 +78,12 @@ class NavController extends React.PureComponent {
     this.setState({
       downloadLoad: true,
     }, () => {
-      saveJsZip(this.props.templateData, () => {
-        message.success(
-          this.context.intl.formatMessage({ id: 'app.header.download.message' })
-        );
+      saveJsZip(this.props.templateData, (c) => {
+        if (c !== 'error') {
+          message.success(
+            this.context.intl.formatMessage({ id: 'app.header.download.message' })
+          );
+        }
         this.setState({
           downloadLoad: false,
         });

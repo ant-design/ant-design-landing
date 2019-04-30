@@ -47,7 +47,12 @@ class Content11 extends React.PureComponent {
             data-edit="link,text"
           /* replace-end */
           >
-            {dataSource.button.children.a.children}
+
+            {
+              /* replace-start-value = dataSource.button.children.a.children */
+              React.createElement('span', { dangerouslySetInnerHTML: { __html: dataSource.button.children.a.children } })
+              /* replace-end-value */
+            }
           </Button>
         </TweenOne>
       </OverPack>

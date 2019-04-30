@@ -13,7 +13,7 @@ import tempData from '../../../../templates/template/element/template.config';
 
 const { Panel } = Collapse;
 
-const { State, Font, BackGround, Border, Interface, Margin, Shadow, Transition } = EditorList;
+const { ClassName, State, Font, BackGround, Border, Interface, Margin, Shadow, Transition } = EditorList;
 class EditorComp extends React.Component {
   onChange = (cb) => {
     const { cssName, currentEditCssString } = cb;
@@ -98,6 +98,7 @@ class EditorComp extends React.Component {
               isMobile={mediaStateSelect === 'Mobile'}
               defaultActiveKey={['EditorClassName', 'EditorState', 'EditorFont', 'EditorInterface']}
             >
+              <ClassName />
               <State />
               <Font />
               <Interface />

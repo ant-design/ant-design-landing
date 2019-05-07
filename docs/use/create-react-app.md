@@ -60,7 +60,7 @@ title:
 ```
 ## 安装依赖
 
-详细参考[开始使用里的安装依赖](docs/use/getting-started-cn#安装依赖);
+详细参考[开始使用里的安装依赖](docs/use/getting-started#安装依赖);
 
 ### less 加载
 

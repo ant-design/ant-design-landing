@@ -81,7 +81,8 @@ class Layout extends React.Component {
   }
 
   messageHandle = (e) => {
-    if (e.data.type && e.data.type.indexOf('webpack') === -1) {
+    // FIXME: need much better assert condition
+    if (e.data.type && e.data.type.indexOf('webpack') === -1 && e.data.uid) {
       /* Object.keys(localStorage).forEach((key) => {
         localStorage.removeItem(key);
       }); */

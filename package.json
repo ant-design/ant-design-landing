@@ -83,7 +83,7 @@
     "build": "npm run cp-prettier && cross-env NODE_ENV=production concurrently \"npm run build-index\" \"npm run build-edit\" \"npm run build-templates\"",
     "site": "npm run build",
     "cp-prettier": "rm -rf _site && mkdir -p ./_site/edit && cp -r ./prettier/* ./_site/edit ",
-    "deploy": "npm run site && bisheng gh-pages --push-only",
+    "deploy": "npm run site && cp CNAME _site && bisheng gh-pages --push-only",
     "lint": "npm run lint:es && npm run lint:style",
     "lint:es": "eslint --fix --ext '.js,.jsx' site",
     "lint:style": "stylelint --fix \"site/**/*.less\" --syntax less",

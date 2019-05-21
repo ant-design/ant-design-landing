@@ -14,26 +14,26 @@ export default class VideoComp extends React.Component {
     const popContent = (
       <div style={{ width: 350, lineHeight: '32px' }}>
         <Row>
-          <Col span={4}>
-            <FormattedMessage id="app.state.image.header" />
+          <Col span={8} style={{ textAlign: 'right', paddingRight: 8 }}>
+            <FormattedMessage id="app.state.video.placeholder" />
           </Col>
-          <Col span={20}>
+          <Col span={16}>
             <Input
               onChange={(e) => { this.onVideoChange(e, editText, 'video'); }}
               defaultValue={editText.video}
-              placeholder={<FormattedMessage id="app.state.image.placeholder" />}
+              placeholder={<FormattedMessage id="app.state.video.placeholder" />}
             />
           </Col>
         </Row>
         <Row style={{ marginTop: 16 }}>
-          <Col span={4}>
-            <FormattedMessage id="app.state.image.preview" />
+          <Col span={8} style={{ textAlign: 'right', paddingRight: 8 }}>
+            <FormattedMessage id="app.state.video.preview" />
           </Col>
-          <Col span={20}>
+          <Col span={16}>
             <Input
               onChange={(e) => { this.onVideoChange(e, editText, 'image'); }}
               defaultValue={editText.image && editText.image.match(isImg) ? editText.image : ''}
-              placeholder={<FormattedMessage id="app.state.image.placeholder" />}
+              placeholder={<FormattedMessage id="app.state.video.preview" />}
             />
           </Col>
         </Row>

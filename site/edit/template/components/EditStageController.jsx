@@ -11,7 +11,7 @@ import { isImg, deepCopy, mergeEditDataToDefault, getDataSourceValue, mdId } fro
 import * as utils from '../../../theme/template/utils';
 import webData from '../template.config';
 import tempData from '../../../templates/template/element/template.config';
-import EditButtton from './StateComponents/EditButtonView';
+import EditButton from './StateComponents/EditButtonView';
 import SwitchSlideView from './StateComponents/SwitchSlideView';
 
 class EditStateController extends React.PureComponent {
@@ -79,13 +79,13 @@ class EditStateController extends React.PureComponent {
     t.on('drag', () => {
       newId = '';
       stateChild = null;
-      this.isDrap = true;
+      this.isDrag = true;
       this.reRect();
       this.state.className = `${this.state.className} drag`;
     })
       .on('dragend', () => {
         this.state.className = this.stage.className.replace('drag', '').trim();
-        this.isDrap = false;
+        this.isDrag = false;
       })
       .on('drop', (el) => {
         if (el.className === 'placeholder') {
@@ -193,7 +193,7 @@ class EditStateController extends React.PureComponent {
     const dom = e.target;
     const { data, currentHoverRect } = this.state;
     let currentSelectRect = this.state.currentSelectRect;
-    if (!this.isDrap && dom.getAttribute('data-key')) {
+    if (!this.isDrag && dom.getAttribute('data-key')) {
       const id = dom.getAttribute('id');
       const currentElemData = data[id];
       // 重置数据里的 rect，滚动条发生变化会随着变化。
@@ -331,7 +331,7 @@ class EditStateController extends React.PureComponent {
           }}
         >
           {css === 'select' && (
-            <EditButtton
+            <EditButton
               setTemplateConfigData={this.setTemplateConfigData}
               setTemplateConfigObject={this.setTemplateConfigObject}
               closeEditText={this.closeEditText}
@@ -417,7 +417,7 @@ class EditStateController extends React.PureComponent {
 
   onClick = (e) => {
     const dom = e.target;
-    if (!this.isDrap && dom.getAttribute('data-key') && this.mouseCurrentData) {
+    if (!this.isDrag && dom.getAttribute('data-key') && this.mouseCurrentData) {
       this.selectParentDom = dom;
       if (this.currentData) {
         this.currentData.item.style.visibility = '';
@@ -432,7 +432,7 @@ class EditStateController extends React.PureComponent {
       this.selectSteState(this.state.currentHoverRect,
         editData, currentDom, this.mouseCurrentData.dataId);
     }
-    this.isDrap = false;
+    this.isDrag = false;
   }
 
   onEditSelectChange = (v) => {

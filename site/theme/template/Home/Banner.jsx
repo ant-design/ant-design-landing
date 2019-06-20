@@ -4,6 +4,7 @@ import QueueAnim from 'rc-queue-anim';
 import TweenOne from 'rc-tween-one';
 import Link from 'rc-scroll-anim/lib/ScrollLink';
 import BannerAnim, { Element } from 'rc-banner-anim';
+import GitHubButton from 'react-github-button';
 import { getNewHref } from '../../../utils';
 
 const { BgElement } = Element;
@@ -131,6 +132,13 @@ export default function Banner({ isMobile }) {
                 <FormattedMessage id="app.home.enter-editor" />
               </a>
             )}
+          </div>
+          <div className="git-button" key="git">
+            <GitHubButton
+              type="stargazers"
+              namespace="ant-design"
+              repo="ant-design-landing"
+            />
           </div>
         </QueueAnim>
       </Element>

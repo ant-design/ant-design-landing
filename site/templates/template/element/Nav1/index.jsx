@@ -38,34 +38,34 @@ class Header extends React.Component {
   }
 
   render() {
-    const { ...props } = this.props;
-    const { dataSource, isMobile } = props;
-    delete props.dataSource;
-    delete props.isMobile;
+    const { dataSource, isMobile, ...props } = this.props;
     const { menuHeight, phoneOpen } = this.state;
     const navData = dataSource.Menu.children;
     const navChildren = Object.keys(navData)
-      .map((key, i) => (
-        <Item
-          {...navData[key]}
-          key={i.toString()}
-          /* replace-start */
-          data-edit="Menu"
+      .map((key, i) => {
+        const { a, navProps } = navData[key];
+        return (
+          <Item
+            {...navProps}
+            key={i.toString()}
+            /* replace-start */
+            data-edit="Menu"
           /* replace-end */
-        >
-          <a
-            {...navData[key].a}
-            href={navData[key].a.link}
-            target={navData[key].a.blank && '_blank'}
           >
-            {
-              /* replace-start-value = navData[key].a.children */
-              React.createElement('span', { dangerouslySetInnerHTML: { __html: navData[key].a.children } })
-              /* replace-end-value */
-            }
-          </a>
-        </Item>
-      )
+            <a
+              {...a}
+              href={a.link}
+              target={a.blank && '_blank'}
+            >
+              {
+                /* replace-start-value = a.children */
+                React.createElement('span', { dangerouslySetInnerHTML: { __html: a.children } })
+                /* replace-end-value */
+              }
+            </a>
+          </Item>
+        );
+      }
       );
 
     // user 涉及到数据，请自行替换。
@@ -118,6 +118,14 @@ class Header extends React.Component {
           </Item>
         </SubMenu>)
     );
+    const menuProps = {
+      mode: isMobile ? 'inline' : 'horizontal',
+      defaultSelectedKeys: ['0'],
+      theme: isMobile ? 'dark' : 'default',
+    };
+    if (isMobile) {
+      menuProps.openKeys = ['user'];
+    }
     return (
       <TweenOne
         component="header"
@@ -163,9 +171,7 @@ class Header extends React.Component {
           /* replace-end */
           >
             <Menu
-              mode={isMobile ? 'inline' : 'horizontal'}
-              defaultSelectedKeys={['0']}
-              theme={isMobile ? 'dark' : 'default'}
+              {...menuProps}
             >
               {navChildren}
             </Menu>

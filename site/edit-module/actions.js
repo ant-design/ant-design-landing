@@ -11,6 +11,7 @@ const userAvName = 'EditUser';
 AV.init({
   appId,
   appKey,
+  serverURLs: 'https://avoscloud.com',
 });
 export const userName = 'antd-landing-user-name';
 

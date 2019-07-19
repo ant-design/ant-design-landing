@@ -128,14 +128,14 @@ export default class NewFileButton extends React.Component {
   render() {
     const menuNewDropdown = this.getNewMenu();
     const newIcon = (
-      <div className="right-icon" onClick={this.onClickNew}>
+      <a className="new-file-button" onClick={this.onClickNew}>
         {this.props.children || <Icon type="file-add" />}
-      </div>
+      </a>
     );
     return menuNewDropdown ? (
       <Dropdown
         overlay={menuNewDropdown}
-        placement="bottomRight"
+        placement="bottomCenter"
       >
         {newIcon}
       </Dropdown>

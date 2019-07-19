@@ -31,35 +31,42 @@
     }
   }
 
+  .menu a,
+  .history-button-wrapper a,
+  .new-file-button {
+    padding: 0 24px;
+    display: block;
+    color: #fff;
+    transition: color .3s, background .3s;
+    &[disabled] {
+      cursor: wait;
+    }
+
+    &:hover {
+      background: @edit-line-color;
+    }
+  }
+
   .menu {
     float: left;
     border-left: 1px solid @edit-line-color;
     margin: 0;
 
     >li {
-      padding: 0 16px;
       display: inline-block;
       border-right: 1px solid @edit-line-color;
-      cursor: pointer;
-
-      &[disabled] {
-        cursor: wait;
-      }
 
       .anticon {
-        margin-right: 8px;
         font-size: 16px;
         vertical-align: middle;
       }
     }
   }
 
-  .right-icon {
-    padding: 0 24px;
-    float: right;
-    font-size: 16px;
+  .new-file-button {
+    float: left;
     cursor: pointer;
-    border-left: 1px solid @edit-line-color;
+    border-right: 1px solid @edit-line-color;
 
     .anticon-file-add {
       font-size: 16px !important;
@@ -71,16 +78,11 @@
     display: flex;
     float: right;
     font-size: 16px;
-    li {
-      a {
-        color: #fff;
-        padding: 0 24px;
-        display: block;
-      }
-    }
+
     .undo {
       border-left: 1px solid @edit-line-color;
     }
+
     .redo {
       transform: scaleX(-1);
       border-right: 1px solid @edit-line-color;

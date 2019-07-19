@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, message, Button, Modal, Popconfirm } from 'antd';
+import { Icon, message, Button, Modal, Popconfirm, Tooltip } from 'antd';
 import PropTypes from 'prop-types';
 import CodeMirror from 'rc-editor-list/lib/components/common/CodeMirror';
 import { FormattedMessage } from 'react-intl';
@@ -200,7 +200,14 @@ class NavController extends React.PureComponent {
       },
     ].map((item, i) => {
       const iconProps = item.component ? { component: item.component } : { type: item.icon };
-      let children = [<Icon {...iconProps} key="icon" />, item.name];
+      let children = (
+        <Tooltip title={item.name}>
+          <a onClick={item.tooltip ? null : item.onClick} disabled={!item.onClick}>
+            <Icon {...iconProps} key="icon" />
+          </a>
+        </Tooltip>
+      );
+
       if (item.tooltip) {
         children = (
           <Popconfirm
@@ -215,7 +222,7 @@ class NavController extends React.PureComponent {
         );
       }
       return (
-        <li key={i.toString()} onClick={item.tooltip ? null : item.onClick} disabled={!item.onClick}>
+        <li key={i.toString()}>
           {children}
         </li>
       );

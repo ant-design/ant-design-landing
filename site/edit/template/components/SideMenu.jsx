@@ -106,8 +106,9 @@ class SideMenu extends React.PureComponent {
     const { templateData, dispatch } = this.props;
     signUpUser(templateData, this.password, dispatch, () => {
       this.onLockData();
+      console.log(this.context.intl);
       message.success(
-        this.context.intl.formattedMessage({ id: 'app.side.encryption.message' })
+        this.context.intl.formatMessage({ id: 'app.side.encryption.message' })
       );
       this.props.form.resetFields();
     });
@@ -117,7 +118,7 @@ class SideMenu extends React.PureComponent {
     const { templateData, dispatch } = this.props;
     removeUser(templateData, dispatch, () => {
       message.success(
-        this.context.intl.formattedMessage({ id: 'app.side.encryption.decrypt' })
+        this.context.intl.formatMessage({ id: 'app.side.encryption.decrypt' })
       );
     });
   }

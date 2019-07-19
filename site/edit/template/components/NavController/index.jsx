@@ -169,7 +169,8 @@ class NavController extends React.PureComponent {
   }
 
   render() {
-    const { saveLoad, downloadLoad, currentEditData, publishLoad, code, codeModalShow, publishModalShow } = this.state;
+    const { currentEditData } = this.props;
+    const { saveLoad, downloadLoad, publishLoad, code, codeModalShow, publishModalShow } = this.state;
     const menuChild = [
       {
         name: <FormattedMessage id="app.header.save" key="m" />,

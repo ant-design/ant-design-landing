@@ -22,8 +22,6 @@ class HistoryButton extends React.Component {
       return;
     }
     const currentData = record[current + num];
-    console.log(current + num);
-    console.log(currentData);
     const { reRect, dispatch } = this.props;
     dispatch(setTemplateData({
       data: currentData.attributes,

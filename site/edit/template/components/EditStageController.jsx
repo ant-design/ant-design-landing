@@ -134,6 +134,9 @@ class EditStateController extends React.PureComponent {
       && currentEditData.id === this.props.currentEditData.id) {
       setTimeout(() => {
         // 避免使用多次样式，这里使用 setTimeout 等子级刷新
+        if (!this.currentData) {
+          return;
+        }
         const { parentData } = this.currentData;
         if (parentData) {
           const rectArray = getChildRect(parentData);

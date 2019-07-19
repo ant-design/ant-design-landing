@@ -19,7 +19,7 @@ export default class VideoComp extends React.Component {
           </Col>
           <Col span={16}>
             <Input
-              onChange={(e) => { this.onVideoChange(e, editText, 'video'); }}
+              onBlur={(e) => { this.onVideoChange(e, editText, 'video'); }}
               defaultValue={editText.video}
               placeholder={<FormattedMessage id="app.state.video.placeholder" />}
             />
@@ -31,7 +31,7 @@ export default class VideoComp extends React.Component {
           </Col>
           <Col span={16}>
             <Input
-              onChange={(e) => { this.onVideoChange(e, editText, 'image'); }}
+              onBlur={(e) => { this.onVideoChange(e, editText, 'image'); }}
               defaultValue={editText.image && editText.image.match(isImg) ? editText.image : ''}
               placeholder={<FormattedMessage id="app.state.video.preview" />}
             />

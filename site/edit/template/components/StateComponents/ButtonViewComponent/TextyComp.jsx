@@ -17,7 +17,7 @@ export default class TextyComp extends React.Component {
         content={(
           <Input
             style={{ width: 250 }}
-            onChange={this.onImageBtnChange}
+            onBlur={this.onImageBtnChange}
             defaultValue={editText || ''}
             placeholder={<FormattedMessage id="app.state.texty.header" />}
           />

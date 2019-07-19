@@ -5,13 +5,14 @@ import CodeMirror from 'rc-editor-list/lib/components/common/CodeMirror';
 import { FormattedMessage } from 'react-intl';
 import 'codemirror/mode/javascript/javascript.js';
 
-import { formatCode } from '../utils';
-import { getNewHref, RemoveLocalStorage } from '../../../utils';
+import { formatCode } from '../../utils';
+import { getNewHref, RemoveLocalStorage } from '../../../../utils';
 import {
   saveData, userName, setTemplateData,
-} from '../../../edit-module/actions';
-import { saveJsZip, saveJSON } from './saveJsZip';
+} from '../../../../edit-module/actions';
+import { saveJsZip, saveJSON } from '../saveJsZip';
 import NewFileButton from './NewFileButton';
+import HistoryButton from './HistoryButton';
 import PublishModal from './PublishModal';
 
 class NavController extends React.PureComponent {
@@ -168,7 +169,7 @@ class NavController extends React.PureComponent {
   }
 
   render() {
-    const { saveLoad, downloadLoad, publishLoad, code, codeModalShow, publishModalShow } = this.state;
+    const { saveLoad, downloadLoad, currentEditData, publishLoad, code, codeModalShow, publishModalShow } = this.state;
     const menuChild = [
       {
         name: <FormattedMessage id="app.header.save" key="m" />,
@@ -234,6 +235,11 @@ class NavController extends React.PureComponent {
           {menuChild}
         </ul>
         <NewFileButton />
+        <HistoryButton
+          templateData={this.props.templateData}
+          dispatch={this.props.dispatch}
+          reRect={currentEditData ? currentEditData.reRect : null}
+        />
         <Modal
           title={<FormattedMessage id="app.header.edit-data.header" />}
           visible={codeModalShow}

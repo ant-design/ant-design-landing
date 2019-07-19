@@ -11,7 +11,7 @@ import EditListController from './components/EditListController';
 import { getState, getNewHref } from '../../utils';
 import { hasErrors } from './utils';
 import { getUserData, loginIn } from '../../edit-module/actions';
-import NewFileButton from './components/NewFileButton';
+import NewFileButton from './components/NavController/NewFileButton';
 
 
 const FormItem = Form.Item;

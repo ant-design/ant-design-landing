@@ -21,7 +21,7 @@ class ContentEditView extends React.PureComponent {
           <Col span={18}>
             <Input
               defaultValue={item.children}
-              onChange={(e) => {
+              onBlur={(e) => {
                 currentEditTemplateData.children[key].children = e.target.value;
                 onChildChange(this.props.dispatch, this.props.templateData, ids, currentEditTemplateData);
               }}

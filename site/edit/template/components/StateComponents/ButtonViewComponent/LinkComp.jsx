@@ -49,7 +49,7 @@ export default class LinkComp extends React.Component {
               <Col span={14}>
                 <Input
                   size="small"
-                  onChange={(e) => {
+                  onBlur={(e) => {
                     this.onValueChange(e.target.value, 'icon');
                   }}
                   defaultValue={editData.icon}
@@ -68,7 +68,7 @@ export default class LinkComp extends React.Component {
               <Col span={16}>
                 <Input
                   size="small"
-                  onChange={(e) => {
+                  onBlur={(e) => {
                     this.onValueChange(e.target.value, 'href');
                   }}
                   defaultValue={editData.href}

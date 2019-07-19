@@ -3,6 +3,7 @@ import AV from 'leancloud-storage';
 import xss from 'xss';
 import { getURLData, setURLData } from '../theme/template/utils';
 import defaultData from './default.template.config.js';
+import { setRecord, reRecord, rmRecordAfter, setCurrentDataToLocal, getCurrentDataLocal } from './record';
 
 export const appId = 'ogaJShC9qJERt8LqGO80z2pO-gzGzoHsz';
 export const appKey = '8e5H5xBF86hI9vItQI1pt4kP';
@@ -55,6 +56,15 @@ function dataToLocalStorage(obj) {
     id: obj.id,
     attributes: obj.attributes,
   }));
+  if (!obj.noHistory || obj.noHistory === 'handle') {
+    if (!obj.noHistory) {
+      delete obj.noHistory;
+      rmRecordAfter(getCurrentDataLocal());
+      setRecord(obj);
+    }
+    delete obj.noHistory;
+    setCurrentDataToLocal(obj);
+  }
 }
 
 export const newTemplate = (cb, data = {
@@ -90,6 +100,7 @@ export const switchTemplate = (key) => {
   location.reload();
 };
 export const getUserData = data => (dispatch) => {
+  reRecord();
   // 获取 url 上是否有 user id;
   const hash = getURLData('uid');
   const cloneId = getURLData('cloneId');
@@ -147,6 +158,9 @@ export const getUserData = data => (dispatch) => {
         templateData: obj,
         userIsLogin,
       });
+      // 没进 dataToLocalStorage， 手动给 record;
+      setCurrentDataToLocal(obj);
+      setRecord(obj);
     } else {
       const tempData = new AV.Query(fileName);
       tempData.get(uid).then(($obj) => {
@@ -191,6 +205,7 @@ export const setTemplateData = (data) => {
   dataToLocalStorage({
     id: data.uid,
     attributes: data.data,
+    noHistory: data.noHistory,
   });
   return {
     type: postType.SET_TEMPLATE,

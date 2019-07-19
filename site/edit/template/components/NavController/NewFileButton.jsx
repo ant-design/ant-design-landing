@@ -1,11 +1,11 @@
 import React from 'react';
 import { Menu, Button, Icon, Dropdown, message } from 'antd';
 import { FormattedMessage } from 'react-intl';
-import { RemoveLocalStorage } from '../../../utils';
+import { RemoveLocalStorage } from '../../../../utils';
 import {
   userName, newTemplate,
-} from '../../../edit-module/actions';
-import { getURLData, setURLData } from '../../../theme/template/utils';
+} from '../../../../edit-module/actions';
+import { getURLData, setURLData } from '../../../../theme/template/utils';
 
 const { Item, ItemGroup } = Menu;
 

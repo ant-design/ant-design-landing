@@ -21,7 +21,7 @@ export default class IconComp extends React.Component {
         </p>
         <Input
           style={{ width: 250 }}
-          onChange={this.onIconChange}
+          onBlur={this.onIconChange}
           defaultValue={editText}
           placeholder={<FormattedMessage id="app.state.icon.paste" />}
         />

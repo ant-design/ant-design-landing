@@ -43,6 +43,8 @@ module.exports = {
     'app.header.new-file.message2': '数据已刷新, 当前模板不是你刷新的模板，请自行切换。',
     'app.header.edit': '基本编辑',
     'app.header.other': '其它功能',
+    'app.header.undo': '撤消',
+    'app.header.redo': '重做',
     'app.side.add': '添加内容',
     'app.side.encryption': '编辑加密',
     'app.side.decrypt': '取消加密',

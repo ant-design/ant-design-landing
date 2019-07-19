@@ -6,6 +6,7 @@
   color: @edit-text-color;
   line-height: 64px;
   border-bottom: 1px solid @edit-line-color;
+
   .logo {
     width: 80px;
     height: 100%;
@@ -13,6 +14,7 @@
     justify-content: center;
     align-items: center;
     float: left;
+
     &:before {
       content: '';
       display: block;
@@ -22,23 +24,28 @@
       background: @primary-color;
       border-radius: 4px;
     }
+
     img {
       position: relative;
       z-index: 1;
     }
   }
+
   .menu {
     float: left;
     border-left: 1px solid @edit-line-color;
     margin: 0;
+
     >li {
       padding: 0 16px;
       display: inline-block;
       border-right: 1px solid @edit-line-color;
       cursor: pointer;
+
       &[disabled] {
         cursor: wait;
       }
+
       .anticon {
         margin-right: 8px;
         font-size: 16px;
@@ -46,14 +53,55 @@
       }
     }
   }
+
   .right-icon {
     padding: 0 24px;
     float: right;
     font-size: 16px;
     cursor: pointer;
     border-left: 1px solid @edit-line-color;
+
     .anticon-file-add {
       font-size: 16px !important;
+    }
+  }
+
+  .history-button-wrapper {
+    height: 100%;
+    display: flex;
+    float: right;
+    font-size: 16px;
+    li {
+      a {
+        color: #fff;
+        padding: 0 24px;
+        display: block;
+      }
+    }
+    .undo {
+      border-left: 1px solid @edit-line-color;
+    }
+    .redo {
+      transform: scaleX(-1);
+      border-right: 1px solid @edit-line-color;
+    }
+
+    .undo,
+    .redo {
+      position: relative;
+
+      &.disabled {
+        a {
+          cursor: not-allowed;
+          color: #444;
+          pointer-events: none;
+        }
+      }
+    }
+
+    .redo:after {
+      left: 0;
+      right: auto;
     }
   }
 }
@@ -73,6 +121,7 @@
 .bar-list-remove {
   width: 52px;
   text-align: right;
+
   .ant-btn-circle.ant-btn-sm {
     font-size: 12px;
     width: 18px;

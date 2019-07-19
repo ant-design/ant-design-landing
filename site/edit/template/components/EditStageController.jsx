@@ -2,12 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Icon, Button } from 'antd';
 import { FormattedMessage } from 'react-intl';
-import deepEql from 'deep-eql';
 import dragula from 'dragula';
 import Editor from './MediumEditor';
 import { setTemplateData, setCurrentData } from '../../../edit-module/actions';
 import { getChildRect, getCurrentDom } from '../utils';
-import { isImg, deepCopy, mergeEditDataToDefault, getDataSourceValue, mdId } from '../../../utils';
+import { isImg, deepCopy, mergeEditDataToDefault, getDataSourceValue, mdId, objectEqual } from '../../../utils';
 import * as utils from '../../../theme/template/utils';
 import webData from '../template.config';
 import tempData from '../../../templates/template/element/template.config';
@@ -213,7 +212,7 @@ class EditStateController extends React.PureComponent {
         y: e.pageY - domRect.y,
       };
       this.mouseCurrentData = getCurrentDom(pos, rectArray) || currentElemData;
-      if (!deepEql(this.mouseCurrentData.rect, currentHoverRect)) {
+      if (!objectEqual(this.mouseCurrentData.rect, currentHoverRect)) {
         this.setState({
           currentHoverRect: this.mouseCurrentData.rect,
           currentSelectRect,
@@ -258,8 +257,9 @@ class EditStateController extends React.PureComponent {
     });
   }
 
-  setTemplateConfigData = (text) => {
+  setTemplateConfigData = (text, noHistory) => {
     const data = deepCopy(this.props.templateData);
+    data.noHistory = noHistory;
     const ids = this.currentData.dataId.split('-');
     const t = getDataSourceValue(ids[1], data.data.config, [ids[0], 'dataSource']);
     t.children = text;
@@ -289,8 +289,14 @@ class EditStateController extends React.PureComponent {
       isInput: true,
     }, () => {
       // 修改 props 里的 dataSource 数据
-      this.setTemplateConfigData(text);
+      this.setTemplateConfigData(text, true);
     });
+  }
+
+  editTextHandleBlur = () => {
+    const { templateData, dispatch } = this.props;
+    // history 实现再刷一次
+    dispatch(setTemplateData(templateData));
   }
 
   getDataSourceChildren = (_t, id) => {
@@ -349,7 +355,8 @@ class EditStateController extends React.PureComponent {
             <div className="edit-text-wrapper">
               <Editor
                 onChange={this.editTextHandleChange}
-                defaultText={this.state.editText}
+                onBlur={this.editTextHandleBlur}// 记录编辑 history
+                text={this.state.editText}
                 ref={(c) => {
                   const d = ReactDOM.findDOMNode(c);
                   if (!d) {
@@ -396,6 +403,7 @@ class EditStateController extends React.PureComponent {
         }
       ));
     });
+    this.reEditItemVisibility();
   }
 
   setPropsData = (el, children, add) => {
@@ -420,9 +428,6 @@ class EditStateController extends React.PureComponent {
     const dom = e.target;
     if (!this.isDrag && dom.getAttribute('data-key') && this.mouseCurrentData) {
       this.selectParentDom = dom;
-      if (this.currentData) {
-        this.currentData.item.style.visibility = '';
-      }
       this.currentIdArray = this.mouseCurrentData.dataId.split('-');
       this.editId = this.currentIdArray[0].split('_')[0];
       this.editChildId = this.currentIdArray[1];
@@ -440,7 +445,6 @@ class EditStateController extends React.PureComponent {
     if (!v) {
       return;
     }
-    this.reEditItemVisibility();
     this.currentIdArray = v.dataId.split('-');
     this.editId = this.currentIdArray[0].split('_')[0];
     this.editChildId = this.currentIdArray[1];
@@ -645,7 +649,7 @@ class EditStateController extends React.PureComponent {
           {overlayChild}
         </div>
         <div className="mouse-catcher" style={{ height: overlayHeight }}>
-          {!deepEql(currentHoverRect, currentSelectRect) && !openEditText
+          {!objectEqual(currentHoverRect, currentSelectRect) && !openEditText
             && this.getCatcherDom(currentHoverRect, 'hover')}
           {this.getCatcherDom(currentSelectRect, 'select')}
         </div>

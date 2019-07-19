@@ -43,6 +43,8 @@ module.exports = {
     'app.header.new-file.message2': 'Data has been refreshed. Current template is not the template you refreshed. Please switch it yourself.',
     'app.header.edit': 'Edit',
     'app.header.other': 'Other',
+    'app.header.undo': 'Undo',
+    'app.header.redo': 'Redo',
     'app.side.add': 'Add content',
     'app.side.encryption': 'Encryption',
     'app.side.decrypt': 'Decrypt',

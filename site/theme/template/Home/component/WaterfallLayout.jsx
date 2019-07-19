@@ -26,7 +26,7 @@ export default class WaterfallLayout extends AutoResponsive {
 
   inAnimate = {}
 
-  currrentChildKeys = {};
+  currentChildKeys = {};
 
   state = {
     oneEnter: false,
@@ -100,15 +100,15 @@ export default class WaterfallLayout extends AutoResponsive {
       const animation = {};
       if (!this.inQueueEnd[child.key]) {
         style.transform = `translate(${calculatedPosition[0]}px,${calculatedPosition[1]}px)`;
-        this.currrentChildKeys[child.key] = calculatedPosition;
+        this.currentChildKeys[child.key] = calculatedPosition;
       } else {
         animation.x = calculatedPosition[0];
         animation.y = calculatedPosition[1];
         animation.onComplete = () => {
-          this.currrentChildKeys[child.key] = calculatedPosition;
+          this.currentChildKeys[child.key] = calculatedPosition;
         };
-        style.transform = `translate(${this.currrentChildKeys[child.key][0]}px,${
-          this.currrentChildKeys[child.key][1]}px)`;
+        style.transform = `translate(${this.currentChildKeys[child.key][0]}px,${
+          this.currentChildKeys[child.key][1]}px)`;
       }
       childrenToRender.push(React.createElement(TweenOne, {
         key: child.key,

@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { Icon, Button, Form, Modal, Input, Tooltip, message, notification } from 'antd';
 import { FormattedMessage } from 'react-intl';
 import ticker from 'rc-tween-one/lib/ticker';
-import { saveJsZip } from './saveJsZip';
-import { isZhCN } from '../../../theme/template/utils';
+import { saveJsZip } from '../saveJsZip';
+import { isZhCN } from '../../../../theme/template/utils';
 
 const { Item } = Form;
 const { TextArea } = Input;

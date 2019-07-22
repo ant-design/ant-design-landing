@@ -6,14 +6,14 @@ import dragula from 'dragula';
 import Editor from './MediumEditor';
 import { setTemplateData, setCurrentData } from '../../../edit-module/actions';
 import { getChildRect, getCurrentDom } from '../utils';
-import { isImg, deepCopy, mergeEditDataToDefault, getDataSourceValue, mdId, objectEqual } from '../../../utils';
+import { isImg, mergeEditDataToDefault, getDataSourceValue, mdId, objectEqual } from '../../../utils';
 import * as utils from '../../../theme/template/utils';
 import webData from '../template.config';
 import tempData from '../../../templates/template/element/template.config';
 import EditButton from './StateComponents/EditButtonView';
 import SwitchSlideView from './StateComponents/SwitchSlideView';
 
-class EditStateController extends React.PureComponent {
+class EditStateController extends React.Component {
   static defaultProps = {
     className: 'edit-stage',
   };
@@ -21,7 +21,6 @@ class EditStateController extends React.PureComponent {
   state = {
     data: null,
     iframe: null,
-    editText: '',
     currentHoverRect: {},
     currentSelectRect: {},
   }
@@ -127,45 +126,21 @@ class EditStateController extends React.PureComponent {
     if (nextProps.mediaStateSelect !== this.props.mediaStateSelect) {
       this.reRect();
     }
-    const { currentEditData } = nextProps;
-    const propsCurrentEditData = this.props.currentEditData;
-    if (this.currentData
-      && currentEditData && propsCurrentEditData
-      && currentEditData.id === this.props.currentEditData.id) {
-      setTimeout(() => {
-        // 避免使用多次样式，这里使用 setTimeout 等子级刷新
-        if (!this.currentData) {
-          return;
-        }
-        const { parentData } = this.currentData;
-        if (parentData) {
-          const rectArray = getChildRect(parentData);
-          const isParentNode = this.currentData.dataId === parentData.dataId;
-          this.currentData = isParentNode ? this.currentData : this.refreshCurrentData(rectArray);
-          if (this.currentData) {
-            const currentSelectRect = this.currentData.item.getBoundingClientRect();
-            this.currentData.rect = currentSelectRect;
-            this.setState({
-              currentSelectRect,
-            });
-          } else {
-            this.reRect();
-          }
-        }
-      });
-    }
   }
 
-  reRect = () => {
+  reRect = (noDispatch) => {
     this.reEditItemVisibility();
     this.currentData = null;
     this.mouseCurrentData = null;
+    this.isInput = false;
     this.setState({
       currentHoverRect: {},
       currentSelectRect: {},
       openEditText: false,
     }, () => {
-      this.props.dispatch(setCurrentData());
+      if (!noDispatch) {
+        this.props.dispatch(setCurrentData());
+      }
     });
   }
 
@@ -238,10 +213,23 @@ class EditStateController extends React.PureComponent {
       Object.keys(id).forEach((key) => {
         mdId[key] = id[key];
       });
-      this.setState({
+      const state = {
         data,
         iframe,
-      });
+      };
+      const { parentData } = this.currentData || {};
+      if (parentData) {
+        const rectArray = getChildRect(parentData);
+        const isParentNode = this.currentData.dataId === parentData.dataId;
+        this.currentData = isParentNode ? this.currentData : this.refreshCurrentData(rectArray);
+        if (this.currentData) {
+          const currentSelectRect = this.currentData.item.getBoundingClientRect();
+          this.currentData.rect = currentSelectRect;
+          state.currentSelectRect = currentSelectRect;
+          state.currentHoverRect = currentSelectRect;
+        }
+      }
+      this.setState(state);
     }
   }
 
@@ -261,7 +249,7 @@ class EditStateController extends React.PureComponent {
   }
 
   setTemplateConfigData = (text, noHistory) => {
-    const data = deepCopy(this.props.templateData);
+    const data = this.props.templateData;
     data.noHistory = noHistory;
     const ids = this.currentData.dataId.split('-');
     const t = getDataSourceValue(ids[1], data.data.config, [ids[0], 'dataSource']);
@@ -270,7 +258,7 @@ class EditStateController extends React.PureComponent {
   }
 
   setTemplateConfigObject = (obj) => {
-    const data = deepCopy(this.props.templateData);
+    const data = this.props.templateData;
     const ids = this.currentData.dataId.split('-');
     const newIds = ids[1].split('&').filter(c => c);
     const endKey = newIds.pop();
@@ -287,13 +275,9 @@ class EditStateController extends React.PureComponent {
   }
 
   editTextHandleChange = (text) => {
-    this.setState({
-      editText: text,
-      isInput: true,
-    }, () => {
-      // 修改 props 里的 dataSource 数据
-      this.setTemplateConfigData(text, true);
-    });
+    this.isInput = true;
+    // 修改 props 里的 dataSource 数据
+    this.setTemplateConfigData(text, true);
   }
 
   editTextHandleBlur = () => {
@@ -330,6 +314,7 @@ class EditStateController extends React.PureComponent {
         editData = this.getDataSourceChildren(currentConfigDataSource,
           this.editChildId);
         editText = editData.children;
+        editText = editText && editText.match(isImg) ? 'Please enter...' : editText;
       }
       return (
         <div className={css}
@@ -359,13 +344,13 @@ class EditStateController extends React.PureComponent {
               <Editor
                 onChange={this.editTextHandleChange}
                 onBlur={this.editTextHandleBlur}// 记录编辑 history
-                text={this.state.editText}
+                text={editText}
                 ref={(c) => {
                   const d = ReactDOM.findDOMNode(c);
                   if (!d) {
                     return;
                   }
-                  if (!this.state.isInput) {
+                  if (!this.isInput) {
                     const selection = window.getSelection();
                     const range = document.createRange();
                     range.selectNodeContents(d);
@@ -395,7 +380,6 @@ class EditStateController extends React.PureComponent {
       currentSelectRect,
       editButton: editData && editData.split(','), // 文字与图片按钮配置
       openEditText: false,
-      isInput: false,
     }, () => {
       this.props.dispatch(setCurrentData(
         {
@@ -461,14 +445,9 @@ class EditStateController extends React.PureComponent {
 
   editTextFunc = () => {
     this.currentData.item.style.visibility = 'hidden';
-    const currentConfigDataSource = mergeEditDataToDefault(
-      this.props.templateData.data.config[this.currentIdArray[0]], tempData[this.editId]);
-    let editText = this.getDataSourceChildren(currentConfigDataSource, this.editChildId).children;
-    editText = editText.match(isImg) ? 'Please enter...' : editText;
+    this.isInput = false;
     this.setState({
-      editText,
       openEditText: true,
-      isInput: false,
     });
   }
 

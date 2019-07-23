@@ -77,7 +77,7 @@ class Content7 extends React.Component {
               }
             </div>
           </div>
-)}
+        )}
         className={item.className}
         /* replace-start */
         {...item}
@@ -146,7 +146,7 @@ class Content7 extends React.Component {
         /* replace-start */
         data-comp={[`tabs-switch={ "current": ${
           this.state.current}, "total": ${dataSource.block.children.length
-        } ,"childRoute": ["block"] }`]}
+          } ,"childRoute": ["block"] }`]}
       /* replace-end */
       >
         <div {...dataSource.page}>

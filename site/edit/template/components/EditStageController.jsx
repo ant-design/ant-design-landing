@@ -314,7 +314,7 @@ class EditStateController extends React.Component {
         editData = this.getDataSourceChildren(currentConfigDataSource,
           this.editChildId);
         editText = editData.children;
-        editText = editText && editText.match(isImg) ? 'Please enter...' : editText;
+        editText = typeof editText === 'string' && editText.match(isImg) ? 'Please enter...' : editText;
       }
       return (
         <div className={css}

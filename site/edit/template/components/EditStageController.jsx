@@ -284,7 +284,6 @@ class EditStateController extends React.PureComponent {
   }
 
   editTextHandleChange = (text) => {
-    console.log(text)
     this.setState({
       editText: text,
       isInput: true,

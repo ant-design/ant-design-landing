@@ -18,7 +18,7 @@ export default class Editor extends React.Component {
         placeholderText: 'Paste or type a having (http) link.',
         targetCheckbox: true,
         targetCheckboxText: 'Open in new window',
-      }
+      },
     });
     this.medium.subscribe('editableInput', (e, b) => {
       (this.props.onChange || noop)(b.innerHTML);

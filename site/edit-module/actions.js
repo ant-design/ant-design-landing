@@ -16,7 +16,7 @@ AV.init({
 export const userName = 'antd-landing-user-name';
 
 const xssFunc = (data) => {
-  Object.keys(data).forEach(key => {
+  Object.keys(data).forEach((key) => {
     const item = data[key];
     switch (typeof item) {
       case 'string':
@@ -24,12 +24,12 @@ const xssFunc = (data) => {
         break;
       case 'object':
         xssFunc(item);
-        break
+        break;
       default:
         break;
     }
-  })
-}
+  });
+};
 
 let t = 0;
 let localNum = 0;

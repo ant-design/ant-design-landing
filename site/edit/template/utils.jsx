@@ -61,8 +61,13 @@ export const getChildRect = (data) => {
     Array.prototype.slice.call(child).forEach((item) => {
       const dataId = mdId[item.getAttribute('data-id')];
       // const dataId = item.getAttribute('data-id');
-      const rect = item.getBoundingClientRect();
-      if (dataId) {
+      if (
+        item.getAttribute('aria-hidden') === 'true'
+      ) {
+        return;
+      }
+      if (dataId && !array.find(c => c.dataId === dataId)) {
+        const rect = item.getBoundingClientRect();
         array.push({
           dataId,
           item,

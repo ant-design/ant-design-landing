@@ -139,10 +139,6 @@ export const getDataSourceValue = (id, templateData, parent) => {
         }
         return null;
       })[0];
-      if (nameKey[1].split('~').length >= 2) {
-        i = t.length - 1;
-        elem = deepCopy(t[i]);
-      }
       if (!elem && tt) {
         tt.forEach((item, ii) => {
           if (item.name === nameKey[1]) {

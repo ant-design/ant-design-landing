@@ -161,6 +161,7 @@ class EditStateController extends React.PureComponent {
     this.setState({
       currentHoverRect: {},
       currentSelectRect: {},
+      openEditText: false,
     }, () => {
       this.props.dispatch(setCurrentData());
     });
@@ -283,6 +284,7 @@ class EditStateController extends React.PureComponent {
   }
 
   editTextHandleChange = (text) => {
+    console.log(text)
     this.setState({
       editText: text,
       isInput: true,

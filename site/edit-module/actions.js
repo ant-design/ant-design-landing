@@ -15,6 +15,22 @@ AV.init({
 });
 export const userName = 'antd-landing-user-name';
 
+const xssFunc = (data) => {
+  Object.keys(data).forEach(key => {
+    const item = data[key];
+    switch (typeof item) {
+      case 'string':
+        data[key] = xss(data[key]);
+        break;
+      case 'object':
+        xssFunc(item);
+        break
+      default:
+        break;
+    }
+  })
+}
+
 let t = 0;
 let localNum = 0;
 export const postType = {
@@ -122,11 +138,10 @@ export const getUserData = data => (dispatch) => {
     const storageDataStr = window.localStorage.getItem(uid);
     if (storageDataStr) {
       const obj = JSON.parse(storageDataStr);
-      obj.attributes.config = JSON.parse(xss(JSON.stringify(obj.attributes.config)));
+      xssFunc(obj.attributes.config);
       userIsLogin = obj.attributes.user
         && obj.attributes.user.userId
         && window.localStorage.getItem(`antd-landing-login-${obj.attributes.user.userId}`);
-      console.log(obj);
       dispatch({
         type: postType.POST_SUCCESS,
         templateData: obj,
@@ -141,7 +156,7 @@ export const getUserData = data => (dispatch) => {
         if (!inLocal) {
           localStr = `${uid},${localStr}`;
         }
-        obj.attributes.config = JSON.parse(xss(JSON.stringify(obj.attributes.config)));
+        xssFunc(obj.attributes.config);
         window.localStorage.setItem(userName, localStr);
         dataToLocalStorage(obj);
         userIsLogin = obj.attributes.user
@@ -189,7 +204,7 @@ export const saveData = (templateData, dispatch, cb) => {
 
   const saveFile = () => {
     if (data.config) {
-      data.config = JSON.parse(xss(JSON.stringify(data.config)));
+      xssFunc(data.config);
     }
     const templateObject = AV.Object.createWithoutData(fileName, uid);
     Object.keys(data).forEach((key) => {

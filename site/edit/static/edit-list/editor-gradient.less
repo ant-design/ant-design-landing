@@ -1,0 +1,52 @@
+@import "custom";
+@gradient: editor-gradient;
+
+.@{gradient} {
+  padding-bottom: 1px;
+  border-bottom: 1px solid @bgColor;
+  margin-bottom: 8px;
+
+  &-bar {
+    height: 16px;
+    border: 1px solid @bgColor;
+    cursor: crosshair;
+    position: relative;
+    background-repeat: no-repeat;
+    margin: 16px 0;
+
+    &-item {
+      position: relative;
+      height: 100%;
+      margin-right: 8px;
+    }
+  }
+
+  &-point {
+    box-shadow: @bgColor 0 0 0 1px;
+    height: 100%;
+    width: 8px;
+    position: absolute;
+    cursor: ew-resize;
+    transition: shadow .3s;
+    border-radius: 2px;
+    background: #eee;
+
+    &.active {
+      box-shadow: @edit-list-text-color-hover 0 0 0 2px, @bgColor 0 0 0 3px, @bgColor 0 0 0 1px inset;
+    }
+  }
+
+  &-repeat {
+    color: @edit-list-text-color;
+
+    .ant-checkbox +span {
+      color: @edit-list-text-color;
+    }
+  }
+
+  &-color {
+    .ant-row {
+      margin-bottom: 0 !important;
+    }
+  }
+}

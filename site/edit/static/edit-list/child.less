@@ -8,15 +8,21 @@
       background: @heiColor;
     }
     &-delete {
-      text-align: center;
       width: 32px;
       .ant-btn {
         background: transparent;
         height: 32px;
+        width: 32px;
         line-height: 32px;
         color: rgba(255, 255, 255, 0.55);
         border: none;
       }
+    }
+    &-icon {
+      width: 32px;
+    }
+    &-name {
+      width: ~"calc(100% - 64px)";
     }
   }
   .add-type {

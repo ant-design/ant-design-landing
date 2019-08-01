@@ -14,7 +14,7 @@
     "autoresponsive-react": "^1.1.31",
     "enquire-js": "^0.2.1",
     "leancloud-storage": "^3.5.0",
-    "raw-loader": "^2.0.0",
+    "raw-loader": "^3.1.0",
     "rc-animate": "^2.4.4",
     "rc-banner-anim": "^2.1.0",
     "rc-drawer": "^1.5.0",

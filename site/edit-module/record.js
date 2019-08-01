@@ -7,7 +7,7 @@ export const getRecord = () => JSON.parse(window.localStorage.getItem(recordName
 
 export const setRecord = (data) => {
   const record = getRecord();
-  if (record.length >= 10) {
+  if (record.length >= 50) {
     record.shift();
   }
   record.push(data);

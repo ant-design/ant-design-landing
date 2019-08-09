@@ -37,7 +37,7 @@
     "blueimp-md5": "^2.10.0",
     "classnames": "^2.2.5",
     "codemirror": "^5.36.0",
-    "commander": "~2.20.0",
+    "commander": "~3.0.0",
     "concurrently": "^4.0.1",
     "cross-env": "^5.1.1",
     "deep-eql": "^4.0.0",

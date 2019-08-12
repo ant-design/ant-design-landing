@@ -116,6 +116,18 @@ export default {
       remark: '出场时是否播放子级的出场动画',
     },
   }, */
+  Carousel: {
+    autoplay: {
+      name: <FormattedMessage id="app.edit.banner-anim.auto-play" />,
+      type: 'switch',
+      value: false,
+    },
+    dots: {
+      name: 'Point',
+      type: 'switch',
+      value: false,
+    },
+  },
   Menu: {
     open: {
       name: <FormattedMessage id="app.edit.menu.open" />,

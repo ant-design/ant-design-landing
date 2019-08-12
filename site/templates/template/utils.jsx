@@ -55,6 +55,7 @@ export const setDataIdToDataSource = (data, dataId) => {
       if (Array.isArray(item)) {
         item.forEach((cItem, i) => {
           if (typeof cItem === 'object') {
+            // 数组必需加name;
             const name = cItem.name ? `array_name=${cItem.name}` : i;
             objectForEachChild(cItem, `${key}&${name}`);
             id = md5(`${dataId}-${key}&${name}`);

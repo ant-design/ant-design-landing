@@ -192,6 +192,12 @@ export default {
         uid: 2,
       },
       {
+        src: 'https://gw.alipayobjects.com/mdn/rms_ae7ad9/afts/img/A*8WwqRqZL2kEAAAAAAAAAAABkARQnAQ',
+        text: '数值统计',
+        textEn: 'Statistics',
+        uid: 6,
+      },
+      {
         src: 'https://zos.alipayobjects.com/rmsportal/pUFfIJXizTljrgZ.jpg',
         text: '多功能介绍',
         textEn: 'Multifunction',

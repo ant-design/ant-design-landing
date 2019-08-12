@@ -17,6 +17,9 @@ AV.init({
 export const userName = 'antd-landing-user-name';
 
 const xssFunc = (data) => {
+  if (!data) {
+    return;
+  }
   Object.keys(data).forEach((key) => {
     const item = data[key];
     switch (typeof item) {

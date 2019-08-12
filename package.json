@@ -24,7 +24,8 @@
     "rc-texty": "^0.2.0",
     "rc-tween-one": "^2.2.0",
     "react-document-title": "^2.0.1",
-    "xss": "^1.0.3"
+    "xss": "^1.0.3",
+    "react-lifecycles-compat": "^3.0.4"
   },
   "devDependencies": {
     "antd-tools": "^7.0.0",

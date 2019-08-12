@@ -1,6 +1,7 @@
 import React from 'react';
 import { Menu, Button, Icon, Dropdown, message } from 'antd';
 import { FormattedMessage } from 'react-intl';
+import PropTypes from 'prop-types';
 import { RemoveLocalStorage } from '../../../../utils';
 import {
   userName, newTemplate,
@@ -17,6 +18,10 @@ export default class NewFileButton extends React.Component {
       localStorage: user.split(',').filter(c => c),
     };
   }
+
+  static contextTypes = {
+    intl: PropTypes.object.isRequired,
+  };
 
   componentWillReceiveProps() {
     const user = window.localStorage.getItem(userName) || '';

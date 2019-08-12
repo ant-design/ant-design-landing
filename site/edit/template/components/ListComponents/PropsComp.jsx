@@ -24,7 +24,7 @@ export default class PropsComp extends React.PureComponent {
           <Switch
             {...props}
             size="small"
-            {...(func ? {} : { checkbox: currentValue.toString() })}
+            {...(func ? {} : { checked: currentValue })}
             onChange={(data) => { this.props.onChange(key, data, func); }}
           />
         );
@@ -292,6 +292,7 @@ export default class PropsComp extends React.PureComponent {
 
   render() {
     const { edit, currentEditData, templateData } = this.props;
+    console.log(edit, currentEditData);
     const editArray = edit ? edit.split(',').map(c => c.trim()).filter(c => noProps.indexOf(c) === -1) : [];
     if (!edit || !editArray.length) {
       return null;

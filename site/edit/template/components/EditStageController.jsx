@@ -567,6 +567,7 @@ class EditStateController extends React.Component {
     switch (name) {
       case 'banner-switch':
       case 'tabs-switch':
+      case 'carousel-switch':
         return (
           <SwitchSlideView
             {...this.props}

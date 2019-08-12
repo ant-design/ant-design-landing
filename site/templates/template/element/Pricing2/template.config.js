@@ -10,7 +10,6 @@ export default {
   dataSource: {
     wrapper: {
       className: 'home-page-wrapper pricing2-wrapper',
-
     },
     page: {
       className: 'home-page pricing2',

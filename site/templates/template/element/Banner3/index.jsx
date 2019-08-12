@@ -20,6 +20,9 @@ class Banner extends React.PureComponent {
             type="primary"
             key={name}
             {...$item}
+            /* replace-start */
+            data-edit="link,text"
+            /* replace-end */
           >
             {/* replace-start-value = item.children */
               React.createElement('span', { dangerouslySetInnerHTML: { __html: item.children } })

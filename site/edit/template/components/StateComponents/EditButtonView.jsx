@@ -87,7 +87,8 @@ export default class EditButtonView extends React.PureComponent {
             <ContentWrapper {...this.props} key={key} />
           );
         case 'link':
-          return (<LinkComp {...this.props} key={key} />);
+        case 'linkA':
+          return (<LinkComp {...this.props} key={key} type={key} />);
         default:
           return null;
       }

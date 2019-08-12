@@ -11,7 +11,7 @@ import ListSort from '../StateComponents/ListSort';
 
 const Panel = Collapse.Panel;
 
-const noProps = ['text', 'image', 'video', 'icon', 'texty', 'titleWrapper', 'textAndImage', 'childWrapper', 'link', 'Content'];
+const noProps = ['text', 'image', 'video', 'icon', 'texty', 'titleWrapper', 'textAndImage', 'childWrapper', 'link', 'linkA', 'Content'];
 
 export default class PropsComp extends React.PureComponent {
   getCompChild = (defaultValue, template, key) => {
@@ -292,7 +292,6 @@ export default class PropsComp extends React.PureComponent {
 
   render() {
     const { edit, currentEditData, templateData } = this.props;
-    console.log(edit, currentEditData);
     const editArray = edit ? edit.split(',').map(c => c.trim()).filter(c => noProps.indexOf(c) === -1) : [];
     if (!edit || !editArray.length) {
       return null;

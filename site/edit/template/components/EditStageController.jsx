@@ -335,7 +335,7 @@ class EditStateController extends React.Component {
               currentData={this.currentData}
               scrollTop={this.scrollTop}
               onParentChange={this.onEditSelectChange}
-              editText={editText}
+              editText={editData.children}
               editData={editData}
             />
           )}

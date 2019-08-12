@@ -174,12 +174,6 @@ export default {
     order: 4,
     data: [
       {
-        src: 'https://zos.alipayobjects.com/rmsportal/tFEFnHEpyPhRnFCsKjdR.jpg',
-        text: '产品介绍',
-        textEn: 'Product Desc',
-        uid: 0,
-      },
-      {
         src: 'https://zos.alipayobjects.com/rmsportal/CXrFvvZqkMwMHZo.jpg',
         text: '产品特性1',
         textEn: 'Product Feature 1',
@@ -196,6 +190,18 @@ export default {
         text: '数值统计',
         textEn: 'Statistics',
         uid: 6,
+      },
+      {
+        src: 'https://zos.alipayobjects.com/rmsportal/tFEFnHEpyPhRnFCsKjdR.jpg',
+        text: '产品介绍',
+        textEn: 'Product Desc',
+        uid: 0,
+      },
+      {
+        src: 'https://gw.alipayobjects.com/mdn/rms_ae7ad9/afts/img/A*EubJSJrpTLYAAAAAAAAAAABkARQnAQ',
+        text: '卡片介绍',
+        textEn: 'Card Introduction',
+        uid: 7,
       },
       {
         src: 'https://zos.alipayobjects.com/rmsportal/pUFfIJXizTljrgZ.jpg',

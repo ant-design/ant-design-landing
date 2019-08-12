@@ -24,6 +24,7 @@ import Content12 from './Content12/template.config';
 import Content13 from './Content13/template.config';
 
 import Feature6 from './Feature6/template.config';
+import Feature7 from './Feature7/template.config';
 
 import Pricing0 from './Pricing0/template.config';
 import Pricing1 from './Pricing1/template.config';
@@ -77,6 +78,7 @@ export default {
   Feature4: Content6,
   Feature5: Content7,
   Feature6,
+  Feature7,
   Footer0,
   Footer1,
   Footer2,

@@ -39,8 +39,8 @@ class SideMenu extends React.PureComponent {
       children.push((
         <div
           className="img-wrapper"
-          key={`${key}${child.uid || i}`}
-          data-key={`${key}${child.uid || i}`}
+          key={`${key}${'uid' in child ? child.uid : i}`}
+          data-key={`${key}${'uid' in child ? child.uid : i}`}
         >
           <Tooltip
             placement="right"

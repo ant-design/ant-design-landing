@@ -16,7 +16,7 @@ class Banner4 extends React.PureComponent {
     const animType = {
       queue: 'bottom',
       one: {
-        scaleY: '+=0.3', opacity: 0, type: 'from', ease: 'easeOutQuad',
+        y: '+=30', opacity: 0, type: 'from', ease: 'easeOutQuad',
       },
     };
     return (

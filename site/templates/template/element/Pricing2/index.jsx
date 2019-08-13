@@ -54,16 +54,13 @@ class Pricing2 extends React.PureComponent {
           );
         }
       });
-      console.log(obj);
       return obj;
     })
   );
 
   getMobileChild = (table) => {
     const { columns, dataSource, ...tableProps } = table;
-    console.log(columns, dataSource);
     const names = columns.children.filter(item => item.key.indexOf('name') >= 0);
-    console.log(names);
     const newColumns = columns.children.filter(item => item.key.indexOf('name') === -1);
     return newColumns.map((item, i) => {
       const items = [].concat(names[0], item).filter(c => c);
@@ -79,7 +76,6 @@ class Pricing2 extends React.PureComponent {
           children: [].concat(n[0], child[i]).filter(c => c),
         };
       });
-      console.log(dataSources);
       const props = {
         ...tableProps,
         columns: this.getColumns(items),
@@ -112,7 +108,7 @@ class Pricing2 extends React.PureComponent {
             {...titleWrapper}
             /* replace-start */
             data-edit="titleWrapper"
-          /* replace-end */
+            /* replace-end */
           >
             {
               titleWrapper.children.map(getChildrenToRender)

@@ -14,6 +14,7 @@ class Pricing2 extends React.PureComponent {
     return columns.map((item) => {
       const { childWrapper, ...$item } = item;
       return {
+        align: 'center',
         ...$item,
         title: (
           <div
@@ -28,6 +29,8 @@ class Pricing2 extends React.PureComponent {
       };
     });
   }
+
+  getMobileColumns
 
   getDataSource = (dataSource, columns) => (
     dataSource.map((item, i) => {
@@ -51,22 +54,53 @@ class Pricing2 extends React.PureComponent {
           );
         }
       });
+      console.log(obj);
       return obj;
     })
   );
 
+  getMobileChild = (table) => {
+    const { columns, dataSource, ...tableProps } = table;
+    console.log(columns, dataSource);
+    const names = columns.children.filter(item => item.key.indexOf('name') >= 0);
+    console.log(names);
+    const newColumns = columns.children.filter(item => item.key.indexOf('name') === -1);
+    return newColumns.map((item, i) => {
+      const items = [].concat(names[0], item).filter(c => c);
+      if (items.length > 1) {
+        items[0].colSpan = 0;
+        items[1].colSpan = 2;
+      }
+      const dataSources = dataSource.children.map(($item) => {
+        const child = $item.children.filter(c => c.name.indexOf('name') === -1);
+        const n = $item.children.filter(c => c.name.indexOf('name') >= 0);
+        return {
+          ...$item,
+          children: [].concat(n[0], child[i]).filter(c => c),
+        };
+      });
+      console.log(dataSources);
+      const props = {
+        ...tableProps,
+        columns: this.getColumns(items),
+        dataSource: this.getDataSource(dataSources, items),
+      };
+      return (
+        <Table key={i.toString()} {...props} pagination={false} bordered />
+      );
+    });
+  }
+
   render() {
-    const { ...props } = this.props;
-    const { dataSource } = props;
-    delete props.dataSource;
-    delete props.isMobile;
+    const { dataSource, isMobile, ...props } = this.props;
     const { Table: table, wrapper, page, titleWrapper } = dataSource;
-    const { columns, ...$table } = table;
+    const { columns, dataSource: tableData, ...$table } = table;
     const tableProps = {
       ...$table,
       columns: this.getColumns(columns.children),
-      dataSource: this.getDataSource(table.dataSource.children, columns.children),
+      dataSource: this.getDataSource(tableData.children, columns.children),
     };
+    const childrenToRender = isMobile ? this.getMobileChild(table) : <Table key="table" {...tableProps} pagination={false} bordered />;
     return (
       <div
         {...props}
@@ -90,11 +124,8 @@ class Pricing2 extends React.PureComponent {
               leaveReverse
               ease={['easeOutQuad', 'easeInOutQuad']}
               key="content"
-              /* replace-start */
-              data-edit="Row"
-            /* replace-end */
             >
-              <Table key="table" {...tableProps} pagination={false} bordered />
+              {childrenToRender}
             </QueueAnim>
           </OverPack>
         </div>

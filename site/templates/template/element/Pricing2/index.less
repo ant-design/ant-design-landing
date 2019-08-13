@@ -1,34 +1,44 @@
 @import '../../../static/custom.less';
 @pricing2: pricing2;
+
 .@{pricing2}-wrapper {
   min-height: 760px;
+
   .@{pricing2} {
     >p {
       text-align: center;
     }
+
     &-content-wrapper {
       min-height: 400px;
     }
+
     &-table-name-block {
       text-align: center;
       color: #666;
+      width: 100%;
     }
+
     &-table-name {
       font-size: 24px;
     }
+
     &-table-money {
       font-size: 16px;
       margin: 8px 0 16px;
     }
+
     &-table-content {
       text-align: center;
       color: #666;
+
       &-name {
         color: #666;
         text-align: center;
       }
     }
   }
+
   &.home-page-wrapper {
     .@{pricing2}-title-wrapper {
       margin-bottom: 64px;
@@ -38,7 +48,13 @@
 }
 
 @media screen and (max-width: 767px) {
-  .@{pricing2}-wrapper {
-    padding-bottom: 0;
+  .@{pricing2} {
+    &-wrapper {
+      padding-bottom: 0;
+    }
+
+    &-table {
+      margin-bottom: 24px;
+    }
   }
 }

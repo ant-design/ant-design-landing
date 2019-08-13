@@ -3,6 +3,9 @@ import TweenOne from 'rc-tween-one';
 import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';
 import QueueAnim from 'rc-queue-anim';
 import { Row, Col } from 'antd';
+/* replace-start-value = import { getChildrenToRender } from './utils'; */
+import { getChildrenToRender } from '../../utils';
+/* replace-end-value */
 /* replace-start-value = import { isImg } from './utils'; */
 import { isImg } from '../../../../utils';
 /* replace-end-value */
@@ -16,26 +19,33 @@ class Footer extends React.Component {
   };
 
   getLiChildren = data => data.map((item, i) => {
+    const { title, childWrapper, ...itemProps } = item;
     return (
       <Col
         key={i.toString()}
-        {...item}
+        {...itemProps}
         title={null}
         content={null}
+        /* replace-start */
+        data-edit="Col"
+      /* replace-end */
       >
-        <h2 {...item.title}>
+        <h2
+          {...title}
+          /* replace-start */
+          data-edit="image,text"
+          /* replace-end */
+        >
           {
-            typeof item.title.children === 'string' && item.title.children.match(isImg) ? (
-              <img src={item.title.children} width="100%" alt="img" />
-            ) : /* replace-start-value = item.title.children */React.createElement('span', { dangerouslySetInnerHTML: { __html: item.title.children } })
+            typeof title.children === 'string' && title.children.match(isImg) ? (
+              <img src={title.children} width="100%" alt="img" />
+            ) : /* replace-start-value = title.children */React.createElement('span', { dangerouslySetInnerHTML: { __html: title.children } })
             /* replace-end-value */
           }
         </h2>
-        <div {...item.content}>
+        <div {...childWrapper}>
           {
-            /* replace-start-value = item.content.children */
-            React.createElement('span', { dangerouslySetInnerHTML: { __html: item.content.children } })
-            /* replace-end-value */
+            childWrapper.children.map(getChildrenToRender)
           }
         </div>
       </Col>
@@ -59,6 +69,9 @@ class Footer extends React.Component {
             leaveReverse
             component={Row}
             {...dataSource.block}
+            /* replace-start */
+            data-edit="Row"
+          /* replace-end */
           >
             {childrenToRender}
           </QueueAnim>

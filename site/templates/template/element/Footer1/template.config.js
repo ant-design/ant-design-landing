@@ -19,6 +19,7 @@ export default {
     },
     block: {
       className: 'home-page',
+      gutter: 0,
       children: [
         {
           name: 'block0',
@@ -29,9 +30,14 @@ export default {
             className: 'logo',
             children: 'https://zos.alipayobjects.com/rmsportal/qqaimmXZVSwAhpL.svg',
           },
-          content: {
+          childWrapper: {
             className: 'slogan',
-            children: 'Animation specification and components of Ant Design.',
+            children: [
+              {
+                name: 'content0',
+                children: 'Animation specification and components of Ant Design.',
+              },
+            ],
           },
         },
         {
@@ -42,19 +48,29 @@ export default {
           title: {
             children: '产品',
           },
-          content: {
-            children: `<p>
-              <a href="#">产品更新记录</a>
-            </p>
-            <p>
-              <a href="#">API文档</a>
-            </p>
-            <p>
-              <a href="#">快速入门</a>
-            </p>
-            <p>
-              <a href="#">参考指南</a>
-            </p>`,
+          childWrapper: {
+            children: [
+              {
+                name: 'button0',
+                href: '#',
+                children: '产品更新记录',
+              },
+              {
+                name: 'button1',
+                href: '#',
+                children: 'API文档',
+              },
+              {
+                name: 'button2',
+                href: '#',
+                children: '快速入门',
+              },
+              {
+                name: 'button3',
+                href: '#',
+                children: '参考指南',
+              },
+            ],
           },
         },
         {
@@ -65,13 +81,19 @@ export default {
           title: {
             children: '关于',
           },
-          content: {
-            children: `<p>
-              <a href="#">FAQ</a>
-            </p>
-            <p>
-              <a href="#">联系我们</a>
-            </p>`,
+          childWrapper: {
+            children: [
+              {
+                href: '#',
+                name: 'button0',
+                children: 'FAQ',
+              },
+              {
+                href: '#',
+                name: 'button1',
+                children: '联系我们',
+              },
+            ],
           },
         },
         {
@@ -82,19 +104,19 @@ export default {
           title: {
             children: '资源',
           },
-          content: {
-            children: `<p>
-              <a href="#">Ant Design</a>
-            </p>
-            <p>
-              <a href="#">Ant Design</a>
-            </p>
-            <p>
-              <a href="#">Ant Design</a>
-            </p>
-            <p>
-              <a href="#">Ant Design</a>
-            </p>`,
+          childWrapper: {
+            children: [
+              {
+                href: '#',
+                name: 'button0',
+                children: 'Ant Design',
+              },
+              {
+                href: '#',
+                name: 'button1',
+                children: 'Ant Motion',
+              },
+            ],
           },
         },
       ],

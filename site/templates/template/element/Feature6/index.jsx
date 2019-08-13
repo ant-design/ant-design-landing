@@ -94,6 +94,7 @@ class Feature6 extends React.PureComponent {
             {...childProps}
             /* replace-start */
             data-edit="Col"
+            /* replace-end */
             key={i.toString()}
           >
             <TweenOne

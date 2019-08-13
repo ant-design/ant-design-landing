@@ -200,7 +200,7 @@ export default {
       {
         src: 'https://gw.alipayobjects.com/mdn/rms_ae7ad9/afts/img/A*EubJSJrpTLYAAAAAAAAAAABkARQnAQ',
         text: '卡片介绍',
-        textEn: 'Card Introduction',
+        textEn: 'Card',
         uid: 7,
       },
       {
@@ -220,6 +220,12 @@ export default {
         text: '多模块介绍',
         textEn: 'Multiple Modules',
         uid: 5,
+      },
+      {
+        src: 'https://gw.alipayobjects.com/mdn/rms_ae7ad9/afts/img/A*D8waQbq4VZgAAAAAAAAAAABkARQnAQ',
+        text: '流程介绍',
+        textEn: 'Process',
+        uid: 8,
       },
     ],
   },

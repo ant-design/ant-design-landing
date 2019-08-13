@@ -50,6 +50,10 @@ export default {
               name: 'child0',
               number: {
                 className: 'feature6-number',
+                unit: {
+                  className: 'feature6-unit',
+                  children: '万',
+                },
                 children: '116',
               },
               children: {
@@ -111,6 +115,10 @@ export default {
               className: 'feature6-number-wrapper',
               number: {
                 className: 'feature6-number',
+                unit: {
+                  className: 'feature6-unit',
+                  children: '万',
+                },
                 children: '116',
               },
               children: {

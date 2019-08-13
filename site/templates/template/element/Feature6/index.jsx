@@ -148,44 +148,37 @@ class Feature6 extends React.PureComponent {
 
     const width = 100 / childrenToRender.length;
     return (
-      <div
-        /* replace-start */
-        data-edit="Carousel" // ant carousel 不带入 props, 模拟个 dom 编辑 carousel
-        data-id={carouselProps['data-id']}
-      /* replace-end */
+      <QueueAnim
+        key="queue"
+        leaveReverse
+        type="bottom"
+        delay={[0, 100]}
+        {...wrapper}
+        ref={this.carouselRef}
       >
-        <QueueAnim
-          key="queue"
-          leaveReverse
-          type="bottom"
-          delay={[0, 100]}
-          {...wrapper}
-          ref={this.carouselRef}
-        >
-          <div {...titleWrapperProps} key="title">
-            <div {...titleChild}>
-              {titleToRender}
-              <div
-                {...barWrapper}
-                style={{
-                  width: `${width}%`,
-                  left: `${width * current}%`,
-                }}
-              >
-                <em {...barWrapper.children} />
-              </div>
+        <div {...titleWrapperProps} key="title">
+          <div {...titleChild}>
+            {titleToRender}
+            <div
+              {...barWrapper}
+              style={{
+                width: `${width}%`,
+                left: `${width * current}%`,
+              }}
+            >
+              <em {...barWrapper.children} />
             </div>
           </div>
-          <AntCarousel
-            {...carouselProps}
-            key="carousel"
-            infinite={false}
-            beforeChange={this.onBeforeChange}
-          >
-            {childrenToRender}
-          </AntCarousel>
-        </QueueAnim>
-      </div>
+        </div>
+        <AntCarousel
+          {...carouselProps}
+          key="carousel"
+          infinite={false}
+          beforeChange={this.onBeforeChange}
+        >
+          {childrenToRender}
+        </AntCarousel>
+      </QueueAnim>
     );
   }
 
@@ -201,9 +194,16 @@ class Feature6 extends React.PureComponent {
         } ,"childRoute": ["Carousel"] }`]}
       /* replace-end */
       >
-        <OverPack {...dataSource.OverPack}>
-          {this.getChildrenToRender(dataSource)}
-        </OverPack>
+        <div
+          /* replace-start */
+          data-edit="Carousel" // ant carousel 不带入 props, 模拟个 dom 编辑 carousel
+          data-id={dataSource.Carousel['data-id']}
+        /* replace-end */
+        >
+          <OverPack {...dataSource.OverPack}>
+            {this.getChildrenToRender(dataSource)}
+          </OverPack>
+        </div>
       </div>
     );
   }

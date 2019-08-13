@@ -12,12 +12,16 @@ export const getChildrenToRender = (item, i) => {
   let children = typeof item.children === 'string' && item.children.match(/^http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w-./?%&=]*)?/)
     ? React.createElement('img', { src: item.children, alt: 'img' })
     : React.createElement('span', { dangerouslySetInnerHTML: { __html: item.children } });
-  children = typeof item.children === 'object' && item.name.indexOf('button') === 0 ? (
-    React.createElement(Button, {
-      ...item.children,
-      'data-edit': 'link,text',
-    })
-  ) : children;
+  if (item.name.indexOf('button') === 0) {
+    if (typeof item.children === 'object') {
+      children = React.createElement(Button, {
+        ...item.children,
+        'data-edit': 'link,text',
+      });
+    } else {
+      item['data-edit'] = 'linkA,text';
+    }
+  }
   return React.createElement(tag, { key: i.toString(), ...item }, children);
 };
 

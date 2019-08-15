@@ -512,7 +512,7 @@ class EditStateController extends React.Component {
     const config = templateData.data.config;
     let change = false;
     nav2Array.forEach((key) => {
-      const menuLink = getDataSourceValue('Menu', config, [key, 'dataSource']);
+      const menuLink = getDataSourceValue('LinkMenu', config, [key, 'dataSource']);
       ([].concat(pageArray)).forEach((cKey) => {
         const menuChild = menuLink.children || [];
         if (menuChild.findIndex(item => item.name === cKey) === -1) {

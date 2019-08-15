@@ -70,6 +70,7 @@ export default class EditButtonView extends React.PureComponent {
         case 'image':
           return (<ImageComp {...this.props} key={key} />);
         case 'Menu':
+        case 'LinkMenu':
           return (
             <MenuComp {...this.props} key={key} />
           );

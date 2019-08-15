@@ -35,19 +35,18 @@ class Header extends React.Component {
   }
 
   render() {
-    const { ...props } = this.props;
-    const { dataSource, isMobile } = props;
-    delete props.dataSource;
-    delete props.isMobile;
+    const { dataSource, isMobile, ...props } = this.props;
+
     const { menuHeight, phoneOpen } = this.state;
-    const navData = dataSource.Menu.children;
+    const { LinkMenu } = dataSource;
+    const navData = LinkMenu.children;
     const navChildren = Object.keys(navData)
       .map((key, i) => (
         <Link
           key={i.toString()}
           {...navData[key]}
          /* replace-start */
-          data-edit="Menu"
+          data-edit="LinkMenu"
          /* replace-end */
         >
           {
@@ -81,7 +80,7 @@ class Header extends React.Component {
                 this.phoneClick();
               }}
               /* replace-start */
-              data-edit="Menu"
+              data-edit="LinkMenu"
             /* replace-end */
             >
               <em />
@@ -91,12 +90,12 @@ class Header extends React.Component {
           )
           }
           <TweenOne
-            {...dataSource.Menu}
+            {...LinkMenu}
             animation={{ x: 30, type: 'from', ease: 'easeOutQuad' }}
             ref={this.menu}// {(c) => { this.menu = c; }}
             style={isMobile ? { height: menuHeight } : null}
             /* replace-start */
-            data-edit="Menu"
+            data-edit="LinkMenu"
           /* replace-end */
           >
             {navChildren}

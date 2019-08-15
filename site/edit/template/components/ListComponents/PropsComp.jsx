@@ -29,8 +29,12 @@ export default class PropsComp extends React.Component {
             key={type === 'menuSwitch' ? template.name : undefined}
             {...props}
             size="small"
-            {...(func && type === 'menuSwitch'
-              ? { defaultChecked: funcDefault === template.name }
+            {...(func
+              ? {
+                defaultChecked: template[key]
+                  ? funcDefault === template.name && funcDefault !== undefined
+                  : funcDefault,
+              }
               : { checked: currentValue })}
             onChange={(data) => {
               this.props.onChange(key, type === 'menuSwitch' ? data && template.name : data, func);
@@ -329,7 +333,7 @@ export default class PropsComp extends React.Component {
   }
 
   render() {
-    const { edit, currentEditData, templateData } = this.props;
+    const { edit, currentEditData, templateData, isMobile } = this.props;
     const editArray = edit ? edit.split(',').map(c => c.trim()).filter(c => noProps.indexOf(c) === -1) : [];
     if (!edit || !editArray.length) {
       return null;
@@ -342,7 +346,11 @@ export default class PropsComp extends React.Component {
     const newTempDataSource = mergeEditDataToDefault(templateData.data.config[ids[0]],
       tempDataSource);
     const currentEditTemplateData = getDataSourceValue(ids[1], newTempDataSource);
-    return editArray.map((item, i) => {
+    return editArray.map(($item, i) => {
+      if ($item === 'LinkMenu' && !isMobile) {
+        return null;
+      }
+      const item = $item === 'LinkMenu' ? 'Menu' : $item;
       const childToRender = this.getChildrenToRender(compConfig[item], currentEditTemplateData, ids);
       return (
         <Collapse bordered={false} defaultActiveKey={['1']} key={i.toString()}>

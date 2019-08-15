@@ -1,6 +1,4 @@
 // import { createLogger } from 'redux-logger';
-import { mdId } from '../../utils';
-
 const worker = new Worker('./worker.js');
 
 export function formatCode({ code, cb, parser = 'babylon', key }) {
@@ -30,62 +28,6 @@ export function hasErrors(fieldsError) {
   );
 }
 
-const getParentRect = (item, parentData) => {
-  const p = [];
-  let i = 0;
-  function parentNode(parent) {
-    const dataId = mdId[parent.getAttribute('data-id')];
-    // const dataId = parent.getAttribute('data-id');
-    if (dataId) {
-      const rect = parent.getBoundingClientRect();
-      p.push({
-        dataId,
-        item: parent,
-        rect,
-        parent: getParentRect(parent, parentData),
-        parentData,
-      });
-      i += 1;
-    }
-    if (i < 3 && parent.parentNode && parent.parentNode.tagName.toLocaleLowerCase() !== 'body') {
-      parentNode(parent.parentNode);
-    }
-  }
-  parentNode(item.parentNode);
-  return p;
-};
-
-export const getChildRect = (data) => {
-  const array = [];
-  function mapChild(child) {
-    Array.prototype.slice.call(child).forEach((item) => {
-      const dataId = mdId[item.getAttribute('data-id')];
-      // const dataId = item.getAttribute('data-id');
-      if (
-        item.getAttribute('aria-hidden') === 'true'
-      ) {
-        return;
-      }
-      if (dataId && !array.find(c => c.dataId === dataId)) {
-        const rect = item.getBoundingClientRect();
-        array.push({
-          dataId,
-          item,
-          rect,
-          parent: getParentRect(item, data),
-          parentData: data,
-        });
-      }
-      if (item.children) {
-        mapChild(item.children);
-      }
-    });
-  }
-  if (data.item.children) {
-    mapChild(data.item.children);
-  }
-  return array;
-};
 
 export const getCurrentDom = (pos, data) => {
   const t = data.map((item) => {

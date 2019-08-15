@@ -107,6 +107,7 @@ class MenuEditView extends React.PureComponent {
                 size="small"
                 shape="circle"
                 icon="link"
+                disabled={!!item.children}
               />
             </Popover>
           </div>

@@ -14,13 +14,6 @@ class Header extends React.Component {
     this.menu = React.createRef();
   }
 
-  /*
-  componentDidMount() {
-    // 如果是 react 16.3 以下版本请使用 findDOMNode;
-    this.menuDom = findDOMNode(this.menu);
-  }
-  */
-
   /* replace-start */
   componentWillReceiveProps(nextProps) {
     const { func } = nextProps;

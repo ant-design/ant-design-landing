@@ -9,7 +9,9 @@ import { objectEqual } from '../../../../utils';
 
 class HistoryButton extends React.Component {
   getCurrentDataIndex = (data) => {
-    return data.findIndex(item => objectEqual(item, getCurrentDataLocal()));
+    return data.findIndex((item) => {
+      return objectEqual(item, getCurrentDataLocal());
+    });
   }
 
   onHistoryClick = (num, e) => {
@@ -26,6 +28,7 @@ class HistoryButton extends React.Component {
     dispatch(setTemplateData({
       data: currentData.attributes,
       uid: currentData.id,
+      date: currentData.date,
       noHistory: 'handle',
     }));
     if (reRect) {

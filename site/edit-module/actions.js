@@ -59,7 +59,9 @@ function dataToLocalStorage(obj) {
     id: obj.id,
     attributes: obj.attributes,
   }));
+
   if (!obj.noHistory || obj.noHistory === 'handle') {
+    obj.date = obj.date || Date.now();
     if (!obj.noHistory) {
       delete obj.noHistory;
       rmRecordAfter(getCurrentDataLocal());
@@ -162,6 +164,7 @@ export const getUserData = data => (dispatch) => {
         userIsLogin,
       });
       // 没进 dataToLocalStorage， 手动给 record;
+      obj.date = obj.date || Date.now();
       setCurrentDataToLocal(obj);
       setRecord(obj);
     } else {
@@ -208,6 +211,7 @@ export const setTemplateData = (data) => {
   dataToLocalStorage({
     id: data.uid,
     attributes: data.data,
+    date: data.date,
     noHistory: data.noHistory,
   });
   return {

@@ -5,8 +5,8 @@ import { FormattedMessage } from 'react-intl';
 import dragula from 'dragula';
 import Editor from './MediumEditor';
 import { setTemplateData, setCurrentData } from '../../../edit-module/actions';
-import { getChildRect, getCurrentDom } from '../utils';
-import { isImg, mergeEditDataToDefault, getDataSourceValue, mdId, objectEqual } from '../../../utils';
+import { getCurrentDom } from '../utils';
+import { isImg, mergeEditDataToDefault, getDataSourceValue, mdId, objectEqual, getChildRect } from '../../../utils';
 import * as utils from '../../../theme/template/utils';
 import webData from '../template.config';
 import tempData from '../../../templates/template/element/template.config';
@@ -32,7 +32,9 @@ class EditStateController extends React.Component {
     // window.addEventListener('message', this.receiveDomData);
     window.receiveDomData = this.receiveDomData;
     // 重置框
-    window.addEventListener('resize', this.reRect);
+    window.addEventListener('resize', () => {
+      this.reRect();
+    });
     // 拖动
     let newId;
     this.side = document.querySelector('.edit-side-drawer .drawer-content .img-content-wrapper');
@@ -174,10 +176,15 @@ class EditStateController extends React.Component {
     if (!this.isDrag && dom.getAttribute('data-key')) {
       const id = dom.getAttribute('id');
       const currentElemData = data[id];
-      // 重置数据里的 rect，滚动条发生变化会随着变化。
-      currentElemData.rect = currentElemData.item.getBoundingClientRect();
-      // 获取子级带 data-id 的 rect; 由于有动画组件，所以时时获取
-      const rectArray = getChildRect(currentElemData);
+      if (id) {
+        // 重置数据里的 rect，滚动条发生变化会随着变化。
+        currentElemData.rect = currentElemData.item.getBoundingClientRect();
+        // 获取子级带 data-id 的 rect; 由于有动画组件，所以时时获取
+      }
+      const rectArray = currentElemData
+        ? getChildRect(currentElemData).concat(data.currentPopover)
+        : data.currentPopover;
+
       if (this.currentData) {
         // dom 在 queueAnim 删除后将不再是当前 dom; 当前从新获取；
         this.currentData = this.refreshCurrentData(rectArray) || this.currentData;
@@ -190,7 +197,7 @@ class EditStateController extends React.Component {
         y: e.pageY - domRect.y,
       };
       this.mouseCurrentData = getCurrentDom(pos, rectArray) || currentElemData;
-      if (!objectEqual(this.mouseCurrentData.rect, currentHoverRect)) {
+      if (this.mouseCurrentData && !objectEqual(this.mouseCurrentData.rect, currentHoverRect)) {
         this.setState({
           currentHoverRect: this.mouseCurrentData.rect,
           currentSelectRect,
@@ -227,9 +234,13 @@ class EditStateController extends React.Component {
           this.currentData.rect = currentSelectRect;
           state.currentSelectRect = currentSelectRect;
           state.currentHoverRect = currentSelectRect;
+          this.setState(state);
+        } else {
+          this.reRect();
         }
+      } else {
+        this.setState(state);
       }
-      this.setState(state);
     }
   }
 
@@ -384,6 +395,7 @@ class EditStateController extends React.Component {
       this.props.dispatch(setCurrentData(
         {
           dom,
+          parentDom: dom.parentNode,
           id,
           reRect: this.reRect,
           iframe: this.state.iframe,
@@ -453,7 +465,7 @@ class EditStateController extends React.Component {
 
   onDoubleClick = (e) => {
     const dom = e.target;
-    if (dom.getAttribute('data-key')) {
+    if (dom.getAttribute('data-key') && this.mouseCurrentData) {
       this.currentData = this.mouseCurrentData;
       const editData = this.currentData.item.getAttribute('data-edit');
       if (editData && editData.indexOf('text') >= 0 && editData !== 'texty') {
@@ -586,7 +598,8 @@ class EditStateController extends React.Component {
   render() {
     const { className, mediaStateSelect } = this.props;
     const { data, currentHoverRect, currentSelectRect, iframe, openEditText } = this.state;
-    const dataArray = data ? Object.keys(data) : [];
+    // 去除弹框的数据
+    const dataArray = data ? Object.keys(data).filter(key => key !== 'currentPopover') : [];
     const overlayChild = dataArray.map((key, i) => {
       const item = data[key];
       const itemStyle = window.getComputedStyle(item.item);
@@ -602,10 +615,6 @@ class EditStateController extends React.Component {
             top: item.item.offsetTop,
             zIndex: itemStyle.zIndex,
           }}
-          onMouseMove={this.wrapperMove}
-          onMouseEnter={this.wrapperMove}
-          onClick={this.onClick}
-          onDoubleClick={this.onDoubleClick}
           className="overlay-elem"
         >
           <div className="drag-hints">
@@ -628,13 +637,21 @@ class EditStateController extends React.Component {
         onMouseLeave={this.wrapperLeave}
         ref={(c) => { this.dom = c; }}
       >
-        <div className="overlay" style={{ height: overlayHeight }}>
+        <div
+          data-key="wrapper"
+          onMouseMove={this.wrapperMove}
+          onMouseEnter={this.wrapperMove}
+          onClick={this.onClick}
+          onDoubleClick={this.onDoubleClick}
+          className="overlay"
+          style={{ height: overlayHeight }}
+        >
           {overlayChild}
         </div>
         <div className="mouse-catcher" style={{ height: overlayHeight }}>
           {!objectEqual(currentHoverRect, currentSelectRect) && !openEditText
             && this.getCatcherDom(currentHoverRect, 'hover')}
-          {this.getCatcherDom(currentSelectRect, 'select')}
+          {this.currentData && this.getCatcherDom(currentSelectRect, 'select')}
         </div>
       </div>
     );

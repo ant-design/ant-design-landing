@@ -7,11 +7,13 @@ import { FormattedMessage } from 'react-intl';
 import EditorProps from './PropsComp';
 import EditorChild from './ChildComp';
 import { setTemplateData } from '../../../../edit-module/actions';
-import { deepCopy, getDataSourceValue, setDataSourceValue } from '../../../../utils';
+import { deepCopy, getDataSourceValue, setDataSourceValue, mergeEditDataToDefault } from '../../../../utils';
 import { isZhCN } from '../../../../theme/template/utils';
 import tempData from '../../../../templates/template/element/template.config';
 
 const { Panel } = Collapse;
+
+let funcData = {};
 
 const { ClassName, State, Layout, Font, BackGround, Border, Interface, Margin, Shadow, Transition } = EditorList;
 class EditorComp extends React.Component {
@@ -21,8 +23,8 @@ class EditorComp extends React.Component {
     const { id } = currentEditData;
     const ids = id.split('-');
     const cid = ids[0].split('_')[0];
-    let tempDataSource = tempData[cid].dataSource;
-    tempDataSource = tempDataSource.isScrollLink && ids[1].match('Menu') ? templateData.data.config[ids[0]].dataSource : tempDataSource;
+    const tempDataSource = mergeEditDataToDefault(
+      templateData.data.config[ids[0]], tempData[cid]);
     const currentEditTemplateData = getDataSourceValue(ids[1], tempDataSource);
     const newClassName = `${currentEditTemplateData && currentEditTemplateData.className
       ? currentEditTemplateData.className.split(' ').filter(c => c !== cssName).join(' ')
@@ -50,15 +52,19 @@ class EditorComp extends React.Component {
     }
     if (func) {
       const dataId = currentEditData.id.split('-')[0];
-      const template = {
-        ...templateData,
-        funcData: {
-          [dataId]: {
-            [key]: value,
-          },
+      funcData = {
+        ...funcData,
+        [dataId]: {
+          ...funcData[dataId],
+          [key]: value,
         },
       };
+      const template = {
+        ...templateData,
+        funcData,
+      };
       currentEditData.iframe.postMessage(template, '*');
+      // this.forceUpdate();
     } else {
       const newTemplateData = deepCopy(templateData);
       setDataSourceValue(ids, key, value, newTemplateData.data.config);
@@ -87,7 +93,14 @@ class EditorComp extends React.Component {
     return (
       [
         <EditorChild edit={edit} {...this.props} key="child" onChange={this.onChildChange} />,
-        <EditorProps edit={edit} {...this.props} key="props" onChange={this.onPropsChange} />,
+        <EditorProps
+          edit={edit}
+          {...this.props}
+          key="props"
+          onChange={this.onPropsChange}
+          funcData={funcData}
+          isMobile={mediaStateSelect === 'Mobile'}
+        />,
         <Collapse key="csslist" bordered={false} defaultActiveKey="css" className="collapes-style-list">
           <Panel header={<FormattedMessage id="app.edit.style.header" />} key="css">
             <EditorList

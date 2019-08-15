@@ -106,7 +106,6 @@ class SideMenu extends React.PureComponent {
     const { templateData, dispatch } = this.props;
     signUpUser(templateData, this.password, dispatch, () => {
       this.onLockData();
-      console.log(this.context.intl);
       message.success(
         this.context.intl.formatMessage({ id: 'app.side.encryption.message' })
       );

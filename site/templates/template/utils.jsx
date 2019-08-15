@@ -68,7 +68,7 @@ export const setDataIdToDataSource = (data, dataId) => {
             // cItem['data-id'] = `${dataId}-${key}&${name}`;
           }
         });
-      } else {
+      } else if (item) {
         Object.keys(item).forEach((cKey) => {
           const cItem = item[cKey];
           objectForEachChild(cItem, `${key}&${cKey}`);

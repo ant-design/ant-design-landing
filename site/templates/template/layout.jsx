@@ -8,7 +8,7 @@ import {
   getEditDomData,
   setDataIdToDataSource,
 } from './utils';
-import { getState, mergeEditDataToDefault, mdId } from '../../utils';
+import { getState, mergeEditDataToDefault, mdId, getChildRect } from '../../utils';
 import { getUserData } from '../../edit-module/actions';
 import BottomBar from './BottomBar';
 import Point from './other/Point';
@@ -41,7 +41,8 @@ class Layout extends React.Component {
 
   componentDidUpdate() {
     if (this.isEdit) {
-      this.setData();
+      // 取不到弹框。
+      setTimeout(this.setData);
     }
     scrollScreen.unMount();
     if (this.scrollScreen) {
@@ -73,6 +74,11 @@ class Layout extends React.Component {
 
   setData = () => {
     const editData = getEditDomData(this.dom.children);
+    // 增加弹框之类的编辑，，导航的下拉菜单；
+    const bodyChild = Array.prototype.slice.call(document.body.childNodes)
+      .filter(item => item.tagName && item.tagName.toLocaleLowerCase() === 'div' && item.getAttribute('id') !== 'react-content');
+    const currentPopArray = bodyChild.map(item => getChildRect(item)).filter(c => c).flat(Infinity);
+    editData.currentPopover = currentPopArray;
     // Uncaught DOMException: Failed to execute 'postMessage' on 'Window': HTMLDivElement object could not be cloned.
     // window.parent.postMessage(editData, '*');
     if (window.parent.receiveDomData) {

@@ -265,3 +265,64 @@ export function objectEqual(obj1, obj2) {
   setEqualBool(obj2, obj1);
   return equalBool;
 }
+
+const getParentRect = (item, parentData) => {
+  const p = [];
+  let i = 0;
+  function parentNode(parent) {
+    if (!parent) {
+      return;
+    }
+    const dataId = mdId[parent.getAttribute('data-id')];
+    // const dataId = parent.getAttribute('data-id');
+    if (dataId) {
+      const rect = parent.getBoundingClientRect();
+      p.push({
+        dataId,
+        item: parent,
+        rect,
+        parent: getParentRect(parent, parentData),
+        parentData,
+      });
+      i += 1;
+    }
+    if (i < 3 && parent.parentNode && parent.parentNode.tagName.toLocaleLowerCase() !== 'body') {
+      parentNode(parent.parentNode);
+    }
+  }
+  parentNode(item.parentNode);
+  return p;
+};
+
+export const getChildRect = (data) => {
+  const array = [];
+  function mapChild(child) {
+    Array.prototype.slice.call(child).forEach((item) => {
+      const dataId = mdId[item.getAttribute('data-id')];
+      // const dataId = item.getAttribute('data-id');
+      if (
+        item.getAttribute('aria-hidden') === 'true'
+      ) {
+        return;
+      }
+      if (dataId && !array.find(c => c.dataId === dataId)) {
+        const rect = item.getBoundingClientRect();
+        array.push({
+          dataId,
+          item,
+          rect,
+          parent: getParentRect(item, data),
+          parentData: data,
+        });
+      }
+      if (item.children) {
+        mapChild(item.children);
+      }
+    });
+  }
+  const dom = data.item || data;
+  if (dom.children) {
+    mapChild(dom.children);
+  }
+  return array;
+};

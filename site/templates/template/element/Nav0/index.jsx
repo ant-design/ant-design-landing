@@ -1,38 +1,39 @@
 import React from 'react';
 import TweenOne from 'rc-tween-one';
 import { Menu } from 'antd';
+/* replace-start-value = import { getChildrenToRender } from './utils'; */
+import { polyfill } from 'react-lifecycles-compat';
+import { getChildrenToRender } from '../../utils';
+/* replace-end-value */
 /* replace-start */
 import './index.less';
 /* replace-end */
 
-const Item = Menu.Item;
+const { Item, SubMenu } = Menu;
 
 class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      phoneOpen: false,
-      menuHeight: 0,
+      phoneOpen: undefined,
+      /* replace-start */
+      openKeys: [],
+      /* replace-end */
     };
-    this.menu = React.createRef();
   }
-
-  /*
-  componentDidMount() {
-    // 如果是 react 16.3 以下版本请使用 findDOMNode;
-    this.menuDom = findDOMNode(this.menu);
-  }
-  */
 
   /* replace-start */
-  componentWillReceiveProps(nextProps) {
-    const { func } = nextProps;
-    if (func) {
-      this.setState({
-        phoneOpen: func.open,
-        menuHeight: func.open ? this.menu.current.dom.scrollHeight : 0,
-      });
+  static getDerivedStateFromProps(props, { prevProps }) {
+    const nextState = {
+      prevProps: props,
+    };
+    const { func } = props;
+    if (prevProps && func) {
+      nextState.phoneOpen = func.open;
+      nextState.openKeys = func.currentMenu ? [func.currentMenu] : [];
     }
+
+    return nextState;
   }
   /* replace-end */
 
@@ -40,40 +41,93 @@ class Header extends React.Component {
     const phoneOpen = !this.state.phoneOpen;
     this.setState({
       phoneOpen,
-      menuHeight: phoneOpen ? this.menu.current.dom.scrollHeight : 0,
     });
   }
 
   render() {
-    const { ...props } = this.props;
-    const { dataSource, isMobile } = props;
-    delete props.dataSource;
-    delete props.isMobile;
-    const { menuHeight, phoneOpen } = this.state;
+    const { dataSource, isMobile, ...props } = this.props;
+    const {
+      phoneOpen,
+      /* replace-start */
+      openKeys,
+      /* replace-end */
+    } = this.state;
     const navData = dataSource.Menu.children;
-    const navChildren = Object.keys(navData)
-      .map((key, i) => (
+    const navChildren = navData.map((item) => {
+      const { a, subItem, className, ...itemProps } = item;
+      if (subItem) {
+        return (
+          <SubMenu
+            key={item.name}
+            {...itemProps}
+            /* replace-start */
+            data-edit="Menu"
+            /* replace-end */
+            title={(
+              <div {...a}>
+                {
+                  /* replace-start-value = a.children */
+                  React.createElement('span', { dangerouslySetInnerHTML: { __html: a.children } })
+                  /* replace-end-value */
+                }
+              </div>
+            )}
+            popupClassName={`header0-item-child ${className || ''}`.trim()}
+          >
+            {subItem.map((($item, ii) => {
+              const { children: childItem } = $item;
+              const child = $item.href ? (
+                <a
+                  {...childItem}
+                  /* replace-start */
+                  data-edit="titleWrapper"
+                  /* replace-end */
+                >
+                  {childItem.children.map(getChildrenToRender)}
+                </a>
+              ) : (
+                <div
+                  {...childItem}
+                  /* replace-start */
+                  data-edit="titleWrapper"
+                  /* replace-end */
+                >
+                  {childItem.children.map(getChildrenToRender)}
+                </div>
+              );
+              return (
+                <Item key={$item.name || ii.toString()} {...$item}>
+                  {child}
+                </Item>
+              );
+            }))}
+          </SubMenu>
+        );
+      }
+      return (
         <Item
-          key={i.toString()}
-          {...navData[key]}
+          key={item.name}
+          {...itemProps}
           /* replace-start */
           data-edit="Menu"
         /* replace-end */
         >
           <a
-            {...navData[key].a}
-            href={navData[key].a.href}
-            target={navData[key].a.target}
+            {...a}
+            /* replace-start */
+            data-edit="linkA,text"
+          /* replace-end */
           >
             {
-              /* replace-start-value = navData[key].a.children */
-              React.createElement('span', { dangerouslySetInnerHTML: { __html: navData[key].a.children } })
+              /* replace-start-value = a.children */
+              React.createElement('span', { dangerouslySetInnerHTML: { __html: a.children } })
               /* replace-end-value */
             }
           </a>
         </Item>
-      )
       );
+    });
+    const moment = phoneOpen === undefined ? 300 : null;
     return (
       <TweenOne
         component="header"
@@ -109,16 +163,34 @@ class Header extends React.Component {
           }
           <TweenOne
             {...dataSource.Menu}
-            animation={{ x: 30, type: 'from', ease: 'easeOutQuad' }}
-            ref={this.menu}// {(c) => { this.menu = c; }}
-            style={isMobile ? { height: menuHeight } : null}
+            animation={{
+              x: 0,
+              height: 0,
+              duration: 300,
+              onComplete: (e) => {
+                if (this.state.phoneOpen) {
+                  e.target.style.height = 'auto';
+                }
+              },
+              ease: 'easeInOutQuad',
+            }}
+            moment={moment}
+            reverse={!!phoneOpen}
             /* replace-start */
             data-edit="Menu"
           /* replace-end */
           >
             <Menu
               mode={isMobile ? 'inline' : 'horizontal'}
-              defaultSelectedKeys={['0']}
+              defaultSelectedKeys={['item0']}
+              /* replace-start */
+              openKeys={openKeys}
+              onOpenChange={(keys) => {
+                this.setState({
+                  openKeys: keys,
+                });
+              }}
+              /* replace-end */
               theme={isMobile ? 'dark' : 'default'}
             >
               {navChildren}
@@ -130,4 +202,6 @@ class Header extends React.Component {
   }
 }
 
-export default Header;
+/* replace-start-value = export default Header */
+export default polyfill(Header);
+/* replace-end-value */

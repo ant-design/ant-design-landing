@@ -23,12 +23,19 @@ export default {
       children: [
         {
           name: 'item0',
-          a: {
-            children: '导航一',
+          className: 'header0-item',
+          children: {
+            href: '#',
+            children: [
+              {
+                children: '导航一',
+                name: 'text',
+              },
+            ],
           },
           subItem: [
             {
-              name: 'item0',
+              name: 'sub0',
               className: 'item-sub',
               children: {
                 className: 'item-sub-item',
@@ -52,7 +59,7 @@ export default {
               },
             },
             {
-              name: 'item1',
+              name: 'sub1',
               className: 'item-sub',
               children: {
                 className: 'item-sub-item',
@@ -79,23 +86,41 @@ export default {
         },
         {
           name: 'item1',
-          a: {
-            children: '导航二',
-            href: '',
+          className: 'header0-item',
+          children: {
+            href: '#',
+            children: [
+              {
+                children: '导航二',
+                name: 'text',
+              },
+            ],
           },
         },
         {
           name: 'item2',
-          a: {
-            children: '导航三',
-            href: '',
+          className: 'header0-item',
+          children: {
+            href: '#',
+            children: [
+              {
+                children: '导航三',
+                name: 'text',
+              },
+            ],
           },
         },
         {
           name: 'item3',
-          a: {
-            children: '导航四',
-            href: '',
+          className: 'header0-item',
+          children: {
+            href: '#',
+            children: [
+              {
+                children: '导航四',
+                name: 'text',
+              },
+            ],
           },
         },
       ],

@@ -15,6 +15,10 @@ export default class ImageComp extends React.Component {
   }
 
   render() {
+    const { editData } = this.props;
+    if (typeof editData.children !== 'string') {
+      return null;
+    }
     return (
       <div>
         <Button type="primary" size="small" onClick={this.switchEditMenuFunc}>

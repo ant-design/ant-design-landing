@@ -43,7 +43,7 @@ class Header extends React.Component {
     const navData = dataSource.Menu.children;
     const navChildren = Object.keys(navData)
       .map((key, i) => {
-        const { a, navProps } = navData[key];
+        const { a, ...navProps } = navData[key];
         return (
           <Item
             {...navProps}
@@ -72,9 +72,6 @@ class Header extends React.Component {
     const userTitle = (
       <div
         {...dataSource.user}
-        /* replace-start */
-        data-edit="Menu"
-      /* replace-end */
       >
         <span className="img" {...dataSource.user.img}>
           <img

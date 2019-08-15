@@ -53,41 +53,51 @@
   }
 
   &-item {
-    &-child {
+    &-block {
+      padding: 0 8px;
 
-      .ant-menu-sub .ant-menu-item,
-      .ant-menu-inline .ant-menu-item {
-        height: auto;
-        line-height: 1.5;
-      }
-
-      .item {
-        &-sub-item {
-          display: block;
-          padding: 8px 24px;
-        }
-
-        &-image {
-          float: left;
-          margin-right: 16px;
-          margin-top: 4px;
-          position: relative;
-          z-index: 1;
-        }
-
-        &-title {
-          font-size: 14px;
-          margin-left: 46px;
-        }
-
-        &-content {
-          font-size: 12px;
-          color: @text-color;
-          margin-left: 46px;
-        }
+      >* {
+        display: inline-block;
       }
     }
   }
+
+  &-item,
+  &-menu {
+
+    .ant-menu-sub .ant-menu-item,
+    .ant-menu-inline .ant-menu-item {
+      height: auto;
+      line-height: 1.5;
+    }
+
+    .item {
+      &-sub-item {
+        display: block;
+        padding: 8px 24px;
+      }
+
+      &-image {
+        float: left;
+        margin-right: 16px;
+        margin-top: 4px;
+        position: relative;
+        z-index: 1;
+      }
+
+      &-title {
+        font-size: 14px;
+        margin-left: 46px;
+      }
+
+      &-content {
+        font-size: 12px;
+        color: @text-color;
+        margin-left: 46px;
+      }
+    }
+  }
+
 
   .ant-menu-item-selected a {
     color: @primary-color;
@@ -104,7 +114,7 @@
       padding: 0 24px;
     }
 
-     &-menu {
+    &-menu {
       height: auto;
       float: inherit;
       position: relative;
@@ -118,6 +128,19 @@
 
         &.ant-menu-submenu {
           padding: 0;
+        }
+      }
+      .item {
+        &-sub-item {
+          padding: 8px 0;
+        }
+  
+        &-title {
+          color: #fff;
+        }
+  
+        &-content {
+          color: fade(#fff, 75);
         }
       }
     }
@@ -192,22 +215,9 @@
         pointer-events: auto;
       }
     }
-
-    &-item {
-      &-child {
-        .item {
-          &-sub-item {
-            padding: 8px 0;
-          }
-          &-title {
-            color: #fff;
-          }
-
-          &-content {
-            color: fade(#fff, 75);
-          }
-        }
-      }
+    &-item-block {
+      height: 40px;
+      line-height: 40px;
     }
   }
 }

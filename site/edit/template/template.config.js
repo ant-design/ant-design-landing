@@ -20,6 +20,7 @@ export default {
         text: '带用户型',
         textEn: 'User Nav',
         uid: 1,
+        disabled: true,
       },
     ],
   },

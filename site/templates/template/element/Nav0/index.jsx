@@ -54,7 +54,7 @@ class Header extends React.Component {
     } = this.state;
     const navData = dataSource.Menu.children;
     const navChildren = navData.map((item) => {
-      const { a, subItem, className, ...itemProps } = item;
+      const { children: a, subItem, ...itemProps } = item;
       if (subItem) {
         return (
           <SubMenu
@@ -64,23 +64,25 @@ class Header extends React.Component {
             data-edit="Menu"
             /* replace-end */
             title={(
-              <div {...a}>
-                {
-                  /* replace-start-value = a.children */
-                  React.createElement('span', { dangerouslySetInnerHTML: { __html: a.children } })
-                  /* replace-end-value */
-                }
+              <div
+                {...a}
+                className={`header0-item-block ${a.className}`.trim()}
+                /* replace-start */
+                data-edit="textAndImage"
+                /* replace-end */
+              >
+                {a.children.map(getChildrenToRender)}
               </div>
             )}
-            popupClassName={`header0-item-child ${className || ''}`.trim()}
+           // popupClassName="header0-item-child"
           >
             {subItem.map((($item, ii) => {
               const { children: childItem } = $item;
-              const child = $item.href ? (
+              const child = childItem.href ? (
                 <a
                   {...childItem}
                   /* replace-start */
-                  data-edit="titleWrapper"
+                  data-edit="linkA,titleWrapper"
                   /* replace-end */
                 >
                   {childItem.children.map(getChildrenToRender)}
@@ -89,7 +91,7 @@ class Header extends React.Component {
                 <div
                   {...childItem}
                   /* replace-start */
-                  data-edit="titleWrapper"
+                  data-edit="linkA,titleWrapper"
                   /* replace-end */
                 >
                   {childItem.children.map(getChildrenToRender)}
@@ -114,15 +116,12 @@ class Header extends React.Component {
         >
           <a
             {...a}
+            className={`header0-item-block ${a.className}`.trim()}
             /* replace-start */
-            data-edit="linkA,text"
-          /* replace-end */
+            data-edit="linkA,textAndImage"
+            /* replace-end */
           >
-            {
-              /* replace-start-value = a.children */
-              React.createElement('span', { dangerouslySetInnerHTML: { __html: a.children } })
-              /* replace-end-value */
-            }
+            {a.children.map(getChildrenToRender)}
           </a>
         </Item>
       );
@@ -163,7 +162,7 @@ class Header extends React.Component {
           }
           <TweenOne
             {...dataSource.Menu}
-            animation={{
+            animation={isMobile ? {
               x: 0,
               height: 0,
               duration: 300,
@@ -173,7 +172,7 @@ class Header extends React.Component {
                 }
               },
               ease: 'easeInOutQuad',
-            }}
+            } : null}
             moment={moment}
             reverse={!!phoneOpen}
             /* replace-start */
@@ -182,12 +181,17 @@ class Header extends React.Component {
           >
             <Menu
               mode={isMobile ? 'inline' : 'horizontal'}
-              defaultSelectedKeys={['item0']}
+              defaultSelectedKeys={['sub0']}
               /* replace-start */
               openKeys={openKeys}
               onOpenChange={(keys) => {
                 this.setState({
                   openKeys: keys,
+                });
+              }}
+              onClick={({ key }) => {
+                this.setState({
+                  openKeys: [key],
                 });
               }}
               /* replace-end */

@@ -20,6 +20,7 @@ export default class PropsComp extends React.Component {
     const currentValue = typeof v !== 'undefined' ? v : value;
     const { funcData } = this.props;
     const funcDefault = funcData[ids[0]] ? funcData[ids[0]][key] : undefined;
+    console.log(funcData, funcDefault, template, key);
     switch (type) {
       case 'switch':
       case 'menuSwitch':
@@ -31,8 +32,8 @@ export default class PropsComp extends React.Component {
             size="small"
             {...(func
               ? {
-                defaultChecked: template[key]
-                  ? funcDefault === template.name && funcDefault !== undefined
+                defaultChecked: type === 'menuSwitch'
+                  ? funcDefault !== undefined && funcDefault === template.name
                   : funcDefault,
               }
               : { checked: currentValue })}
@@ -206,7 +207,7 @@ export default class PropsComp extends React.Component {
   getMenuChild = ({ defaultData }, template) => {
     let value = template && template.subItem;
     value = value ? value.map((item) => {
-      item.name = `item~${getRandomKey()}`;
+      item.name = `sub~${getRandomKey()}`;
       return item;
     }) : value;
     return (

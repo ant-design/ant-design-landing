@@ -34,7 +34,6 @@ module.exports = {
     'app.header.edit-data': '编辑数据',
     'app.header.edit-data.header': '当前编辑数据',
     'app.header.edit-data.remarks': '将下载的 JSON 粘贴到此处，请不要随便改更数据。如果数据出错请刷新。',
-    'app.header.reset': '重置',
     'app.header.edit-data.download': '下载 JSON',
     'app.header.clear-cache': '清除缓存',
     'app.header.clear-exp': '清除全部的缓存，重新从服务器读取最后保存的数据；单个缓存请在新建文件的下拉菜单里清除。',

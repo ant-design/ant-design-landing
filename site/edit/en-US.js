@@ -34,7 +34,6 @@ module.exports = {
     'app.header.edit-data': 'Edit data',
     'app.header.edit-data.header': 'Current edit data',
     'app.header.edit-data.remarks': 'Paste the downloaded JSON here, please don\'t change the data. Please refresh if the data is wrong.',
-    'app.header.reset': 'Reset',
     'app.header.edit-data.download': 'Download JSON',
     'app.header.clear-cache': 'Clear cache',
     'app.header.clear-exp': 'Clear all caches and re-read the last saved data from the server;',

@@ -140,20 +140,8 @@ class NavController extends React.PureComponent {
       if (currentEditData) {
         currentEditData.reRect();
       }
+      this.onChangeDataOpenModal();
     }, 100);
-  }
-
-  onReData = () => {
-    const { templateData } = this.props;
-    formatCode({
-      code: JSON.stringify(templateData.data),
-      parser: 'json',
-      cb: (code) => {
-        this.setState({
-          code,
-        });
-      },
-    });
   }
 
   onUploadCloud = () => {
@@ -272,11 +260,11 @@ class NavController extends React.PureComponent {
           <Button type="primary" style={{ marginTop: '1em' }} onClick={this.onSaveData}>
             <FormattedMessage id="app.header.save" />
           </Button>
-          <Button key="re" style={{ marginLeft: 8 }} onClick={this.onReData}>
-            <FormattedMessage id="app.header.reset" />
-          </Button>
-          <Button onClick={this.onSaveJSON} style={{ marginLeft: 8 }}>
+          <Button type="primary" onClick={this.onSaveJSON} style={{ marginLeft: 8 }}>
             <FormattedMessage id="app.header.edit-data.download" />
+          </Button>
+          <Button key="close" style={{ marginLeft: 8 }} onClick={this.onChangeDataOpenModal}>
+            <FormattedMessage id="app.common.cancel" />
           </Button>
         </Modal>
         <PublishModal

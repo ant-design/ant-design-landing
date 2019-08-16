@@ -98,21 +98,24 @@ export default class ChildComp extends React.Component {
     if (parentIsArray) {
       idChildArray.splice(idChildArray.length - 1, 1);
       childKey = idChildArray.splice(idChildArray.length - 1, 1)[0];
-      /* idChildArray.forEach((c) => {
-        if (addDefault[c]) {
-          this.editAddDefault = addDefault[c];
-        }
-      }); */
-      // 改用 parentDom 上的 data-edit;
+
       if (!parentDom) {
         return null;
       }
       const parentEdit = parentDom.getAttribute('data-edit');
-      parentEdit.split(',').forEach((c) => {
-        if (addDefault[c.trim()]) {
-          this.editAddDefault = addDefault[c];
-        }
-      });
+      if (parentEdit) {
+        parentEdit.split(',').forEach((c) => {
+          if (addDefault[c.trim()]) {
+            this.editAddDefault = addDefault[c];
+          }
+        });
+      } else {
+        idChildArray.forEach((c) => {
+          if (addDefault[c]) {
+            this.editAddDefault = addDefault[c];
+          }
+        });
+      }
 
       ids[1] = idChildArray.join('&');
       currentEditTemplateData = getDataSourceValue(ids[1], newTempDataSource);

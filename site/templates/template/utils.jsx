@@ -22,6 +22,9 @@ export const getChildrenToRender = (item, i) => {
       item['data-edit'] = 'linkA,text';
     }
   }
+  if (item.name.indexOf('link') === 0) {
+    item['data-edit'] = 'linkA,text';
+  }
   return React.createElement(tag, { key: i.toString(), ...item }, children);
 };
 

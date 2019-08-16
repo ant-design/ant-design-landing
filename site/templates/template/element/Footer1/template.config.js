@@ -51,22 +51,22 @@ export default {
           childWrapper: {
             children: [
               {
-                name: 'button0',
+                name: 'link0',
                 href: '#',
                 children: '产品更新记录',
               },
               {
-                name: 'button1',
+                name: 'link1',
                 href: '#',
                 children: 'API文档',
               },
               {
-                name: 'button2',
+                name: 'link2',
                 href: '#',
                 children: '快速入门',
               },
               {
-                name: 'button3',
+                name: 'link3',
                 href: '#',
                 children: '参考指南',
               },
@@ -85,12 +85,12 @@ export default {
             children: [
               {
                 href: '#',
-                name: 'button0',
+                name: 'link0',
                 children: 'FAQ',
               },
               {
                 href: '#',
-                name: 'button1',
+                name: 'link1',
                 children: '联系我们',
               },
             ],
@@ -108,12 +108,12 @@ export default {
             children: [
               {
                 href: '#',
-                name: 'button0',
+                name: 'link0',
                 children: 'Ant Design',
               },
               {
                 href: '#',
-                name: 'button1',
+                name: 'link1',
                 children: 'Ant Motion',
               },
             ],

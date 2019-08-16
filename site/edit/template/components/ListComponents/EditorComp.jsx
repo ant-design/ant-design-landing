@@ -37,6 +37,7 @@ class EditorComp extends React.Component {
       cssString: currentEditCssString,
       // parentClassName,
       id: cb.id,
+      cid: currentEditData.id.split('-')[0],
     };
     newTemplateData.data.style = (newTemplateData.data.style || []).filter(c => c.id !== cb.id);
     newTemplateData.data.style.push(data);

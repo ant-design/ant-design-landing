@@ -489,7 +489,7 @@ class EditStateController extends React.Component {
         break;
       default:
         template.splice(current, 1);
-        templateData.data.style = style.filter(item => item.id.split('-')[0] !== key);
+        templateData.data.style = style.filter(item => item.cid !== key);
         delete config[key];
         this.removeNavLinkData(templateData, key);
         break;
@@ -611,7 +611,7 @@ class EditStateController extends React.Component {
           style={{
             width: '100%',
             height: itemStyle.height,
-            position: 'absolute', // 设置 marign 后定位失效，用 absolute
+            position: 'absolute', // 设置 margin 后定位失效，用 absolute
             top: item.item.offsetTop,
             zIndex: itemStyle.zIndex,
           }}

@@ -74,7 +74,7 @@ class Header extends React.Component {
                 {a.children.map(getChildrenToRender)}
               </div>
             )}
-           // popupClassName="header0-item-child"
+            popupClassName="header0-item-child"
           >
             {subItem.map((($item, ii) => {
               const { children: childItem } = $item;

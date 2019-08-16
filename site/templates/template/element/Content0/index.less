@@ -2,7 +2,7 @@
 @content0: content0;
 
 .@{content0}-wrapper {
-  height: 446px;
+  min-height: 446px;
   overflow: hidden;
 
   .@{content0} {
@@ -18,7 +18,10 @@
       display: inline-block;
       text-align: center;
       height: 200px;
-      margin-bottom: 48px;
+      margin-bottom: 24px;
+      img {
+        width: 100%;
+      }
 
       &-wrapper {
         position: relative;
@@ -31,12 +34,10 @@
         position: relative !important;
       }
 
-      .icon {
+      &-icon {
         width: 100px;
         height: 100px;
         margin: auto;
-        display: flex;
-        align-items: center;
       }
 
       &-title {
@@ -49,6 +50,6 @@
 
 @media screen and (max-width: 767px) {
   .@{content0}-wrapper {
-    height: 880px;
+    min-height: 880px;
   }
 }

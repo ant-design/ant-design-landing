@@ -108,7 +108,12 @@ export default class ChildComp extends React.Component {
         return null;
       }
       const parentEdit = parentDom.getAttribute('data-edit');
-      this.editAddDefault = addDefault[parentEdit];
+      parentEdit.split(',').forEach((c) => {
+        if (addDefault[c.trim()]) {
+          this.editAddDefault = addDefault[c];
+        }
+      });
+
       ids[1] = idChildArray.join('&');
       currentEditTemplateData = getDataSourceValue(ids[1], newTempDataSource);
     } else {

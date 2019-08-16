@@ -58,6 +58,12 @@ export default {
         textEn: 'Product Type',
         uid: 4,
       },
+      {
+        src: 'https://gw.alipayobjects.com/mdn/rms_ae7ad9/afts/img/A*qYTGRIkhUq4AAAAAAAAAAABkARQnAQ',
+        text: '左右型',
+        textEn: 'Left And Right',
+        uid: 5,
+      },
     ],
   },
   Content: {

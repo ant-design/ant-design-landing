@@ -7,7 +7,7 @@ import { getChildrenToRender } from '../../utils';
 /* replace-start */
 import './index.less';
 /* replace-end */
-class Banner4 extends React.PureComponent {
+class Banner5 extends React.PureComponent {
   render() {
     const { ...tagProps } = this.props;
     const { dataSource } = tagProps;
@@ -54,4 +54,4 @@ class Banner4 extends React.PureComponent {
     );
   }
 }
-export default Banner4;
+export default Banner5;

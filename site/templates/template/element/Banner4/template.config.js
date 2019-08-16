@@ -14,7 +14,7 @@ export default {
     page: {
       className: 'home-page banner4-page',
     },
-    titleWrapper: {
+    childWrapper: {
       className: 'banner4-title-wrapper',
       children: [
         {

@@ -163,7 +163,6 @@ class Header extends React.Component {
           <TweenOne
             {...dataSource.Menu}
             animation={isMobile ? {
-              x: 0,
               height: 0,
               duration: 300,
               onComplete: (e) => {

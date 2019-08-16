@@ -9,9 +9,7 @@ class Header extends React.Component {
     super(props);
     this.state = {
       phoneOpen: false,
-      menuHeight: 0,
     };
-    this.menu = React.createRef();
   }
 
   /* replace-start */
@@ -20,7 +18,6 @@ class Header extends React.Component {
     if (func) {
       this.setState({
         phoneOpen: func.open,
-        menuHeight: func.open ? this.menu.current.dom.scrollHeight : 0,
       });
     }
   }
@@ -30,14 +27,13 @@ class Header extends React.Component {
     const phoneOpen = !this.state.phoneOpen;
     this.setState({
       phoneOpen,
-      menuHeight: phoneOpen ? this.menu.current.dom.scrollHeight : 0,
     });
   }
 
   render() {
     const { dataSource, isMobile, ...props } = this.props;
 
-    const { menuHeight, phoneOpen } = this.state;
+    const { phoneOpen } = this.state;
     const { LinkMenu } = dataSource;
     const navData = LinkMenu.children;
     const navChildren = Object.keys(navData)
@@ -56,6 +52,7 @@ class Header extends React.Component {
           }
         </Link>
       ));
+    const moment = phoneOpen === undefined ? 300 : null;
     return (
       <TweenOne
         component="header"
@@ -91,9 +88,18 @@ class Header extends React.Component {
           }
           <TweenOne
             {...LinkMenu}
-            animation={{ x: 30, type: 'from', ease: 'easeOutQuad' }}
-            ref={this.menu}// {(c) => { this.menu = c; }}
-            style={isMobile ? { height: menuHeight } : null}
+            animation={isMobile ? {
+              height: 0,
+              duration: 300,
+              onComplete: (e) => {
+                if (this.state.phoneOpen) {
+                  e.target.style.height = 'auto';
+                }
+              },
+              ease: 'easeInOutQuad',
+            } : null}
+            moment={moment}
+            reverse={!!phoneOpen}
             /* replace-start */
             data-edit="LinkMenu"
           /* replace-end */

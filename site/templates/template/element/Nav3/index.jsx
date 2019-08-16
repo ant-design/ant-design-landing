@@ -11,7 +11,7 @@ import './index.less';
 
 const { Item, SubMenu } = Menu;
 
-class Header extends React.Component {
+class Header3 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -195,7 +195,7 @@ class Header extends React.Component {
                 });
               }}
               /* replace-end */
-              theme="dark"
+              theme="light"
             >
               {navChildren}
             </Menu>
@@ -207,5 +207,5 @@ class Header extends React.Component {
 }
 
 /* replace-start-value = export default Header */
-export default polyfill(Header);
+export default polyfill(Header3);
 /* replace-end-value */

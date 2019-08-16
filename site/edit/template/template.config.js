@@ -5,9 +5,15 @@ export default {
     data: [
       {
         src: 'https://zos.alipayobjects.com/rmsportal/ZjfIAdkDVlpnilf.jpg',
-        text: '普通型',
-        textEn: 'Ordinary Nav',
+        text: '普通型(暗色)',
+        textEn: 'Nav(dark)',
         uid: 0,
+      },
+      {
+        src: 'https://gw.alipayobjects.com/mdn/rms_ae7ad9/afts/img/A*luthRonCYuQAAAAAAAAAAABkARQnAQ',
+        text: '普通型(浅色)',
+        textEn: 'Nav(light)',
+        uid: 3,
       },
       {
         src: 'https://zos.alipayobjects.com/rmsportal/ZjfIAdkDVlpnilf.jpg',

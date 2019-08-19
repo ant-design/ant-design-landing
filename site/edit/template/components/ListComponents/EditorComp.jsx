@@ -4,12 +4,14 @@ import editorEn from 'rc-editor-list/lib/locale/en_US';
 import editorZh from 'rc-editor-list/lib/locale/zh_CN';
 import { Collapse } from 'antd';
 import { FormattedMessage } from 'react-intl';
-import EditorProps from './PropsComp';
-import EditorChild from './ChildComp';
-import { setTemplateData } from '../../../../edit-module/actions';
+
 import { deepCopy, getDataSourceValue, setDataSourceValue, mergeEditDataToDefault } from '../../../../utils';
 import { isZhCN } from '../../../../theme/template/utils';
 import tempData from '../../../../templates/template/element/template.config';
+import * as actions from '../../../../shared/redux/actions';
+
+import EditorProps from './PropsComp';
+import EditorChild from './ChildComp';
 
 const { Panel } = Collapse;
 
@@ -41,7 +43,7 @@ class EditorComp extends React.Component {
     };
     newTemplateData.data.style = (newTemplateData.data.style || []).filter(c => c.id !== cb.id);
     newTemplateData.data.style.push(data);
-    dispatch(setTemplateData(newTemplateData));
+    dispatch(actions.setTemplateData(newTemplateData));
   }
 
   onPropsChange = (key, value, func, isGroup) => {
@@ -69,7 +71,7 @@ class EditorComp extends React.Component {
     } else {
       const newTemplateData = deepCopy(templateData);
       setDataSourceValue(ids, key, value, newTemplateData.data.config);
-      dispatch(setTemplateData(newTemplateData));
+      dispatch(actions.setTemplateData(newTemplateData));
     }
   }
 
@@ -77,7 +79,7 @@ class EditorComp extends React.Component {
     const { dispatch, templateData } = this.props;
     const newTemplateData = deepCopy(templateData);
     setDataSourceValue(ids, 'children', currentData.children, newTemplateData.data.config);
-    dispatch(setTemplateData(newTemplateData));
+    dispatch(actions.setTemplateData(newTemplateData));
   }
 
   render() {

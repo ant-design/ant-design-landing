@@ -3,9 +3,13 @@ import { Button, Input, Icon, Popover, Row, Col } from 'antd';
 import { FormattedMessage } from 'react-intl';
 import { getRandomKey } from 'rc-editor-list/lib/utils';
 import { connect } from 'react-redux';
+
+import { deepCopy } from '../../../../../utils';
+import { getIdsAndCurrentData } from '../../../utils';
+import { mapStateToProps } from '../../../../../shared/utils';
+import * as actions from '../../../../../shared/redux/actions';
+
 import ListSort from '../ListSort';
-import { getState, deepCopy } from '../../../../../utils';
-import { getIdsAndCurrentData, onChildChange } from './EditViewUtils';
 
 class MenuEditView extends React.PureComponent {
   onAdd = (ids, currentData) => {
@@ -13,7 +17,13 @@ class MenuEditView extends React.PureComponent {
     delete newData.delete;
     newData.name = `${newData.name.split('~')[0].replace(/[0-9]/ig, '')}~${getRandomKey()}`;
     currentData.children.push(newData);
-    onChildChange(this.props.dispatch, this.props.templateData, ids, currentData);
+
+    const { dispatch, templateData } = this.props;
+    dispatch(actions.changeChild({
+      templateData,
+      ids,
+      currentData,
+    }));
   }
 
   onSlideDelete = (e, ids, currentData) => {
@@ -23,12 +33,22 @@ class MenuEditView extends React.PureComponent {
     currentData.children = children;
     /* currentData.children = currentData.children
       .map(node => (node === e ? { ...node, delete: true } : node)); */
-    onChildChange(this.props.dispatch, this.props.templateData, ids, currentData);
+    const { dispatch, templateData } = this.props;
+    dispatch(actions.changeChild({
+      templateData,
+      ids,
+      currentData,
+    }));
   }
 
   onValueChange = (e, i, key, ids, currentData) => {
     currentData.children[i][key] = e;
-    onChildChange(this.props.dispatch, this.props.templateData, ids, currentData);
+    const { dispatch, templateData } = this.props;
+    dispatch(actions.changeChild({
+      templateData,
+      ids,
+      currentData,
+    }));
   }
 
   onListChange = (e, ids, currentData) => {
@@ -37,13 +57,17 @@ class MenuEditView extends React.PureComponent {
         return node.name === item.key;
       })[0];
     });
-    onChildChange(this.props.dispatch, this.props.templateData, ids, currentData);
+    const { dispatch, templateData } = this.props;
+    dispatch(actions.changeChild({
+      templateData,
+      ids,
+      currentData,
+    }));
   }
 
   render() {
     const { currentEditData, templateData } = this.props;
     const { ids, currentEditTemplateData } = getIdsAndCurrentData(currentEditData, templateData, 'LinkMenu');
-    console.log(currentEditTemplateData);
     if (!currentEditTemplateData.children) {
       return null;
     }
@@ -146,4 +170,4 @@ class MenuEditView extends React.PureComponent {
   }
 }
 
-export default connect(getState)(MenuEditView);
+export default connect(mapStateToProps)(MenuEditView);

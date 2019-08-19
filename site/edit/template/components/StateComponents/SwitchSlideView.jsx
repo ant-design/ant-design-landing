@@ -2,10 +2,12 @@ import React from 'react';
 import { Pagination, Popover, Button, Icon } from 'antd';
 import { FormattedMessage } from 'react-intl';
 import { getRandomKey } from 'rc-editor-list/lib/utils';
-import { mergeEditDataToDefault } from '../../../../utils';
+
 import tempData from '../../../../templates/template/element/template.config';
+import { mergeEditDataToDefault } from '../../../../utils';
+import * as actions from '../../../../shared/redux/actions';
+
 import ListSort from './ListSort';
-import { setTemplateData } from '../../../../edit-module/actions';
 
 export default class SwitchSlideView extends React.Component {
   componentDidUpdate() {
@@ -40,7 +42,7 @@ export default class SwitchSlideView extends React.Component {
     };
     newData.data.config[dataId] = newData.data.config[dataId] || {};
     newData.data.config[dataId].dataSource = dataSource;
-    this.props.dispatch(setTemplateData(newData));
+    this.props.dispatch(actions.setTemplateData(newData));
   }
 
   onSlideDelete = (item, dataSource) => {

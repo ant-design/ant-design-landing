@@ -1,21 +1,23 @@
+/* eslint-disable no-console */
 import React from 'react';
 import { Menu, Button, Icon, Dropdown, message } from 'antd';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
+
 import { RemoveLocalStorage } from '../../../../utils';
-import {
-  userName, newTemplate,
-} from '../../../../edit-module/actions';
-import { getURLData, setURLData } from '../../../../theme/template/utils';
+import { newTemplate } from '../../../../shared/utils';
+import { DEFAULT_USER_NAME } from '../../../../shared/constants';
+import * as ls from '../../../../shared/localStorage';
+import * as url from '../../../../shared/url';
 
 const { Item, ItemGroup } = Menu;
 
 export default class NewFileButton extends React.Component {
   constructor(props) {
     super(props);
-    const user = window.localStorage.getItem(userName) || '';
+
     this.state = {
-      localStorage: user.split(',').filter(c => c),
+      templateIds: ls.getUserTemplateIds(DEFAULT_USER_NAME),
     };
   }
 
@@ -24,9 +26,8 @@ export default class NewFileButton extends React.Component {
   };
 
   componentWillReceiveProps() {
-    const user = window.localStorage.getItem(userName) || '';
     this.setState({
-      localStorage: user.split(',').filter(c => c),
+      templateIds: ls.getUserTemplateIds(DEFAULT_USER_NAME),
     });
   }
 
@@ -34,15 +35,20 @@ export default class NewFileButton extends React.Component {
     if (!location.port && window.gtag) {
       window.gtag('event', 'newTemplate');
     }
-    newTemplate(() => {
+
+    newTemplate(DEFAULT_USER_NAME).then(() => {
       location.reload();
+    }).catch((error) => {
+      console.error(error);
     });
   }
 
-  onSyncData = (key) => {
-    window.localStorage.removeItem(key);
-    const current = getURLData('uid');
-    if (current === key) {
+  onSyncData = (uid) => {
+    // TODO: is it needed to remove template from user data?
+    ls.removeTemplate(uid);
+
+    const currentTemplateId = url.get('uid');
+    if (currentTemplateId === uid) {
       message.success(
         this.context.intl.formatMessage({ id: 'app.header.new-file.message' }),
         0.1,
@@ -57,28 +63,32 @@ export default class NewFileButton extends React.Component {
   }
 
   onClickItem = (e) => {
-    setURLData('uid', e.key);
+    url.update('uid', e.key);
     location.reload();
   }
 
-  onRemoveLocalStorage = (key) => {
-    const localStorage = this.state.localStorage.filter(c => c !== key);
-    window.localStorage.setItem(userName, localStorage.join(','));
-    window.localStorage.removeItem(key);
+  onRemoveUserTemplate = (uid) => {
+    ls.removeUserTemplate(DEFAULT_USER_NAME, uid);
+
+    const templateIds = ls.getUserTemplateIds(DEFAULT_USER_NAME);
+
     this.setState({
-      localStorage,
+      templateIds,
     });
+
+    ls.removeTemplate(uid);
+
     // 删除线上数据
-    // removeTemplate(key);
-    const current = getURLData('uid');
-    if (current === key) {
-      this.onClickItem({ key: localStorage[0] });
+    // removeTemplate(uid);
+    const currentTemplateId = url.get('uid');
+    if (currentTemplateId === uid) {
+      this.onClickItem({ key: templateIds[0] });
     }
   }
 
   getNewMenu = () => {
-    const { localStorage } = this.state;
-    const localChild = localStorage.map(key => (
+    const { templateIds } = this.state;
+    const localChild = templateIds.map(key => (
       <Item
         key={key}
         title={key}
@@ -108,7 +118,7 @@ export default class NewFileButton extends React.Component {
           <Button
             onClick={(e) => {
               e.stopPropagation();
-              this.onRemoveLocalStorage(key);
+              this.onRemoveUserTemplate(key);
             }}
             size="small"
             shape="circle"
@@ -121,7 +131,7 @@ export default class NewFileButton extends React.Component {
       <Menu
         style={{ width: 300, textAlign: 'center' }}
         onClick={this.onClickItem}
-        selectedKeys={[getURLData('uid')]}
+        selectedKeys={[url.get('uid')]}
       >
         <ItemGroup title={<FormattedMessage id="app.header.new-file.header" />} key="0">
           {localChild}

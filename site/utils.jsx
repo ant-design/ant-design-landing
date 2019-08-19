@@ -1,20 +1,11 @@
 import React from 'react';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import rootReducer from './edit-module/reducers';
 
 import tempData from './templates/template/element/template.config';
 import { isZhCN, getLocalizedPathname } from './theme/template/utils';
 
-export const store = createStore(rootReducer, applyMiddleware(thunk));
-
 export const isImg = /^http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w-./?%&=]*)?/;// /\.(gif|jpg|jpeg|png|svg|JPG|PNG|GIF|JPEG|SVG)$/;
 
 export const tagRep = /<\/?[a-zA-Z]+(\s+[a-zA-Z]+=".*")*>/g;
-
-export const getState = (state) => {
-  return state;
-};
 
 export function dataToArray(vars) {
   if (!vars && vars !== 0) {

@@ -1,3 +1,6 @@
+import { mergeEditDataToDefault, getDataSourceValue } from '../../utils';
+import tempData from '../../templates/template/element/template.config';
+
 // import { createLogger } from 'redux-logger';
 const worker = new Worker('./worker.js');
 
@@ -28,7 +31,6 @@ export function hasErrors(fieldsError) {
   );
 }
 
-
 export const getCurrentDom = (pos, data) => {
   const t = data.map((item) => {
     const rect = item.rect;
@@ -42,4 +44,16 @@ export const getCurrentDom = (pos, data) => {
     return null;
   }).filter(item => item);
   return t[t.length - 1];
+};
+
+export const getIdsAndCurrentData = (currentEditData, templateData, key) => {
+  const { id } = currentEditData;
+  const ids = id.split('-');
+  ids[1] = key;
+  const cid = ids[0].split('_')[0];
+  const tempDataSource = tempData[cid];
+  const newTemplateDataSource = mergeEditDataToDefault(templateData.data.config[ids[0]],
+    tempDataSource);
+  const currentEditTemplateData = getDataSourceValue(key, newTemplateDataSource);
+  return { ids, currentEditTemplateData };
 };

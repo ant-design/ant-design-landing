@@ -5,12 +5,14 @@ import CodeMirror from 'rc-editor-list/lib/components/common/CodeMirror';
 import { FormattedMessage } from 'react-intl';
 import 'codemirror/mode/javascript/javascript.js';
 
+import { saveJsZip, saveJSON } from '../saveJsZip';
 import { formatCode } from '../../utils';
 import { getNewHref, RemoveLocalStorage } from '../../../../utils';
-import {
-  saveData, userName, setTemplateData,
-} from '../../../../edit-module/actions';
-import { saveJsZip, saveJSON } from '../saveJsZip';
+import { saveData } from '../../../../shared/utils';
+import * as actions from '../../../../shared/redux/actions';
+import * as ls from '../../../../shared/localStorage';
+import { DEFAULT_USER_NAME } from '../../../../shared/constants';
+
 import NewFileButton from './NewFileButton';
 import HistoryButton from './HistoryButton';
 import PublishModal from './PublishModal';
@@ -59,7 +61,10 @@ class NavController extends React.PureComponent {
     this.setState({
       saveLoad: true,
     }, () => {
-      saveData(templateData || this.props.templateData, this.props.dispatch, (b) => {
+      saveData(templateData || this.props.templateData, (b) => {
+        const { dispatch } = this.props;
+        dispatch(actions.setTemplateData(templateData));
+
         if (b.code) {
           message.error(this.context.intl.formatMessage({ id: 'app.header.save.message.error' }));
         } else if (!cb) {
@@ -92,14 +97,15 @@ class NavController extends React.PureComponent {
     });
   }
 
+  // TODO: move this to localStorage.js?
   onRemoveAllLocalStorage = () => {
-    window.localStorage.getItem(userName).split(',').forEach((key) => {
-      if (!key) {
-        return;
-      }
-      window.localStorage.removeItem(key);
+    const templateIds = ls.getUserTemplateIds(DEFAULT_USER_NAME);
+    templateIds.forEach((id) => {
+      if (!id) return;
+      ls.removeTemplate(id);
     });
-    window.localStorage.removeItem(userName);
+    ls.removeUserTemplateIds(DEFAULT_USER_NAME);
+
     location.href = location.origin;
   }
 
@@ -135,7 +141,7 @@ class NavController extends React.PureComponent {
     const { code } = this.state;
     const { templateData, dispatch, currentEditData } = this.props;
     templateData.data = JSON.parse(code);
-    dispatch(setTemplateData(templateData));
+    dispatch(actions.setTemplateData(templateData));
     setTimeout(() => {
       if (currentEditData) {
         currentEditData.reRect();
@@ -233,7 +239,6 @@ class NavController extends React.PureComponent {
         <NewFileButton />
         <HistoryButton
           templateData={this.props.templateData}
-          dispatch={this.props.dispatch}
           reRect={currentEditData ? currentEditData.reRect : null}
         />
         <Modal
@@ -273,7 +278,6 @@ class NavController extends React.PureComponent {
           width={640}
           footer={null}
           location={this.props.location}
-          dispatch={this.props.dispatch}
           onCancel={this.onUploadCloud}
           templateData={this.props.templateData}
           onSave={this.onSave}

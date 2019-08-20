@@ -316,7 +316,7 @@ class EditStateController extends React.Component {
   }
 
   getCatcherDom = (rect, css) => {
-    if (rect.width) {
+    if (rect.width || rect.width === 0) {
       let editText;
       let editData;
       if (css === 'select') {
@@ -392,6 +392,7 @@ class EditStateController extends React.Component {
       editButton: editData && editData.split(','), // 文字与图片按钮配置
       openEditText: false,
     }, () => {
+      const { data } = this.state;
       this.props.dispatch(setCurrentData(
         {
           dom,
@@ -399,6 +400,7 @@ class EditStateController extends React.Component {
           id,
           reRect: this.reRect,
           iframe: this.state.iframe,
+          currentPopover: data && data.currentPopover,
         }
       ));
     });
@@ -468,7 +470,8 @@ class EditStateController extends React.Component {
     if (dom.getAttribute('data-key') && this.mouseCurrentData) {
       this.currentData = this.mouseCurrentData;
       const editData = this.currentData.item.getAttribute('data-edit');
-      if (editData && editData.indexOf('text') >= 0 && editData !== 'texty') {
+      if (editData && editData.indexOf('text') >= 0
+        && editData !== 'texty' && editData.indexOf('textAndImage') === -1) {
         this.editTextFunc();
       }
     }
@@ -478,6 +481,7 @@ class EditStateController extends React.Component {
     this.reRect();
     const { templateData } = this.props;
     const { template, style } = templateData.data;
+    const { iframe } = this.state;
     const config = templateData.data.config;
     const current = template.indexOf(key);
     switch (type) {
@@ -489,7 +493,15 @@ class EditStateController extends React.Component {
         break;
       default:
         template.splice(current, 1);
-        templateData.data.style = style.filter(item => item.cid !== key);
+        templateData.data.style = style.filter((item) => {
+          if (item.cid === key) {
+            const styleNode = iframe.document.getElementById(item.id);
+            if (styleNode) {
+              styleNode.parentNode.removeChild(styleNode);
+            }
+          }
+          return item.cid !== key;
+        });
         delete config[key];
         this.removeNavLinkData(templateData, key);
         break;

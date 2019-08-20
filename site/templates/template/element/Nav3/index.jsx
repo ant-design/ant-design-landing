@@ -66,7 +66,7 @@ class Header3 extends React.Component {
             title={(
               <div
                 {...a}
-                className={`header0-item-block ${a.className}`.trim()}
+                className={`header3-item-block ${a.className}`.trim()}
                 /* replace-start */
                 data-edit="textAndImage"
                 /* replace-end */
@@ -74,7 +74,7 @@ class Header3 extends React.Component {
                 {a.children.map(getChildrenToRender)}
               </div>
             )}
-            popupClassName="header0-item-child"
+            popupClassName="header3-item-child"
           >
             {subItem.map((($item, ii) => {
               const { children: childItem } = $item;
@@ -116,7 +116,7 @@ class Header3 extends React.Component {
         >
           <a
             {...a}
-            className={`header0-item-block ${a.className}`.trim()}
+            className={`header3-item-block ${a.className}`.trim()}
             /* replace-start */
             data-edit="linkA,textAndImage"
             /* replace-end */

@@ -27,20 +27,20 @@ export default class ChildComp extends React.Component {
     return mergeEditDataToDefault(templateData.data.config[dataId], tempData[id]);
   }
 
-  onListChange = (e, ids, currentData) => {
-    currentData.children = e.map((item) => {
-      return currentData.children.filter((node) => {
+  onListChange = (e, ids, currentData, childKey) => {
+    currentData[childKey] = e.map((item) => {
+      return currentData[childKey].filter((node) => {
         return node.name === item.key;
       })[0];
     });
     this.props.onChange(ids, currentData);
   }
 
-  onSlideDelete = (e, ids, currentData) => {
-    const children = currentData.children;
+  onSlideDelete = (e, ids, currentData, childKey) => {
+    const children = currentData[childKey];
     const i = children.indexOf(e);
     children.splice(i, 1);
-    currentData.children = children;
+    currentData[childKey] = children;
     /* currentData.children
       .map(node => (node === e ? { ...node, delete: true } : node)); */
     this.props.onChange(ids, currentData);
@@ -135,7 +135,7 @@ export default class ChildComp extends React.Component {
           <div className="sort-manage-delete">
             <Button
               onClick={() => {
-                this.onSlideDelete(item, ids, currentEditTemplateData);
+                this.onSlideDelete(item, ids, currentEditTemplateData, childKey);
               }}
               size="small"
               shape="circle"
@@ -166,7 +166,7 @@ export default class ChildComp extends React.Component {
                   </div>
                 )}
                 onChange={(e) => {
-                  this.onListChange(e, ids, currentEditTemplateData);
+                  this.onListChange(e, ids, currentEditTemplateData, childKey);
                 }}
               >
                 {childrenToRender}

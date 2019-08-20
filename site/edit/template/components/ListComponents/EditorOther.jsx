@@ -1,7 +1,7 @@
 import React from 'react';
 import { Collapse, Col, Radio, Switch, Row, Tooltip, Icon } from 'antd';
 import { FormattedMessage } from 'react-intl';
-import { isImg, deepCopy } from '../../../../utils';
+import { deepCopy } from '../../../../utils';
 import { setTemplateData } from '../../../../edit-module/actions';
 
 const Panel = Collapse.Panel;
@@ -189,13 +189,13 @@ class EditorOther extends React.PureComponent {
               <Col>
                 <div className="other-demo">
                   {
-                    item.demo.match(isImg)
-                      ? <img src={item.demo} width="100%" alt="img" draggable="false" />
-                      : (
+                    item.demo.match(/\.(mp4|webm|ogg)$/)
+                      ? (
                         <video src={item.demo} width="100%" height="100%" autoPlay loop>
                           <track kind="captions" />
                         </video>
                       )
+                      : <img src={item.demo} width="100%" alt="img" draggable="false" />
                   }
                 </div>
               </Col>

@@ -37,7 +37,7 @@ class EditorComp extends React.Component {
       cssString: currentEditCssString,
       // parentClassName,
       id: cb.id,
-      cid: currentEditData.id.split('-')[0],
+      cid: ids[0],
     };
     newTemplateData.data.style = (newTemplateData.data.style || []).filter(c => c.id !== cb.id);
     newTemplateData.data.style.push(data);
@@ -90,7 +90,10 @@ class EditorComp extends React.Component {
         </p>
       );
     }
+    const { id, currentPopover } = currentEditData;
+    const ids = id.split('-');
     const edit = currentEditData.dom.getAttribute('data-edit');
+    const isPopover = currentPopover.some(c => c.dataId === id);
     return (
       [
         <EditorChild edit={edit} {...this.props} key="child" onChange={this.onChildChange} />,
@@ -102,9 +105,10 @@ class EditorComp extends React.Component {
           funcData={funcData}
           isMobile={mediaStateSelect === 'Mobile'}
         />,
-        <Collapse key="csslist" bordered={false} defaultActiveKey="css" className="collapes-style-list">
+        <Collapse key="cssList" bordered={false} defaultActiveKey="css" className="collapse-style-list">
           <Panel header={<FormattedMessage id="app.edit.style.header" />} key="css">
             <EditorList
+              rootSelector={!isPopover ? `#${ids[0]}` : null}
               editorElem={currentEditData.dom}
               onChange={this.onChange}
               cssToDom={false} // 避免多次样式。

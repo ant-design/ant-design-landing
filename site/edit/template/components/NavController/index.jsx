@@ -61,10 +61,10 @@ class NavController extends React.PureComponent {
     this.setState({
       saveLoad: true,
     }, () => {
+      const data = templateData || this.props.templateData;
       saveData(templateData || this.props.templateData, (b) => {
         const { dispatch } = this.props;
-        dispatch(actions.setTemplateData(templateData));
-
+        dispatch(actions.setTemplateData(data));
         if (b.code) {
           message.error(this.context.intl.formatMessage({ id: 'app.header.save.message.error' }));
         } else if (!cb) {

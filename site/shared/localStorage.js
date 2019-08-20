@@ -22,7 +22,8 @@ export function setUserAuthState(userId, state) {
  */
 
 export function getUserTemplateIds(userId) {
-  return store.get(userId, []);
+  const value = store.get(userId, []);
+  return typeof value === 'string' ? value.split(',').filter(c => c) : value;
 }
 
 export function unshiftToUserTemplateIds(userId, tid) {

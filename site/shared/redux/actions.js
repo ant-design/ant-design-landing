@@ -5,8 +5,9 @@ export const getUserData = data => ({
   data,
 });
 
-export const createNewTemplate = () => ({
+export const createNewTemplate = data => ({
   type: CREATE_NEW_TEMPLATE,
+  data,
 });
 
 export const setTemplateData = data => ({

@@ -2,16 +2,19 @@ import React from 'react';
 import { Icon, message, Button, Input, Form } from 'antd';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
+
+import { hasErrors } from './utils';
+import { getNewHref } from '../../utils';
+import { mapStateToProps, logIn } from '../../shared/utils';
+import * as actions from '../../shared/redux/actions';
+
+import NewFileButton from './components/NavController/NewFileButton';
 import NavController from './components/NavController';
 import SideMenu from './components/SideMenu';
 import EditInfluence from './components/EditInfluence';
 import Iframe from './components/Iframe';
 import EditStageController from './components/EditStageController';
 import EditListController from './components/EditListController';
-import { getState, getNewHref } from '../../utils';
-import { hasErrors } from './utils';
-import { getUserData, loginIn } from '../../edit-module/actions';
-import NewFileButton from './components/NavController/NewFileButton';
 
 
 const FormItem = Form.Item;
@@ -23,7 +26,7 @@ class Layout extends React.PureComponent {
 
   componentWillMount() {
     const { dispatch } = this.props;
-    dispatch(getUserData());
+    dispatch(actions.getUserData());
   }
 
   componentDidUpdate() {
@@ -42,11 +45,12 @@ class Layout extends React.PureComponent {
     }, () => {
       form.validateFields((error, values) => {
         if (!error) {
-          loginIn(values.password, id, dispatch, (e) => {
+          logIn(values.password, id, (succeeded) => {
             this.setState({
               loading: false,
             }, () => {
-              if (e) {
+              if (succeeded) {
+                dispatch(actions.setUserData(true));
                 message.success('登入成功。');
               } else {
                 form.setFields({
@@ -168,4 +172,4 @@ class Layout extends React.PureComponent {
 }
 
 
-export default connect(getState)(Form.create()(Layout));
+export default connect(mapStateToProps)(Form.create()(Layout));

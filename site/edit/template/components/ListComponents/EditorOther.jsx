@@ -2,7 +2,7 @@ import React from 'react';
 import { Collapse, Col, Radio, Switch, Row, Tooltip, Icon } from 'antd';
 import { FormattedMessage } from 'react-intl';
 import { deepCopy } from '../../../../utils';
-import { setTemplateData } from '../../../../edit-module/actions';
+import * as actions from '../../../../shared/redux/actions';
 
 const Panel = Collapse.Panel;
 const RadioButton = Radio.Button;
@@ -94,7 +94,7 @@ class EditorOther extends React.PureComponent {
     } else {
       newTemplateData.data.other[type] = data;
     }
-    dispatch(setTemplateData(newTemplateData));
+    dispatch(actions.setTemplateData(newTemplateData));
   }
 
   getChildrenToRender = () => {

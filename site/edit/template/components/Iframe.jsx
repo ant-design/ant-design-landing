@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getUserData } from '../../../edit-module/actions';
-import { getState } from '../../../utils';
+
+import { mapStateToProps } from '../../../shared/utils';
+import * as actions from '../../../shared/redux/actions';
 
 class Iframe extends React.Component {
   componentWillReceiveProps(nextProps) {
@@ -20,7 +21,7 @@ class Iframe extends React.Component {
     if (templateData.type === 'success') {
       this.componentWillReceiveProps(this.props);
     } else {
-      dispatch(getUserData());
+      dispatch(actions.getUserData());
     }
   }
 
@@ -53,4 +54,4 @@ class Iframe extends React.Component {
   }
 }
 
-export default connect(getState)(Iframe);
+export default connect(mapStateToProps)(Iframe);

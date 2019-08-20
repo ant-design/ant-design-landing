@@ -3,15 +3,17 @@ import ReactDOM from 'react-dom';
 import { Icon, Button } from 'antd';
 import { FormattedMessage } from 'react-intl';
 import dragula from 'dragula';
-import Editor from './MediumEditor';
-import { setTemplateData, setCurrentData } from '../../../edit-module/actions';
+
 import { getCurrentDom } from '../utils';
 import { isImg, mergeEditDataToDefault, getDataSourceValue, mdId, objectEqual, getChildRect } from '../../../utils';
 import * as utils from '../../../theme/template/utils';
 import webData from '../template.config';
 import tempData from '../../../templates/template/element/template.config';
+import * as actions from '../../../shared/redux/actions';
+
 import EditButton from './StateComponents/EditButtonView';
 import SwitchSlideView from './StateComponents/SwitchSlideView';
+import Editor from './MediumEditor';
 
 class EditStateController extends React.Component {
   static defaultProps = {
@@ -141,7 +143,7 @@ class EditStateController extends React.Component {
       openEditText: false,
     }, () => {
       if (!noDispatch) {
-        this.props.dispatch(setCurrentData());
+        this.props.dispatch(actions.setCurrentData());
       }
     });
   }
@@ -215,7 +217,7 @@ class EditStateController extends React.Component {
     }
     if (isChange) {
       const { dispatch } = this.props;
-      dispatch(setTemplateData(templateData));
+      dispatch(actions.setTemplateData(templateData));
     } else {
       Object.keys(id).forEach((key) => {
         mdId[key] = id[key];
@@ -259,13 +261,13 @@ class EditStateController extends React.Component {
     });
   }
 
-  setTemplateConfigData = (text, noHistory) => {
+  setTemplateConfigData = (text, noHistory = false) => {
     const data = this.props.templateData;
     data.noHistory = noHistory;
     const ids = this.currentData.dataId.split('-');
     const t = getDataSourceValue(ids[1], data.data.config, [ids[0], 'dataSource']);
     t.children = text;
-    this.props.dispatch(setTemplateData(data));
+    this.props.dispatch(actions.setTemplateData(data));
   }
 
   setTemplateConfigObject = (obj) => {
@@ -282,7 +284,7 @@ class EditStateController extends React.Component {
     } else {
       t[endKey] = obj;
     }
-    this.props.dispatch(setTemplateData(data));
+    this.props.dispatch(actions.setTemplateData(data));
   }
 
   editTextHandleChange = (text) => {
@@ -294,7 +296,7 @@ class EditStateController extends React.Component {
   editTextHandleBlur = () => {
     const { templateData, dispatch } = this.props;
     // history 实现再刷一次
-    dispatch(setTemplateData(templateData));
+    dispatch(actions.setTemplateData(templateData));
   }
 
   getDataSourceChildren = (_t, id) => {
@@ -393,7 +395,7 @@ class EditStateController extends React.Component {
       openEditText: false,
     }, () => {
       const { data } = this.state;
-      this.props.dispatch(setCurrentData(
+      this.props.dispatch(actions.setCurrentData(
         {
           dom,
           parentDom: dom.parentNode,
@@ -422,7 +424,7 @@ class EditStateController extends React.Component {
       this.addNavLinkData(templateData);
     }
     const { dispatch } = this.props;
-    dispatch(setTemplateData(templateData));
+    dispatch(actions.setTemplateData(templateData));
   };
 
   onClick = (e) => {
@@ -510,10 +512,10 @@ class EditStateController extends React.Component {
       this.setState({
         openEditText: false,
       }, () => {
-        this.props.dispatch(setTemplateData(templateData));
+        this.props.dispatch(actions.setTemplateData(templateData));
       });
     } else {
-      this.props.dispatch(setTemplateData(templateData));
+      this.props.dispatch(actions.setTemplateData(templateData));
     }
   }
 

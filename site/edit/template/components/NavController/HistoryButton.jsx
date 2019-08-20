@@ -2,15 +2,16 @@ import React from 'react';
 import { Tooltip, Icon } from 'antd';
 import { FormattedMessage } from 'react-intl';
 import classnames from 'classnames';
+import { connect } from 'react-redux';
 
-import { setTemplateData } from '../../../../edit-module/actions';
-import { getRecord, getCurrentDataLocal } from '../../../../edit-module/record';
 import { objectEqual } from '../../../../utils';
+import { getHistory, getCurrentData } from '../../../../shared/localStorage';
+import * as actions from '../../../../shared/redux/actions';
 
 class HistoryButton extends React.Component {
   getCurrentDataIndex = (data) => {
     return data.findIndex((item) => {
-      return objectEqual(item, getCurrentDataLocal());
+      return objectEqual(item, getCurrentData());
     });
   }
 
@@ -18,19 +19,23 @@ class HistoryButton extends React.Component {
     if (e) {
       e.target.focus();
     }
-    const record = getRecord();
-    const current = this.getCurrentDataIndex(record);
-    if ((!current && num === -1) || (current >= record.length - 1 && num === 1)) {
+
+    const history = getHistory();
+    const current = this.getCurrentDataIndex(history);
+    if ((!current && num === -1) || (current >= history.length - 1 && num === 1)) {
       return;
     }
-    const currentData = record[current + num];
+    const currentData = history[current + num];
+
     const { reRect, dispatch } = this.props;
-    dispatch(setTemplateData({
+
+    dispatch(actions.setTemplateData({
       data: currentData.attributes,
       uid: currentData.id,
       date: currentData.date,
       noHistory: 'handle',
     }));
+
     if (reRect) {
       reRect();
     }
@@ -57,15 +62,16 @@ class HistoryButton extends React.Component {
   }
 
   render() {
-    const record = getRecord();
-    const undoBool = record.length > 1 && this.getCurrentDataIndex(record) > 0;
+    const history = getHistory();
+    const undoBool = history.length > 1 && this.getCurrentDataIndex(history) > 0;
     const undoClassName = classnames('undo', {
       disabled: !undoBool,
     });
-    const redoBool = record.length > 1 && record.length - 1 - this.getCurrentDataIndex(record) > 0;
+    const redoBool = history.length > 1 && history.length - 1 - this.getCurrentDataIndex(history) > 0;
     const redoClassName = classnames('redo', {
       disabled: !redoBool,
     });
+
     return (
       <ul className="history-button-wrapper">
         <li className={undoClassName}>
@@ -83,4 +89,4 @@ class HistoryButton extends React.Component {
   }
 }
 
-export default HistoryButton;
+export default connect()(HistoryButton);

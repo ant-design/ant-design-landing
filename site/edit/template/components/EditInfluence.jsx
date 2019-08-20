@@ -1,13 +1,14 @@
 import React from 'react';
 import { Select, Icon } from 'antd';
-import { setCurrentMediaData } from '../../../edit-module/actions';
+
+import * as actions from '../../../shared/redux/actions';
 
 const Option = Select.Option;
 
 class EditInfluence extends React.Component {
   onChange = (v) => {
     const { dispatch } = this.props;
-    dispatch(setCurrentMediaData(v));
+    dispatch(actions.setCurrentMediaData(v));
   }
 
   render() {

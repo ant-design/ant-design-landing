@@ -89,9 +89,8 @@ export function getCurrentTemplateId(hash, data) {
 export function updateHistory(template) {
   const { noHistory } = template;
   if (!noHistory || noHistory === 'handle') {
-    delete template.noHistory;
-
     template.date = template.date || Date.now();
+    delete template.noHistory;
     if (!noHistory) {
       ls.removeHistoryAfter(ls.getCurrentData());
       ls.pushToHistory(template);

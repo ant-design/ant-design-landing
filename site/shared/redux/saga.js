@@ -72,7 +72,7 @@ function* handleGetUserData(action) {
       userIsLogin: ls.getUserAuthState(userId),
     });
 
-    // 没进 dataToLocalStorage， 手动给 record;
+    // 没进 dataToLocalStorage， 手动 push history;
     localTemplate.date = localTemplate.date || Date.now();
     ls.saveCurrentData(localTemplate);
     ls.pushToHistory(localTemplate);

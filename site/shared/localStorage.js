@@ -81,7 +81,7 @@ export const removeHistoryAfter = (data) => {
     return;
   }
 
-  store.set(LOCAL_STORAGE_HISTORY_KEY, history.slice(0, index));
+  store.set(LOCAL_STORAGE_HISTORY_KEY, history.slice(0, index + 1));
 };
 
 export const resetHistory = () => {
@@ -96,4 +96,4 @@ export const saveCurrentData = (data) => {
   store.set(LOCAL_STORAGE_CURRENT_DATA_KEY, data);
 };
 
-export const getCurrentData = () => store.get(LOCAL_STORAGE_CURRENT_DATA_KEY, '');
+export const getCurrentData = () => store.get(LOCAL_STORAGE_CURRENT_DATA_KEY, {});

@@ -261,7 +261,7 @@ class EditStateController extends React.Component {
     });
   }
 
-  setTemplateConfigData = (text, noHistory) => {
+  setTemplateConfigData = (text, noHistory = false) => {
     const data = this.props.templateData;
     data.noHistory = noHistory;
     const ids = this.currentData.dataId.split('-');

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React from 'react';
 import { Icon, message, Button, Modal, Popconfirm, Tooltip } from 'antd';
 import PropTypes from 'prop-types';
@@ -61,18 +62,20 @@ class NavController extends React.PureComponent {
     this.setState({
       saveLoad: true,
     }, () => {
-      const data = templateData || this.props.templateData;
-      saveData(templateData || this.props.templateData, (b) => {
+      const finalTemplateData = templateData || this.props.templateData;
+      saveData(finalTemplateData).then(() => {
         const { dispatch } = this.props;
-        dispatch(actions.setTemplateData(data));
-        if (b.code) {
-          message.error(this.context.intl.formatMessage({ id: 'app.header.save.message.error' }));
-        } else if (!cb) {
+        dispatch(actions.setTemplateData(finalTemplateData));
+        if (!cb) {
           message.success(this.context.intl.formatMessage({ id: 'app.header.save.message' }));
         } else {
           cb();
         }
         this.setState({ saveLoad: false });
+      }).catch((error) => {
+        console.error(JSON.stringify(error));
+        message.error(this.context.intl.formatMessage({ id: 'app.header.save.message.error' }));
+        cb();
       });
     });
   }

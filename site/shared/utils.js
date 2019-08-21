@@ -27,53 +27,53 @@ export const xssFunc = (data) => {
 };
 
 export const saveFile = (templateData) => {
-  return new Promise((resolve, reject) => {
-    const { uid, data } = templateData;
-    if (data.config) {
-      xssFunc(data.config);
-    }
-    const templateObject = AV.Object.createWithoutData(DEFAULT_FILE_NAME, uid);
-    Object.keys(data).forEach((key) => {
-      templateObject.set(key, data[key]);
-    });
-    templateObject.save().then(resolve, reject);
+  const { uid, data } = templateData;
+  if (data.config) {
+    xssFunc(data.config);
+  }
+  const templateObject = AV.Object.createWithoutData(DEFAULT_FILE_NAME, uid);
+  Object.keys(data).forEach((key) => {
+    templateObject.set(key, data[key]);
   });
+  return templateObject.save();
 };
 
 export const saveData = (templateData) => {
-  return new Promise((resolve, reject) => {
-    const { data: { user } } = templateData;
-    let userData;
-    if (user && !user.userId) {
-      const password = user.password;
-      delete user.password;
-      const UserObject = AV.Object.extend(DEFAULT_USER_AV_NAME);
-      userData = new UserObject();
-      userData.set('username', templateData.uid);
-      userData.set('password', password);
-      userData.save().then((obj) => {
-        user.userId = obj.id;
-        ls.setUserAuthState(obj.id, true);
-        saveFile(templateData).then(resolve, reject);
-      }, reject);
-    } else if (user && user.userId && user.password) {
-      userData = AV.Object.createWithoutData(DEFAULT_USER_AV_NAME, user.userId);
-      userData.set('password', user.password);
-      delete user.password;
-      userData.save().then(() => {
-        saveFile(templateData).then(resolve, reject);
-      });
-    } else if (user && user.delete) {
-      userData = AV.Object.createWithoutData(DEFAULT_USER_AV_NAME, user.userId);
-      userData.destroy().then(() => {
-        ls.setUserAuthState(user.userId, undefined);
-        delete templateData.data.user;
-        saveFile(templateData).then(resolve, reject);
-      }, reject);
-    } else {
-      saveFile(templateData).then(resolve, reject);
-    }
-  });
+  const { data: { user } } = templateData;
+  let userData;
+  if (user && !user.userId) {
+    const password = user.password;
+    delete user.password;
+    const UserObject = AV.Object.extend(DEFAULT_USER_AV_NAME);
+    userData = new UserObject();
+    userData.set('username', templateData.uid);
+    userData.set('password', password);
+    return userData.save().then((obj) => {
+      user.userId = obj.id;
+      ls.setUserAuthState(obj.id, true);
+      return saveFile(templateData);
+    });
+  }
+
+  if (user && user.userId && user.password) {
+    userData = AV.Object.createWithoutData(DEFAULT_USER_AV_NAME, user.userId);
+    userData.set('password', user.password);
+    delete user.password;
+    return userData.save().then(() => {
+      return saveFile(templateData);
+    });
+  }
+
+  if (user && user.delete) {
+    userData = AV.Object.createWithoutData(DEFAULT_USER_AV_NAME, user.userId);
+    userData.destroy().then(() => {
+      ls.setUserAuthState(user.userId, undefined);
+      delete templateData.data.user;
+      return saveFile(templateData);
+    });
+  }
+
+  return saveFile(templateData);
 };
 
 export function getCurrentTemplateId(hash, data) {

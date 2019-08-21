@@ -38,6 +38,7 @@ function* handleGetUserData(action) {
     url.update('cloneId');
     if (d) {
       yield put(actions.getUserData(d));
+      return;
     }
     console.warn(`error: cloneId(${cloneId}) Incorrect, please check it.`);
   }
@@ -54,7 +55,7 @@ function* handleGetUserData(action) {
   }
 
   if (!uid) {
-    yield put(actions.createNewTemplate());
+    yield put(actions.createNewTemplate(data));
     return;
   }
 
@@ -122,9 +123,10 @@ function* handleGetUserData(action) {
   }
 }
 
-function* handleCreateNewTemplate() {
+function* handleCreateNewTemplate(action) {
+  const { data } = action;
   try {
-    const template = yield newTemplate(DEFAULT_USER_NAME);
+    const template = yield newTemplate(DEFAULT_USER_NAME, data);
 
     yield put({
       type: POST_TYPE.POST_SUCCESS,

@@ -26,7 +26,7 @@ export const xssFunc = (data) => {
   });
 };
 
-export const saveFile = (templateData, callback) => {
+export const saveFile = (templateData) => {
   const { uid, data } = templateData;
   if (data.config) {
     xssFunc(data.config);
@@ -35,10 +35,10 @@ export const saveFile = (templateData, callback) => {
   Object.keys(data).forEach((key) => {
     templateObject.set(key, data[key]);
   });
-  templateObject.save().then(callback, callback);
+  return templateObject.save();
 };
 
-export const saveData = (templateData, callback) => {
+export const saveData = (templateData) => {
   const { data: { user } } = templateData;
   let userData;
   if (user && !user.userId) {
@@ -48,32 +48,32 @@ export const saveData = (templateData, callback) => {
     userData = new UserObject();
     userData.set('username', templateData.uid);
     userData.set('password', password);
-    userData.save().then((obj) => {
+    return userData.save().then((obj) => {
       user.userId = obj.id;
       ls.setUserAuthState(obj.id, true);
-      saveFile(templateData, callback);
-    }, (error) => {
-      console.error(JSON.stringify(error));
+      return saveFile(templateData);
     });
-  } else if (user && user.userId && user.password) {
+  }
+
+  if (user && user.userId && user.password) {
     userData = AV.Object.createWithoutData(DEFAULT_USER_AV_NAME, user.userId);
     userData.set('password', user.password);
     delete user.password;
-    userData.save().then(() => {
-      saveFile(templateData, callback);
+    return userData.save().then(() => {
+      return saveFile(templateData);
     });
-  } else if (user && user.delete) {
+  }
+
+  if (user && user.delete) {
     userData = AV.Object.createWithoutData(DEFAULT_USER_AV_NAME, user.userId);
     userData.destroy().then(() => {
       ls.setUserAuthState(user.userId, undefined);
       delete templateData.data.user;
-      saveFile(templateData, callback);
-    }, (error) => {
-      console.error(JSON.stringify(error));
+      return saveFile(templateData);
     });
-  } else {
-    saveFile(templateData, callback);
   }
+
+  return saveFile(templateData);
 };
 
 export function getCurrentTemplateId(hash, data) {

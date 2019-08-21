@@ -86,6 +86,9 @@ class Banner extends React.PureComponent {
                 type="ghost"
                 key="button"
                 {...button}
+                /* replace-start */
+                data-edit="link,text"
+                /* replace-end */
               >
                 {
                   /* replace-start-value = button.children */

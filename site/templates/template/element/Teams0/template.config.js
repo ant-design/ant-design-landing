@@ -10,7 +10,6 @@ export default {
   dataSource: {
     wrapper: {
       className: 'home-page-wrapper teams0-wrapper',
-
     },
     OverPack: {
       playScale: 0.3,

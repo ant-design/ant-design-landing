@@ -10,71 +10,57 @@ import './index.less';
 /* replace-end */
 
 class Content extends React.PureComponent {
-  getBlockChildren = data => data.map((item, i) => {
-    const children = item.children;
-    return (
-      <Col
-        key={i.toString()}
-        {...item}
-        /* replace-start */
-        data-edit="Col"
-      /* replace-end */
-      >
-        <div {...children.icon}>
-          <img src={children.icon.children} width="100%" alt="img" />
-        </div>
-        <h3 {...children.title}>
-          {
-            /* replace-start-value = children.title.children */
-            React.createElement('span', { dangerouslySetInnerHTML: { __html: children.title.children } })
-            /* replace-end-value */
-          }
-        </h3>
-        <div {...children.content}>
-          {
-            /* replace-start-value = children.content.children */
-            React.createElement('span', { dangerouslySetInnerHTML: { __html: children.content.children } })
-            /* replace-end-value */
-          }
-        </div>
-      </Col>
-    );
-  });
-
   render() {
-    const { ...props } = this.props;
-    const { dataSource } = props;
-    delete props.dataSource;
-    delete props.isMobile;
-    const listChildren = this.getBlockChildren(dataSource.block.children);
+    const { dataSource, isMobile, ...props } = this.props;
+    const { wrapper, titleWrapper, page, OverPack: overPackData, childWrapper } = dataSource;
     return (
       <div
         {...props}
-        {...dataSource.wrapper}
+        {...wrapper}
       >
-        <div {...dataSource.page}>
+        <div {...page}>
           <div
-            {...dataSource.titleWrapper}
+            {...titleWrapper}
             /* replace-start */
             data-edit="titleWrapper"
-            /* replace-end */
+          /* replace-end */
           >
             {
-              dataSource.titleWrapper.children.map(getChildrenToRender)
+              titleWrapper.children.map(getChildrenToRender)
             }
           </div>
-          <OverPack {...dataSource.OverPack}>
+          <OverPack {...overPackData}>
             <QueueAnim
               type="bottom"
               key="block"
               leaveReverse
-              {...dataSource.block}
               component={Row}
+              componentProps={childWrapper}
               /* replace-start */
               data-edit="Row"
             /* replace-end */
             >
-              {listChildren}
+              {childWrapper.children.map((block, i) => {
+                const { children: item, ...blockProps } = block;
+                return (
+                  <Col
+                    key={i.toString()}
+                    {...blockProps}
+                    /* replace-start */
+                    data-edit="Col"
+                  /* replace-end */
+                  >
+                    <div
+                      {...item}
+                      /* replace-start */
+                      data-edit="childWrapper"
+                    /* replace-end */
+                    >
+                      {item.children.map(getChildrenToRender)}
+                    </div>
+                  </Col>
+                );
+              })}
             </QueueAnim>
           </OverPack>
         </div>

@@ -1,4 +1,5 @@
 import 'rc-drawer/assets/index.css';
+import 'antd/lib/auto-complete/style/index.css';
 import 'medium-editor/dist/css/medium-editor.css';
 import 'medium-editor/dist/css/themes/default.css';
 // import 'rc-editor-list/assets/index.css';

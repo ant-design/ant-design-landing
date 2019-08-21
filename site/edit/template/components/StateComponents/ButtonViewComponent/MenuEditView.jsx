@@ -1,11 +1,15 @@
 import React from 'react';
-import { Button, Input, Icon, Popover, Row, Col, Switch } from 'antd';
+import { Button, Input, Icon, Popover, Row, Col } from 'antd';
 import { FormattedMessage } from 'react-intl';
 import { getRandomKey } from 'rc-editor-list/lib/utils';
 import { connect } from 'react-redux';
+
+import { deepCopy } from '../../../../../utils';
+import { getIdsAndCurrentData } from '../../../utils';
+import { mapStateToProps } from '../../../../../shared/utils';
+import * as actions from '../../../../../shared/redux/actions';
+
 import ListSort from '../ListSort';
-import { getState, deepCopy } from '../../../../../utils';
-import { getIdsAndCurrentData, onChildChange } from './EditViewUtils';
 
 class MenuEditView extends React.PureComponent {
   onAdd = (ids, currentData) => {
@@ -13,7 +17,13 @@ class MenuEditView extends React.PureComponent {
     delete newData.delete;
     newData.name = `${newData.name.split('~')[0].replace(/[0-9]/ig, '')}~${getRandomKey()}`;
     currentData.children.push(newData);
-    onChildChange(this.props.dispatch, this.props.templateData, ids, currentData);
+
+    const { dispatch, templateData } = this.props;
+    dispatch(actions.changeChild({
+      templateData,
+      ids,
+      currentData,
+    }));
   }
 
   onSlideDelete = (e, ids, currentData) => {
@@ -23,17 +33,22 @@ class MenuEditView extends React.PureComponent {
     currentData.children = children;
     /* currentData.children = currentData.children
       .map(node => (node === e ? { ...node, delete: true } : node)); */
-    onChildChange(this.props.dispatch, this.props.templateData, ids, currentData);
+    const { dispatch, templateData } = this.props;
+    dispatch(actions.changeChild({
+      templateData,
+      ids,
+      currentData,
+    }));
   }
 
-  onValueChange = (e, i, key, ids, currentData, isLink) => {
-    if (isLink) {
-      currentData.children[i][key] = e;
-    } else {
-      const c = e ? '_black' : '';
-      currentData.children[i].a[key] = key === 'target' ? c : e;
-    }
-    onChildChange(this.props.dispatch, this.props.templateData, ids, currentData);
+  onValueChange = (e, i, key, ids, currentData) => {
+    currentData.children[i][key] = e;
+    const { dispatch, templateData } = this.props;
+    dispatch(actions.changeChild({
+      templateData,
+      ids,
+      currentData,
+    }));
   }
 
   onListChange = (e, ids, currentData) => {
@@ -42,26 +57,30 @@ class MenuEditView extends React.PureComponent {
         return node.name === item.key;
       })[0];
     });
-    onChildChange(this.props.dispatch, this.props.templateData, ids, currentData);
+    const { dispatch, templateData } = this.props;
+    dispatch(actions.changeChild({
+      templateData,
+      ids,
+      currentData,
+    }));
   }
 
   render() {
     const { currentEditData, templateData } = this.props;
-    const { ids, currentEditTemplateData } = getIdsAndCurrentData(currentEditData, templateData, 'Menu');
+    const { ids, currentEditTemplateData } = getIdsAndCurrentData(currentEditData, templateData, 'LinkMenu');
     if (!currentEditTemplateData.children) {
       return null;
     }
     const templateIds = templateData.data.template;// .filter(key => !key.match(/Nav|Footer/ig));
-    let isLink;
     const childrenToRender = currentEditTemplateData.children.filter(c => c && !c.delete).map((item, i) => {
-      isLink = !!item.to;
+      // 只给 link 使用
       return (
         <div key={item.name} className="sort-manage">
           <div className="sort-manage-name">
             <Input
-              defaultValue={isLink ? item.children : item.a.children}
+              defaultValue={item.children}
               onChange={(e) => {
-                this.onValueChange(e.target.value, i, 'children', ids, currentEditTemplateData, isLink);
+                this.onValueChange(e.target.value, i, 'children', ids, currentEditTemplateData);
               }}
             />
           </div>
@@ -78,27 +97,12 @@ class MenuEditView extends React.PureComponent {
                     <Col span={16}>
                       <Input
                         onChange={(e) => {
-                          this.onValueChange(e.target.value, i, isLink ? 'to' : 'href', ids, currentEditTemplateData, isLink);
+                          this.onValueChange(e.target.value, i, 'to', ids, currentEditTemplateData);
                         }}
-                        defaultValue={isLink ? item.to : item.a.href}
+                        defaultValue={item.to}
                       />
                     </Col>
                   </Row>
-                  {!isLink && (
-                    <Row style={{ marginTop: 16 }}>
-                      <Col span={8}>
-                        <FormattedMessage id="app.state.link.blank" />
-                      </Col>
-                      <Col span={16}>
-                        <Switch size="small"
-                          checked={!!item.a.target}
-                          onChange={(e) => {
-                            this.onValueChange(e, i, 'target', ids, currentEditTemplateData);
-                          }}
-                        />
-                      </Col>
-                    </Row>
-                  )}
                 </div>
               )}
               trigger="click"
@@ -126,17 +130,15 @@ class MenuEditView extends React.PureComponent {
     });
     return (
       <div>
-        {isLink && (
-          <div style={{ marginBottom: 16 }}>
-            <Icon type="exclamation-circle" theme="outlined" />
-            {' '}
-            <FormattedMessage id="app.state.menu.type-link.remark" />
-            <br />
-            <FormattedMessage id="app.state.menu.type-link.current" />
-            <br />
-            {templateIds.join(', ')}
-          </div>
-        )}
+        <div style={{ marginBottom: 16 }}>
+          <Icon type="exclamation-circle" theme="outlined" />
+          {' '}
+          <FormattedMessage id="app.state.menu.type-link.remark" />
+          <br />
+          <FormattedMessage id="app.state.menu.type-link.current" />
+          <br />
+          {templateIds.join(', ')}
+        </div>
         <ListSort
           dragClassName="list-drag-selected"
           className="sort-manage-list"
@@ -168,4 +170,4 @@ class MenuEditView extends React.PureComponent {
   }
 }
 
-export default connect(getState)(MenuEditView);
+export default connect(mapStateToProps)(MenuEditView);

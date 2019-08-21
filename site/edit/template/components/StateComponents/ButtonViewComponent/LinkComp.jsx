@@ -16,51 +16,54 @@ export default class LinkComp extends React.Component {
   }
 
   render() {
-    const { editData } = this.props;
+    const { editData, type } = this.props;
+    const isButton = type === 'link';
     return (
       <Popover
         placement="bottomRight"
         title={<FormattedMessage id="app.state.link.header" />}
         content={(
           <div>
-            <Row>
-              <Col span={8} style={{ textAlign: 'right', paddingRight: '8px' }}>
-                <FormattedMessage id="app.state.link.type" />
-              </Col>
-              <Col span={16}>
-                <Select
-                  onChange={(value) => {
-                    this.onValueChange(value, 'type');
-                  }}
-                  size="small"
-                  defaultValue={editData.type}
-                  style={{ width: '100%' }}
-                >
-                  <Option value="default">default</Option>
-                  <Option value="primary">primary</Option>
-                  <Option value="dashed">dashed</Option>
-                </Select>
-              </Col>
-            </Row>
-            <Row style={{ marginTop: 16 }}>
-              <Col span={8} style={{ textAlign: 'right', paddingRight: '8px' }}>
-                <FormattedMessage id="app.state.link.icon" />
-              </Col>
-              <Col span={14}>
-                <Input
-                  size="small"
-                  onChange={(e) => {
-                    this.onValueChange(e.target.value, 'icon');
-                  }}
-                  defaultValue={editData.icon}
-                />
-              </Col>
-              <Col span={2} style={{ lineHeight: '24px', textAlign: 'center' }}>
-                <Tooltip title={<FormattedMessage id="app.state.link.icon.remarks" />}>
-                  <Icon type="question-circle" />
-                </Tooltip>
-              </Col>
-            </Row>
+            {isButton && [
+              <Row key="1">
+                <Col span={8} style={{ textAlign: 'right', paddingRight: '8px' }}>
+                  <FormattedMessage id="app.state.link.type" />
+                </Col>
+                <Col span={16}>
+                  <Select
+                    onChange={(value) => {
+                      this.onValueChange(value, 'type');
+                    }}
+                    size="small"
+                    defaultValue={editData.type}
+                    style={{ width: '100%' }}
+                  >
+                    <Option value="default">default</Option>
+                    <Option value="primary">primary</Option>
+                    <Option value="dashed">dashed</Option>
+                  </Select>
+                </Col>
+              </Row>,
+              <Row style={{ marginTop: 16 }} key="2">
+                <Col span={8} style={{ textAlign: 'right', paddingRight: '8px' }}>
+                  <FormattedMessage id="app.state.link.icon" />
+                </Col>
+                <Col span={14}>
+                  <Input
+                    size="small"
+                    onBlur={(e) => {
+                      this.onValueChange(e.target.value, 'icon');
+                    }}
+                    defaultValue={editData.icon}
+                  />
+                </Col>
+                <Col span={2} style={{ lineHeight: '24px', textAlign: 'center' }}>
+                  <Tooltip title={<FormattedMessage id="app.state.link.icon.remarks" />}>
+                    <Icon type="question-circle" />
+                  </Tooltip>
+                </Col>
+              </Row>,
+            ]}
             <Row style={{ marginTop: 16 }}>
               <Col span={8} style={{ textAlign: 'right', paddingRight: '8px' }}>
                 <FormattedMessage id="app.state.link.url" />
@@ -68,7 +71,7 @@ export default class LinkComp extends React.Component {
               <Col span={16}>
                 <Input
                   size="small"
-                  onChange={(e) => {
+                  onBlur={(e) => {
                     this.onValueChange(e.target.value, 'href');
                   }}
                   defaultValue={editData.href}

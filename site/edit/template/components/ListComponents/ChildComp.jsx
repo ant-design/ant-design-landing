@@ -14,9 +14,9 @@ const addDefault = {
   childWrapper: ['title', 'content', 'image', 'button'],
 };
 
-const noChildProps = ['BannerAnim', 'Menu', 'Content'];
+const noChildProps = ['BannerAnim', 'Content'];
 
-export default class ChildComp extends React.PureComponent {
+export default class ChildComp extends React.Component {
   editAddDefault = null;
 
   editType = null;
@@ -27,20 +27,20 @@ export default class ChildComp extends React.PureComponent {
     return mergeEditDataToDefault(templateData.data.config[dataId], tempData[id]);
   }
 
-  onListChange = (e, ids, currentData) => {
-    currentData.children = e.map((item) => {
-      return currentData.children.filter((node) => {
+  onListChange = (e, ids, currentData, childKey) => {
+    currentData[childKey] = e.map((item) => {
+      return currentData[childKey].filter((node) => {
         return node.name === item.key;
       })[0];
     });
     this.props.onChange(ids, currentData);
   }
 
-  onSlideDelete = (e, ids, currentData) => {
-    const children = currentData.children;
+  onSlideDelete = (e, ids, currentData, childKey) => {
+    const children = currentData[childKey];
     const i = children.indexOf(e);
     children.splice(i, 1);
-    currentData.children = children;
+    currentData[childKey] = children;
     /* currentData.children
       .map(node => (node === e ? { ...node, delete: true } : node)); */
     this.props.onChange(ids, currentData);
@@ -79,7 +79,7 @@ export default class ChildComp extends React.PureComponent {
     const { edit, currentEditData, templateData } = this.props;
     const currentEditArray = edit ? edit.split(',') : [];
     const isNoShow = currentEditArray.some(c => noChildProps.indexOf(c) >= 0);
-    const { id } = currentEditData;
+    const { id, parentDom } = currentEditData;
     const ids = id.split('-');
     const cid = ids[0].split('_')[0];
     const tempDataSource = tempData[cid];
@@ -93,24 +93,40 @@ export default class ChildComp extends React.PureComponent {
       return null;
     }
     this.editAddDefault = null;
-    currentEditArray.forEach((c) => {
-      if (addDefault[c]) {
-        this.editAddDefault = addDefault[c];
-      }
-    });
-
+    let childKey = 'children';
+    // 子级父级都是数组时，显示父级数组结构。
     if (parentIsArray) {
       idChildArray.splice(idChildArray.length - 1, 1);
-      idChildArray.splice(idChildArray.length - 1, 1);
-      idChildArray.forEach((c) => {
+      childKey = idChildArray.splice(idChildArray.length - 1, 1)[0];
+
+      if (!parentDom) {
+        return null;
+      }
+      const parentEdit = parentDom.getAttribute('data-edit');
+      if (parentEdit) {
+        parentEdit.split(',').forEach((c) => {
+          if (addDefault[c.trim()]) {
+            this.editAddDefault = addDefault[c];
+          }
+        });
+      } else {
+        idChildArray.forEach((c) => {
+          if (addDefault[c]) {
+            this.editAddDefault = addDefault[c];
+          }
+        });
+      }
+
+      ids[1] = idChildArray.join('&');
+      currentEditTemplateData = getDataSourceValue(ids[1], newTempDataSource);
+    } else {
+      currentEditArray.forEach((c) => {
         if (addDefault[c]) {
           this.editAddDefault = addDefault[c];
         }
       });
-      ids[1] = idChildArray.join('&');
-      currentEditTemplateData = getDataSourceValue(ids[1], newTempDataSource);
     }
-    const childrenToRender = currentEditTemplateData.children.filter(c => c && !c.delete).map((item) => {
+    const childrenToRender = currentEditTemplateData[childKey].filter(c => c && !c.delete).map((item) => {
       return (
         <div key={item.name} className="sort-manage">
           <div className="sort-manage-name">
@@ -119,12 +135,12 @@ export default class ChildComp extends React.PureComponent {
           <div className="sort-manage-delete">
             <Button
               onClick={() => {
-                this.onSlideDelete(item, ids, currentEditTemplateData);
+                this.onSlideDelete(item, ids, currentEditTemplateData, childKey);
               }}
               size="small"
               shape="circle"
               icon="delete"
-              disabled={currentEditTemplateData.children.length === 1}
+              disabled={currentEditTemplateData[childKey].length === 1}
             />
           </div>
         </div>
@@ -150,7 +166,7 @@ export default class ChildComp extends React.PureComponent {
                   </div>
                 )}
                 onChange={(e) => {
-                  this.onListChange(e, ids, currentEditTemplateData);
+                  this.onListChange(e, ids, currentEditTemplateData, childKey);
                 }}
               >
                 {childrenToRender}

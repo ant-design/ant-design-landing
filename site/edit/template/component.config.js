@@ -116,13 +116,64 @@ export default {
       remark: '出场时是否播放子级的出场动画',
     },
   }, */
+  Carousel: {
+    autoplay: {
+      name: <FormattedMessage id="app.edit.banner-anim.auto-play" />,
+      type: 'switch',
+      value: false,
+    },
+    dots: {
+      name: 'Point',
+      type: 'switch',
+      value: false,
+    },
+  },
   Menu: {
     open: {
       name: <FormattedMessage id="app.edit.menu.open" />,
       type: 'switch',
       value: false,
+      isMobile: true,
       func: true,
-      remark: <FormattedMessage id="app.edit.menu.open" />,
+      remark: <FormattedMessage id="app.edit.menu.open.remark" />,
+    },
+    childMenu: {
+      name: <FormattedMessage id="app.edit.menu.child" />,
+      type: 'menuChild',
+      value: null,
+      parentKey: 'Menu',
+      remark: <FormattedMessage id="app.edit.menu.child.remark" />,
+      defaultData: [
+        {
+          className: 'item-sub',
+          children: {
+            className: 'item-sub-item',
+            children: [
+              {
+                name: 'image0',
+                className: 'item-image',
+                children: 'https://gw.alipayobjects.com/zos/rmsportal/ruHbkzzMKShUpDYMEmHM.svg',
+              },
+              {
+                name: 'title',
+                className: 'item-title',
+                children: 'Ant Design',
+              },
+              {
+                name: 'content',
+                className: 'item-content',
+                children: '企业级 UI 设计体系',
+              },
+            ],
+          },
+        },
+      ],
+    },
+    currentMenu: {
+      name: <FormattedMessage id="app.edit.menu.child-switch" />,
+      type: 'menuSwitch',
+      value: {},
+      func: true,
     },
   },
   Row: {

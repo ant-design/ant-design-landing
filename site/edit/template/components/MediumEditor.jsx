@@ -1,28 +1,70 @@
 import React from 'react';
 import MediumEditor from 'medium-editor';
 
+import { tagRep } from '../../../utils';
+
 const noop = () => { };
 export default class Editor extends React.Component {
   medium = null;
 
+  state = {
+    text: '',
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      text: props.text,
+    };
+  }
+
   componentDidMount() {
-    const { options, defaultText } = this.props;
-    this.dom.innerHTML = defaultText;
+    const { options } = this.props;
+    const { text } = this.state;
+    this.dom.innerHTML = text;
     this.medium = new MediumEditor(this.dom, {
-      ...options,
+      // paste: { cleanPastedHTML: true },
       placeholder: {
-        text: this.props.children,
-        hideOnClick: true,
+        text: '请输入...',
       },
       anchor: {
         placeholderText: 'Paste or type a having (http) link.',
         targetCheckbox: true,
         targetCheckboxText: 'Open in new window',
       },
+      ...options,
     });
+    this.addChange();
+  }
+
+  addChange = () => {
     this.medium.subscribe('editableInput', (e, b) => {
-      (this.props.onChange || noop)(b.innerHTML);
+      if (b.innerHTML.match(tagRep)) {
+        this.setState({
+          text: b.innerHTML,
+        }, () => {
+          (this.props.onChange || noop)(b.innerHTML);
+        });
+      }
     });
+    this.medium.subscribe('blur', (e, b) => {
+      if (b.innerHTML.match(tagRep)) {
+        (this.props.onBlur || noop)(b.innerHTML);
+      }
+    });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.text !== this.state.text) {
+      this.setState({
+        text: nextProps.text,
+      }, () => {
+        this.medium.destroy();
+        this.dom.innerHTML = nextProps.text;
+        this.medium.setup();
+        this.addChange();
+      });
+    }
   }
 
   componentWillUnmount() {
@@ -30,8 +72,7 @@ export default class Editor extends React.Component {
   }
 
   render() {
-    const props = { ...this.props };
-    ['options', 'onChange', 'children', 'defaultText'].forEach(key => delete props[key]);
+    const { options, onChange, onBlur, text, children, ...props } = this.props;
     return (
       <div
         ref={(c) => { this.dom = c; }}

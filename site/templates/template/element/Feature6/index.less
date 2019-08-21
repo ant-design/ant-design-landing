@@ -1,0 +1,119 @@
+@import '../../../static/custom.less';
+@feature6: feature6;
+
+.@{feature6} {
+  &-wrapper {
+    min-height: 360px;
+    margin: 0 auto;
+    overflow: hidden;
+
+    &.home-page-wrapper {
+      .home-page {
+        padding: 64px 24px;
+      }
+    }
+  }
+
+  &-title {
+    display: inline-block;
+
+    &-wrapper {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    &-text {
+      display: inline-block;
+      margin: 0 72px;
+      font-size: 24px;
+      color: @text-color;
+      transition: color .45s @ease-in-out;
+      cursor: pointer;
+
+      &.active {
+        color: @primary-color;
+      }
+    }
+
+    &-bar {
+      height: 6px;
+      background: @primary-color;
+      width: 20%;
+      margin: auto;
+      display: block;
+
+      &-wrapper {
+        position: relative;
+        margin-top: 8px;
+        transition: left .45s @ease-in-out;
+      }
+    }
+  }
+
+  &-number,
+  &-text {
+    text-align: center;
+  }
+
+  &-number {
+    font-size: 48px;
+    color: @primary-color;
+    font-weight: 600;
+
+    &-wrapper {
+      text-align: center;
+    }
+  }
+
+  &-text {
+    font-size: 20px;
+  }
+
+  &-unit {
+    font-size: 16px;
+    color: @primary-color;
+  }
+
+  .ant-carousel {
+    .slick-dots-bottom {
+      bottom: -24px;
+    }
+
+    .slick-dots li {
+      button {
+        background: fade(@primary-color, 30);
+      }
+
+      &.slick-active button {
+        background: @primary-color;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .@{feature6}-wrapper {
+    padding-bottom: 0;
+    min-height: 580px;
+
+    &.home-page-wrapper {
+      .home-page {
+        padding: 56px 24px 64px;
+      }
+    }
+  }
+
+  .@{feature6}-title {
+    &-text {
+      margin: 0 14px;
+    }
+
+    &-bar {
+      width: 40%;
+    }
+  }
+
+  .@{feature6}-number-wrapper {
+    margin-bottom: 16px;
+  }
+}

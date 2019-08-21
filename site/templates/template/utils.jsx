@@ -12,12 +12,19 @@ export const getChildrenToRender = (item, i) => {
   let children = typeof item.children === 'string' && item.children.match(/^http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w-./?%&=]*)?/)
     ? React.createElement('img', { src: item.children, alt: 'img' })
     : React.createElement('span', { dangerouslySetInnerHTML: { __html: item.children } });
-  children = typeof item.children === 'object' && item.name.indexOf('button') === 0 ? (
-    React.createElement(Button, {
-      ...item.children,
-      'data-edit': 'link,text',
-    })
-  ) : children;
+  if (item.name.indexOf('button') === 0) {
+    if (typeof item.children === 'object') {
+      children = React.createElement(Button, {
+        ...item.children,
+        'data-edit': 'link,text',
+      });
+    } else {
+      item['data-edit'] = 'linkA,text';
+    }
+  }
+  if (item.name.indexOf('link') === 0) {
+    item['data-edit'] = 'linkA,text';
+  }
   return React.createElement(tag, { key: i.toString(), ...item }, children);
 };
 
@@ -55,6 +62,7 @@ export const setDataIdToDataSource = (data, dataId) => {
       if (Array.isArray(item)) {
         item.forEach((cItem, i) => {
           if (typeof cItem === 'object') {
+            // 数组必需加name;
             const name = cItem.name ? `array_name=${cItem.name}` : i;
             objectForEachChild(cItem, `${key}&${name}`);
             id = md5(`${dataId}-${key}&${name}`);
@@ -63,7 +71,7 @@ export const setDataIdToDataSource = (data, dataId) => {
             // cItem['data-id'] = `${dataId}-${key}&${name}`;
           }
         });
-      } else {
+      } else if (item) {
         Object.keys(item).forEach((cKey) => {
           const cItem = item[cKey];
           objectForEachChild(cItem, `${key}&${cKey}`);

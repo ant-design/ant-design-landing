@@ -11,28 +11,42 @@ import ListSort from '../StateComponents/ListSort';
 
 const Panel = Collapse.Panel;
 
-const noProps = ['text', 'image', 'video', 'icon', 'texty', 'titleWrapper', 'textAndImage', 'childWrapper', 'link', 'Content'];
+const noProps = ['text', 'image', 'video', 'icon', 'texty', 'titleWrapper', 'textAndImage', 'childWrapper', 'link', 'linkA', 'Content'];
 
-export default class PropsComp extends React.PureComponent {
-  getCompChild = (defaultValue, template, key) => {
+export default class PropsComp extends React.Component {
+  getCompChild = (defaultValue, template, key, ids) => {
     const { type, value, props, func, join, parentKey } = defaultValue;
     const v = template && template[key];
     const currentValue = typeof v !== 'undefined' ? v : value;
+    const { funcData } = this.props;
+    const funcDefault = funcData[ids[0]] ? funcData[ids[0]][key] : undefined;
+    console.log(funcData, funcDefault, template, key);
     switch (type) {
       case 'switch':
+      case 'menuSwitch':
         return (
           <Switch
+            // name 为切换了菜单，用 key 保证 switch 不一样, 重走一遍 defaultChecked.
+            key={type === 'menuSwitch' ? template.name : undefined}
             {...props}
             size="small"
-            {...(func ? {} : { checkbox: currentValue.toString() })}
-            onChange={(data) => { this.props.onChange(key, data, func); }}
+            {...(func
+              ? {
+                defaultChecked: type === 'menuSwitch'
+                  ? funcDefault !== undefined && funcDefault === template.name
+                  : funcDefault,
+              }
+              : { checked: currentValue })}
+            onChange={(data) => {
+              this.props.onChange(key, type === 'menuSwitch' ? data && template.name : data, func);
+            }}
           />
         );
       case 'inputGroup':
         return (
           <InputGroup
             {...props}
-            {...(func ? {} : { value: currentValue })}
+            {...(func ? { defaultValue: funcDefault } : { value: currentValue })}
             onChange={(data) => { this.props.onChange(key, data, func); }}
           />
         );
@@ -40,7 +54,7 @@ export default class PropsComp extends React.PureComponent {
         return (
           <Select
             {...props}
-            {...(func ? {} : { value: currentValue })}
+            {...(func ? { defaultValue: funcDefault } : { value: currentValue })}
             onChange={(data) => { this.props.onChange(key, data, func); }}
             size="small"
             getPopupContainer={node => node.parentNode.parentNode.parentNode.parentNode.parentNode}
@@ -58,7 +72,7 @@ export default class PropsComp extends React.PureComponent {
         return (
           <CheckboxGroup
             {...props}
-            {...(func ? {} : { value: currentValue })}
+            {...(func ? { defaultValue: funcDefault } : { value: currentValue })}
             size="small"
             onChange={(data) => { this.props.onChange(key, data, func); }}
           />
@@ -68,12 +82,14 @@ export default class PropsComp extends React.PureComponent {
           <InputNumber
             {...props}
             size="small"
-            {...(func ? {} : { value: currentValue })}
+            {...(func ? { defaultValue: funcDefault } : { value: currentValue })}
             onChange={(data) => { this.props.onChange(key, data, func); }}
           />
         );
       case 'array':
         return this.getArrayChild(currentValue, template, join, parentKey, key, func);
+      case 'menuChild':
+        return this.getMenuChild(defaultValue, template);
       default:
         break;
     }
@@ -188,6 +204,25 @@ export default class PropsComp extends React.PureComponent {
     this.props.onChange(key, currentData, func);
   }
 
+  getMenuChild = ({ defaultData }, template) => {
+    let value = template && template.subItem;
+    value = value ? value.map((item) => {
+      item.name = `sub~${getRandomKey()}`;
+      return item;
+    }) : value;
+    return (
+      <div>
+        <Switch
+          size="small"
+          checked={!!value}
+          onChange={(data) => {
+            this.props.onChange('subItem', data ? value || defaultData : null);
+          }}
+        />
+      </div>
+    );
+  }
+
   getArrayChild = (value, template, join, parentKey, key, func) => {
     const childrenToRender = value.children.map((item, i) => {
       return (
@@ -244,10 +279,18 @@ export default class PropsComp extends React.PureComponent {
     );
   }
 
-  getChildrenToRender = (config, template) => {
+  getChildrenToRender = (config, template, id) => {
+    const { isMobile } = this.props;
+    const ids = id[1].split('&');
     const t = Object.keys(config).filter(key => key !== 'apiLink').map((key) => {
       const defaultData = config[key];
-
+      if (!template
+        || (key === 'currentMenu' && !template.subItem)
+        || (defaultData.isMobile && !isMobile)
+        || ((key === 'currentMenu' || key === 'childMenu') && ids.findIndex(c => c === 'Menu') === -1)
+      ) {
+        return null;
+      }
       if (key === 'remark') {
         return (
           <Row key="remark">
@@ -259,7 +302,7 @@ export default class PropsComp extends React.PureComponent {
           </Row>
         );
       }
-      const compChild = this.getCompChild(defaultData, template, key);
+      const compChild = this.getCompChild(defaultData, template, key, id);
       const tip = defaultData.remark && (
         <Tooltip
           placement="topRight"
@@ -291,7 +334,7 @@ export default class PropsComp extends React.PureComponent {
   }
 
   render() {
-    const { edit, currentEditData, templateData } = this.props;
+    const { edit, currentEditData, templateData, isMobile } = this.props;
     const editArray = edit ? edit.split(',').map(c => c.trim()).filter(c => noProps.indexOf(c) === -1) : [];
     if (!edit || !editArray.length) {
       return null;
@@ -304,8 +347,12 @@ export default class PropsComp extends React.PureComponent {
     const newTempDataSource = mergeEditDataToDefault(templateData.data.config[ids[0]],
       tempDataSource);
     const currentEditTemplateData = getDataSourceValue(ids[1], newTempDataSource);
-    return editArray.map((item, i) => {
-      const childToRender = this.getChildrenToRender(compConfig[item], currentEditTemplateData);
+    return editArray.map(($item, i) => {
+      if ($item === 'LinkMenu' && !isMobile) {
+        return null;
+      }
+      const item = $item === 'LinkMenu' ? 'Menu' : $item;
+      const childToRender = this.getChildrenToRender(compConfig[item], currentEditTemplateData, ids);
       return (
         <Collapse bordered={false} defaultActiveKey={['1']} key={i.toString()}>
           <Panel

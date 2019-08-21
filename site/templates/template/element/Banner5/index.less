@@ -1,0 +1,111 @@
+@import '../../../static/custom.less';
+@banner5: banner5;
+
+.@{banner5} {
+  // 如果在第一屏且导航位置为 relative, 一屏为 height: calc(~"100vh - 64px");
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  background-color: #fdfdfd;
+  background-image: linear-gradient(to top, fade(#fdfdfd, 30) 0%, fade(#c1daff, 30) 100%);
+  overflow: hidden;
+
+  & &-page {
+    padding: 1px 0 0;
+  }
+
+  &-title {
+    font-size: 48px;
+    line-height: 1.5;
+    color: #5f9bf1;
+    margin-bottom: 8px;
+
+    &-wrapper {
+      width: 40%;
+      max-width: 450px;
+      position: relative;
+      top: 30%;
+      left: 24px;
+      font-family: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    }
+  }
+
+  &-explain {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 24px;
+  }
+
+  &-content {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 48px;
+  }
+
+  &-button-wrapper {
+    .@{banner5}-button {
+      background-image: linear-gradient(to right bottom, #82b5ff 0%, #3c89f6 0%);
+      box-shadow: 0 8px 24px fade(#5f9bf1, 35);
+      border-radius: 20px;
+      border: none;
+      padding: 0 42px;
+      line-height: 40px;
+      height: 40px;
+      transition: transform .3s, box-shadow .3s;
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 13px 24px fade(#5f9bf1, 45);
+        background-image: linear-gradient(to right bottom, #82b5ff 0%, #3c89f6 0%);
+      }
+    }
+  }
+
+  &-image {
+    overflow: hidden;
+    width: 55%;
+    max-width: 710px;
+    position: absolute;
+    top: 15%;
+    right: 24px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .@{banner5} {
+    min-height: 500px;
+
+    & &-page.home-page {
+      padding-top: 1px;
+      padding-bottom: 0;
+    }
+
+    &-title-wrapper {
+      text-align: center;
+      position: static;
+      width: 100%;
+      margin-top: 64px;
+      left: 0;
+      top: 0;
+    }
+
+    &-title {
+      font-size: 32px;
+    }
+
+    &-explain {
+      font-size: 18px;
+    }
+
+    &-content {
+      font-size: 14px;
+    }
+
+    &-image {
+      position: static;
+      width: 100%;
+      top: 0;
+      right: 0;
+      margin: 32px 0 24px;
+    }
+  }
+}

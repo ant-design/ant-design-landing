@@ -3,13 +3,17 @@ import scrollScreen from 'rc-scroll-anim/lib/ScrollScreen';
 import { enquireScreen } from 'enquire-js';
 import { connect } from 'react-redux';
 import { mobileTitle } from 'rc-editor-list/lib/utils';
+
 import webData from './element/template.config';
 import {
   getEditDomData,
   setDataIdToDataSource,
 } from './utils';
-import { getState, mergeEditDataToDefault, mdId } from '../../utils';
-import { getUserData } from '../../edit-module/actions';
+import { mergeEditDataToDefault, mdId, getChildRect } from '../../utils';
+import { mapStateToProps } from '../../shared/utils';
+import * as actions from '../../shared/redux/actions';
+import * as ls from '../../shared/localStorage';
+
 import BottomBar from './BottomBar';
 import Point from './other/Point';
 
@@ -25,7 +29,7 @@ class Layout extends React.Component {
     this.isEdit = window.frameElement && window.frameElement.tagName === 'IFRAME';
     if (!this.isEdit) {
       const { dispatch } = props;
-      dispatch(getUserData());
+      dispatch(actions.getUserData());
     } else {
       const style = document.createElement('style');
       style.type = 'text/css';
@@ -41,7 +45,8 @@ class Layout extends React.Component {
 
   componentDidUpdate() {
     if (this.isEdit) {
-      this.setData();
+      // 取不到弹框。
+      setTimeout(this.setData);
     }
     scrollScreen.unMount();
     if (this.scrollScreen) {
@@ -73,6 +78,11 @@ class Layout extends React.Component {
 
   setData = () => {
     const editData = getEditDomData(this.dom.children);
+    // 增加弹框之类的编辑，，导航的下拉菜单；
+    const bodyChild = Array.prototype.slice.call(document.body.childNodes)
+      .filter(item => item.tagName && item.tagName.toLocaleLowerCase() === 'div' && item.getAttribute('id') !== 'react-content');
+    const currentPopArray = bodyChild.map(item => getChildRect(item)).filter(c => c).flat(Infinity);
+    editData.currentPopover = currentPopArray;
     // Uncaught DOMException: Failed to execute 'postMessage' on 'Window': HTMLDivElement object could not be cloned.
     // window.parent.postMessage(editData, '*');
     if (window.parent.receiveDomData) {
@@ -86,10 +96,10 @@ class Layout extends React.Component {
       /* Object.keys(localStorage).forEach((key) => {
         localStorage.removeItem(key);
       }); */
-      window.localStorage.setItem(e.data.uid, JSON.stringify({
+      ls.saveTemplate({
         id: e.data.uid,
         attributes: e.data.data,
-      }));
+      });
       this.setState({
         templateData: e.data,
       }, this.setScrollToWindow);
@@ -250,4 +260,4 @@ class Layout extends React.Component {
   }
 }
 
-export default connect(getState)(Layout);
+export default connect(mapStateToProps)(Layout);

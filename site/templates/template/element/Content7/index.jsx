@@ -77,7 +77,7 @@ class Content7 extends React.Component {
               }
             </div>
           </div>
-)}
+        )}
         className={item.className}
         /* replace-start */
         {...item}

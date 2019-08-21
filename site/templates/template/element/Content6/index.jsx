@@ -80,7 +80,7 @@ class Content7 extends React.Component {
               {...dataSource.titleWrapper}
               /* replace-start */
               data-edit="titleWrapper"
-            /* replace-end */
+              /* replace-end */
             >
               {
                 dataSource.titleWrapper.children.map(getChildrenToRender)

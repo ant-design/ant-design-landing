@@ -1,5 +1,12 @@
 [
   {
+    "templateId": "tuying",
+    "name": "中后台模板",
+    "preview": "previewId=tuying",
+    "image": "https://gw.alipayobjects.com/mdn/rms_ae7ad9/afts/img/A*NLz5QayvKkkAAAAAAAAAAABkARQnAQ",
+    "type": "edit"
+  },
+  {
     "templateId": "template",
     "name": "基础模板",
     "preview": "previewId=template",

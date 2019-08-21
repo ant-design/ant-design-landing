@@ -1,10 +1,15 @@
+/* eslint-disable no-console */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import * as r from 'ramda';
 import { Icon, Button, Form, Modal, Input, Tooltip, message, notification } from 'antd';
 import { FormattedMessage } from 'react-intl';
 import ticker from 'rc-tween-one/lib/ticker';
-import { saveJsZip } from './saveJsZip';
-import { isZhCN } from '../../../theme/template/utils';
+import store from 'store';
+
+import { saveJsZip } from '../saveJsZip';
+import { isZhCN } from '../../../../theme/template/utils';
 
 const { Item } = Form;
 const { TextArea } = Input;
@@ -63,7 +68,7 @@ class PublishModal extends React.Component {
   componentDidMount() {
     // 监听有没有在发布
     const { templateData } = this.props;
-    const currentBuild = JSON.parse(window.localStorage.getItem(buildId));
+    const currentBuild = store.get(buildId);
     if (currentBuild && currentBuild[templateData.uid]) {
       this.setState({ isLoad: true }, () => {
         this.props.changePublishState(true);
@@ -97,10 +102,10 @@ class PublishModal extends React.Component {
     this.setState({
       isLoad: false,
     });
-    const currentBuild = JSON.parse(window.localStorage.getItem(buildId));
+    const currentBuild = store.get(buildId);
     const { templateData } = this.props;
     delete currentBuild[templateData.uid];
-    window.localStorage.setItem(buildId, JSON.stringify(currentBuild));
+    store.set(buildId, currentBuild);
     this.props.changePublishState(false);
     ticker.clear(this.getPublishState);
   }
@@ -197,9 +202,9 @@ class PublishModal extends React.Component {
       }).then(res => res.json())
         .then(({ id }) => {
           // 记录发布状态；
-          const currentBuild = JSON.parse(window.localStorage.getItem(buildId)) || {};
+          const currentBuild = store.get(buildId);
           currentBuild[templateData.uid] = id;
-          window.localStorage.setItem(buildId, JSON.stringify(currentBuild));
+          store.set(buildId, currentBuild);
           this.onMonitorPublishState(id);
         })
         .catch(error => console.error('Error:', error));
@@ -298,4 +303,7 @@ class PublishModal extends React.Component {
   }
 }
 
-export default Form.create({ name: 'form_modal' })(PublishModal);
+export default r.compose(
+  connect(),
+  Form.create({ name: 'form_modal' }),
+)(PublishModal);

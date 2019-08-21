@@ -9,7 +9,7 @@ import cnLocale from '../zh-CN';
 
 import Layout from './layout';
 
-import { store } from '../../utils';
+import store from '../../shared/redux';
 import { isZhCN } from '../../theme/template/utils';
 import '../static/style';
 

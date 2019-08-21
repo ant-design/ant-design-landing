@@ -53,35 +53,6 @@
   }
 }
 
-.sort-manage {
-  height: 48px;
-  display: flex;
-  align-items: center;
-  transition: background .45s @ease-in-out, box-shadow .45s @ease-in-out, transform .45s @ease-in-out;
-  &:hover {
-    background: #e6f7ff;
-  }
-  &-list {
-    position: relative;
-  }
-  &-icon {
-    width: 48px;
-    text-align: center;
-    cursor: pointer;
-    &[disabled] {
-      color: rgba(0, 0, 0, 0.25) !important;
-      pointer-events: none;
-    }
-  }
-  &-delete {
-    text-align: center;
-    width: 48px;
-  }
-  &-name {
-    width: ~"calc(100% - 80px)";
-  }
-}
-
 .manage-wrapper {
   width: 300px;
   .ant-popover-inner-content {

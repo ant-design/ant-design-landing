@@ -1,17 +1,21 @@
+/* eslint-disable no-console */
 import React from 'react';
-import { Icon, message, Button, Modal, Popconfirm } from 'antd';
+import { Icon, message, Button, Modal, Popconfirm, Tooltip } from 'antd';
 import PropTypes from 'prop-types';
 import CodeMirror from 'rc-editor-list/lib/components/common/CodeMirror';
 import { FormattedMessage } from 'react-intl';
 import 'codemirror/mode/javascript/javascript.js';
 
-import { formatCode } from '../utils';
-import { getNewHref, RemoveLocalStorage } from '../../../utils';
-import {
-  saveData, userName, setTemplateData,
-} from '../../../edit-module/actions';
-import { saveJsZip, saveJSON } from './saveJsZip';
+import { saveJsZip, saveJSON } from '../saveJsZip';
+import { formatCode } from '../../utils';
+import { getNewHref, RemoveLocalStorage } from '../../../../utils';
+import { saveData } from '../../../../shared/utils';
+import * as actions from '../../../../shared/redux/actions';
+import * as ls from '../../../../shared/localStorage';
+import { DEFAULT_USER_NAME } from '../../../../shared/constants';
+
 import NewFileButton from './NewFileButton';
+import HistoryButton from './HistoryButton';
 import PublishModal from './PublishModal';
 
 class NavController extends React.PureComponent {
@@ -58,15 +62,20 @@ class NavController extends React.PureComponent {
     this.setState({
       saveLoad: true,
     }, () => {
-      saveData(templateData || this.props.templateData, this.props.dispatch, (b) => {
-        if (b.code) {
-          message.error(this.context.intl.formatMessage({ id: 'app.header.save.message.error' }));
-        } else if (!cb) {
+      const finalTemplateData = templateData || this.props.templateData;
+      saveData(finalTemplateData).then(() => {
+        const { dispatch } = this.props;
+        dispatch(actions.setTemplateData(finalTemplateData));
+        if (!cb) {
           message.success(this.context.intl.formatMessage({ id: 'app.header.save.message' }));
         } else {
           cb();
         }
         this.setState({ saveLoad: false });
+      }).catch((error) => {
+        console.error(JSON.stringify(error));
+        message.error(this.context.intl.formatMessage({ id: 'app.header.save.message.error' }));
+        cb();
       });
     });
   }
@@ -91,14 +100,15 @@ class NavController extends React.PureComponent {
     });
   }
 
+  // TODO: move this to localStorage.js?
   onRemoveAllLocalStorage = () => {
-    window.localStorage.getItem(userName).split(',').forEach((key) => {
-      if (!key) {
-        return;
-      }
-      window.localStorage.removeItem(key);
+    const templateIds = ls.getUserTemplateIds(DEFAULT_USER_NAME);
+    templateIds.forEach((id) => {
+      if (!id) return;
+      ls.removeTemplate(id);
     });
-    window.localStorage.removeItem(userName);
+    ls.removeUserTemplateIds(DEFAULT_USER_NAME);
+
     location.href = location.origin;
   }
 
@@ -134,25 +144,13 @@ class NavController extends React.PureComponent {
     const { code } = this.state;
     const { templateData, dispatch, currentEditData } = this.props;
     templateData.data = JSON.parse(code);
-    dispatch(setTemplateData(templateData));
+    dispatch(actions.setTemplateData(templateData));
     setTimeout(() => {
       if (currentEditData) {
         currentEditData.reRect();
       }
+      this.onChangeDataOpenModal();
     }, 100);
-  }
-
-  onReData = () => {
-    const { templateData } = this.props;
-    formatCode({
-      code: JSON.stringify(templateData.data),
-      parser: 'json',
-      cb: (code) => {
-        this.setState({
-          code,
-        });
-      },
-    });
   }
 
   onUploadCloud = () => {
@@ -168,6 +166,7 @@ class NavController extends React.PureComponent {
   }
 
   render() {
+    const { currentEditData } = this.props;
     const { saveLoad, downloadLoad, publishLoad, code, codeModalShow, publishModalShow } = this.state;
     const menuChild = [
       {
@@ -199,7 +198,14 @@ class NavController extends React.PureComponent {
       },
     ].map((item, i) => {
       const iconProps = item.component ? { component: item.component } : { type: item.icon };
-      let children = [<Icon {...iconProps} key="icon" />, item.name];
+      let children = (
+        <Tooltip title={item.name}>
+          <a onClick={item.tooltip ? null : item.onClick} disabled={!item.onClick}>
+            <Icon {...iconProps} key="icon" />
+          </a>
+        </Tooltip>
+      );
+
       if (item.tooltip) {
         children = (
           <Popconfirm
@@ -214,7 +220,7 @@ class NavController extends React.PureComponent {
         );
       }
       return (
-        <li key={i.toString()} onClick={item.tooltip ? null : item.onClick} disabled={!item.onClick}>
+        <li key={i.toString()}>
           {children}
         </li>
       );
@@ -234,6 +240,10 @@ class NavController extends React.PureComponent {
           {menuChild}
         </ul>
         <NewFileButton />
+        <HistoryButton
+          templateData={this.props.templateData}
+          reRect={currentEditData ? currentEditData.reRect : null}
+        />
         <Modal
           title={<FormattedMessage id="app.header.edit-data.header" />}
           visible={codeModalShow}
@@ -258,11 +268,11 @@ class NavController extends React.PureComponent {
           <Button type="primary" style={{ marginTop: '1em' }} onClick={this.onSaveData}>
             <FormattedMessage id="app.header.save" />
           </Button>
-          <Button key="re" style={{ marginLeft: 8 }} onClick={this.onReData}>
-            <FormattedMessage id="app.header.reset" />
-          </Button>
-          <Button onClick={this.onSaveJSON} style={{ marginLeft: 8 }}>
+          <Button type="primary" onClick={this.onSaveJSON} style={{ marginLeft: 8 }}>
             <FormattedMessage id="app.header.edit-data.download" />
+          </Button>
+          <Button key="close" style={{ marginLeft: 8 }} onClick={this.onChangeDataOpenModal}>
+            <FormattedMessage id="app.common.cancel" />
           </Button>
         </Modal>
         <PublishModal
@@ -271,7 +281,6 @@ class NavController extends React.PureComponent {
           width={640}
           footer={null}
           location={this.props.location}
-          dispatch={this.props.dispatch}
           onCancel={this.onUploadCloud}
           templateData={this.props.templateData}
           onSave={this.onSave}

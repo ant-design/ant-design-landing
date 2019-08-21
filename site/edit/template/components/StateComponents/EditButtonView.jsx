@@ -40,6 +40,9 @@ export default class EditButtonView extends React.PureComponent {
 
   render() {
     const { editButtonArray, currentData } = this.props;
+    if (!currentData) {
+      return null;
+    }
     const parent = currentData.parent;
     let parentChild;
     if (parent && parent.length) {
@@ -67,6 +70,7 @@ export default class EditButtonView extends React.PureComponent {
         case 'image':
           return (<ImageComp {...this.props} key={key} />);
         case 'Menu':
+        case 'LinkMenu':
           return (
             <MenuComp {...this.props} key={key} />
           );
@@ -87,7 +91,8 @@ export default class EditButtonView extends React.PureComponent {
             <ContentWrapper {...this.props} key={key} />
           );
         case 'link':
-          return (<LinkComp {...this.props} key={key} />);
+        case 'linkA':
+          return (<LinkComp {...this.props} key={key} type={key} />);
         default:
           return null;
       }

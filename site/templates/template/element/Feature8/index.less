@@ -1,0 +1,218 @@
+@import '../../../static/custom.less';
+@feature8: feature8;
+
+.@{feature8} {
+  &-wrapper {
+    min-height: 680px;
+    margin: 0 auto;
+    overflow: hidden;
+    background-color: fade(#fdfdfd, 30);
+    background-image: linear-gradient(360deg, fade(#c1daff, 30) 0%, fade(#fdfdfd, 30) 80%);
+
+    &.home-page-wrapper {
+      .home-page {
+        padding: 64px 24px;
+      }
+    }
+  }
+
+  &-title {
+
+    &-wrapper {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    &-h1 {
+      font-size: 32px;
+      color: @text-color;
+    }
+
+    &-content {
+      margin-top: 16px;
+    }
+  }
+
+  &-carousel {
+    width: ~"calc(100% + 72px)";
+    margin-left: -36px;
+  }
+
+  &-carousel-title {
+    font-size: 20px;
+    text-align: center;
+
+    &-block {
+      display: inline-block;
+      color: fade(@text-color, 45);
+      transition: color .45s;
+      padding: 0 40px;
+      position: relative;
+      cursor: pointer;
+
+      &.active {
+        color: @text-color;
+        cursor: auto;
+      }
+
+      &::before {
+        display: block;
+        content: '';
+        width: 1px;
+        height: 70%;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        background: #d8d8d8;
+      }
+
+      &:last-child {
+        &::before {
+          display: none;
+        }
+      }
+    }
+  }
+
+  &-block {
+    margin-top: 48px;
+
+    &-wrapper {
+      margin-top: 32px;
+    }
+
+    &-row {
+      padding: 0 36px;
+    }
+
+    &-col {
+      text-align: center;
+      margin: 36px 0;
+      position: relative;
+
+      &:last-child {
+        .@{feature8}-block-arrow {
+          display: none;
+        }
+      }
+    }
+
+    &-child {
+      padding: 36px 24px 24px;
+      border-radius: 6px;
+
+      height: 100%;
+      transition: box-shadow @animate-duration @ease-in-out, background @animate-duration @ease-in-out;
+
+      &:hover {
+        background-color: #f6f9ff;
+        box-shadow: 0 12px 36px fade(#646488, 15);
+
+        .@{feature8}-block-content {
+          opacity: 1;
+        }
+      }
+    }
+
+    &-image {
+      display: inline-block;
+    }
+
+    &-title {
+      font-size: 16px;
+      font-weight: 400;
+      color: @text-color;
+      margin-top: 16px;
+    }
+
+    &-content {
+      opacity: 1;
+      font-size: 14px;
+      line-height: 22px;
+      color: fade(@text-color, 65);
+      margin-top: 36px;
+      text-align: left;
+      transition: opacity @animate-duration @ease-in-out;
+    }
+
+    &-arrow {
+      position: absolute;
+      right: 0;
+      width: 16px;
+      top: 80px;
+    }
+  }
+
+  &-button {
+    text-align: center;
+
+    &-wrapper {
+      margin-top: 16px;
+    }
+
+    .ant-btn {
+      padding: 8px 40px;
+      border-radius: 20px;
+      line-height: 1.5;
+      height: 40px;
+      border: none;
+      color: #fff;
+      background-color: #3c89f6;
+      background-image: linear-gradient(135deg, #82b5ff 0%, #3c89f6 100%);
+      box-shadow: 0 9px 22px fade(#5f9bf1, 35);
+      transition: color .45s @ease-in-out, box-shadow .45s @ease-in-out, transform .45s @ease-in-out;
+      will-change: transform, box-shadow;
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 14px 26px fade(#5f9bf1, 40);
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .@{feature8} {
+    &-wrapper {
+      padding-bottom: 0;
+      min-height: 1540px;
+
+      &.home-page-wrapper {
+        .home-page {
+          padding: 56px 24px 64px;
+        }
+      }
+    }
+
+    &-carousel-title {
+      font-size: 16px;
+
+      &-block {
+        padding: 0 8px;
+      }
+    }
+
+    &-block {
+      &-child {
+        width: 80%;
+        margin: auto;
+        background-color: #f6f9ff;
+        box-shadow: 0 12px 36px fade(#646488, 15);
+      }
+
+      &-content {
+        text-align: center;
+      }
+
+      &-arrow {
+        bottom: -40px;
+        top: auto;
+        left: 0;
+        right: 0;
+        margin: auto;
+        transform: rotate(90deg);
+      }
+    }
+  }
+}

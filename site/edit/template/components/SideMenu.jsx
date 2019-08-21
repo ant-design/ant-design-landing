@@ -3,14 +3,12 @@ import { Icon, Tooltip, Modal, Form, Button, Input, message } from 'antd';
 import DrawerMenu from 'rc-drawer';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+
 import webData from '../template.config';
-import {
-  signUpUser,
-  removeUser,
-} from '../../../edit-module/actions';
 import { hasErrors } from '../utils';
-import * as utils from '../../../theme/template/utils';
 import { getNewHref } from '../../../utils';
+import * as utils from '../../../theme/template/utils';
+import * as actions from '../../../shared/redux/actions';
 
 const FormItem = Form.Item;
 
@@ -39,8 +37,8 @@ class SideMenu extends React.PureComponent {
       children.push((
         <div
           className="img-wrapper"
-          key={`${key}${child.uid || i}`}
-          data-key={`${key}${child.uid || i}`}
+          key={`${key}${'uid' in child ? child.uid : i}`}
+          data-key={`${key}${'uid' in child ? child.uid : i}`}
         >
           <Tooltip
             placement="right"
@@ -104,22 +102,39 @@ class SideMenu extends React.PureComponent {
   onSignUp = (e) => {
     e.preventDefault();
     const { templateData, dispatch } = this.props;
-    signUpUser(templateData, this.password, dispatch, () => {
-      this.onLockData();
-      message.success(
-        this.context.intl.formattedMessage({ id: 'app.side.encryption.message' })
-      );
-      this.props.form.resetFields();
-    });
+
+    templateData.data.user = templateData.data.user || {
+      username: templateData.uid,
+      userId: null,
+    };
+    templateData.data.user.password = this.password;
+    delete templateData.data.user.delete;
+
+    dispatch(actions.setUserAndTemplateData({ userIsLogin: true, templateData }));
+
+    this.onLockData();
+
+    message.success(
+      this.context.intl.formatMessage({ id: 'app.side.encryption.message' })
+    );
+
+    this.props.form.resetFields();
   }
 
   oonUnLockData = () => {
     const { templateData, dispatch } = this.props;
-    removeUser(templateData, dispatch, () => {
-      message.success(
-        this.context.intl.formattedMessage({ id: 'app.side.encryption.decrypt' })
-      );
-    });
+
+    if (templateData.data.user && templateData.data.user.userId) {
+      templateData.data.user.delete = true;
+    } else {
+      delete templateData.data.user;
+    }
+
+    dispatch(actions.setUserAndTemplateData({ userIsLogin: false, templateData }));
+
+    message.success(
+      this.context.intl.formatMessage({ id: 'app.side.encryption.decrypt' })
+    );
   }
 
   getPasswordChild = () => {

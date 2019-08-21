@@ -1,41 +1,49 @@
 @import '../../../static/custom.less';
 @content0: content0;
+
 .@{content0}-wrapper {
-  height: 446px;
+  min-height: 446px;
   overflow: hidden;
+
   .@{content0} {
-    overflow: hidden;
     height: 100%;
     padding: 64px 24px;
-    > .title-wrapper {
+
+    >.title-wrapper {
       margin: 0 auto 48px;
     }
-    .block-wrapper {
-      position: relative;
-      height: 100%;
-      overflow: hidden;
-      top: 25%;
-      padding: 20px 0;
-      .block {
-        padding: 0 4%;
-        display: inline-block;
-        text-align: center;
-        height: 200px;
-        margin-bottom: 48px;
-        &.queue-anim-leaving {
-          position: relative !important;
-        }
-        .icon {
-          width: 100px;
-          height: 100px;
-          margin: auto;
-          display: flex;
-          align-items: center;
-        }
-        .@{content0}-title {
-          line-height: 32px;
-          margin: 10px auto;
-        }
+
+    &-block {
+      padding: 0 4%;
+      display: inline-block;
+      text-align: center;
+      min-height: 200px;
+      margin-bottom: 24px;
+      img {
+        width: 100%;
+      }
+
+      &-wrapper {
+        position: relative;
+        height: 100%;
+        top: 25%;
+        padding: 20px 0;
+      }
+
+      &.queue-anim-leaving {
+        position: relative !important;
+      }
+
+      &-icon {
+        width: 100px;
+        height: 100px;
+        margin: auto;
+      }
+
+      &-title {
+        line-height: 32px;
+        margin: 10px auto;
+        font-size: 24px;
       }
     }
   }
@@ -43,6 +51,6 @@
 
 @media screen and (max-width: 767px) {
   .@{content0}-wrapper {
-    height: 880px;
+    min-height: 880px;
   }
 }

@@ -1,0 +1,73 @@
+@import "custom";
+
+@bgImage: editor-bg-image;
+
+.@{bgImage} {
+  &-wrapper {
+    border-top: 1px solid @heiColor;
+    padding-top: 8px;
+
+    .add-button {
+      font-size: 14px !important;
+    }
+  }
+
+  &-list {
+    display: grid;
+    grid-template-columns: 24px 24px auto 24px;
+    grid-template-rows: 32px;
+    gap: 0 4px;
+    align-items: center;
+    line-height: 32px;
+    height: 32px;
+
+    transition: background .3s @ease-in-out;
+
+    &-preview {
+      grid-column-start: 2;
+      background-size: cover;
+      background-position: center;
+      background-clip: content-box;
+      width: 24px;
+      height: 24px;
+      border: 1px solid fade(#fff, 15);
+    }
+
+    &-bar {
+      grid-column-start: 1;
+      text-align: center;
+      outline: none;
+    }
+
+    &-name {
+      grid-column-start: 3;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      user-select: none;
+      color: rgba(255, 255, 255, 0.55);
+      &:hover {
+        color: rgba(255, 255, 255, 0.85);
+      }
+    }
+
+    &-delete {
+      grid-column-start: 4;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    &:hover,
+    &:active {
+      background-color: fade(@heiColor, 70);
+    }
+  }
+  &-pop {
+    width: 248px;
+    padding: 16px;
+    &-type {
+      padding-bottom: 8px;
+      border-bottom: 1px solid @bgColor;
+    }
+  }
+}

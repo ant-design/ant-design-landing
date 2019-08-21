@@ -1,5 +1,6 @@
 import React from 'react';
-import { Icon, message, Button, Input, Form } from 'antd';
+import PropTypes from 'prop-types';
+import { Icon, message, Button, Input, Form, notification } from 'antd';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 
@@ -20,13 +21,33 @@ import EditListController from './components/EditListController';
 const FormItem = Form.Item;
 
 class Layout extends React.PureComponent {
+  static contextTypes = {
+    intl: PropTypes.object.isRequired,
+  };
+
   state = {
     loading: false,
   }
 
-  componentWillMount() {
-    const { dispatch } = this.props;
+  constructor(props) {
+    super(props);
+    const { dispatch } = props;
     dispatch(actions.getUserData());
+  }
+
+  componentDidMount() {
+    notification.open({
+      placement: 'bottomRight',
+      duration: null,
+      message: this.context.intl.formatMessage({ id: 'app.layout.notification.title' }),
+      description: (
+        <div>
+          {this.context.intl.formatMessage({ id: 'app.layout.notification.content1' })}
+          <a href="https://github.com/ant-design/ant-design-landing/issues" target="_blank"> GitHub issues </a>
+          {this.context.intl.formatMessage({ id: 'app.layout.notification.content2' })}
+        </div>
+      ),
+    });
   }
 
   componentDidUpdate() {

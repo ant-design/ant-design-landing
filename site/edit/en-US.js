@@ -126,5 +126,8 @@ module.exports = {
     'app.login.title': 'This page is locked. Please enter your password.',
     'app.login.noPassword': 'If you don\'t know the password, please delete current page or create a new page',
     'app.login.new': 'New Page',
+    'app.layout.notification.title': '3.0 Release Notes',
+    'app.layout.notification.content1': '3.0 It has been officially released. Since we have made some adjustments to some templates, if your previously edited templates can not be displayed, please go to ',
+    'app.layout.notification.content2': 'submit your page ID and JSON data.',
   },
 };

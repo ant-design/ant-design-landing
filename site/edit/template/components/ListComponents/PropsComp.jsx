@@ -20,7 +20,6 @@ export default class PropsComp extends React.Component {
     const currentValue = typeof v !== 'undefined' ? v : value;
     const { funcData } = this.props;
     const funcDefault = funcData[ids[0]] ? funcData[ids[0]][key] : undefined;
-    console.log(funcData, funcDefault, template, key);
     switch (type) {
       case 'switch':
       case 'menuSwitch':

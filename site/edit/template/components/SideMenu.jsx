@@ -1,8 +1,7 @@
 import React from 'react';
 import { Icon, Tooltip, Modal, Form, Button, Input, message } from 'antd';
 import DrawerMenu from 'rc-drawer';
-import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 
 import webData from '../template.config';
 import { hasErrors } from '../utils';
@@ -17,10 +16,6 @@ class SideMenu extends React.PureComponent {
     editMenuOpen: false,
     lockModalShow: false,
   }
-
-  static contextTypes = {
-    intl: PropTypes.object.isRequired,
-  };
 
   getDrawer = (isZhCN) => {
     const children = [];
@@ -115,7 +110,7 @@ class SideMenu extends React.PureComponent {
     this.onLockData();
 
     message.success(
-      this.context.intl.formatMessage({ id: 'app.side.encryption.message' })
+      this.props.intl.formatMessage({ id: 'app.side.encryption.message' })
     );
 
     this.props.form.resetFields();
@@ -133,7 +128,7 @@ class SideMenu extends React.PureComponent {
     dispatch(actions.setUserAndTemplateData({ userIsLogin: false, templateData }));
 
     message.success(
-      this.context.intl.formatMessage({ id: 'app.side.encryption.decrypt' })
+      this.props.intl.formatMessage({ id: 'app.side.encryption.decrypt' })
     );
   }
 
@@ -282,4 +277,4 @@ class SideMenu extends React.PureComponent {
     );
   }
 }
-export default Form.create()(SideMenu);
+export default Form.create()(injectIntl(SideMenu));

@@ -1,8 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Icon, message, Button, Input, Form, notification } from 'antd';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 
 import { hasErrors } from './utils';
 import { getNewHref } from '../../utils';
@@ -21,10 +20,6 @@ import EditListController from './components/EditListController';
 const FormItem = Form.Item;
 
 class Layout extends React.PureComponent {
-  static contextTypes = {
-    intl: PropTypes.object.isRequired,
-  };
-
   state = {
     loading: false,
   }
@@ -39,12 +34,12 @@ class Layout extends React.PureComponent {
     notification.open({
       placement: 'bottomRight',
       duration: null,
-      message: this.context.intl.formatMessage({ id: 'app.layout.notification.title' }),
+      message: this.props.intl.formatMessage({ id: 'app.layout.notification.title' }),
       description: (
         <div>
-          {this.context.intl.formatMessage({ id: 'app.layout.notification.content1' })}
+          {this.props.intl.formatMessage({ id: 'app.layout.notification.content1' })}
           <a href="https://github.com/ant-design/ant-design-landing/issues" target="_blank"> GitHub issues </a>
-          {this.context.intl.formatMessage({ id: 'app.layout.notification.content2' })}
+          {this.props.intl.formatMessage({ id: 'app.layout.notification.content2' })}
         </div>
       ),
     });
@@ -193,4 +188,4 @@ class Layout extends React.PureComponent {
 }
 
 
-export default connect(mapStateToProps)(Form.create()(Layout));
+export default connect(mapStateToProps)(Form.create()(injectIntl(Layout)));

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { addLocaleData, IntlProvider } from 'react-intl';
-import { LocaleProvider } from 'antd';
-import enUS from 'antd/lib/locale-provider/en_US';
+import { IntlProvider } from 'react-intl';
+import { ConfigProvider } from 'antd';
+import zhCN from 'antd/es/locale/zh_CN';
 
 import enLocale from '../en-US';
 import cnLocale from '../zh-CN';
@@ -18,7 +18,7 @@ class Edit extends React.Component {
     super(props);
     const { pathname } = props.location;
     const appLocale = isZhCN(pathname) ? cnLocale : enLocale;
-    addLocaleData(appLocale.data);
+
     this.state = {
       appLocale,
     };
@@ -29,9 +29,9 @@ class Edit extends React.Component {
     return (
       <Provider store={store}>
         <IntlProvider locale={appLocale.locale} messages={appLocale.messages}>
-          <LocaleProvider locale={enUS}>
+          <ConfigProvider locale={appLocale.locale === 'zh-CN' ? zhCN : null}>
             <Layout {...this.props} />
-          </LocaleProvider>
+          </ConfigProvider>
         </IntlProvider>
       </Provider>
     );

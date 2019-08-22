@@ -1,10 +1,9 @@
 /* eslint-disable no-console */
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as r from 'ramda';
 import { Icon, Button, Form, Modal, Input, Tooltip, message, notification } from 'antd';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import ticker from 'rc-tween-one/lib/ticker';
 import store from 'store';
 
@@ -59,10 +58,6 @@ class PublishModal extends React.Component {
         {' FORMAT'}
       </p>,
     ],
-  };
-
-  static contextTypes = {
-    intl: PropTypes.object.isRequired,
   };
 
   componentDidMount() {
@@ -128,10 +123,10 @@ class PublishModal extends React.Component {
           switch (item.readyState) {
             case 'READY':
               notification.open({
-                message: this.context.intl.formatMessage({ id: 'app.header.publish-cloud.success' }),
+                message: this.props.intl.formatMessage({ id: 'app.header.publish-cloud.success' }),
                 description: (
                   <p>
-                    {this.context.intl.formatMessage({ id: 'app.header.publish-cloud.successRemarks' })}
+                    {this.props.intl.formatMessage({ id: 'app.header.publish-cloud.successRemarks' })}
                     <a href={`https://${currentUrl}`} target="_blank">
                       {currentUrl}
                     </a>
@@ -142,7 +137,7 @@ class PublishModal extends React.Component {
               this.publishEnd();
               break;
             case 'ERROR':
-              message.error(this.context.intl.formatMessage({ id: 'pp.header.publish-cloud.error' }));
+              message.error(this.props.intl.formatMessage({ id: 'pp.header.publish-cloud.error' }));
               this.publishEnd();
               break;
             default:
@@ -306,4 +301,4 @@ class PublishModal extends React.Component {
 export default r.compose(
   connect(),
   Form.create({ name: 'form_modal' }),
-)(PublishModal);
+)(injectIntl(PublishModal));

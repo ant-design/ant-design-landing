@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { addLocaleData, IntlProvider } from 'react-intl';
-import { LocaleProvider } from 'antd';
-import enUS from 'antd/lib/locale-provider/en_US';
+import { IntlProvider } from 'react-intl';
+import { ConfigProvider } from 'antd';
+import zhCN from 'antd/es/locale/zh_CN';
 import { enquireScreen } from 'enquire-js';
 import Animate from 'rc-animate';
 
@@ -26,7 +26,6 @@ class Layout extends React.PureComponent {
     super(props);
     const { pathname } = props.location;
     const appLocale = utils.isZhCN(pathname) ? cnLocale : enLocale;
-    addLocaleData(appLocale.data);
 
     this.state = {
       appLocale,
@@ -54,7 +53,7 @@ class Layout extends React.PureComponent {
     });
     return (
       <IntlProvider locale={appLocale.locale} messages={appLocale.messages}>
-        <LocaleProvider locale={enUS}>
+        <ConfigProvider locale={appLocale.locale === 'zh-CN' ? zhCN : null}>
           <div className={(pathname === '/' || pathname === 'index-cn') ? 'home' : ''}>
             <div className="header-placeholder" />
             <Header {...restProps} isMobile={this.state.isMobile} />
@@ -63,7 +62,7 @@ class Layout extends React.PureComponent {
             </Animate>
             <Footer {...restProps} isMobile={this.state.isMobile} />
           </div>
-        </LocaleProvider>
+        </ConfigProvider>
       </IntlProvider>
     );
   }

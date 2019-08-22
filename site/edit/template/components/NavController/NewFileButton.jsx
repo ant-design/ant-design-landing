@@ -1,8 +1,7 @@
 /* eslint-disable no-console */
 import React from 'react';
 import { Menu, Button, Icon, Dropdown, message } from 'antd';
-import { FormattedMessage } from 'react-intl';
-import PropTypes from 'prop-types';
+import { FormattedMessage, injectIntl } from 'react-intl';
 
 import { RemoveLocalStorage } from '../../../../utils';
 import { newTemplate } from '../../../../shared/utils';
@@ -12,7 +11,7 @@ import * as url from '../../../../shared/url';
 
 const { Item, ItemGroup } = Menu;
 
-export default class NewFileButton extends React.Component {
+class NewFileButton extends React.Component {
   constructor(props) {
     super(props);
 
@@ -20,10 +19,6 @@ export default class NewFileButton extends React.Component {
       templateIds: ls.getUserTemplateIds(DEFAULT_USER_NAME),
     };
   }
-
-  static contextTypes = {
-    intl: PropTypes.object.isRequired,
-  };
 
   componentWillReceiveProps() {
     this.setState({
@@ -50,14 +45,14 @@ export default class NewFileButton extends React.Component {
     const currentTemplateId = url.get('uid');
     if (currentTemplateId === uid) {
       message.success(
-        this.context.intl.formatMessage({ id: 'app.header.new-file.message' }),
+        this.props.intl.formatMessage({ id: 'app.header.new-file.message' }),
         0.1,
         () => {
           location.reload();
         });
     } else {
       message.success(
-        this.context.intl.formatMessage({ id: 'app.header.new-file.message2' })
+        this.props.intl.formatMessage({ id: 'app.header.new-file.message2' })
       );
     }
   }
@@ -157,3 +152,5 @@ export default class NewFileButton extends React.Component {
     ) : newIcon;
   }
 }
+
+export default injectIntl(NewFileButton);

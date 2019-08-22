@@ -1,6 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import DocumentTitle from 'react-document-title';
 import { getChildren } from 'jsonml.js/lib/utils';
 import { Alert, Anchor } from 'antd';
@@ -8,11 +7,7 @@ import delegate from 'delegate';
 import EditButton from './EditButton';
 import { ping } from '../utils';
 
-export default class Article extends React.PureComponent {
-  static contextTypes = {
-    intl: PropTypes.object.isRequired,
-  }
-
+class Article extends React.PureComponent {
   componentDidMount() {
     // Add ga event click
     this.delegation = delegate(this.node, '.resource-card', 'click', (e) => {
@@ -51,14 +46,11 @@ export default class Article extends React.PureComponent {
 
 
   render() {
-    const props = this.props;
-    const content = props.content;
-
+    const { utils, intl: { locale }, content } = this.props;
     const { meta, description } = content;
     const { title, subtitle, filename } = meta;
-    const locale = this.context.intl.locale;
     const isNotTranslated = locale === 'en-US' && typeof title === 'object';
-    const anchorChild = this.getAnchor(props.utils.toReactComponent(
+    const anchorChild = this.getAnchor(utils.toReactComponent(
       ['ul', { className: 'toc' }].concat(getChildren(content.toc))
     ));
     return (
@@ -99,7 +91,7 @@ export default class Article extends React.PureComponent {
           </h1>
           {
             !description ? null
-              : props.utils.toReactComponent(
+              : utils.toReactComponent(
                 ['section', { className: 'markdown' }].concat(getChildren(description))
               )
           }
@@ -112,12 +104,12 @@ export default class Article extends React.PureComponent {
               )
           }
           {
-            props.utils.toReactComponent(
+            utils.toReactComponent(
               ['section', { className: 'markdown' }].concat(getChildren(content.content))
             )
           }
           {
-            props.utils.toReactComponent(
+            utils.toReactComponent(
               ['section', {
                 className: 'markdown api-container',
               }].concat(getChildren(content.api || ['placeholder']))
@@ -128,3 +120,5 @@ export default class Article extends React.PureComponent {
     );
   }
 }
+
+export default injectIntl(Article);

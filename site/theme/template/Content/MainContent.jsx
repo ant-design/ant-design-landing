@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'bisheng/router';
+import { injectIntl } from 'react-intl';
 import { Row, Col, Menu, Icon } from 'antd';
 import MobileMenu from 'rc-drawer';
 import Animate from 'rc-animate';
@@ -34,11 +34,7 @@ function fileNameToPath(filename) {
   return snippets[snippets.length - 1];
 }
 
-export default class MainContent extends React.PureComponent {
-  static contextTypes = {
-    intl: PropTypes.object.isRequired,
-  }
-
+class MainContent extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -114,7 +110,7 @@ export default class MainContent extends React.PureComponent {
   }
 
   generateMenuItem(isTop, item) {
-    const locale = this.context.intl.locale;
+    const { locale } = this.props.intl;
     const key = fileNameToPath(item.filename);
     const text = [
       <span key="english">
@@ -155,9 +151,8 @@ export default class MainContent extends React.PureComponent {
   }
 
   getMenuItems() {
-    const { themeConfig } = this.props;
+    const { themeConfig, intl: { locale } } = this.props;
     const moduleData = getModuleData(this.props);
-    const { locale } = this.context.intl;
     const menuItems = utils.getMenuItems(
       moduleData,
       locale,
@@ -305,3 +300,5 @@ export default class MainContent extends React.PureComponent {
     );
   }
 }
+
+export default injectIntl(MainContent);

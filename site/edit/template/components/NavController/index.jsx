@@ -1,9 +1,8 @@
 /* eslint-disable no-console */
 import React from 'react';
 import { Icon, message, Button, Modal, Popconfirm, Tooltip } from 'antd';
-import PropTypes from 'prop-types';
 import CodeMirror from 'rc-editor-list/lib/components/common/CodeMirror';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import 'codemirror/mode/javascript/javascript.js';
 
 import { saveJsZip, saveJSON } from '../saveJsZip';
@@ -21,10 +20,6 @@ import PublishModal from './PublishModal';
 class NavController extends React.PureComponent {
   static defaultProps = {
     className: 'edit-nav',
-  };
-
-  static contextTypes = {
-    intl: PropTypes.object.isRequired,
   };
 
   constructor(props) {
@@ -46,7 +41,7 @@ class NavController extends React.PureComponent {
     if (!location.port && window.gtag) {
       window.gtag('event', 'preview');
     }
-    message.success(this.context.intl.formatMessage({ id: 'app.header.preview.message' }));
+    message.success(this.props.intl.formatMessage({ id: 'app.header.preview.message' }));
     const { templateData } = this.props;
     // 如果在预览页清除数据，再生成预览将没有数据，手动写入；
     window.document.getElementById('myIframe').contentWindow.postMessage(templateData, '*');
@@ -67,14 +62,14 @@ class NavController extends React.PureComponent {
         const { dispatch } = this.props;
         dispatch(actions.setTemplateData(finalTemplateData));
         if (!cb) {
-          message.success(this.context.intl.formatMessage({ id: 'app.header.save.message' }));
+          message.success(this.props.intl.formatMessage({ id: 'app.header.save.message' }));
         } else {
           cb();
         }
         this.setState({ saveLoad: false });
       }).catch((error) => {
         console.error(JSON.stringify(error));
-        message.error(this.context.intl.formatMessage({ id: 'app.header.save.message.error' }));
+        message.error(this.props.intl.formatMessage({ id: 'app.header.save.message.error' }));
         cb();
       });
     });
@@ -90,7 +85,7 @@ class NavController extends React.PureComponent {
       saveJsZip(this.props.templateData, (c) => {
         if (c !== 'error') {
           message.success(
-            this.context.intl.formatMessage({ id: 'app.header.download.message' })
+            this.props.intl.formatMessage({ id: 'app.header.download.message' })
           );
         }
         this.setState({
@@ -132,7 +127,7 @@ class NavController extends React.PureComponent {
   onSaveJSON = () => {
     const { data } = this.props.templateData;
     saveJSON(JSON.stringify(data), () => {
-      message.success(this.context.intl.formatMessage({ id: 'app.header.save.message' }));
+      message.success(this.props.intl.formatMessage({ id: 'app.header.save.message' }));
     });
   }
 
@@ -290,4 +285,4 @@ class NavController extends React.PureComponent {
     );
   }
 }
-export default NavController;
+export default injectIntl(NavController);

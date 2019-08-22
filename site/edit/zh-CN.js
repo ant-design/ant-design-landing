@@ -125,7 +125,6 @@ module.exports = {
     'app.login.noPassword': '不知道密码请删除当前面页或新建',
     'app.login.new': '新建页面',
     'app.layout.notification.title': '3.0 发布说明',
-    'app.layout.notification.content1': '3.0 已正式发布，由于我们对有些模板做了调整，如果你以前编辑的模板不能显示，请到 ',
-    'app.layout.notification.content2': '提交你的页面 id 与 JSON 数据。',
+    'app.layout.notification.content': '3.0 已正式发布，由于我们对有些模板做了调整，如果你以前编辑的模板不能显示，请新建页面重新编辑。',
   },
 };

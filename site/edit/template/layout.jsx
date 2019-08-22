@@ -37,9 +37,7 @@ class Layout extends React.PureComponent {
       message: this.props.intl.formatMessage({ id: 'app.layout.notification.title' }),
       description: (
         <div>
-          {this.props.intl.formatMessage({ id: 'app.layout.notification.content1' })}
-          <a href="https://github.com/ant-design/ant-design-landing/issues" target="_blank"> GitHub issues </a>
-          {this.props.intl.formatMessage({ id: 'app.layout.notification.content2' })}
+          {this.props.intl.formatMessage({ id: 'app.layout.notification.content' })}
         </div>
       ),
     });

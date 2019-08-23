@@ -14,6 +14,7 @@ import * as actions from '../../../shared/redux/actions';
 import EditButton from './StateComponents/EditButtonView';
 import SwitchSlideView from './StateComponents/SwitchSlideView';
 import Editor from './MediumEditor';
+import iframeManager from '../../../shared/iframe';
 
 class EditStateController extends React.Component {
   static defaultProps = {
@@ -22,7 +23,6 @@ class EditStateController extends React.Component {
 
   state = {
     data: null,
-    iframe: null,
     currentHoverRect: {},
     currentSelectRect: {},
   }
@@ -156,8 +156,7 @@ class EditStateController extends React.Component {
 
   onOverlayScroll = (e) => {
     if (e.target === this.dom) {
-      const iframeWindow = this.state.iframe;
-      iframeWindow.scrollTo(0, e.target.scrollTop);
+      iframeManager.get().scrollTo(0, e.target.scrollTop);
       this.scrollTop = e.target.scrollTop;
     }
     // this.reRect();
@@ -208,7 +207,7 @@ class EditStateController extends React.Component {
     }
   }
 
-  receiveDomData = (data, iframe, id) => {
+  receiveDomData = (data, id) => {
     const { templateData } = this.props;
     const { template } = templateData ? templateData.data : { template: [] };
     let isChange;
@@ -222,9 +221,8 @@ class EditStateController extends React.Component {
       Object.keys(id).forEach((key) => {
         mdId[key] = id[key];
       });
-      const state = {
+      const newState = {
         data,
-        iframe,
       };
       const { parentData } = this.currentData || {};
       if (parentData) {
@@ -234,14 +232,14 @@ class EditStateController extends React.Component {
         if (this.currentData) {
           const currentSelectRect = this.currentData.item.getBoundingClientRect();
           this.currentData.rect = currentSelectRect;
-          state.currentSelectRect = currentSelectRect;
-          state.currentHoverRect = currentSelectRect;
-          this.setState(state);
+          newState.currentSelectRect = currentSelectRect;
+          newState.currentHoverRect = currentSelectRect;
+          this.setState(newState);
         } else {
           this.reRect();
         }
       } else {
-        this.setState(state);
+        this.setState(newState);
       }
     }
   }
@@ -401,7 +399,6 @@ class EditStateController extends React.Component {
           parentDom: dom.parentNode,
           id,
           reRect: this.reRect,
-          iframe: this.state.iframe,
           currentPopover: data && data.currentPopover,
         }
       ));
@@ -483,7 +480,6 @@ class EditStateController extends React.Component {
     this.reRect();
     const { templateData } = this.props;
     const { template, style } = templateData.data;
-    const { iframe } = this.state;
     const config = templateData.data.config;
     const current = template.indexOf(key);
     switch (type) {
@@ -497,7 +493,7 @@ class EditStateController extends React.Component {
         template.splice(current, 1);
         templateData.data.style = style.filter((item) => {
           if (item.cid === key) {
-            const styleNode = iframe.document.getElementById(item.id);
+            const styleNode = iframeManager.get().document.getElementById(item.id);
             if (styleNode) {
               styleNode.parentNode.removeChild(styleNode);
             }
@@ -600,7 +596,6 @@ class EditStateController extends React.Component {
             data={data}
             name={name.split('-')[0]}
             dataId={dataId}
-            iframe={this.state.iframe}
             reRect={this.reRect}
           />
         );
@@ -611,7 +606,7 @@ class EditStateController extends React.Component {
 
   render() {
     const { className, mediaStateSelect } = this.props;
-    const { data, currentHoverRect, currentSelectRect, iframe, openEditText } = this.state;
+    const { data, currentHoverRect, currentSelectRect, openEditText } = this.state;
     // 去除弹框的数据
     const dataArray = data ? Object.keys(data).filter(key => key !== 'currentPopover') : [];
     const overlayChild = dataArray.map((key, i) => {
@@ -643,6 +638,7 @@ class EditStateController extends React.Component {
         </div>
       );
     });
+    const iframe = iframeManager.get();
     const overlayHeight = iframe && iframe.document.getElementById('react-content').offsetHeight;
     return (
       <div

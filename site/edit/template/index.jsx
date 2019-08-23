@@ -12,6 +12,8 @@ import Layout from './layout';
 import store from '../../shared/redux';
 import { isZhCN } from '../../theme/template/utils';
 import '../static/style';
+import emitter from '../../shared/emitter';
+import iframeManager from '../../shared/iframe';
 
 class Edit extends React.Component {
   constructor(props) {
@@ -22,6 +24,13 @@ class Edit extends React.Component {
     this.state = {
       appLocale,
     };
+  }
+
+  componentDidMount() {
+    window.emitter = emitter;
+    window.emitter.on('iframe-rendered', (iframeWindow) => {
+      iframeManager.set(iframeWindow);
+    });
   }
 
   render() {

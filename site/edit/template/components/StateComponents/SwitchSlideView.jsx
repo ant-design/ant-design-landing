@@ -8,6 +8,7 @@ import { mergeEditDataToDefault } from '../../../../utils';
 import * as actions from '../../../../shared/redux/actions';
 
 import ListSort from './ListSort';
+import iframeManager from '../../../../shared/iframe';
 
 export default class SwitchSlideView extends React.Component {
   componentDidUpdate() {
@@ -21,7 +22,7 @@ export default class SwitchSlideView extends React.Component {
   }
 
   onPaginationChange = (currentPage) => {
-    const { iframe, templateData, dataId, reRect } = this.props;
+    const { templateData, dataId, reRect } = this.props;
     reRect();
     const template = {
       ...templateData,
@@ -31,7 +32,7 @@ export default class SwitchSlideView extends React.Component {
         },
       },
     };
-    iframe.postMessage(template, '*');
+    iframeManager.get().postMessage(template, '*');
   }
 
   setDataToTemplateData = (dataSource) => {

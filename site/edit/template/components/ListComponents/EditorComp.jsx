@@ -12,6 +12,7 @@ import * as actions from '../../../../shared/redux/actions';
 
 import EditorProps from './PropsComp';
 import EditorChild from './ChildComp';
+import iframeManager from '../../../../shared/iframe';
 
 const { Panel } = Collapse;
 
@@ -66,7 +67,7 @@ class EditorComp extends React.Component {
         ...templateData,
         funcData,
       };
-      currentEditData.iframe.postMessage(template, '*');
+      iframeManager.get().postMessage(template, '*');
       // this.forceUpdate();
     } else {
       const newTemplateData = deepCopy(templateData);

@@ -43,6 +43,12 @@ class Layout extends React.Component {
     };
   }
 
+  componentDidMount() {
+    if (window.parent.emitter) {
+      window.parent.emitter.emit('iframe-rendered', window);
+    }
+  }
+
   componentDidUpdate() {
     if (this.isEdit) {
       // 取不到弹框。
@@ -86,7 +92,7 @@ class Layout extends React.Component {
     // Uncaught DOMException: Failed to execute 'postMessage' on 'Window': HTMLDivElement object could not be cloned.
     // window.parent.postMessage(editData, '*');
     if (window.parent.receiveDomData) {
-      window.parent.receiveDomData(editData, window, mdId);
+      window.parent.receiveDomData(editData, mdId);
     }
   }
 

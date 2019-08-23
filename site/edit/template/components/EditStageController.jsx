@@ -1,7 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Icon, Button } from 'antd';
-import { FormattedMessage } from 'react-intl';
 import dragula from 'dragula';
 
 import { getCurrentDom } from '../utils';
@@ -12,9 +10,10 @@ import tempData from '../../../templates/template/element/template.config';
 import * as actions from '../../../shared/redux/actions';
 
 import EditButton from './StateComponents/EditButtonView';
-import SwitchSlideView from './StateComponents/SwitchSlideView';
 import Editor from './MediumEditor';
 import iframeManager from '../../../shared/iframe';
+import EditStageOverlayElement from './EditStageOverlayElement';
+import emitter from '../../../shared/emitter';
 
 class EditStateController extends React.Component {
   static defaultProps = {
@@ -34,9 +33,9 @@ class EditStateController extends React.Component {
     // window.addEventListener('message', this.receiveDomData);
     window.receiveDomData = this.receiveDomData;
     // 重置框
-    window.addEventListener('resize', () => {
-      this.reRect();
-    });
+    window.addEventListener('resize', this.resetRect);
+    emitter.on('edit-stage-reset-rect', this.resetRect);
+
     // 拖动
     let newId;
     this.side = document.querySelector('.edit-side-drawer .drawer-content .img-content-wrapper');
@@ -82,7 +81,7 @@ class EditStateController extends React.Component {
       newId = '';
       stateChild = null;
       this.isDrag = true;
-      this.reRect();
+      this.resetRect();
       this.state.className = `${this.state.className} drag`;
     })
       .on('dragend', () => {
@@ -128,11 +127,11 @@ class EditStateController extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.mediaStateSelect !== this.props.mediaStateSelect) {
-      this.reRect();
+      this.resetRect();
     }
   }
 
-  reRect = (noDispatch) => {
+  resetRect = (noDispatch) => {
     this.reEditItemVisibility();
     this.currentData = null;
     this.mouseCurrentData = null;
@@ -159,7 +158,7 @@ class EditStateController extends React.Component {
       iframeManager.get().scrollTo(0, e.target.scrollTop);
       this.scrollTop = e.target.scrollTop;
     }
-    // this.reRect();
+    // this.resetRect();
   }
 
   refreshCurrentData = rectArray => rectArray.filter(item => (
@@ -236,7 +235,7 @@ class EditStateController extends React.Component {
           newState.currentHoverRect = currentSelectRect;
           this.setState(newState);
         } else {
-          this.reRect();
+          this.resetRect();
         }
       } else {
         this.setState(newState);
@@ -398,7 +397,6 @@ class EditStateController extends React.Component {
           dom,
           parentDom: dom.parentNode,
           id,
-          reRect: this.reRect,
           currentPopover: data && data.currentPopover,
         }
       ));
@@ -477,7 +475,7 @@ class EditStateController extends React.Component {
   }
 
   onFuncClick = (type, key) => {
-    this.reRect();
+    this.resetRect();
     const { templateData } = this.props;
     const { template, style } = templateData.data;
     const config = templateData.data.config;
@@ -555,89 +553,11 @@ class EditStateController extends React.Component {
     });
   }
 
-  getFuncIconChild = (i, dataArray, key) => {
-    return ['up', 'down', 'delete'].map((type) => {
-      let disabled = false;
-      switch (type) {
-        case 'up':
-          disabled = !i;
-          break;
-        case 'down':
-          disabled = i === dataArray.length - 1;
-          break;
-        default:
-          disabled = dataArray.length === 1;
-          break;
-      }
-      return (
-        <Button
-          type="primary"
-          disabled={disabled}
-          key={type}
-          onClick={(e) => { this.onFuncClick(type, key, e); }}
-        >
-          <Icon type={type} />
-        </Button>
-      );
-    });
-  }
-
-  getFuncCompChild = (comp, dataId) => {
-    const compArray = comp.split('=');
-    const name = compArray[0];
-    const data = JSON.parse(compArray[1] || '{}');
-    switch (name) {
-      case 'banner-switch':
-      case 'tabs-switch':
-      case 'carousel-switch':
-        return (
-          <SwitchSlideView
-            {...this.props}
-            data={data}
-            name={name.split('-')[0]}
-            dataId={dataId}
-            reRect={this.reRect}
-          />
-        );
-      default:
-        return null;
-    }
-  }
-
   render() {
     const { className, mediaStateSelect } = this.props;
     const { data, currentHoverRect, currentSelectRect, openEditText } = this.state;
     // 去除弹框的数据
     const dataArray = data ? Object.keys(data).filter(key => key !== 'currentPopover') : [];
-    const overlayChild = dataArray.map((key, i) => {
-      const item = data[key];
-      const itemStyle = window.getComputedStyle(item.item);
-      return (
-        <div
-          key={key}
-          id={key}
-          data-key={key.split('_')[0]}
-          style={{
-            width: '100%',
-            height: itemStyle.height,
-            position: 'absolute', // 设置 margin 后定位失效，用 absolute
-            top: item.item.offsetTop,
-            zIndex: itemStyle.zIndex,
-          }}
-          className="overlay-elem"
-        >
-          <div className="drag-hints">
-            <Icon type="bars" />
-            {' '}
-            <FormattedMessage id="app.state.drag" />
-          </div>
-          <div className="func-wrapper">
-            {this.getFuncIconChild(i, dataArray, key)}
-          </div>
-          {item.comp && this.getFuncCompChild(item.comp, key)}
-        </div>
-      );
-    });
     const iframe = iframeManager.get();
     const overlayHeight = iframe && iframe.document.getElementById('react-content').offsetHeight;
     return (
@@ -656,7 +576,9 @@ class EditStateController extends React.Component {
           className="overlay"
           style={{ height: overlayHeight }}
         >
-          {overlayChild}
+          {dataArray.map((id, i) => (
+            <EditStageOverlayElement key={id} id={id} idx={i} siblingsCount={dataArray.length} onClickToolbarItem={this.onFuncClick} />
+          ))}
         </div>
         <div className="mouse-catcher" style={{ height: overlayHeight }}>
           {!objectEqual(currentHoverRect, currentSelectRect) && !openEditText

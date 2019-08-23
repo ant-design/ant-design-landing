@@ -16,6 +16,7 @@ import { DEFAULT_USER_NAME } from '../../../../shared/constants';
 import NewFileButton from './NewFileButton';
 import HistoryButton from './HistoryButton';
 import PublishModal from './PublishModal';
+import emitter from '../../../../shared/emitter';
 
 class NavController extends React.PureComponent {
   static defaultProps = {
@@ -137,13 +138,11 @@ class NavController extends React.PureComponent {
       window.gtag('event', 'saveJson');
     }
     const { code } = this.state;
-    const { templateData, dispatch, currentEditData } = this.props;
+    const { templateData, dispatch } = this.props;
     templateData.data = JSON.parse(code);
     dispatch(actions.setTemplateData(templateData));
     setTimeout(() => {
-      if (currentEditData) {
-        currentEditData.reRect();
-      }
+      emitter.emit('edit-stage-reset-rect');
       this.onChangeDataOpenModal();
     }, 100);
   }
@@ -161,7 +160,6 @@ class NavController extends React.PureComponent {
   }
 
   render() {
-    const { currentEditData } = this.props;
     const { saveLoad, downloadLoad, publishLoad, code, codeModalShow, publishModalShow } = this.state;
     const menuChild = [
       {
@@ -237,7 +235,6 @@ class NavController extends React.PureComponent {
         <NewFileButton />
         <HistoryButton
           templateData={this.props.templateData}
-          reRect={currentEditData ? currentEditData.reRect : null}
         />
         <Modal
           title={<FormattedMessage id="app.header.edit-data.header" />}

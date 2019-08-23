@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { objectEqual } from '../../../../utils';
 import { getHistory, getCurrentData } from '../../../../shared/localStorage';
 import * as actions from '../../../../shared/redux/actions';
+import emitter from '../../../../shared/emitter';
 
 class HistoryButton extends React.Component {
   getCurrentDataIndex = (data) => {
@@ -27,7 +28,7 @@ class HistoryButton extends React.Component {
     }
     const currentData = history[current + num];
 
-    const { reRect, dispatch } = this.props;
+    const { dispatch } = this.props;
 
     dispatch(actions.setTemplateData({
       data: currentData.attributes,
@@ -36,9 +37,7 @@ class HistoryButton extends React.Component {
       noHistory: 'handle',
     }));
 
-    if (reRect) {
-      reRect();
-    }
+    emitter.emit('edit-stage-reset-rect');
   }
 
   onKeyDown = (e) => {

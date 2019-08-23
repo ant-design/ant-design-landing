@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Pagination, Popover, Button, Icon } from 'antd';
 import { FormattedMessage } from 'react-intl';
 import { getRandomKey } from 'rc-editor-list/lib/utils';
@@ -6,11 +7,13 @@ import { getRandomKey } from 'rc-editor-list/lib/utils';
 import tempData from '../../../../templates/template/element/template.config';
 import { mergeEditDataToDefault } from '../../../../utils';
 import * as actions from '../../../../shared/redux/actions';
+import { mapStateToProps } from '../../../../shared/utils';
+import iframeManager from '../../../../shared/iframe';
+import emitter from '../../../../shared/emitter';
 
 import ListSort from './ListSort';
-import iframeManager from '../../../../shared/iframe';
 
-export default class SwitchSlideView extends React.Component {
+class SwitchSlideView extends React.Component {
   componentDidUpdate() {
     this.pop.tooltip.tooltip.trigger.forcePopupAlign();
   }
@@ -22,8 +25,9 @@ export default class SwitchSlideView extends React.Component {
   }
 
   onPaginationChange = (currentPage) => {
-    const { templateData, dataId, reRect } = this.props;
-    reRect();
+    emitter.emit('edit-stage-reset-rect');
+
+    const { templateData, dataId } = this.props;
     const template = {
       ...templateData,
       funcData: {
@@ -36,8 +40,9 @@ export default class SwitchSlideView extends React.Component {
   }
 
   setDataToTemplateData = (dataSource) => {
-    const { templateData, dataId, reRect } = this.props;
-    reRect();
+    emitter.emit('edit-stage-reset-rect');
+
+    const { templateData, dataId } = this.props;
     const newData = {
       ...templateData,
     };
@@ -168,3 +173,5 @@ export default class SwitchSlideView extends React.Component {
     );
   }
 }
+
+export default connect(mapStateToProps)(SwitchSlideView);

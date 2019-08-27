@@ -206,6 +206,6 @@ class Header3 extends React.Component {
   }
 }
 
-/* replace-start-value = export default Header */
+/* replace-start-value = export default Header3 */
 export default polyfill(Header3);
 /* replace-end-value */

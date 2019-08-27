@@ -95,7 +95,7 @@ export default {
                     {
                       name: 'content',
                       className: 'feature8-block-content',
-                      children: '沟通业务需求<br/>对接人：诚凡、芸彩',
+                      children: '沟通业务需求，对接人：诚凡、芸彩',
                     },
                   ],
                 },
@@ -125,7 +125,7 @@ export default {
                     {
                       name: 'content',
                       className: 'feature8-block-content',
-                      children: '沟通业务需求<br/>对接人：诚凡、芸彩沟通业务需求<br/>对接人：诚凡、芸彩',
+                      children: '沟通业务需求，对接人：诚凡、芸彩沟通业务需求，对接人：诚凡、芸彩',
                     },
                   ],
                 },
@@ -155,7 +155,7 @@ export default {
                     {
                       name: 'content',
                       className: 'feature8-block-content',
-                      children: '沟通业务需求<br/>对接人：诚凡、芸彩沟通业务需求<br/>对接人：诚凡、芸彩',
+                      children: '沟通业务需求，对接人：诚凡、芸彩沟通业务需求，对接人：诚凡、芸彩',
                     },
                   ],
                 },
@@ -185,7 +185,7 @@ export default {
                     {
                       name: 'content',
                       className: 'feature8-block-content',
-                      children: '沟通业务需求<br/>对接人：诚凡、芸彩沟通业务需求<br/>对接人：诚凡、芸彩',
+                      children: '沟通业务需求，对接人：诚凡、芸彩沟通业务需求，对接人：诚凡、芸彩',
                     },
                   ],
                 },
@@ -226,7 +226,7 @@ export default {
                     {
                       name: 'content',
                       className: 'feature8-block-content',
-                      children: '沟通业务需求<br/>对接人：诚凡、芸彩',
+                      children: '沟通业务需求，对接人：诚凡、芸彩',
                     },
                   ],
                 },
@@ -256,7 +256,7 @@ export default {
                     {
                       name: 'content',
                       className: 'feature8-block-content',
-                      children: '沟通业务需求<br/>对接人：诚凡、芸彩沟通业务需求<br/>对接人：诚凡、芸彩',
+                      children: '沟通业务需求，对接人：诚凡、芸彩沟通业务需求，对接人：诚凡、芸彩',
                     },
                   ],
                 },
@@ -286,7 +286,7 @@ export default {
                     {
                       name: 'content',
                       className: 'feature8-block-content',
-                      children: '沟通业务需求<br/>对接人：诚凡、芸彩沟通业务需求<br/>对接人：诚凡、芸彩',
+                      children: '沟通业务需求，对接人：诚凡、芸彩沟通业务需求，对接人：诚凡、芸彩',
                     },
                   ],
                 },
@@ -316,7 +316,7 @@ export default {
                     {
                       name: 'content',
                       className: 'feature8-block-content',
-                      children: '沟通业务需求<br/>对接人：诚凡、芸彩沟通业务需求<br/>对接人：诚凡、芸彩',
+                      children: '沟通业务需求，对接人：诚凡、芸彩沟通业务需求，对接人：诚凡、芸彩',
                     },
                   ],
                 },

@@ -50,7 +50,7 @@ export default class ChildComp extends React.Component {
     this.editType = value;
   }
 
-  onAdd = (ids, currentData) => {
+  onAdd = (ids, currentData, childKey) => {
     let newData;
     if (this.editAddDefault) {
       const name = this.editType || this.editAddDefault[0];
@@ -67,11 +67,11 @@ export default class ChildComp extends React.Component {
         };
       }
     } else {
-      newData = deepCopy(currentData.children[currentData.children.length - 1]);
+      newData = deepCopy(currentData[childKey][currentData[childKey].length - 1]);
       delete newData.delete;
       newData.name = `${newData.name.split('~')[0].replace(/[0-9]/ig, '')}~${getRandomKey()}`;
     }
-    currentData.children.push(newData);
+    currentData[childKey].push(newData);
     this.props.onChange(ids, currentData);
   }
 
@@ -199,7 +199,7 @@ export default class ChildComp extends React.Component {
             <Col>
               <a
                 onClick={() => {
-                  this.onAdd(ids, currentEditTemplateData);
+                  this.onAdd(ids, currentEditTemplateData, childKey);
                 }}
                 className="add-button"
               >

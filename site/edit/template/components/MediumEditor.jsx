@@ -43,18 +43,19 @@ export default class Editor extends React.Component {
         this.setState({
           text: b.innerHTML,
         }, () => {
-          (this.props.onChange || noop)(b.innerHTML);
+          (this.props.onChange || noop)(b);
         });
       }
     });
     this.medium.subscribe('blur', (e, b) => {
+      e.stopPropagation();
       if (b.innerHTML.match(tagRep)) {
         (this.props.onBlur || noop)(b.innerHTML);
       }
     });
   }
 
-  componentWillReceiveProps(nextProps) {
+  /* componentWillReceiveProps(nextProps) {
     if (nextProps.text !== this.state.text) {
       this.setState({
         text: nextProps.text,
@@ -65,7 +66,7 @@ export default class Editor extends React.Component {
         this.addChange();
       });
     }
-  }
+  } */
 
   componentWillUnmount() {
     this.medium.destroy();

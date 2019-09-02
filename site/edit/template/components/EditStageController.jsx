@@ -261,9 +261,9 @@ class EditStateController extends React.Component {
     });
   }
 
-  setTemplateConfigData = (text, noHistory = false) => {
+  setTemplateConfigData = (text) => {
     const data = this.props.templateData;
-    data.noHistory = noHistory;
+    // data.noHistory = noHistory;
     const ids = this.currentData.dataId.split('-');
     const t = getDataSourceValue(ids[1], data.data.config, [ids[0], 'dataSource']);
     t.children = text;
@@ -287,16 +287,22 @@ class EditStateController extends React.Component {
     this.props.dispatch(actions.setTemplateData(data));
   }
 
-  editTextHandleChange = (text) => {
-    this.isInput = true;
+  editTextHandleBlur = (text) => {
     // 修改 props 里的 dataSource 数据
-    this.setTemplateConfigData(text, true);
+    this.setTemplateConfigData(text);
+    setTimeout(() => {
+      this.isInput = false;
+      this.closeEditText();
+      this.reEditItemVisibility();
+    });
   }
 
-  editTextHandleBlur = () => {
-    const { templateData, dispatch } = this.props;
-    // history 实现再刷一次
-    dispatch(actions.setTemplateData(templateData));
+  editTextHandleChange = (b) => {
+    this.isInput = true;
+    b.style.height = 'auto';
+    const height = b.scrollHeight;
+    b.parentNode.parentNode.style.height = `${height}px`;
+    b.style.height = '';
   }
 
   getDataSourceChildren = (_t, id) => {

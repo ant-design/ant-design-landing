@@ -2,26 +2,29 @@ import React from 'react';
 import TweenOne from 'rc-tween-one';
 import { Link } from 'rc-scroll-anim';
 /* replace-start */
+import { polyfill } from 'react-lifecycles-compat';
 import './index.less';
 /* replace-end */
 class Header extends React.Component {
+  /* replace-start */
+  static getDerivedStateFromProps(props, { prevProps }) {
+    const { func } = props;
+    const nextState = {
+      prevProps: props,
+    };
+    if (prevProps && props !== prevProps && func) {
+      nextState.phoneOpen = func.open;
+    }
+    return nextState;
+  }
+
+  /* replace-end */
   constructor(props) {
     super(props);
     this.state = {
       phoneOpen: false,
     };
   }
-
-  /* replace-start */
-  componentWillReceiveProps(nextProps) {
-    const { func } = nextProps;
-    if (func) {
-      this.setState({
-        phoneOpen: func.open,
-      });
-    }
-  }
-  /* replace-end */
 
   phoneClick = () => {
     const phoneOpen = !this.state.phoneOpen;
@@ -112,4 +115,6 @@ class Header extends React.Component {
   }
 }
 
-export default Header;
+/* replace-start-value = export default Header */
+export default polyfill(Header);
+/* replace-end-value */

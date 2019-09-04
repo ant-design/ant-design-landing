@@ -3,6 +3,7 @@ import TweenOne from 'rc-tween-one';
 import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';
 import { Tabs, Icon, Row, Col } from 'antd';
 /* replace-start-value = import { getChildrenToRender } from './utils'; */
+import { polyfill } from 'react-lifecycles-compat';
 import { getChildrenToRender } from '../../utils';
 /* replace-end-value */
 /* replace-start */
@@ -11,6 +12,25 @@ import './index.less';
 const TabPane = Tabs.TabPane;
 
 class Content7 extends React.Component {
+  /* replace-start */
+  static getDerivedStateFromProps(props, { prevProps, current: prevCurrent }) {
+    const { func } = props;
+    const nextState = {
+      prevProps: props,
+    };
+    if (prevProps && props !== prevProps) {
+      const childLen = props.dataSource.block.children.length;
+      if (func) {
+        const current = func.currentPage > childLen ? childLen : func.currentPage;
+        nextState.current = current;
+      } else if (prevCurrent > childLen) {
+        nextState.current = childLen;
+      }
+    }
+    return nextState;
+  }
+  /* replace-end */
+
   constructor(props) {
     super(props);
     this.state = {
@@ -19,24 +39,7 @@ class Content7 extends React.Component {
       /* replace-end-value */
     };
   }
-  /* replace-start */
 
-  componentWillReceiveProps(nextProps) {
-    const { func } = nextProps;
-    const childLen = nextProps.dataSource.block.children.length;
-    if (func) {
-      const current = func.currentPage > childLen ? childLen : func.currentPage;
-      this.setState({
-        current,
-      });
-    } else if (this.state.current > childLen) {
-      this.setState({
-        current: childLen,
-      });
-    }
-  }
-
-  /* replace-end */
   onChange = (key) => {
     this.setState({ current: parseFloat(key) });
   }
@@ -188,5 +191,6 @@ class Content7 extends React.Component {
   }
 }
 
-
-export default Content7;
+/* replace-start-value = export default Content7 */
+export default polyfill(Content7);
+/* replace-end-value */

@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { polyfill } from 'react-lifecycles-compat';
 import { Icon, Button } from 'antd';
 import { FormattedMessage } from 'react-intl';
 import dragula from 'dragula';
@@ -20,14 +21,29 @@ class EditStateController extends React.Component {
     className: 'edit-stage',
   };
 
-  state = {
-    data: null,
-    iframe: null,
-    currentHoverRect: {},
-    currentSelectRect: {},
+  static getDerivedStateFromProps(props, { prevProps, $self }) {
+    const nextState = {
+      prevProps: props,
+    };
+    if (prevProps && props !== prevProps
+      && props.mediaStateSelect !== prevProps.mediaStateSelect) {
+      $self.reRect();
+    }
+    return nextState;
   }
 
   scrollTop = 0;
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: null,
+      iframe: null,
+      currentHoverRect: {},
+      currentSelectRect: {},
+      $self: this,
+    };
+  }
 
   componentDidMount() {
     // 接收子级里传来的 dom 数据;
@@ -124,12 +140,6 @@ class EditStateController extends React.Component {
           clone.style.backgroundPosition = 'center top';
         }
       });
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.mediaStateSelect !== this.props.mediaStateSelect) {
-      this.reRect();
-    }
   }
 
   reRect = (noDispatch) => {
@@ -677,4 +687,4 @@ class EditStateController extends React.Component {
     );
   }
 }
-export default EditStateController;
+export default polyfill(EditStateController);

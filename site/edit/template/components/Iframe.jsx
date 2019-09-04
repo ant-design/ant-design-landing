@@ -1,12 +1,28 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import { polyfill } from 'react-lifecycles-compat';
 import { mapStateToProps } from '../../../shared/utils';
 import * as actions from '../../../shared/redux/actions';
 
 class Iframe extends React.Component {
-  componentWillReceiveProps(nextProps) {
-    const { templateData } = nextProps;
+  static getDerivedStateFromProps(props, { prevProps, $self }) {
+    const nextState = {
+      prevProps: props,
+    };
+    if (prevProps && props !== prevProps) {
+      $self.updatePost(props);
+    }
+    return nextState;
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      $self: this,
+    };
+  }
+
+  updatePost({ templateData }) {
     const { type } = templateData;
     if (type === 'success'
       && this.iframe.contentWindow
@@ -19,7 +35,7 @@ class Iframe extends React.Component {
   getData = () => {
     const { dispatch, templateData } = this.props;
     if (templateData.type === 'success') {
-      this.componentWillReceiveProps(this.props);
+      this.updatePost(this.props);
     } else {
       dispatch(actions.getUserData());
     }
@@ -54,4 +70,4 @@ class Iframe extends React.Component {
   }
 }
 
-export default connect(mapStateToProps)(Iframe);
+export default connect(mapStateToProps)(polyfill(Iframe));

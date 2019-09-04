@@ -4,6 +4,7 @@ import QueueAnim from 'rc-queue-anim';
 import TweenOne, { TweenOneGroup } from 'rc-tween-one';
 import BannerAnim, { Element } from 'rc-banner-anim';
 /* replace-start-value = import { isImg } from './utils'; */
+import { polyfill } from 'react-lifecycles-compat';
 import { isImg } from '../../../../utils';
 /* replace-end-value */
 import 'rc-banner-anim/assets/index.css';
@@ -13,31 +14,33 @@ import './index.less';
 const { BgElement } = Element;
 class Banner extends React.PureComponent {
   /* replace-start */
+  static getDerivedStateFromProps(props, { prevProps, $self, current: prevCurrent }) {
+    const { func } = props;
+    const nextState = {
+      prevProps: props,
+    };
+    if (prevProps && props !== prevProps) {
+      const childLen = props.dataSource.BannerAnim.children.length;
+      if (func) {
+        const current = func.currentPage > childLen ? childLen : func.currentPage;
+        if ($self.banner) {
+          $self.banner.slickGoTo(current - 1);
+        }
+        nextState.current = current;
+      } else if (prevCurrent > childLen && $self.banner) {
+        $self.banner.slickGoTo(childLen - 1);
+        nextState.current = childLen;
+      }
+    }
+    return nextState;
+  }
+
   constructor(props) {
     super(props);
     this.state = {
       current: props.func ? props.func.currentPage : 1,
+      $self: this,// eslint-disable-line
     };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { func } = nextProps;
-    const childLen = nextProps.dataSource.BannerAnim.children.length;
-    if (func) {
-      const current = func.currentPage > childLen ? childLen : func.currentPage;
-
-      if (this.banner) {
-        this.banner.slickGoTo(current - 1);
-      }
-      this.setState({
-        current,
-      });
-    } else if (this.state.current > childLen && this.banner) {
-      this.banner.slickGoTo(childLen - 1);
-      this.setState({
-        current: childLen,
-      });
-    }
   }
 
   /* replace-end */
@@ -155,4 +158,6 @@ class Banner extends React.PureComponent {
   }
 }
 
-export default Banner;
+/* replace-start-value = export default Banner */
+export default polyfill(Banner);
+/* replace-end-value */

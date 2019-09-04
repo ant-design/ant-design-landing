@@ -2,6 +2,7 @@
 import React from 'react';
 import { Menu, Button, Icon, Dropdown, message } from 'antd';
 import { FormattedMessage, injectIntl } from 'react-intl';
+import { polyfill } from 'react-lifecycles-compat';
 
 import { RemoveLocalStorage } from '../../../../utils';
 import { newTemplate } from '../../../../shared/utils';
@@ -12,18 +13,22 @@ import * as url from '../../../../shared/url';
 const { Item, ItemGroup } = Menu;
 
 class NewFileButton extends React.Component {
+  static getDerivedStateFromProps(props, { prevProps }) {
+    const nextState = {
+      prevProps: props,
+    };
+    if (prevProps && props !== prevProps) {
+      nextState.templateIds = ls.getUserTemplateIds(DEFAULT_USER_NAME);
+    }
+    return nextState;
+  }
+
   constructor(props) {
     super(props);
 
     this.state = {
       templateIds: ls.getUserTemplateIds(DEFAULT_USER_NAME),
     };
-  }
-
-  componentWillReceiveProps() {
-    this.setState({
-      templateIds: ls.getUserTemplateIds(DEFAULT_USER_NAME),
-    });
   }
 
   onClickNew = () => {
@@ -153,4 +158,4 @@ class NewFileButton extends React.Component {
   }
 }
 
-export default injectIntl(NewFileButton);
+export default injectIntl(polyfill(NewFileButton));

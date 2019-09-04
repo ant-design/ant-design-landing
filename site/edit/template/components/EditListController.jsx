@@ -1,26 +1,29 @@
 import React from 'react';
 import { Tabs, Icon, Tooltip } from 'antd';
 import { FormattedMessage } from 'react-intl';
+import { polyfill } from 'react-lifecycles-compat';
 import EditorComp from './ListComponents/EditorComp';
 import EditorOther from './ListComponents/EditorOther';
 
 const TabPane = Tabs.TabPane;
 
 class EditListController extends React.PureComponent {
+  static getDerivedStateFromProps(props, { prevProps, show }) {
+    const nextState = {
+      prevProps: props,
+    };
+    if (prevProps && props !== prevProps
+      && props.currentEditData !== prevProps.currentEditData && show !== '1') {
+      nextState.show = '1';
+    }
+    return nextState; // eslint-disable-line
+  }
+
   constructor(props) {
     super(props);
     this.state = {
       show: '1',
     };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.currentEditData !== this.props.currentEditData
-      && this.state.show !== '1') {
-      this.setState({
-        show: '1',
-      });
-    }
   }
 
   onChange = (key) => {
@@ -78,4 +81,4 @@ class EditListController extends React.PureComponent {
   }
 }
 
-export default EditListController;
+export default polyfill(EditListController);

@@ -1,18 +1,22 @@
 import React from 'react';
 import classnames from 'classnames';
+import { polyfill } from 'react-lifecycles-compat';
+
 import { Popover } from 'antd';
 
-export default class PhoneNav extends React.PureComponent {
-  state = {
-    show: false,
+class PhoneNav extends React.PureComponent {
+  static getDerivedStateFromProps(props, { prevProps, show }) {
+    const nextState = {
+      prevProps: props,
+    };
+    if (prevProps && props !== prevProps && show) {
+      nextState.show = false;
+    }
+    return nextState;
   }
 
-  componentWillReceiveProps() {
-    if (this.state.show) {
-      this.setState({
-        show: false,
-      });
-    }
+  state = {
+    show: false,
   }
 
   onMenuVisibleChange = (show) => {
@@ -24,7 +28,7 @@ export default class PhoneNav extends React.PureComponent {
   render() {
     const { children } = this.props;
     const { show } = this.state;
-    const barClassNamr = classnames('phone-nav-bar', {
+    const barClassName = classnames('phone-nav-bar', {
       open: show,
     });
     return (
@@ -38,9 +42,11 @@ export default class PhoneNav extends React.PureComponent {
         onVisibleChange={this.onMenuVisibleChange}
       >
         <div className="phone-nav-bar-wrapper">
-          <i className={barClassNamr} />
+          <i className={barClassName} />
         </div>
       </Popover>
     );
   }
 }
+
+export default polyfill(PhoneNav);

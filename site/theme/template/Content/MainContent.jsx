@@ -6,6 +6,8 @@ import MobileMenu from 'rc-drawer';
 import Animate from 'rc-animate';
 import TweenOne from 'rc-tween-one';
 import ticker from 'rc-tween-one/lib/ticker';
+import { polyfill } from 'react-lifecycles-compat';
+
 import Article from './Article';
 import * as utils from '../utils';
 
@@ -34,25 +36,48 @@ function fileNameToPath(filename) {
   return snippets[snippets.length - 1];
 }
 
+function getSideBarOpenKeys(props) {
+  const pathname = props.location.pathname;
+  const prevModule = this.currentModule;
+  this.currentModule = pathname.replace(/^\//).split('/')[1] || 'components';
+  if (this.currentModule === 'react') {
+    this.currentModule = 'components';
+  }
+  const locale = utils.isZhCN(pathname) ? 'zh-CN' : 'en-US';
+  if (prevModule !== this.currentModule) {
+    const moduleData = getModuleData(props);
+    const shouldOpenKeys = utils.getMenuItems(
+      moduleData,
+      locale,
+      props.themeConfig
+    ).map(m => m.title[locale] || m.title);
+    return shouldOpenKeys;
+  }
+}
+
 class MainContent extends React.PureComponent {
+  static getDerivedStateFromProps(props, { prevProps }) {
+    const nextState = {
+      prevProps: props,
+    };
+    if (prevProps && props !== prevProps) {
+      const openKeys = getSideBarOpenKeys(props);
+      if (openKeys) {
+        nextState.openKeys = openKeys;
+      }
+    }
+    return nextState;
+  }
+
   constructor(props) {
     super(props);
     this.state = {
-      openKeys: this.getSideBarOpenKeys(props) || [],
+      openKeys: getSideBarOpenKeys(props) || [],
     };
   }
 
   componentDidMount() {
     this.componentDidUpdate();
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const openKeys = this.getSideBarOpenKeys(nextProps);
-    if (openKeys) {
-      this.setState({
-        openKeys,
-      });
-    }
   }
 
   componentDidUpdate() {
@@ -90,24 +115,6 @@ class MainContent extends React.PureComponent {
     });
   }
 
-  getSideBarOpenKeys(nextProps) {
-    const pathname = nextProps.location.pathname;
-    const prevModule = this.currentModule;
-    this.currentModule = pathname.replace(/^\//).split('/')[1] || 'components';
-    if (this.currentModule === 'react') {
-      this.currentModule = 'components';
-    }
-    const locale = utils.isZhCN(pathname) ? 'zh-CN' : 'en-US';
-    if (prevModule !== this.currentModule) {
-      const moduleData = getModuleData(nextProps);
-      const shouldOpenKeys = utils.getMenuItems(
-        moduleData,
-        locale,
-        nextProps.themeConfig
-      ).map(m => m.title[locale] || m.title);
-      return shouldOpenKeys;
-    }
-  }
 
   generateMenuItem(isTop, item) {
     const { locale } = this.props.intl;
@@ -301,4 +308,4 @@ class MainContent extends React.PureComponent {
   }
 }
 
-export default injectIntl(MainContent);
+export default injectIntl(polyfill(MainContent));

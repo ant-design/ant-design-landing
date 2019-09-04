@@ -3,6 +3,7 @@ import scrollScreen from 'rc-scroll-anim/lib/ScrollScreen';
 import { enquireScreen } from 'enquire-js';
 import { connect } from 'react-redux';
 import { mobileTitle } from 'rc-editor-list/lib/utils';
+import { polyfill } from 'react-lifecycles-compat';
 
 import webData from './element/template.config';
 import {
@@ -23,6 +24,18 @@ enquireScreen((b) => {
   isMobile = b;
 });
 class Layout extends React.Component {
+  static getDerivedStateFromProps(props, { prevProps, $self }) {
+    const nextState = {
+      prevProps: props,
+    };
+    if (prevProps && props !== prevProps) {
+      if (!$self.isEdit) {
+        nextState.templateData = props.templateData;
+      }
+    }
+    return nextState;
+  }
+
   constructor(props) {
     super(props);
     this.scrollScreen = false;
@@ -35,15 +48,17 @@ class Layout extends React.Component {
       style.type = 'text/css';
       style.innerHTML = 'body::-webkit-scrollbar{display:none;}';
       document.body.appendChild(style);
+      window.addEventListener('message', this.messageHandle);
     }
     this.styleTag = this.createStyle();
     this.state = {
       templateData: props.templateData,
       isMobile,
+      $self: this,// eslint-disable-line
     };
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     if (this.isEdit) {
       // 取不到弹框。
       setTimeout(this.setData);
@@ -53,27 +68,20 @@ class Layout extends React.Component {
       const docHeight = this.dom.getBoundingClientRect().height;
       scrollScreen.init({ docHeight });
     }
+    if (!this.isEdit && this.props !== prevProps) {
+      this.setScrollToWindow();
+    }
   }
 
-  componentWillMount() {
-    if (this.isEdit) {
-      window.addEventListener('message', this.messageHandle);
-    }
+  componentDidMount() {
     enquireScreen((b) => {
       this.setState({ isMobile: b });
     });
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!this.isEdit) {
-      this.setState({
-        templateData: nextProps.templateData,
-      }, this.setScrollToWindow);
-    }
-  }
-
-  componentWillUpdate() {
+  getSnapshotBeforeUpdate() {
     this.scrollTop = window.scrollY;
+    return null;
   }
 
   setData = () => {
@@ -260,4 +268,4 @@ class Layout extends React.Component {
   }
 }
 
-export default connect(mapStateToProps)(Layout);
+export default connect(mapStateToProps)(polyfill(Layout));

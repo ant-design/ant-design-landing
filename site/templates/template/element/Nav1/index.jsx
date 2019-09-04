@@ -3,12 +3,26 @@ import { findDOMNode } from 'react-dom';
 import TweenOne from 'rc-tween-one';
 import { Menu, Icon } from 'antd';
 /* replace-start */
+import { polyfill } from 'react-lifecycles-compat';
 import './index.less';
 /* replace-end */
 
 const { Item, SubMenu } = Menu;
 
 class Header extends React.Component {
+  /* replace-start */
+  static getDerivedStateFromProps(props, { prevProps }) {
+    const { func } = props;
+    const nextState = {
+      prevProps: props,
+    };
+    if (prevProps && props !== prevProps && func) {
+      nextState.phoneOpen = func.open;
+    }
+    return nextState;
+  }
+
+  /* replace-end */
   constructor(props) {
     super(props);
     this.state = {
@@ -16,18 +30,7 @@ class Header extends React.Component {
       menuHeight: 0,
     };
   }
-  /* replace-start */
 
-  componentWillReceiveProps(nextProps) {
-    const { func } = nextProps;
-    if (func) {
-      this.setState({
-        phoneOpen: func.open,
-      });
-    }
-  }
-
-  /* replace-end */
   phoneClick = () => {
     const menu = findDOMNode(this.menu);
     const phoneOpen = !this.state.phoneOpen;
@@ -179,4 +182,6 @@ class Header extends React.Component {
   }
 }
 
-export default Header;
+/* replace-start-value = export default Header */
+export default polyfill(Header);
+/* replace-end-value */

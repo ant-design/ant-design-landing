@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { polyfill } from 'react-lifecycles-compat';
 import TweenOne from 'rc-tween-one';
 import QueueAnim from 'rc-queue-anim';
 import PropTypes from 'prop-types';
@@ -52,7 +53,7 @@ function mergeChildren(prev, next) {
   return ret;
 }
 
-export default class ListSort extends React.Component {
+class ListSort extends React.Component {
   static propTypes = {
     component: PropTypes.any,
     children: PropTypes.any.isRequired,
@@ -74,6 +75,16 @@ export default class ListSort extends React.Component {
     },
     dragElement: null,
   };
+
+  static getDerivedStateFromProps(props, { prevProps, children: currentChildren }) {
+    const nextState = {
+      prevProps: props,
+    };
+    if (prevProps && props !== prevProps) {
+      nextState.children = mergeChildren(currentChildren, props.children);
+    }
+    return nextState;
+  }
 
   constructor(props) {
     super(props);
@@ -105,13 +116,6 @@ export default class ListSort extends React.Component {
       window.attachEvent('onmouseup', this.onMouseUp);
       window.attachEvent('ontouchend', this.onMouseUp);
     }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const currentChildren = this.state.children;
-    const nextChildren = nextProps.children;
-    const newChildren = mergeChildren(currentChildren, nextChildren);
-    this.setState({ children: newChildren });
   }
 
   componentWillUnmount() {
@@ -379,3 +383,4 @@ export default class ListSort extends React.Component {
     }, childrenToRender);
   }
 }
+export default polyfill(ListSort);

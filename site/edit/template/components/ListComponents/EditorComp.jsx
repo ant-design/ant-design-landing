@@ -5,7 +5,7 @@ import editorZh from 'rc-editor-list/lib/locale/zh_CN';
 import { Collapse } from 'antd';
 import { FormattedMessage } from 'react-intl';
 
-import { deepCopy, getDataSourceValue, setDataSourceValue, mergeEditDataToDefault } from '../../../../utils';
+import { deepCopy, getTemplateDataAtPath, setTemplateDataAtPath, mergeEditDataToDefault } from '../../../../utils';
 import { isZhCN } from '../../../../theme/template/utils';
 import tempData from '../../../../templates/template/element/template.config';
 import * as actions from '../../../../shared/redux/actions';
@@ -28,12 +28,22 @@ class EditorComp extends React.Component {
     const cid = ids[0].split('_')[0];
     const tempDataSource = mergeEditDataToDefault(
       templateData.data.config[ids[0]], tempData[cid]);
-    const currentEditTemplateData = getDataSourceValue(ids[1], tempDataSource);
+    const currentEditTemplateData = getTemplateDataAtPath({
+      sourceData: tempDataSource,
+      path: ids[1],
+    });
     const newClassName = `${currentEditTemplateData && currentEditTemplateData.className
       ? currentEditTemplateData.className.split(' ').filter(c => c !== cssName).join(' ')
       : ''} ${cssName}`.trim();
     const newTemplateData = deepCopy(templateData);
-    setDataSourceValue(ids, 'className', newClassName, newTemplateData.data.config);
+    const [templateId] = ids[0].split('_');
+    setTemplateDataAtPath({
+      sourceData: newTemplateData.data.config,
+      path: ['className', ids[1]].join('&'),
+      value: newClassName,
+      componentId: ids[0],
+      templateId,
+    });
     const data = {
       // className: e.className,
       // cssValue,
@@ -71,7 +81,14 @@ class EditorComp extends React.Component {
       // this.forceUpdate();
     } else {
       const newTemplateData = deepCopy(templateData);
-      setDataSourceValue(ids, key, value, newTemplateData.data.config);
+      const [templateId] = ids[0].split('_');
+      setTemplateDataAtPath({
+        sourceData: newTemplateData.data.config,
+        path: [ids[1], key].join('&'),
+        value,
+        componentId: ids[0],
+        templateId,
+      });
       dispatch(actions.setTemplateData(newTemplateData));
     }
   }
@@ -79,7 +96,14 @@ class EditorComp extends React.Component {
   onChildChange = (ids, currentData) => {
     const { dispatch, templateData } = this.props;
     const newTemplateData = deepCopy(templateData);
-    setDataSourceValue(ids, 'children', currentData.children, newTemplateData.data.config);
+    const [templateId] = ids[0].split('_');
+    setTemplateDataAtPath({
+      sourceData: newTemplateData.data.config,
+      path: [ids[1], 'children'].join('&'),
+      value: currentData.children,
+      componentId: ids[0],
+      templateId,
+    });
     dispatch(actions.setTemplateData(newTemplateData));
   }
 

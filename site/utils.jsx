@@ -1,4 +1,7 @@
 import React from 'react';
+import * as r from 'ramda';
+import set from 'lodash.set';
+import invariant from 'invariant';
 
 import tempData from './templates/template/element/template.config';
 import { isZhCN, getLocalizedPathname } from './theme/template/utils';
@@ -108,62 +111,185 @@ export function getNewHref(port, hash, remHash, $path = '', setLocal = true) {
   return href;
 }
 
-export const getDataSourceValue = (id, templateData, parent) => {
-  const array = parent || [];
-  const childIds = id ? id.split('&') : [];
-  let t = templateData;
-  let tt;
-  if (parent) {
-    const cid = parent[0].split('_')[0];
-    tt = {
-      [parent[0]]: {
-        dataSource: tempData[cid].dataSource,
-      },
-    };
-  }
-  array.concat(childIds).filter(c => c).forEach((key) => {
-    const nameKey = key.split('=');
-    if (nameKey.length > 1 && nameKey[0] === 'array_name') {
-      let i = parseFloat(nameKey[1].replace(/[a-z]/g, ''));
-      const elem = t.filter((item, ii) => {
-        if (item && item.name === nameKey[1]) {
-          i = ii;
-          return item;
-        }
-        return null;
-      })[0];
-      if (!elem && tt) {
-        tt.forEach((item, ii) => {
-          if (item.name === nameKey[1]) {
-            i = ii;
-          }
-        });
-      }
-      if (isNaN(i) || !elem) {
-        t = null;
-      } else {
-        t[i] = elem;
-        /* || {
-         name: nameKey[1],
-       }; */
-        t = t[i];
-      }
-    } else if (t) {
-      const isArray = key === 'children' && childIds.length > 1;
-      t[key] = t[key] || (isArray ? deepCopy(tt[key]) : {});
-      t = t[key];
-      if (tt) {
-        tt = tt[key];
-      }
-    }
-  });
-  return t;
-};
+/**
+ * @description Turns a path string into a path array.
+ *    e.g. `titleWrapper&children&array_name=title` to `['titleWrapper', 'children', 1]`
+ *    Note: this function assumes that for all paths exist in either sourceData or template data,
+ *    thus it's not handling certain cases.
+ * @param {object} arg0.sourceData - default source data for the path. When templateId is provided,
+ *    sourceData will be merged with template data.
+ * @param {string} arg0.path - a string consists of key or array index/name matcher joint with &.
+ *    e.g. titleWrapper&children&array_name=title
+ * @param {string} arg0.componentId - id of a content block, format: `${templateId}_${anUniqueKey}`, e.g. Content0_0
+ * @param {string} arg0.templateId - id of a content template, e.g. Content0
+ *    Note: this function assumes template data has the following structure
+ *    { [templateId]: { dataSource: { ...templateData } }, ...moreTemplates }
+ */
+export function normalizeTemplatePath({
+  sourceData,
+  path,
+  componentId,
+  templateId,
+}) {
+  invariant(
+    !(r.isNil(componentId) && !r.isNil(templateId))
+      || (!r.isNil(componentId) && r.isNil(templateId)),
+    'Must provide none or both of `componentId` and `templateId`.'
+  );
 
-export const setDataSourceValue = (ids, key, value, newData) => {
-  const data = getDataSourceValue(ids[1], newData, [ids[0], 'dataSource']);
-  data[key] = value;
-};
+  let dataToSearch = templateId
+    ? r.mergeDeepRight(
+      tempData[templateId].dataSource,
+      r.path([componentId, 'dataSource'], sourceData) || {}
+    )
+    : sourceData;
+
+  return path.split('&').map((part) => {
+    if (!part.startsWith('array_name=')) {
+      dataToSearch = dataToSearch[part];
+      // Note: not hanlding the case where `dataToSearch[part] === undefined`, see @description
+      return part;
+    }
+
+    const [, idxOrKey] = part.split('=');
+
+    const potentialIdx = parseInt(idxOrKey, 10);
+    if (!Number.isNaN(potentialIdx)) {
+      dataToSearch = dataToSearch[potentialIdx];
+      return potentialIdx;
+    }
+
+    const foundIdx = dataToSearch.findIndex(item => item.name === idxOrKey);
+    dataToSearch = dataToSearch[foundIdx];
+    // Note: not hanlding the case where foundIdx === -1, see @description
+    return foundIdx;
+  });
+}
+
+/**
+ * @description Return a copy of data at given `path` from `sourceData`.
+ * @param {object} arg0.sourceData - @see normalizeTemplatePath.params.args0.sourceData
+ * @param {object} arg0.path - @see normalizeTemplatePath.params.args0.path
+ * @param {object} arg0.componentId - @see normalizeTemplatePath.params.args0.componentId
+ * @param {object} arg0.templateId - @see normalizeTemplatePath.params.args0.templateId
+ */
+export function getTemplateDataAtPath({
+  sourceData,
+  path,
+  componentId,
+  templateId,
+}) {
+  invariant(
+    !(r.isNil(componentId) && !r.isNil(templateId))
+      || (!r.isNil(componentId) && r.isNil(templateId)),
+    'Must provide none or both of `componentId` and `templateId`.'
+  );
+
+  let normalizedTargetDataPath = normalizeTemplatePath({
+    sourceData,
+    path,
+    componentId,
+    templateId,
+  });
+
+  if (componentId) {
+    normalizedTargetDataPath = [
+      componentId,
+      'dataSource',
+      ...normalizedTargetDataPath,
+    ];
+  }
+
+  return r.path(normalizedTargetDataPath, sourceData);
+}
+
+/**
+ * @description Set the value at given `path` of `sourceData` to the provided value.
+ * @param {object} arg0.sourceData - @see normalizeTemplatePath.params.args0.sourceData
+ * @param {object} arg0.path - @see normalizeTemplatePath.params.args0.path
+ * @param {object} arg0.componentId - @see normalizeTemplatePath.params.args0.componentId
+ * @param {object} arg0.templateId - @see normalizeTemplatePath.params.args0.templateId
+ * @param {object} arg0.value - value to set.
+ */
+export function setTemplateDataAtPath({
+  sourceData,
+  componentId,
+  templateId,
+  path,
+  value,
+}) {
+  // eslint-disable-next-line no-debugger
+  debugger;
+  invariant(
+    !(r.isNil(componentId) && !r.isNil(templateId))
+      || (!r.isNil(componentId) && r.isNil(templateId)),
+    'Must provide none or both of `componentId` and `templateId`.'
+  );
+
+  const pathParts = path.split('&');
+  const pathPartToSet = pathParts.pop();
+  const targetDataPath = pathParts.join('&');
+
+  const normalizedTargetDataPath = normalizeTemplatePath({
+    sourceData,
+    path: targetDataPath,
+    componentId,
+    templateId,
+  });
+
+  const normalizedTargetDataPathForSourceData = componentId
+    ? [componentId, 'dataSource', ...normalizedTargetDataPath]
+    : normalizedTargetDataPath;
+
+  const targetData = r.path(normalizedTargetDataPathForSourceData, sourceData);
+
+  if (!r.isNil(targetData)) {
+    const pathToSet = [...normalizedTargetDataPathForSourceData, pathPartToSet];
+    set(sourceData, pathToSet, value);
+
+    return;
+  }
+
+  const firstArrayChildIdx = normalizedTargetDataPath.findIndex(
+    part => typeof part === 'number'
+  );
+
+  if (firstArrayChildIdx === -1) {
+    const valueWithParentData = r.clone(
+      r.path([templateId, 'dataSource', ...normalizedTargetDataPath], tempData)
+    );
+    valueWithParentData[pathPartToSet] = value;
+
+    const pathToSet = normalizedTargetDataPathForSourceData;
+    set(sourceData, pathToSet, valueWithParentData);
+    return;
+  }
+
+  // if the path includes any array, copy the entire array
+  const valueWithParentData = r.clone(
+    r.path(
+      [
+        templateId,
+        'dataSource',
+        ...normalizedTargetDataPath.slice(0, firstArrayChildIdx),
+      ],
+      tempData
+    )
+  );
+  const pathToUpdate = [
+    ...normalizedTargetDataPath.slice(firstArrayChildIdx),
+    pathPartToSet,
+  ];
+  set(valueWithParentData, pathToUpdate, value);
+
+  const pathToSet = [
+    componentId,
+    'dataSource',
+    ...normalizedTargetDataPath.slice(0, firstArrayChildIdx),
+  ];
+
+  set(sourceData, pathToSet, valueWithParentData);
+}
 
 
 export const RemoveLocalStorage = (width = '18') => (
@@ -270,6 +396,7 @@ const getParentRect = (item, parentData) => {
       const rect = parent.getBoundingClientRect();
       p.push({
         dataId,
+        id: parent.id,
         item: parent,
         rect,
         parent: getParentRect(parent, parentData),
@@ -290,6 +417,7 @@ export const getChildRect = (data) => {
   function mapChild(child) {
     Array.prototype.slice.call(child).forEach((item) => {
       const dataId = mdId[item.getAttribute('data-id')];
+      const id = item.id;
       // const dataId = item.getAttribute('data-id');
       if (
         item.getAttribute('aria-hidden') === 'true'
@@ -300,6 +428,7 @@ export const getChildRect = (data) => {
         const rect = item.getBoundingClientRect();
         array.push({
           dataId,
+          id,
           item,
           rect,
           parent: getParentRect(item, data),

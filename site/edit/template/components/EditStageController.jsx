@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import dragula from 'dragula';
 
 import { getCurrentDom } from '../utils';
-import { isImg, mergeEditDataToDefault, getDataSourceValue, mdId, objectEqual, getChildRect } from '../../../utils';
+import { isImg, mergeEditDataToDefault, getTemplateDataAtPath, setTemplateDataAtPath, mdId, objectEqual, getChildRect } from '../../../utils';
 import * as utils from '../../../theme/template/utils';
 import webData from '../template.config';
 import tempData from '../../../templates/template/element/template.config';
@@ -196,6 +196,7 @@ class EditStateController extends React.Component {
         x: e.pageX - domRect.x,
         y: e.pageY - domRect.y,
       };
+      // console.log({pos, rectArray}, getCurrentDom(pos, rectArray), currentElemData)
       this.mouseCurrentData = getCurrentDom(pos, rectArray) || currentElemData;
       if (this.mouseCurrentData && !objectEqual(this.mouseCurrentData.rect, currentHoverRect)) {
         this.setState({
@@ -259,29 +260,36 @@ class EditStateController extends React.Component {
   }
 
   setTemplateConfigData = (text, noHistory = false) => {
-    const data = this.props.templateData;
-    data.noHistory = noHistory;
-    const ids = this.currentData.dataId.split('-');
-    const t = getDataSourceValue(ids[1], data.data.config, [ids[0], 'dataSource']);
-    t.children = text;
-    this.props.dispatch(actions.setTemplateData(data));
+    const { templateData } = this.props;
+    templateData.noHistory = noHistory;
+
+    const [componentId, path] = this.currentData.dataId.split('-');
+    const [templateId] = componentId.split('_');
+    setTemplateDataAtPath({
+      sourceData: templateData.data.config,
+      path: [path, 'children'].join('&'),
+      value: text,
+      componentId,
+      templateId,
+    });
+
+    this.props.dispatch(actions.setTemplateData(templateData));
   }
 
   setTemplateConfigObject = (obj) => {
-    const data = this.props.templateData;
-    const ids = this.currentData.dataId.split('-');
-    const newIds = ids[1].split('&').filter(c => c);
-    const endKey = newIds.pop();
-    const endKeyArray = endKey.split('=');
+    const { templateData } = this.props;
+    const [componentId, path] = this.currentData.dataId.split('-');
+    const [templateId] = componentId.split('_');
 
-    const t = getDataSourceValue(newIds.join('&'), data.data.config, [ids[0], 'dataSource']);
-    if (endKeyArray.length && endKeyArray[0] === 'array_name') {
-      const i = t.findIndex(item => item.name === endKeyArray[1]);
-      t[i] = obj;
-    } else {
-      t[endKey] = obj;
-    }
-    this.props.dispatch(actions.setTemplateData(data));
+    setTemplateDataAtPath({
+      sourceData: templateData.data.config,
+      path,
+      value: obj,
+      componentId,
+      templateId,
+    });
+
+    this.props.dispatch(actions.setTemplateData(templateData));
   }
 
   editTextHandleChange = (text) => {
@@ -427,9 +435,11 @@ class EditStateController extends React.Component {
     if (!this.isDrag && dom.getAttribute('data-key') && this.mouseCurrentData) {
       this.selectParentDom = dom;
       this.currentIdArray = this.mouseCurrentData.dataId.split('-');
-      this.editId = this.currentIdArray[0].split('_')[0];
+      this.editId = this.currentIdArray[0].split('_')[0]; // template id
       this.editChildId = this.currentIdArray[1];
       this.currentData = this.mouseCurrentData;
+      // console.log(this.state);
+      // console.log(this.mouseCurrentData);
       const currentDom = this.currentData.item;
       const editData = currentDom.getAttribute('data-edit');
 
@@ -520,9 +530,14 @@ class EditStateController extends React.Component {
     const config = templateData.data.config;
     let change = false;
     nav2Array.forEach((key) => {
-      const menuLink = getDataSourceValue('LinkMenu', config, [key, 'dataSource']);
+      const menuLink = getTemplateDataAtPath({
+        sourceData: config,
+        path: 'LinkMenu',
+        componentId: key,
+        templateId: key.split('_')[0],
+      });
       ([].concat(pageArray)).forEach((cKey) => {
-        const menuChild = menuLink.children || [];
+        const menuChild = (menuLink && menuLink.children) || [];
         if (menuChild.findIndex(item => item.name === cKey) === -1) {
           const index = pageArray.indexOf(cKey);
           const obj = {
@@ -532,7 +547,13 @@ class EditStateController extends React.Component {
             className: 'menu-item',
           };
           menuChild.splice(index, 0, obj);
-          menuLink.children = menuChild;
+          setTemplateDataAtPath({
+            sourceData: config,
+            path: 'LinkMenu&children',
+            componentId: key,
+            templateId: key.split('_')[0],
+            value: menuChild,
+          });
           change = true;
         }
       });
@@ -545,11 +566,22 @@ class EditStateController extends React.Component {
     const nav2Array = template.filter(key => key.indexOf('Nav2') >= 0);
     const config = templateData.data.config;
     nav2Array.forEach((key) => {
-      const menuLink = getDataSourceValue('menuLink', config, [key, 'dataSource']);
-      const menuChild = menuLink.children || [];
+      const menuLink = getTemplateDataAtPath({
+        sourceData: config,
+        path: 'menuLink',
+        componentId: key,
+        templateId: key.split('_')[0],
+      });
+      const menuChild = (menuLink && menuLink.children) || [];
       const index = menuChild.findIndex(item => item.name === current);
       menuChild.splice(index, 1);
-      menuLink.children = menuChild;
+      setTemplateDataAtPath({
+        sourceData: config,
+        path: 'menuLink&children',
+        componentId: key,
+        templateId: key.split('_')[0],
+        value: menuChild,
+      });
     });
   }
 

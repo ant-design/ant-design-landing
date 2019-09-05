@@ -10,7 +10,7 @@ import * as ls from '../localStorage';
 import AV from '../leancloud';
 import { DEFAULT_USER_NAME, DEFAULT_FILE_NAME } from '../constants';
 import { xssFunc, getCurrentTemplateId, saveTemplateToLocalStorage, newTemplate } from '../utils';
-import { deepCopy, setDataSourceValue } from '../../utils';
+import { deepCopy, setTemplateDataAtPath } from '../../utils';
 import defaultData from '../defaultTemplate';
 
 let getUserDataErrorCount = 0;
@@ -149,10 +149,18 @@ function* handleSetTemplateData(action) {
 }
 
 function* handleChangeChild(action) {
-  const { templateData, ids, currentData } = action;
+  // TODO: change ids to something more meaningful
+  const { data: { templateData, ids, currentData } } = action;
 
   const newTemplateData = deepCopy(templateData);
-  setDataSourceValue(ids, 'children', currentData.children, newTemplateData.data.config);
+  const [templateId] = ids[0].split('_');
+  setTemplateDataAtPath({
+    sourceData: newTemplateData.data.config,
+    path: [ids[1], 'children'].join('&'),
+    value: currentData.children,
+    componentId: ids[0],
+    templateId,
+  });
 
   yield put(actions.setTemplateData(newTemplateData));
 }

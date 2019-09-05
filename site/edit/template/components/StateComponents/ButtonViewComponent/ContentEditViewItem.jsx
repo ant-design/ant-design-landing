@@ -13,7 +13,7 @@ function ContentEditViewItem({ id, currentEditData, templateData, dispatch }) {
 
   const onBlur = React.useCallback((e) => {
     currentEditTemplateData.children[id].children = e.target.value;
-    dispatch(actions.changeChild({ templateData, ids, currentEditTemplateData }));
+    dispatch(actions.changeChild({ templateData, ids, currentData: currentEditTemplateData }));
   }, [dispatch, templateData, ids, currentEditTemplateData, id]);
 
   return (

@@ -36,6 +36,10 @@ export default function EditStageOverlayElement({
   const [templateId] = id.split('_');
   const iframe = iframeManager.get();
   const ele = React.useMemo(() => iframe.document.getElementById(id), [id]);
+  // console.log(id, ele)
+
+  if (!ele) return null;
+
   const eleComp = ele.getAttribute('data-comp');
   const eleStyle = window.getComputedStyle(ele);
 

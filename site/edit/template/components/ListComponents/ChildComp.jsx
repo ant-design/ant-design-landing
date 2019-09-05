@@ -4,7 +4,7 @@ import { getRandomKey } from 'rc-editor-list/lib/utils';
 import { FormattedMessage } from 'react-intl';
 import ListSort from '../StateComponents/ListSort';
 import tempData from '../../../../templates/template/element/template.config';
-import { mergeEditDataToDefault, getDataSourceValue, deepCopy } from '../../../../utils';
+import { mergeEditDataToDefault, getTemplateDataAtPath, deepCopy } from '../../../../utils';
 
 const Panel = Collapse.Panel;
 const Option = Select.Option;
@@ -85,7 +85,10 @@ export default class ChildComp extends React.Component {
     const tempDataSource = tempData[cid];
     const newTempDataSource = mergeEditDataToDefault(templateData.data.config[ids[0]],
       tempDataSource);
-    let currentEditTemplateData = getDataSourceValue(ids[1], newTempDataSource);
+    let currentEditTemplateData = getTemplateDataAtPath({
+      sourceData: newTempDataSource,
+      path: ids[1],
+    });
     const idChildArray = ids[1].split('&');
     const childIsArray = currentEditTemplateData && Array.isArray(currentEditTemplateData.children);
     const parentIsArray = idChildArray[idChildArray.length - 1].indexOf('array_name') >= 0;
@@ -118,7 +121,10 @@ export default class ChildComp extends React.Component {
       }
 
       ids[1] = idChildArray.join('&');
-      currentEditTemplateData = getDataSourceValue(ids[1], newTempDataSource);
+      currentEditTemplateData = getTemplateDataAtPath({
+        sourceData: newTempDataSource,
+        path: ids[1],
+      });
     } else {
       currentEditArray.forEach((c) => {
         if (addDefault[c]) {

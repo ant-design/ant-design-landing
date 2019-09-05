@@ -5,7 +5,7 @@ import { getRandomKey } from 'rc-editor-list/lib/utils';
 import InputGroup from './InputGroup';
 import tempData from '../../../../templates/template/element/template.config';
 import compConfig from '../../component.config';
-import { mergeEditDataToDefault, getDataSourceValue, deepCopy } from '../../../../utils';
+import { mergeEditDataToDefault, getTemplateDataAtPath, deepCopy } from '../../../../utils';
 import CheckboxGroup from './CheckboxGroup';
 import ListSort from '../StateComponents/ListSort';
 
@@ -345,7 +345,10 @@ export default class PropsComp extends React.Component {
     const tempDataSource = tempData[cid];
     const newTempDataSource = mergeEditDataToDefault(templateData.data.config[ids[0]],
       tempDataSource);
-    const currentEditTemplateData = getDataSourceValue(ids[1], newTempDataSource);
+    const currentEditTemplateData = getTemplateDataAtPath({
+      sourceData: newTempDataSource,
+      path: ids[1],
+    });
     return editArray.map(($item, i) => {
       if ($item === 'LinkMenu' && !isMobile) {
         return null;

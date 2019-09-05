@@ -1,4 +1,4 @@
-import { mergeEditDataToDefault, getDataSourceValue } from '../../utils';
+import { mergeEditDataToDefault, getTemplateDataAtPath } from '../../utils';
 import tempData from '../../templates/template/element/template.config';
 
 // import { createLogger } from 'redux-logger';
@@ -54,6 +54,9 @@ export const getIdsAndCurrentData = (currentEditData, templateData, key) => {
   const tempDataSource = tempData[cid];
   const newTemplateDataSource = mergeEditDataToDefault(templateData.data.config[ids[0]],
     tempDataSource);
-  const currentEditTemplateData = getDataSourceValue(key, newTemplateDataSource);
+  const currentEditTemplateData = getTemplateDataAtPath({
+    sourceData: newTemplateDataSource,
+    path: key,
+  });
   return { ids, currentEditTemplateData };
 };

@@ -1,6 +1,7 @@
 import md5 from 'blueimp-md5';
 import React from 'react';
 import { Button } from 'antd';
+import shortid from 'shortid';
 import { isImg as imgStr, mdId } from '../../utils';
 
 import compConfig from '../../edit/template/component.config';
@@ -68,7 +69,11 @@ export const setDataIdToDataSource = (data, dataId) => {
             id = md5(`${dataId}-${key}&${name}`);
             mdId[id] = `${dataId}-${key}&${name}`;
             cItem['data-id'] = id;
+            // console.log('cItem', cItem, key);
             // cItem['data-id'] = `${dataId}-${key}&${name}`;
+            if (!cItem.id) {
+              cItem.id = shortid.generate();
+            }
           }
         });
       } else if (item) {
@@ -88,7 +93,11 @@ export const setDataIdToDataSource = (data, dataId) => {
         id = md5(`${dataId}-${key}`);
         mdId[id] = `${dataId}-${key}`;
         item['data-id'] = id;
+        // console.log('item', item, key);
         // item['data-id'] = `${dataId}-${key}`;;
+        if (key !== 'wrapper' && !item.id) {
+          item.id = shortid.generate();
+        }
       }
     }
   };

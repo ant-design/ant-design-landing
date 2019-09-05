@@ -15,9 +15,9 @@ export const setTemplateData = data => ({
   data,
 });
 
-export const changeChild = data => ({
+export const changeChild = ({ templateData, ids, currentData }) => ({
   type: CHANGE_CHILD,
-  data,
+  data: { templateData, ids, currentData },
 });
 
 export const setUserAndTemplateData = data => ({

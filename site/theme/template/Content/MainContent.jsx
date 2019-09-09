@@ -36,15 +36,19 @@ function fileNameToPath(filename) {
   return snippets[snippets.length - 1];
 }
 
-function getSideBarOpenKeys(props) {
-  const pathname = props.location.pathname;
-  const prevModule = this.currentModule;
-  this.currentModule = pathname.replace(/^\//).split('/')[1] || 'components';
-  if (this.currentModule === 'react') {
-    this.currentModule = 'components';
+function getCurrentModule(pathname) {
+  let currentModule = pathname.replace(/^\//).split('/')[1] || 'components';
+  if (currentModule === 'react') {
+    currentModule = 'components';
   }
+  return currentModule;
+}
+
+function getSideBarOpenKeys(props, prevModule) {
+  const pathname = props.location.pathname;
+  const currentModule = getCurrentModule(pathname);
   const locale = utils.isZhCN(pathname) ? 'zh-CN' : 'en-US';
-  if (prevModule !== this.currentModule) {
+  if (prevModule !== currentModule) {
     const moduleData = getModuleData(props);
     const shouldOpenKeys = utils.getMenuItems(
       moduleData,
@@ -56,12 +60,14 @@ function getSideBarOpenKeys(props) {
 }
 
 class MainContent extends React.PureComponent {
-  static getDerivedStateFromProps(props, { prevProps }) {
+  static getDerivedStateFromProps(props, { prevProps, currentModule }) {
     const nextState = {
       prevProps: props,
     };
     if (prevProps && props !== prevProps) {
-      const openKeys = getSideBarOpenKeys(props);
+      const openKeys = getSideBarOpenKeys(props, currentModule);
+      const pathname = props.location.pathname;
+      nextState.currentModule = getCurrentModule(pathname);
       if (openKeys) {
         nextState.openKeys = openKeys;
       }
@@ -71,8 +77,11 @@ class MainContent extends React.PureComponent {
 
   constructor(props) {
     super(props);
+    const pathname = props.location.pathname;
+    const currentModule = pathname.replace(/^\//).split('/')[1] || 'components';
     this.state = {
-      openKeys: getSideBarOpenKeys(props) || [],
+      openKeys: getSideBarOpenKeys(props, currentModule) || [],
+      currentModule,
     };
   }
 

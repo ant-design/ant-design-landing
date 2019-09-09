@@ -22,12 +22,16 @@ class EditStateController extends React.Component {
   };
 
   static getDerivedStateFromProps(props, { prevProps, $self }) {
-    const nextState = {
+    let nextState = {
       prevProps: props,
     };
     if (prevProps && props !== prevProps
       && props.mediaStateSelect !== prevProps.mediaStateSelect) {
-      $self.reRect();
+      const newState = $self.getResetRectState();
+      nextState = {
+        ...nextState,
+        ...newState,
+      };
     }
     return nextState;
   }
@@ -142,16 +146,21 @@ class EditStateController extends React.Component {
       });
   }
 
-  reRect = (noDispatch) => {
+  getResetRectState = () => {
     this.reEditItemVisibility();
     this.currentData = null;
     this.mouseCurrentData = null;
     this.isInput = false;
-    this.setState({
+    return {
       currentHoverRect: {},
       currentSelectRect: {},
       openEditText: false,
-    }, () => {
+    };
+  }
+
+  reRect = (noDispatch) => {
+    const newState = this.getResetRectState();
+    this.setState(newState, () => {
       if (!noDispatch) {
         this.props.dispatch(actions.setCurrentData());
       }

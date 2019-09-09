@@ -186,4 +186,4 @@ class Layout extends React.PureComponent {
 }
 
 
-export default connect(mapStateToProps)(Form.create()(injectIntl(Layout)));
+export default injectIntl(connect(mapStateToProps)(Form.create()(Layout)));

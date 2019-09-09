@@ -78,10 +78,9 @@ class MainContent extends React.PureComponent {
   constructor(props) {
     super(props);
     const pathname = props.location.pathname;
-    const currentModule = pathname.replace(/^\//).split('/')[1] || 'components';
     this.state = {
-      openKeys: getSideBarOpenKeys(props, currentModule) || [],
-      currentModule,
+      openKeys: getSideBarOpenKeys(props) || [],
+      currentModule: pathname.replace(/^\//).split('/')[1] || 'components',
     };
   }
 

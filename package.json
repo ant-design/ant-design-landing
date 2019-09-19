@@ -44,7 +44,7 @@
     "codemirror": "^5.36.0",
     "commander": "~3.0.0",
     "concurrently": "^4.0.1",
-    "cross-env": "^5.1.1",
+    "cross-env": "^6.0.0",
     "deep-eql": "^4.0.0",
     "dragula": "^3.7.2",
     "eslint": "^6.0.0",

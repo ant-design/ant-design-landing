@@ -149,11 +149,9 @@ function* handleSetTemplateData(action) {
 }
 
 function* handleChangeChild(action) {
-  const { templateData, ids, currentData } = action;
-
+  const { data: { templateData, ids, currentData } } = action;
   const newTemplateData = deepCopy(templateData);
   setDataSourceValue(ids, 'children', currentData.children, newTemplateData.data.config);
-
   yield put(actions.setTemplateData(newTemplateData));
 }
 

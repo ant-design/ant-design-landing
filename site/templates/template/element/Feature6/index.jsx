@@ -88,7 +88,7 @@ class Feature6 extends React.PureComponent {
       const childrenItem = children.map(($item, i) => {
         const { number, children: child, ...childProps } = $item;
         const numberChild = number.children.replace(/[^0-9.-]/g, '');
-        const { unit, ...numberProps } = number;
+        const { unit, toText, ...numberProps } = number;
         return (
           <Col
             {...childProps}

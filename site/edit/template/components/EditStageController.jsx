@@ -383,6 +383,7 @@ class EditStateController extends React.Component {
                 onChange={this.editTextHandleChange}
                 onBlur={this.editTextHandleBlur}// 记录编辑 history
                 text={editText}
+                textToString={editData.toText}// 有 toText 用 innerText
                 ref={(c) => {
                   const d = ReactDOM.findDOMNode(c);
                   if (!d) {

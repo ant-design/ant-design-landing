@@ -54,6 +54,7 @@ export default {
                   className: 'feature6-unit',
                   children: '万',
                 },
+                toText: true,
                 children: '116',
               },
               children: {
@@ -73,6 +74,7 @@ export default {
                   className: 'feature6-unit',
                   children: '亿',
                 },
+                toText: true,
                 children: '1.17',
               },
               children: {
@@ -91,6 +93,7 @@ export default {
                   className: 'feature6-unit',
                   children: '亿',
                 },
+                toText: true,
                 children: '2.10',
               },
               children: {
@@ -119,6 +122,7 @@ export default {
                   className: 'feature6-unit',
                   children: '万',
                 },
+                toText: true,
                 children: '116',
               },
               children: {
@@ -138,6 +142,7 @@ export default {
                   className: 'feature6-unit',
                   children: '亿',
                 },
+                toText: true,
                 children: '1.17',
               },
               children: {
@@ -156,6 +161,7 @@ export default {
                   className: 'feature6-unit',
                   children: '亿',
                 },
+                toText: true,
                 children: '2.10',
               },
               children: {

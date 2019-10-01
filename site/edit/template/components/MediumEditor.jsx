@@ -38,6 +38,7 @@ export default class Editor extends React.Component {
   }
 
   addChange = () => {
+    const { textToString } = this.props;
     this.medium.subscribe('editableInput', (e, b) => {
       if (b.innerHTML.match(tagRep)) {
         this.setState({
@@ -50,7 +51,7 @@ export default class Editor extends React.Component {
     this.medium.subscribe('blur', (e, b) => {
       e.stopPropagation();
       if (b.innerHTML.match(tagRep)) {
-        (this.props.onBlur || noop)(b.innerHTML);
+        (this.props.onBlur || noop)(textToString ? b.innerText : b.innerHTML);
       }
     });
   }
@@ -73,7 +74,7 @@ export default class Editor extends React.Component {
   }
 
   render() {
-    const { options, onChange, onBlur, text, children, ...props } = this.props;
+    const { options, onChange, onBlur, text, children, textToString, ...props } = this.props;
     return (
       <div
         ref={(c) => { this.dom = c; }}

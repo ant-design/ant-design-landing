@@ -55,11 +55,13 @@ function mergeDataToChild(newData, _data, useDelete) {
   const data = _data;
   Object.keys(newData).forEach((key) => {
     if (typeof newData[key] === 'object') {
+      // 数组直接用 newData 的;
+      if (Array.isArray(newData[key])) {
+        data[key] = newData[key];
+        return;
+      }
       data[key] = mergeDataToChild(newData[key], deepCopy(data[key])
         || (Array.isArray(newData[key]) ? [] : {}), useDelete);
-      if (Array.isArray(newData[key])) {
-        data[key] = newData[key].length ? newData[key] : data[key].filter(c => c || c === 0);
-      }
     } else {
       data[key] = newData[key];
     }

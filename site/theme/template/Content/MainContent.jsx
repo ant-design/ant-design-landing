@@ -269,9 +269,7 @@ class MainContent extends React.PureComponent {
           }
           <Col xxl={20} xl={19} lg={18} md={18} sm={24} xs={24} className="main-container">
             <Animate component="div" transitionName="landing-move" className="main-animate-wraper">
-              {
-                <Article {...props} content={localizedPageData} key={contentKey} />
-              }
+              <Article {...props} content={localizedPageData} key={contentKey} />
             </Animate>
           </Col>
         </Row>

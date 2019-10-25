@@ -55,7 +55,7 @@ class PublishModal extends React.Component {
       <p key="0"><FormattedMessage id="app.header.publish-cloud.build" /></p>,
       <p key="1">
         <FormattedMessage id="app.header.publish-cloud.state" />
-        {' FORMAT'}
+         FORMAT
       </p>,
     ],
   };

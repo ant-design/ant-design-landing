@@ -8,7 +8,8 @@ import compConfig from '../../edit/template/component.config';
 export const isImg = imgStr;
 
 export const getChildrenToRender = (item, i) => {
-  const tag = item.name.indexOf('title') === 0 ? 'h1' : 'div';
+  let tag = item.name.indexOf('title') === 0 ? 'h1' : 'div';
+  tag = item.href ? 'a' : tag;
   let children = typeof item.children === 'string' && item.children.match(/^http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w-./?%&=]*)?/)
     ? React.createElement('img', { src: item.children, alt: 'img' })
     : React.createElement('span', { dangerouslySetInnerHTML: { __html: item.children } });

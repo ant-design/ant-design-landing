@@ -11,7 +11,7 @@ const Option = Select.Option;
 const addDefault = {
   titleWrapper: ['title', 'content', 'image'],
   textAndImage: ['content', 'image'],
-  childWrapper: ['title', 'content', 'image', 'button'],
+  childWrapper: ['title', 'content', 'image', 'button'], // 增加个 texty
 };
 
 const noChildProps = ['BannerAnim', 'Content'];

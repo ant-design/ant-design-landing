@@ -19,6 +19,7 @@ export const getChildrenToRender = (item, i) => {
         'data-edit': 'link,text',
       });
     } else {
+      // 去除 linkA, linkA 全部用文字编辑的 #
       item['data-edit'] = 'linkA,text';
     }
   }

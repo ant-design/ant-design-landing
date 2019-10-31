@@ -40,21 +40,44 @@ class Header extends React.Component {
     const { LinkMenu } = dataSource;
     const navData = LinkMenu.children;
     const navChildren = Object.keys(navData)
-      .map((key, i) => (
-        <Link
-          key={i.toString()}
-          {...navData[key]}
-         /* replace-start */
-          data-edit="LinkMenu"
-         /* replace-end */
-        >
-          {
-            /* replace-start-value = navData[key].children */
-            React.createElement('span', { dangerouslySetInnerHTML: { __html: navData[key].children } })
-            /* replace-end-value */
-          }
-        </Link>
-      ));
+      .map((key, i) => {
+        const item = navData[key];
+        if (item.to.match(/\//g)) {
+          const link = item.to;
+          delete item.to;
+          return (
+            <a
+              key={i.toString()}
+              {...item}
+              href={link}
+              /* replace-start */
+              data-edit="LinkMenu"
+              /* replace-end */
+            >
+              {
+                /* replace-start-value = navData[key].children */
+                React.createElement('span', { dangerouslySetInnerHTML: { __html: navData[key].children } })
+                /* replace-end-value */
+              }
+            </a>
+          );
+        }
+        return (
+          <Link
+            key={i.toString()}
+            {...item}
+            /* replace-start */
+            data-edit="LinkMenu"
+          /* replace-end */
+          >
+            {
+              /* replace-start-value = navData[key].children */
+              React.createElement('span', { dangerouslySetInnerHTML: { __html: navData[key].children } })
+              /* replace-end-value */
+            }
+          </Link>
+        );
+      });
     const moment = phoneOpen === undefined ? 300 : null;
     return (
       <TweenOne

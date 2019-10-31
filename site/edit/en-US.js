@@ -114,7 +114,7 @@ module.exports = {
     'app.state.link.icon.remarks': 'Only support Ant Design icon.',
     'app.state.menu.header': 'Edit Nav',
     'app.state.menu.edit.link.header': 'Modify link url',
-    'app.state.menu.type-link.remark': 'This navigation is Link navigation. Please fill in the following id name in the link;',
+    'app.state.menu.type-link.remark': 'This navigation is Link navigation. Please fill in the following id name in the link ("a" label will be used if link is filled in);',
     'app.state.menu.type-link.current': 'Current page all IDs:',
     'app.state.texty.header': 'Please enter the text of texty',
     'app.state.video.header': 'Video url',

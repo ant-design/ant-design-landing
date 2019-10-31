@@ -115,7 +115,7 @@ module.exports = {
     'app.state.link.icon.remarks': '只支持粘贴 Ant Design 的 Icon。',
     'app.state.menu.header': '编辑导航',
     'app.state.menu.edit.link.header': '修改链接地址',
-    'app.state.menu.type-link.remark': '此导航为 Link 导航, 链接里请填写以下 id 名称；',
+    'app.state.menu.type-link.remark': '此导航为 Link 导航, 链接里请填写以下 id 名称(如果填入链接将使用 a 标签);',
     'app.state.menu.type-link.current': '当前页面所有 ID：',
     'app.state.texty.header': '请输入 texty 的文本',
     'app.state.video.header': 'Video 地址',

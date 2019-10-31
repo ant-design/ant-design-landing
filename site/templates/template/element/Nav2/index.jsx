@@ -48,7 +48,7 @@ class Header extends React.Component {
           'data-edit': 'LinkMenu',
           /* replace-end */
         };
-        if (item.to.match(/\//g)) {
+        if (item.to && item.to.match(/\//g)) {
           tagProps.href = item.to;
           tag = 'a';
           delete item.to;

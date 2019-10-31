@@ -42,40 +42,21 @@ class Header extends React.Component {
     const navChildren = Object.keys(navData)
       .map((key, i) => {
         const item = navData[key];
-        if (item.to.match(/\//g)) {
-          const link = item.to;
-          delete item.to;
-          return (
-            <a
-              key={i.toString()}
-              {...item}
-              href={link}
-              /* replace-start */
-              data-edit="LinkMenu"
-              /* replace-end */
-            >
-              {
-                /* replace-start-value = navData[key].children */
-                React.createElement('span', { dangerouslySetInnerHTML: { __html: navData[key].children } })
-                /* replace-end-value */
-              }
-            </a>
-          );
-        }
-        return (
-          <Link
-            key={i.toString()}
-            {...item}
-            /* replace-start */
-            data-edit="LinkMenu"
+        let tag = Link;
+        const tagProps = {
+          /* replace-start */
+          'data-edit': 'LinkMenu',
           /* replace-end */
-          >
-            {
-              /* replace-start-value = navData[key].children */
-              React.createElement('span', { dangerouslySetInnerHTML: { __html: navData[key].children } })
-              /* replace-end-value */
-            }
-          </Link>
+        };
+        if (item.to.match(/\//g)) {
+          tagProps.href = item.to;
+          tag = 'a';
+          delete item.to;
+        }
+        return React.createElement(tag, { ...item, ...tagProps, key: i.toString() },
+          /* replace-start-value = navData[key].children */
+          React.createElement('span', { dangerouslySetInnerHTML: { __html: navData[key].children } })
+          /* replace-end-value */
         );
       });
     const moment = phoneOpen === undefined ? 300 : null;

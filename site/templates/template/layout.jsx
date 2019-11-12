@@ -65,8 +65,10 @@ class Layout extends React.Component {
     }
     scrollScreen.unMount();
     if (this.scrollScreen) {
+      const { templateData } = this.state;
+      const { data: { template } } = templateData || { data: { template: [] } };
       const docHeight = this.dom.getBoundingClientRect().height;
-      scrollScreen.init({ docHeight });
+      scrollScreen.init({ docHeight, location: template.map(c => !c.match(/Nav/ig) && c).filter(c => c) });
     }
     if (!this.isEdit && this.props !== prevProps) {
       this.setScrollToWindow();

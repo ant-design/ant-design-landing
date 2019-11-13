@@ -44,8 +44,7 @@ const publishJSON = [
 
 const setScrollScreen = () => {
   const str = `// 实现整屏滚动
-    const docHeight = this.dom.getBoundingClientRect().height;
-    scrollScreen.init({ docHeight, location: ['${
+    scrollScreen.init({ location: ['${
   templateStrObj.TEMPLATE.map(c => !c.match(/Nav/ig) && c).filter(c => c).join('\', \'')}'] });`;
   templateStrObj.OTHER.index = templateStrObj.OTHER.index
     .replace('&scrollScreen&', str)

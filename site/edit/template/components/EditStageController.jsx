@@ -74,7 +74,7 @@ class EditStateController extends React.Component {
           const elKey = el.getAttribute('data-key');
           const data = this.state.data;
           const dArr = Object.keys(data).filter(key => key.split('_')[0] === elKey)
-            .map(key => parseFloat(key.split('_')[1])).sort();
+            .map(key => parseFloat(key.split('_')[1])).sort((a, b) => a - b);
           newId = `${elKey}_${(dArr[dArr.length - 1] + 1) || 0}`;
           const sourceArray = Array.prototype.slice.call(source.children);
           stateChild = stateChild || sourceArray;

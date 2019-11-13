@@ -49,7 +49,7 @@ function* handleGetUserData(action) {
    * 2. 空 hash 进入, 依次往下取 localStorage 里的值, 没有将删除再新建。
    */
   const uid = getCurrentTemplateId(hash, data);
-
+  console.log(uid);
   if (!hash && uid) {
     url.update('uid', uid);
   }
@@ -60,7 +60,7 @@ function* handleGetUserData(action) {
   }
 
   const localTemplate = ls.getTemplate(uid);
-
+  console.log(localTemplate);
   if (localTemplate) {
     const config = r.path(['attributes', 'config'])(localTemplate);
     const userId = r.path(['attributes', 'user', 'userId'])(localTemplate);
@@ -94,7 +94,7 @@ function* handleGetUserData(action) {
 
     yield put({
       type: POST_TYPE.POST_SUCCESS,
-      templateData: localTemplate,
+      templateData: ls.getTemplate(uid),
       userIsLogin: ls.getUserAuthState(userId),
     });
   } catch (error) {

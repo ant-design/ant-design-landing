@@ -30,8 +30,6 @@ class Pricing2 extends React.PureComponent {
     });
   }
 
-  getMobileColumns
-
   getDataSource = (dataSource, columns) => (
     dataSource.map((item, i) => {
       const obj = { key: i.toString() };

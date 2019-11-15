@@ -32,7 +32,6 @@ function* handleGetUserData(action) {
     });
     return;
   }
-
   if (cloneId) {
     const d = defaultData[cloneId];
     url.update('cloneId');
@@ -49,18 +48,15 @@ function* handleGetUserData(action) {
    * 2. 空 hash 进入, 依次往下取 localStorage 里的值, 没有将删除再新建。
    */
   const uid = getCurrentTemplateId(hash, data);
-  console.log(uid);
   if (!hash && uid) {
     url.update('uid', uid);
   }
-
   if (!uid) {
     yield put(actions.createNewTemplate(data));
     return;
   }
 
   const localTemplate = ls.getTemplate(uid);
-  console.log(localTemplate);
   if (localTemplate) {
     const config = r.path(['attributes', 'config'])(localTemplate);
     const userId = r.path(['attributes', 'user', 'userId'])(localTemplate);
@@ -127,7 +123,6 @@ function* handleCreateNewTemplate(action) {
   const { data } = action;
   try {
     const template = yield newTemplate(DEFAULT_USER_NAME, data);
-
     yield put({
       type: POST_TYPE.POST_SUCCESS,
       templateData: template,

@@ -2,9 +2,6 @@ import React from 'react';
 import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';
 import QueueAnim from 'rc-queue-anim';
 import { Carousel as AntCarousel, Row, Col } from 'antd';
-import TweenOne from 'rc-tween-one';
-import Children from 'rc-tween-one/lib/plugin/ChildrenPlugin';
-
 /* replace-start-value = import { getChildrenToRender } from './utils'; */
 import { polyfill } from 'react-lifecycles-compat';
 import { getChildrenToRender } from '../../utils';
@@ -12,8 +9,6 @@ import { getChildrenToRender } from '../../utils';
 /* replace-start */
 import './index.less';
 /* replace-end */
-
-TweenOne.plugins.push(Children);
 
 class Feature8 extends React.PureComponent {
   constructor(props) {

@@ -6,7 +6,7 @@ export const appKey = '8e5H5xBF86hI9vItQI1pt4kP';
 AV.init({
   appId,
   appKey,
-  serverURLs: 'https://avoscloud.com',
+  // serverURLs: 'https://avoscloud.com',
 });
 
 export default AV;

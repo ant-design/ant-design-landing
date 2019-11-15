@@ -12,6 +12,7 @@
   "dependencies": {
     "antd": "^3.10.1",
     "autoresponsive-react": "^1.1.31",
+    "deep-eql": "^4.0.0",
     "enquire-js": "^0.2.1",
     "leancloud-storage": "^3.14.0",
     "query-string": "^6.8.2",
@@ -45,7 +46,6 @@
     "commander": "~3.0.0",
     "concurrently": "^5.0.0",
     "cross-env": "^6.0.2",
-    "deep-eql": "^4.0.0",
     "dragula": "^3.7.2",
     "eslint": "^6.0.0",
     "eslint-config-airbnb": "^17.0.0",

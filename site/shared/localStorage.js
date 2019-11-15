@@ -66,7 +66,7 @@ export const getHistory = () => store.get(LOCAL_STORAGE_HISTORY_KEY, []);
 // TODO: why 30?
 export const pushToHistory = (data) => {
   const history = getHistory();
-  if (history.length >= 30) {
+  if (history.length >= 15) {
     history.shift();
   }
   history.push(data);

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import deepEql from 'deep-eql';
 import tempData from './templates/template/element/template.config';
 import { isZhCN, getLocalizedPathname } from './theme/template/utils';
 
@@ -182,22 +182,6 @@ function getEnumerableKeys(target) {
   return keys;
 }
 
-function deepEql(a, b) {
-  if (!a || !b || (Array.isArray(a) && Array.isArray(b))) {
-    return false;
-  }
-  const $a = getEnumerableKeys(a);
-  const $b = getEnumerableKeys(b);
-  if ($a.length && $b.length && $a.length === $b.length) {
-    return !$a.some((key) => {
-      const aa = a[key];
-      const bb = b[key];
-      return aa !== bb;
-    });
-  }
-  return false;
-}
-
 export function objectEqual(obj1, obj2) {
   if (obj1 === obj2 || deepEql(obj1, obj2)) {
     return true;
@@ -258,7 +242,6 @@ export function objectEqual(obj1, obj2) {
   setEqualBool(obj2, obj1);
   return equalBool;
 }
-
 const getParentRect = (item, parentData) => {
   const p = [];
   let i = 0;

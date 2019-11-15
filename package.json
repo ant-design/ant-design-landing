@@ -43,7 +43,7 @@
     "blueimp-md5": "^2.10.0",
     "classnames": "^2.2.5",
     "codemirror": "^5.36.0",
-    "commander": "~3.0.0",
+    "commander": "~4.0.1",
     "concurrently": "^5.0.0",
     "cross-env": "^6.0.2",
     "dragula": "^3.7.2",

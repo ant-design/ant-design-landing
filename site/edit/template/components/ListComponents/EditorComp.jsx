@@ -43,7 +43,6 @@ class EditorComp extends React.Component {
     };
     newTemplateData.data.style = (newTemplateData.data.style || []).filter(c => c.id !== cb.id);
     newTemplateData.data.style.push(data);
-    console.log(Date.now());
     dispatch(actions.setTemplateData(newTemplateData));
   }
 
@@ -84,7 +83,6 @@ class EditorComp extends React.Component {
   }
 
   render() {
-    console.log(Date.now());
     const { currentEditData, mediaStateSelect, location } = this.props;
     const isCN = isZhCN(location.pathname);
     if (!currentEditData) {

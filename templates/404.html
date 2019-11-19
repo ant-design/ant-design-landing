@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Ant Design Landing - Ant Design Landing Page 的模板与规范</title>
+  <meta name="Description" content="Ant Design Landing 平台拥有丰富的各类首页模板，下载模板代码包，即可快速使用，也可使用首页编辑器，快速搭建一个属于你的专属首页" />
+  <link rel="stylesheet" type="text/css" href="templates.css" />
+  <link rel="icon" href="https://gw.alipayobjects.com/zos/rmsportal/XPHxlVUyZBsQhXBPheZl.png" type="image/x-icon">
+  <!--[if lt IE 10]>
+  <script
+    src="https://as.alipayobjects.com/g/component/??console-polyfill/0.2.2/index.js,es5-shim/4.1.14/es5-shim.min.js,es5-shim/4.1.14/es5-sham.min.js,html5shiv/3.7.2/html5shiv.min.js,media-match/2.0.2/media.match.min.js"></script>
+  <![endif]-->
+  <script>
+    if (window.location.port) {
+      document.domain = document.domain;
+    }
+  </script>
+  <style>
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    ul,li {
+      list-style: none;
+    }
+
+    #ant-motion-load {
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      -webkit-filter: url("#goo");
+      filter: url("#goo");
+      opacity: 0;
+      transition: opacity .5s;
+    }
+
+    #ant-motion-load ul {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+
+    }
+
+    #ant-motion-load ul li {
+      width: 18px;
+      height: 18px;
+      border-radius: 100%;
+      background: #019BF0;
+      position: absolute;
+      transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      left: 0;
+      top: 0;
+      transform: scale(1);
+    }
+
+    #react-content:empty+#ant-motion-load {
+      opacity: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="react-content"></div>
+  <div id="ant-motion-load">
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+      <defs>
+        <filter id="goo">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
+          <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+          <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+        </filter>
+      </defs>
+    </svg>
+    <ul />
+  </div>
+  <script>
+    var w = 100, h = 113, r = 18,
+      wx = w / 2, wy = h / 2 - r, angle = 45, liArray = [],
+      load = document.getElementById('ant-motion-load'),
+      ul = load.getElementsByTagName('ul')[0];
+    for (var i = 0; i < 74; i++) {
+      var li = document.createElement('li');//$('<li/>').appendTo($('#ant-motion-load ul'));
+      ul.appendChild(li);
+      liArray.push(li);
+      var _left = 110, _top = 110, _x, _y;
+      if (i < 25) {
+        _left = -wx;
+        _top = wy - r / 5 * i;
+      } else if (i < 41) {
+        angle = 45 * Math.PI / 180;
+        _left = -wx + (i - 24) * (r / 5) * Math.cos(angle);
+        _top = wy - r / 5 * 24 + (i - 24) * (r / 5) * Math.sin(angle);
+      } else if (i < 57) {
+        _x = -wx + 16 * (r / 5) * Math.cos(45 * Math.PI / 180);
+        _y = wy - r / 5 * 24 + 16 * (r / 5) * Math.sin(45 * Math.PI / 180);
+        angle = -45 * Math.PI / 180;
+        _left = _x + (i - 40) * (r / 5) * Math.cos(angle);
+        _top = _y + (i - 40) * (r / 5) * Math.sin(angle);
+      } else if (i < 73) {
+        _left = _x + 16 * (r / 5) * Math.cos(-45 * Math.PI / 180);
+        _top = (wy - r / 5 * 24) + r / 5 * (i - 56);
+      } else {
+        _left = -25;
+        _top = 10;
+        r = 14;
+      }
+      li.style.left = _left + 'px';
+      li.style.top = _top + 'px';
+      li.style.width = r + 'px';
+      li.style.height = r + 'px';
+    }
+
+    function getStyle(el) {
+      if (window.getComputedStyle) {
+        return window.getComputedStyle(el, null);
+      } else if (document.documentElement.currentStyle) {
+        el.currentStyle;
+      }
+      return null;
+    }
+
+    function removeLoad() {
+      load.parentNode.removeChild(load);
+    }
+    // var computed = getStyle(load);
+    function animationStart() {
+      var computed = getStyle(load); // 时时获取，避免浏览器兼容
+      if (!load || computed.opacity === '0') {
+        removeLoad();
+        return;
+      }
+      setTimeout(function () {
+        if (computed.opacity === '0') {
+          removeLoad();
+          return;
+        }
+        liArray.forEach(function (item, i) {
+          item.style.transform = 'scale(0)';
+          item.style.transitionDelay = (i === liArray.length - 1 ? 10 : i) * .007 + 's';
+          item.style.transitionTimingFunction = 'cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+        });
+        setTimeout(function () {
+          if (computed.opacity === '0') {
+            removeLoad();
+            return;
+          }
+          liArray.forEach(function (item, i) {
+            item.style.transform = 'scale(1)';
+            item.style.transitionDelay = (i === liArray.length - 1 ? 10 : i) * .007 + 's';
+            item.style.transitionTimingFunction = 'cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+          });
+          setTimeout(animationStart, 1300);
+        }, 1300);
+      }, 100);
+    }
+    animationStart();
+  </script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-83857924-2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'UA-83857924-2');
+  </script>
+</body>
+
+<!--script src="common.js"></script-->
+<script src="templates.js"></script>
+
+</html>

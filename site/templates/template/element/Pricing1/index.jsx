@@ -22,8 +22,20 @@ class Pricing1 extends React.PureComponent {
       >
         <QueueAnim type="bottom" {...wrapper}>
           <div {...topWrapper}>
-            <div {...name} key="name" />
-            <h1 {...money} key="money">{money.children}</h1>
+            <div {...name} key="name">
+              {
+                /* replace-start-value = name.children */
+                React.createElement('span', { dangerouslySetInnerHTML: { __html: name.children } })
+                /* replace-end-value */
+              }
+            </div>
+            <h1 {...money} key="money">
+              {
+                /* replace-start-value = money.children */
+                React.createElement('span', { dangerouslySetInnerHTML: { __html: money.children } })
+                /* replace-end-value */
+              }
+            </h1>
           </div>
           <div {...content} key="content">
             {

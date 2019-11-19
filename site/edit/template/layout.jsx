@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, message, Button, Input, Form, notification } from 'antd';
+import { Icon, message, Button, Input, Form } from 'antd';
 import { connect } from 'react-redux';
 import { FormattedMessage, injectIntl } from 'react-intl';
 
@@ -31,7 +31,7 @@ class Layout extends React.PureComponent {
   }
 
   componentDidMount() {
-    notification.open({
+    /* notification.open({
       placement: 'bottomRight',
       duration: null,
       message: this.props.intl.formatMessage({ id: 'app.layout.notification.title' }),
@@ -40,7 +40,7 @@ class Layout extends React.PureComponent {
           {this.props.intl.formatMessage({ id: 'app.layout.notification.content' })}
         </div>
       ),
-    });
+    }); */
   }
 
   componentDidUpdate() {

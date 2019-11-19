@@ -2,7 +2,7 @@
 import { takeEvery, put } from '@redux-saga/core/effects';
 import * as r from 'ramda';
 
-import { GET_USER_DATA, POST_TYPE, CREATE_NEW_TEMPLATE, SET_TEMPLATE_DATA, CHANGE_CHILD, SET_USER_AND_TEMPLATE_DATA } from './actionTypes';
+import { GET_USER_DATA, POST_TYPE, CREATE_NEW_TEMPLATE, SET_TEMPLATE_DATA, CHANGE_CHILD, SET_USER_AND_TEMPLATE_DATA, UPDATE_HISTORY } from './actionTypes';
 import * as actions from './actions';
 
 import * as url from '../url';
@@ -17,8 +17,6 @@ let getUserDataErrorCount = 0;
 
 function* handleGetUserData(action) {
   const { data } = action;
-
-  ls.resetHistory();
 
   const { uid: hash, cloneId, previewId } = url.get();
 
@@ -70,9 +68,10 @@ function* handleGetUserData(action) {
     });
 
     // 没进 dataToLocalStorage， 手动 push history;
-    localTemplate.date = localTemplate.date || Date.now();
-    ls.saveCurrentData(localTemplate);
-    ls.pushToHistory(localTemplate);
+    yield put({
+      type: UPDATE_HISTORY,
+      data: localTemplate,
+    });
 
     return;
   }
@@ -87,6 +86,11 @@ function* handleGetUserData(action) {
     xssFunc(config);
 
     saveTemplateToLocalStorage(DEFAULT_USER_NAME, template);
+
+    yield put({
+      type: UPDATE_HISTORY,
+      data: template,
+    });
 
     yield put({
       type: POST_TYPE.POST_SUCCESS,
@@ -124,6 +128,10 @@ function* handleCreateNewTemplate(action) {
   try {
     const template = yield newTemplate(DEFAULT_USER_NAME, data);
     yield put({
+      type: UPDATE_HISTORY,
+      data: template,
+    });
+    yield put({
       type: POST_TYPE.POST_SUCCESS,
       templateData: template,
     });
@@ -133,9 +141,14 @@ function* handleCreateNewTemplate(action) {
 }
 
 function* handleSetTemplateData(action) {
-  const { data: { uid: id, data: attributes, date, noHistory } } = action;
-
-  saveTemplateToLocalStorage(DEFAULT_USER_NAME, { id, attributes, date, noHistory });
+  const { data: { uid: id, data: attributes, noHistory } } = action;
+  const data = { id, attributes, noHistory };
+  saveTemplateToLocalStorage(DEFAULT_USER_NAME, data);
+  console.log(noHistory);
+  yield put({
+    type: UPDATE_HISTORY,
+    data,
+  });
 
   yield put({
     type: POST_TYPE.SET_TEMPLATE,
@@ -152,16 +165,31 @@ function* handleChangeChild(action) {
 
 function* handleSetUserAndTemplateData(action) {
   const { data } = action;
-
-  saveTemplateToLocalStorage(DEFAULT_USER_NAME, {
+  const d = {
     id: data.templateData.uid,
     attributes: data.templateData.data,
+  };
+  saveTemplateToLocalStorage(DEFAULT_USER_NAME, d);
+  yield put({
+    type: UPDATE_HISTORY,
+    data: d,
   });
+
 
   yield put({
     type: POST_TYPE.SET_USERTEMPLATE,
     data,
   });
+}
+
+function* handleUpdateHistory(action, state) {
+  console.log(action, state);
+  const { data: template } = action;
+  const { noHistory } = template;
+  if (!noHistory) {
+    delete template.noHistory;
+    yield put(actions.updateHistoryReNum(template));
+  }
 }
 
 export default function* () {
@@ -170,4 +198,5 @@ export default function* () {
   yield takeEvery(SET_TEMPLATE_DATA, handleSetTemplateData);
   yield takeEvery(CHANGE_CHILD, handleChangeChild);
   yield takeEvery(SET_USER_AND_TEMPLATE_DATA, handleSetUserAndTemplateData);
+  yield takeEvery(UPDATE_HISTORY, handleUpdateHistory);
 }

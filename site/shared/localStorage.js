@@ -1,10 +1,5 @@
 import store from 'store';
 
-import { objectEqual } from '../utils';
-
-export const LOCAL_STORAGE_HISTORY_KEY = 'ant-design-landing-record';
-export const LOCAL_STORAGE_CURRENT_DATA_KEY = 'ant-design-landing-current';
-
 /**
  * Auth
  */
@@ -55,46 +50,3 @@ export function saveTemplate(template) {
 export function removeTemplate(tid) {
   store.remove(tid);
 }
-
-
-/**
- * History
- */
-
-export const getHistory = () => store.get(LOCAL_STORAGE_HISTORY_KEY, []);
-
-// TODO: why 30?
-export const pushToHistory = (data) => {
-  const history = getHistory();
-  if (history.length >= 15) {
-    history.shift();
-  }
-  history.push(data);
-
-  store.set(LOCAL_STORAGE_HISTORY_KEY, history);
-};
-
-export const removeHistoryAfter = (data) => {
-  const history = getHistory();
-
-  const index = history.findIndex(c => objectEqual(c, data));
-  if (index === -1) {
-    return;
-  }
-
-  store.set(LOCAL_STORAGE_HISTORY_KEY, history.slice(0, index + 1));
-};
-
-export const resetHistory = () => {
-  store.set(LOCAL_STORAGE_HISTORY_KEY, []);
-};
-
-/**
- * CurrentData
- */
-
-export const saveCurrentData = (data) => {
-  store.set(LOCAL_STORAGE_CURRENT_DATA_KEY, data);
-};
-
-export const getCurrentData = () => store.get(LOCAL_STORAGE_CURRENT_DATA_KEY, {});

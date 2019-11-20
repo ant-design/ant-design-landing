@@ -161,7 +161,6 @@ class NavController extends React.PureComponent {
   }
 
   render() {
-    const { currentEditData } = this.props;
     const { saveLoad, downloadLoad, publishLoad, code, codeModalShow, publishModalShow } = this.state;
     const menuChild = [
       {
@@ -220,7 +219,6 @@ class NavController extends React.PureComponent {
         </li>
       );
     });
-
     return (
       <div className={this.props.className}>
         <a href={getNewHref('7111', null, true)}>
@@ -235,10 +233,7 @@ class NavController extends React.PureComponent {
           {menuChild}
         </ul>
         <NewFileButton />
-        <HistoryButton
-          templateData={this.props.templateData}
-          reRect={currentEditData ? currentEditData.reRect : null}
-        />
+        <HistoryButton />
         <Modal
           title={<FormattedMessage id="app.header.edit-data.header" />}
           visible={codeModalShow}

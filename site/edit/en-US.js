@@ -123,7 +123,7 @@ module.exports = {
     'app.login.title': 'This page is locked. Please enter your password.',
     'app.login.noPassword': 'If you don\'t know the password, please delete current page or create a new page',
     'app.login.new': 'New Page',
-    'app.layout.notification.title': '3.0 Release Notes',
-    'app.layout.notification.content': '3.0 has been officially released. As we have made some adjustments to some templates, if your previously edited templates can not be displayed, please re-edit the new page.',
+    'app.layout.notification.title': 'Editor update description',
+    'app.layout.notification.content': 'In order to improve the performance and experience of editing, the style editing is currently triggered by pressing enter or leaving the input box.',
   },
 };

@@ -47,3 +47,18 @@ export const setUserData = (data) => {
     data,
   };
 };
+
+// 记录 history 步数;
+export const setCurrentHistoryNum = (data) => {
+  return {
+    type: POST_TYPE.SET_HISTORY_NUM,
+    data,
+  };
+};
+// 删除之前，保存当前的
+export const updateHistoryReNum = (data) => {
+  return {
+    type: POST_TYPE.UPDATE_HISTORY_RE_NUM,
+    data,
+  };
+};

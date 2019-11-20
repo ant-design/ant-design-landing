@@ -110,8 +110,6 @@ export function saveTemplateToLocalStorage(uid, template) {
   if (!templateIdsInLocalStorage.some(anId => anId === id)) {
     ls.unshiftToUserTemplateIds(uid, id);
   }
-
-  updateHistory(template);
 }
 
 export function removeTemplate(key) {

@@ -64,7 +64,6 @@ class HistoryButton extends React.Component {
     const redoClassName = classnames('redo', {
       disabled: !currentHistory,
     });
-    console.log(this.props);
     return (
       <ul className="history-button-wrapper">
         <li className={undoClassName}>

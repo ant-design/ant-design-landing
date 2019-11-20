@@ -144,7 +144,6 @@ function* handleSetTemplateData(action) {
   const { data: { uid: id, data: attributes, noHistory } } = action;
   const data = { id, attributes, noHistory };
   saveTemplateToLocalStorage(DEFAULT_USER_NAME, data);
-  console.log(noHistory);
   yield put({
     type: UPDATE_HISTORY,
     data,
@@ -182,8 +181,7 @@ function* handleSetUserAndTemplateData(action) {
   });
 }
 
-function* handleUpdateHistory(action, state) {
-  console.log(action, state);
+function* handleUpdateHistory(action) {
   const { data: template } = action;
   const { noHistory } = template;
   if (!noHistory) {

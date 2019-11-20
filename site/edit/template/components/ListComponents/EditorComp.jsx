@@ -20,7 +20,7 @@ let funcData = {};
 const { ClassName, State, Layout, Font, BackGround, Border, Interface, Margin, Shadow, Transition } = EditorList;
 class EditorComp extends React.Component {
   onChange = (cb) => {
-    const { cssName, currentEditCssString } = cb;
+    const { cssName, currentEditCssString, isDrag } = cb;
     const { currentEditData, dispatch, templateData } = this.props;
     const { id } = currentEditData;
     const ids = id.split('-');
@@ -43,6 +43,7 @@ class EditorComp extends React.Component {
     };
     newTemplateData.data.style = (newTemplateData.data.style || []).filter(c => c.id !== cb.id);
     newTemplateData.data.style.push(data);
+    newTemplateData.noHistory = isDrag;
     dispatch(actions.setTemplateData(newTemplateData));
   }
 

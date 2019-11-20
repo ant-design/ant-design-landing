@@ -124,7 +124,7 @@ module.exports = {
     'app.login.title': '此页面已加锁，请输入密码。',
     'app.login.noPassword': '不知道密码请删除当前面页或新建',
     'app.login.new': '新建页面',
-    'app.layout.notification.title': '3.0 发布说明',
-    'app.layout.notification.content': '3.0 已正式发布，由于我们对有些模板做了调整，如果你以前编辑的模板不能显示，请新建页面重新编辑。',
+    'app.layout.notification.title': '编辑器功能更新说明',
+    'app.layout.notification.content': '为提高编辑时的性能与体验，目前将样式编辑调整为按回车或离开输入框才触发。',
   },
 };

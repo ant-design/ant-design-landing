@@ -107,7 +107,7 @@ export function saveTemplateToLocalStorage(uid, template) {
 
   const templateIdsInLocalStorage = ls.getUserTemplateIds(uid);
 
-  if (!templateIdsInLocalStorage.some(anId => anId === id)) {
+  if (!templateIdsInLocalStorage.some((anId) => anId === id)) {
     ls.unshiftToUserTemplateIds(uid, id);
   }
 }
@@ -120,6 +120,7 @@ export function removeTemplate(key) {
 }
 
 export function newTemplate(uid, data = DEFAULT_TEMPLATE_DATA) {
+  // eslint-disable-next-line no-async-promise-executor
   return new Promise(async (resolve, reject) => {
     const ProjectObject = AV.Object.extend(DEFAULT_FILE_NAME);
 

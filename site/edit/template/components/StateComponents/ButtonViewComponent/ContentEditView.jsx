@@ -15,7 +15,7 @@ function ContentEditView({ currentEditData, templateData }) {
   return (
     <div>
       <div style={{ marginTop: 16, textAlign: 'center' }}>
-        {Object.keys(currentEditTemplateData.children).map(key => (<ContentEditViewItem key={key} id={key} />))}
+        {Object.keys(currentEditTemplateData.children).map((key) => (<ContentEditViewItem key={key} id={key} />))}
       </div>
     </div>
   );

@@ -18,7 +18,7 @@ class Footer extends React.Component {
     className: 'footer1',
   };
 
-  getLiChildren = data => data.map((item, i) => {
+  getLiChildren = (data) => data.map((item, i) => {
     const { title, childWrapper, ...itemProps } = item;
     return (
       <Col

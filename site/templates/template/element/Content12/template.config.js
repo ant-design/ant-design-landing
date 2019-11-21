@@ -4,7 +4,7 @@ import component from './index';
 import less from '!raw-loader!./index.less';
 import templateStr from '!raw-loader!./index';
 
-const getBlock = data => ({
+const getBlock = (data) => ({
   name: data.name,
   className: 'block',
   md: 8,

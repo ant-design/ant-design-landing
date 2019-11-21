@@ -57,7 +57,7 @@ export default class Page3 extends React.Component {
     }
   }
 
-  getHeaderChildrenToRender = () => Object.keys(data).map(key => (
+  getHeaderChildrenToRender = () => Object.keys(data).map((key) => (
     key !== 'Other' && (
       <RadioButton value={key} key={key}>
         {key}

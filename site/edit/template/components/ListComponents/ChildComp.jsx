@@ -78,7 +78,7 @@ export default class ChildComp extends React.Component {
   render() {
     const { edit, currentEditData, templateData } = this.props;
     const currentEditArray = edit ? edit.split(',') : [];
-    const isNoShow = currentEditArray.some(c => noChildProps.indexOf(c) >= 0);
+    const isNoShow = currentEditArray.some((c) => noChildProps.indexOf(c) >= 0);
     const { id, parentDom } = currentEditData;
     const ids = id.split('-');
     const cid = ids[0].split('_')[0];
@@ -126,7 +126,7 @@ export default class ChildComp extends React.Component {
         }
       });
     }
-    const childrenToRender = currentEditTemplateData[childKey].filter(c => c && !c.delete).map((item) => {
+    const childrenToRender = currentEditTemplateData[childKey].filter((c) => c && !c.delete).map((item) => {
       return (
         <div key={item.name} className="sort-manage">
           <div className="sort-manage-name">
@@ -180,7 +180,7 @@ export default class ChildComp extends React.Component {
               </Col>
               <Col span={18}>
                 <Select defaultValue={this.editAddDefault[0]} size="small" onChange={this.onAddSelect}>
-                  {this.editAddDefault.map(c => (
+                  {this.editAddDefault.map((c) => (
                     <Option value={c} key={c}>
                       {c}
                     </Option>

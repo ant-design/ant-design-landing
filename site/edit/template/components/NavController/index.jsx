@@ -166,7 +166,7 @@ class NavController extends React.PureComponent {
       {
         name: <FormattedMessage id="app.header.save" key="m" />,
         icon: saveLoad ? 'loading' : 'save',
-        onClick: saveLoad ? null : e => this.onSave(e, 'menu'),
+        onClick: saveLoad ? null : (e) => this.onSave(e, 'menu'),
       },
       {
         name: <FormattedMessage id="app.header.preview" key="m" />,

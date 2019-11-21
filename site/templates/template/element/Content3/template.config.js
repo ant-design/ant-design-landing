@@ -3,7 +3,7 @@ import component from './index';
 import less from '!raw-loader!./index.less';
 import templateStr from '!raw-loader!./index';
 
-const getBlock = children => ({
+const getBlock = (children) => ({
   name: children.name,
   className: 'content3-block',
   md: 8,

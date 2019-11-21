@@ -10,7 +10,7 @@ import './index.less';
 /* replace-end */
 
 class Content5 extends React.PureComponent {
-  getChildrenToRender = data => data.map((item) => {
+  getChildrenToRender = (data) => data.map((item) => {
     return (
       <Col
         key={item.name}

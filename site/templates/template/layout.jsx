@@ -67,7 +67,7 @@ class Layout extends React.Component {
     if (this.scrollScreen) {
       const { templateData } = this.state;
       const { data: { template } } = templateData || { data: { template: [] } };
-      scrollScreen.init({ location: template.map(c => !c.match(/Nav/ig) && c).filter(c => c) });
+      scrollScreen.init({ location: template.map((c) => !c.match(/Nav/ig) && c).filter((c) => c) });
     }
     if (!this.isEdit && this.props !== prevProps) {
       this.setScrollToWindow();
@@ -89,8 +89,8 @@ class Layout extends React.Component {
     const editData = getEditDomData(this.dom.children);
     // 增加弹框之类的编辑，，导航的下拉菜单；
     const bodyChild = Array.prototype.slice.call(document.body.childNodes)
-      .filter(item => item.tagName && item.tagName.toLocaleLowerCase() === 'div' && item.getAttribute('id') !== 'react-content');
-    const currentPopArray = bodyChild.map(item => getChildRect(item)).filter(c => c).flat(Infinity);
+      .filter((item) => item.tagName && item.tagName.toLocaleLowerCase() === 'div' && item.getAttribute('id') !== 'react-content');
+    const currentPopArray = bodyChild.map((item) => getChildRect(item)).filter((c) => c).flat(Infinity);
     editData.currentPopover = currentPopArray;
     // Uncaught DOMException: Failed to execute 'postMessage' on 'Window': HTMLDivElement object could not be cloned.
     // window.parent.postMessage(editData, '*');
@@ -139,7 +139,7 @@ class Layout extends React.Component {
         default:
           return css[key].trim() && `${className}:${key} {${css[key]}}`;
       }
-    }).filter(c => c);
+    }).filter((c) => c);
     let cssStyle = '';
     let cssMobileCss = '';
     style.forEach((item) => {

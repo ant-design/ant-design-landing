@@ -1,26 +1,26 @@
 import { GET_USER_DATA, CREATE_NEW_TEMPLATE, SET_TEMPLATE_DATA, CHANGE_CHILD, POST_TYPE, SET_USER_AND_TEMPLATE_DATA } from './actionTypes';
 
-export const getUserData = data => ({
+export const getUserData = (data) => ({
   type: GET_USER_DATA,
   data,
 });
 
-export const createNewTemplate = data => ({
+export const createNewTemplate = (data) => ({
   type: CREATE_NEW_TEMPLATE,
   data,
 });
 
-export const setTemplateData = data => ({
+export const setTemplateData = (data) => ({
   type: SET_TEMPLATE_DATA,
   data,
 });
 
-export const changeChild = data => ({
+export const changeChild = (data) => ({
   type: CHANGE_CHILD,
   data,
 });
 
-export const setUserAndTemplateData = data => ({
+export const setUserAndTemplateData = (data) => ({
   type: SET_USER_AND_TEMPLATE_DATA,
   data,
 });

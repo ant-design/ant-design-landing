@@ -352,7 +352,7 @@ class ListSort extends React.Component {
 
   sortArray = (_array, nextNum, num) => {
     const current = _array[num];
-    const array = _array.map(item => item);
+    const array = _array.map((item) => item);
     array.splice(num, 1);
     array.splice(nextNum, 0, current);
     return array;
@@ -369,7 +369,7 @@ class ListSort extends React.Component {
       'onEventChange',
       'dragElement',
       'onChange',
-    ].forEach(key => delete props[key]);
+    ].forEach((key) => delete props[key]);
     if (this.props.appearAnim) {
       return React.createElement(QueueAnim, {
         ...props,

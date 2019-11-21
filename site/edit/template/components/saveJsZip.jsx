@@ -45,7 +45,7 @@ const publishJSON = [
 const setScrollScreen = () => {
   const str = `// 实现整屏滚动
     scrollScreen.init({ location: ['${
-  templateStrObj.TEMPLATE.map(c => !c.match(/Nav/ig) && c).filter(c => c).join('\', \'')}'] });`;
+  templateStrObj.TEMPLATE.map((c) => !c.match(/Nav/ig) && c).filter((c) => c).join('\', \'')}'] });`;
   templateStrObj.OTHER.index = templateStrObj.OTHER.index
     .replace('&scrollScreen&', str)
     .replace('&scrollScreen-pragma&', `/* 如果不是 dva 2.0 请使用以下代码
@@ -70,7 +70,7 @@ const getEditCss = (dataArray) => {
         default:
           return `${className}:${key}{${css[key]}}`;
       }
-    }).filter(c => c)
+    }).filter((c) => c)
       .join('');
   };
   let cssString = '';
@@ -97,7 +97,7 @@ const setChildrenToIndex = (other, template) => {
       .replace('_', '')}DataSource} isMobile={this.state.isMobile}/>,`;
   });
   const dataSourceStr = `import {${templateStrObj.TEMPLATE
-    .map(s => `${s.replace('_', '')}DataSource`)
+    .map((s) => `${s.replace('_', '')}DataSource`)
     .join(',')}} from './data.source'`;
 
   if (templateStrObj.OTHER.point && templateStrObj.TEMPLATE.length) {
@@ -277,7 +277,7 @@ export function saveJsZip(templateData, callBack, getJSON) {
     const l = templateStr.match(/import\s+(.+?)\s+'antd\/lib\/(.+?)';/g);
     let newTemplateStr = templateStr.replace(/import\s+(.+?)\s+'antd\/lib\/(.+?)';/g, '&antd&');
     if (l && l.length) {
-      const ll = l.map(k => k.split(/\s+/g)[1]).join(',');
+      const ll = l.map((k) => k.split(/\s+/g)[1]).join(',');
       newTemplateStr = newTemplateStr.replace('&antd&', `import {${ll}} from 'antd';`);
     }
     newTemplateStr = newTemplateStr.replace(/(&antd&)/g, '');

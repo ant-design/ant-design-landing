@@ -7,7 +7,7 @@ import './download.less';
 export default function Download({ data }) {
   return (
     <Row gutter={24}>
-      {data.map(item => (
+      {data.map((item) => (
         <Col key={item.title} sm={24} md={12} xxl={8} className="resource-wrapper">
           <a className="resource-cards"
             href={item.url}

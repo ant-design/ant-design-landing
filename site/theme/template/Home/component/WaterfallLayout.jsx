@@ -132,7 +132,7 @@ export default class WaterfallLayout extends AutoResponsive {
       'onItemDidLayout',
       'onContainerDidLayout',
       'queueAnimProps',
-    ].forEach(key => delete props[key]);
+    ].forEach((key) => delete props[key]);
     const children = this.renderChildren();
     delete queueAnimProps.type;
     return (

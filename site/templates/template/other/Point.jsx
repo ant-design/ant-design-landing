@@ -16,7 +16,7 @@ export default function Point(props) {
         toHash={false}
       />
     );
-  }).filter(item => item);
+  }).filter((item) => item);
   const wrapperClass = `point-wrapper ${position} ${size}`.trim();
   return (
     <div

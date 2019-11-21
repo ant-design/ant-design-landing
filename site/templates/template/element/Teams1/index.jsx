@@ -10,7 +10,7 @@ import './index.less';
 /* replace-end */
 
 class Teams1 extends React.PureComponent {
-  getBlockChildren = data => data.map((item, i) => {
+  getBlockChildren = (data) => data.map((item, i) => {
     const { titleWrapper, ...$item } = item;
     return (
       <Col

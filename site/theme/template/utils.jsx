@@ -1,7 +1,6 @@
 
-
 export function getMenuItems(moduleData, locale, themeConfig) {
-  const menuMeta = moduleData.map(item => item.meta);
+  const menuMeta = moduleData.map((item) => item.meta);
   const menuItems = [];
   const sortFn = (a, b) => (a.order || 0) - (b.order || 0);
   const categoryOrder = themeConfig.categoryOrder;
@@ -11,7 +10,7 @@ export function getMenuItems(moduleData, locale, themeConfig) {
       menuItems.push(meta);
     } else {
       const category = meta.category[locale] || meta.category;
-      let group = menuItems.filter(i => i.title === category)[0];
+      let group = menuItems.filter((i) => i.title === category)[0];
       if (!group) {
         group = {
           type: 'category',
@@ -22,7 +21,7 @@ export function getMenuItems(moduleData, locale, themeConfig) {
         menuItems.push(group);
       }
       if (meta.type) {
-        let type = group.children.filter(i => i.title === meta.type)[0];
+        let type = group.children.filter((i) => i.title === meta.type)[0];
         if (!type) {
           type = {
             type: 'type',

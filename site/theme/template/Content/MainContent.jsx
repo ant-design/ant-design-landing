@@ -24,7 +24,7 @@ function getActiveMenuItem(props) {
 function getModuleData(props) {
   const pathname = props.location.pathname;
 
-  const moduleName = pathname.split('/').filter(item => item).slice(0, -1).join('/');
+  const moduleName = pathname.split('/').filter((item) => item).slice(0, -1).join('/');
 
   const moduleData = props.picked[moduleName];
   const excludedSuffix = utils.isZhCN(props.location.pathname) ? 'en-US.md' : 'zh-CN.md';
@@ -54,7 +54,7 @@ function getSideBarOpenKeys(props, prevModule) {
       moduleData,
       locale,
       props.themeConfig
-    ).map(m => m.title[locale] || m.title);
+    ).map((m) => m.title[locale] || m.title);
     return shouldOpenKeys;
   }
 }
@@ -189,7 +189,7 @@ class MainContent extends React.PureComponent {
                   <Menu.ItemGroup title={child.title} key={child.title}>
                     {child.children.sort((a, b) => {
                       return a.title.charCodeAt(0) - b.title.charCodeAt(0);
-                    }).map(leaf => this.generateMenuItem(false, leaf))}
+                    }).map((leaf) => this.generateMenuItem(false, leaf))}
                   </Menu.ItemGroup>
                 );
               }

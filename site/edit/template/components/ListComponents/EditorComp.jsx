@@ -29,7 +29,7 @@ class EditorComp extends React.Component {
       templateData.data.config[ids[0]], tempData[cid]);
     const currentEditTemplateData = getDataSourceValue(ids[1], tempDataSource);
     const newClassName = `${currentEditTemplateData && currentEditTemplateData.className
-      ? currentEditTemplateData.className.split(' ').filter(c => c !== cssName).join(' ')
+      ? currentEditTemplateData.className.split(' ').filter((c) => c !== cssName).join(' ')
       : ''} ${cssName}`.trim();
     const newTemplateData = deepCopy(templateData);
     setDataSourceValue(ids, 'className', newClassName, newTemplateData.data.config);
@@ -41,7 +41,7 @@ class EditorComp extends React.Component {
       id: cb.id,
       cid: ids[0],
     };
-    newTemplateData.data.style = (newTemplateData.data.style || []).filter(c => c.id !== cb.id);
+    newTemplateData.data.style = (newTemplateData.data.style || []).filter((c) => c.id !== cb.id);
     newTemplateData.data.style.push(data);
     newTemplateData.noHistory = isDrag;
     dispatch(actions.setTemplateData(newTemplateData));
@@ -96,7 +96,7 @@ class EditorComp extends React.Component {
     const { id, currentPopover } = currentEditData;
     const ids = id.split('-');
     const edit = currentEditData.dom.getAttribute('data-edit');
-    const isPopover = currentPopover.some(c => c.dataId === id);
+    const isPopover = currentPopover.some((c) => c.dataId === id);
     return (
       [
         <EditorChild edit={edit} {...this.props} key="child" onChange={this.onChildChange} />,

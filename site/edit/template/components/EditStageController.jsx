@@ -73,8 +73,8 @@ class EditStateController extends React.Component {
         if (source === this.stage) {
           const elKey = el.getAttribute('data-key');
           const data = this.state.data;
-          const dArr = Object.keys(data).filter(key => key.split('_')[0] === elKey)
-            .map(key => parseFloat(key.split('_')[1])).sort((a, b) => a - b);
+          const dArr = Object.keys(data).filter((key) => key.split('_')[0] === elKey)
+            .map((key) => parseFloat(key.split('_')[1])).sort((a, b) => a - b);
           newId = `${elKey}_${(dArr[dArr.length - 1] + 1) || 0}`;
           const sourceArray = Array.prototype.slice.call(source.children);
           stateChild = stateChild || sourceArray;
@@ -89,8 +89,8 @@ class EditStateController extends React.Component {
           }
           const ii = sourceArray.indexOf(el);
           if (ii >= 0
-            && sourceArray.map(item => item.getAttribute('id')).join()
-            !== stateChild.map(item => item.getAttribute('id')).join()) {
+            && sourceArray.map((item) => item.getAttribute('id')).join()
+            !== stateChild.map((item) => item.getAttribute('id')).join()) {
             this.setPropsData(el, sourceArray);
             stateChild = sourceArray;
           }
@@ -182,7 +182,7 @@ class EditStateController extends React.Component {
     // this.reRect();
   }
 
-  refreshCurrentData = rectArray => rectArray.filter(item => (
+  refreshCurrentData = (rectArray) => rectArray.filter((item) => (
     item.dataId === this.currentData.dataId
   ))[0];
 
@@ -231,7 +231,7 @@ class EditStateController extends React.Component {
     const { templateData } = this.props;
     const { template } = templateData ? templateData.data : { template: [] };
     let isChange;
-    if (template.some(key => key.indexOf('Nav2') >= 0)) {
+    if (template.some((key) => key.indexOf('Nav2') >= 0)) {
       isChange = this.addNavLinkData(templateData);
     }
     if (isChange) {
@@ -292,13 +292,13 @@ class EditStateController extends React.Component {
   setTemplateConfigObject = (obj) => {
     const data = this.props.templateData;
     const ids = this.currentData.dataId.split('-');
-    const newIds = ids[1].split('&').filter(c => c);
+    const newIds = ids[1].split('&').filter((c) => c);
     const endKey = newIds.pop();
     const endKeyArray = endKey.split('=');
 
     const t = getDataSourceValue(newIds.join('&'), data.data.config, [ids[0], 'dataSource']);
     if (endKeyArray.length && endKeyArray[0] === 'array_name') {
-      const i = t.findIndex(item => item.name === endKeyArray[1]);
+      const i = t.findIndex((item) => item.name === endKeyArray[1]);
       t[i] = obj;
     } else {
       t[endKey] = obj;
@@ -436,7 +436,7 @@ class EditStateController extends React.Component {
   }
 
   setPropsData = (el, children, add) => {
-    const template = children.map(item => item.getAttribute('id')).filter(id => id);
+    const template = children.map((item) => item.getAttribute('id')).filter((id) => id);
     const { templateData } = this.props;
     if (el.className === 'placeholder') {
       el.remove();
@@ -547,15 +547,15 @@ class EditStateController extends React.Component {
 
   addNavLinkData = (templateData) => {
     const { template } = templateData.data;
-    const nav2Array = template.filter(key => key.indexOf('Nav2') >= 0);
-    const pageArray = template.filter(key => !key.match(/Nav|Footer/ig));
+    const nav2Array = template.filter((key) => key.indexOf('Nav2') >= 0);
+    const pageArray = template.filter((key) => !key.match(/Nav|Footer/ig));
     const config = templateData.data.config;
     let change = false;
     nav2Array.forEach((key) => {
       const menuLink = getDataSourceValue('LinkMenu', config, [key, 'dataSource']);
       ([].concat(pageArray)).forEach((cKey) => {
         const menuChild = menuLink.children || [];
-        if (menuChild.findIndex(item => item.name === cKey) === -1) {
+        if (menuChild.findIndex((item) => item.name === cKey) === -1) {
           const index = pageArray.indexOf(cKey);
           const obj = {
             name: cKey,
@@ -574,12 +574,12 @@ class EditStateController extends React.Component {
 
   removeNavLinkData = (templateData, current) => {
     const template = templateData.data.template;
-    const nav2Array = template.filter(key => key.indexOf('Nav2') >= 0);
+    const nav2Array = template.filter((key) => key.indexOf('Nav2') >= 0);
     const config = templateData.data.config;
     nav2Array.forEach((key) => {
       const menuLink = getDataSourceValue('menuLink', config, [key, 'dataSource']);
       const menuChild = menuLink.children || [];
-      const index = menuChild.findIndex(item => item.name === current);
+      const index = menuChild.findIndex((item) => item.name === current);
       menuChild.splice(index, 1);
       menuLink.children = menuChild;
     });
@@ -639,7 +639,7 @@ class EditStateController extends React.Component {
     const { className, mediaStateSelect } = this.props;
     const { data, currentHoverRect, currentSelectRect, iframe, openEditText } = this.state;
     // 去除弹框的数据
-    const dataArray = data ? Object.keys(data).filter(key => key !== 'currentPopover') : [];
+    const dataArray = data ? Object.keys(data).filter((key) => key !== 'currentPopover') : [];
     const overlayChild = dataArray.map((key, i) => {
       const item = data[key];
       const itemStyle = window.getComputedStyle(item.item);

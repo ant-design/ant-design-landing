@@ -7,6 +7,7 @@ AV.init({
   appId,
   appKey,
   // serverURLs: 'https://avoscloud.com',
+  serverURLs: 'https://ogajshc9.lc-cn-n1-shared.com',
 });
 
 export default AV;

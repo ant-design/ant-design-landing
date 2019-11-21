@@ -15,17 +15,17 @@ const ButtonGroup = Button.Group;
 export default class EditButtonView extends React.PureComponent {
   onParentDropdonw = (e) => {
     const { currentData, onParentChange } = this.props;
-    const select = currentData.parent.filter(item => item.dataId === e.key)[0];
+    const select = currentData.parent.filter((item) => item.dataId === e.key)[0];
     onParentChange(select);
   }
 
   getStr = (id) => {
-    const str = id.split('&').filter(c => c).map(c => c.split('=')[1] || c.split('=')[0]);
+    const str = id.split('&').filter((c) => c).map((c) => c.split('=')[1] || c.split('=')[0]);
     return str[str.length - 1].split('-')[1] || str[str.length - 1].split('-')[0];
   }
 
   getMenu = (parent) => {
-    const children = parent.map(item => (
+    const children = parent.map((item) => (
       <Menu.Item key={item.dataId}>
         {this.getStr(item.dataId)}
       </Menu.Item>
@@ -96,7 +96,7 @@ export default class EditButtonView extends React.PureComponent {
         default:
           return null;
       }
-    }).filter(c => c);
+    }).filter((c) => c);
     const rect = currentData.item.getBoundingClientRect();
     const top = rect.top;
     const width = rect.width;

@@ -88,7 +88,7 @@ class NewFileButton extends React.Component {
 
   getNewMenu = () => {
     const { templateIds } = this.state;
-    const localChild = templateIds.map(key => (
+    const localChild = templateIds.map((key) => (
       <Item
         key={key}
         title={key}

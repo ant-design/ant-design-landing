@@ -11,10 +11,10 @@ import './index.less';
 /* replace-end */
 
 class Content7 extends React.Component {
-  getBlockChildren = data => data.map(($item) => {
+  getBlockChildren = (data) => data.map(($item) => {
     const { ...item } = $item;
     const { title, img, content } = item;
-    ['title', 'img', 'content'].forEach(key => delete item[key]);
+    ['title', 'img', 'content'].forEach((key) => delete item[key]);
     return (
       <li
         key={item.name}

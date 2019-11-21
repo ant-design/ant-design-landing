@@ -72,7 +72,7 @@ class MenuEditView extends React.PureComponent {
       return null;
     }
     const templateIds = templateData.data.template;// .filter(key => !key.match(/Nav|Footer/ig));
-    const childrenToRender = currentEditTemplateData.children.filter(c => c && !c.delete).map((item, i) => {
+    const childrenToRender = currentEditTemplateData.children.filter((c) => c && !c.delete).map((item, i) => {
       // 只给 link 使用
       return (
         <div key={item.name} className="sort-manage">

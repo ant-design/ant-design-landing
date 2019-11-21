@@ -158,8 +158,7 @@ class Header3 extends React.Component {
               <em />
               <em />
             </div>
-          )
-          }
+          )}
           <TweenOne
             {...dataSource.Menu}
             animation={isMobile ? {

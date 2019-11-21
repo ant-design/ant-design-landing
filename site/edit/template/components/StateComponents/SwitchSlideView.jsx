@@ -86,7 +86,7 @@ export default class SwitchSlideView extends React.Component {
 
   getPopChild = (dataSource) => {
     const { children } = this.getDataSourceChild(dataSource);
-    const child = children.filter(item => !item.delete);
+    const child = children.filter((item) => !item.delete);
     const listChild = child.map((item) => {
       return (
         <div key={item.name} className="sort-manage">
@@ -154,7 +154,7 @@ export default class SwitchSlideView extends React.Component {
                 {name}
               </span>
             )}
-            getPopupContainer={triggerNode => triggerNode.parentNode}
+            getPopupContainer={(triggerNode) => triggerNode.parentNode}
             overlayClassName="manage-wrapper"
             ref={(c) => {
               this.pop = c;

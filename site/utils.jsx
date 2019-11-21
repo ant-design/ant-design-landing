@@ -30,13 +30,13 @@ export function deepCopy(data) {
     return data;
   }
   if (Array.isArray(data)) {
-    return data.map(item => deepCopy(item));
+    return data.map((item) => deepCopy(item));
   }
   const obj = {};
   Object.keys(data).forEach((key) => {
     if (typeof data[key] === 'object') {
       if (Array.isArray(data[key])) {
-        obj[key] = data[key].map(item => deepCopy(item));
+        obj[key] = data[key].map((item) => deepCopy(item));
       } else {
         obj[key] = deepCopy(data[key]);
       }
@@ -123,7 +123,7 @@ export const getDataSourceValue = (id, templateData, parent) => {
       },
     };
   }
-  array.concat(childIds).filter(c => c).forEach((key) => {
+  array.concat(childIds).filter((c) => c).forEach((key) => {
     const nameKey = key.split('=');
     if (nameKey.length > 1 && nameKey[0] === 'array_name') {
       let i = parseFloat(nameKey[1].replace(/[a-z]/g, ''));
@@ -281,7 +281,7 @@ export const getChildRect = (data) => {
       ) {
         return;
       }
-      if (dataId && !array.find(c => c.dataId === dataId)) {
+      if (dataId && !array.find((c) => c.dataId === dataId)) {
         const rect = item.getBoundingClientRect();
         array.push({
           dataId,

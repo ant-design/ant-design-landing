@@ -56,7 +56,7 @@ export default class PropsComp extends React.Component {
             {...(func ? { defaultValue: funcDefault } : { value: currentValue })}
             onChange={(data) => { this.props.onChange(key, data, func); }}
             size="small"
-            getPopupContainer={node => node.parentNode.parentNode.parentNode.parentNode.parentNode}
+            getPopupContainer={(node) => node.parentNode.parentNode.parentNode.parentNode.parentNode}
           >
             {props.children.map((k) => {
               return (
@@ -281,12 +281,12 @@ export default class PropsComp extends React.Component {
   getChildrenToRender = (config, template, id) => {
     const { isMobile } = this.props;
     const ids = id[1].split('&');
-    const t = Object.keys(config).filter(key => key !== 'apiLink').map((key) => {
+    const t = Object.keys(config).filter((key) => key !== 'apiLink').map((key) => {
       const defaultData = config[key];
       if (!template
         || (key === 'currentMenu' && !template.subItem)
         || (defaultData.isMobile && !isMobile)
-        || ((key === 'currentMenu' || key === 'childMenu') && ids.findIndex(c => c === 'Menu') === -1)
+        || ((key === 'currentMenu' || key === 'childMenu') && ids.findIndex((c) => c === 'Menu') === -1)
       ) {
         return null;
       }
@@ -334,7 +334,7 @@ export default class PropsComp extends React.Component {
 
   render() {
     const { edit, currentEditData, templateData, isMobile } = this.props;
-    const editArray = edit ? edit.split(',').map(c => c.trim()).filter(c => noProps.indexOf(c) === -1) : [];
+    const editArray = edit ? edit.split(',').map((c) => c.trim()).filter((c) => noProps.indexOf(c) === -1) : [];
     if (!edit || !editArray.length) {
       return null;
     }
@@ -366,7 +366,8 @@ export default class PropsComp extends React.Component {
                     <a target="_blank" href={compConfig[item].apiLink}>
                       <FormattedMessage id="app.edit.look-api" />
                     </a>
-                  )}
+                  )
+}
               </p>
             )}
             key="1"

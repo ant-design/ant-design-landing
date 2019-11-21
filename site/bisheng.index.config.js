@@ -1,7 +1,6 @@
 const commonConfig = require('./bisheng.common.config');
 
-module.exports = Object.assign({
-  port: 7111,
+module.exports = { port: 7111,
   root: '/',
   source: {
     docs: './docs',
@@ -23,4 +22,4 @@ module.exports = Object.assign({
       Tutorial: 3,
     },
   },
-}, commonConfig);
+  ...commonConfig };

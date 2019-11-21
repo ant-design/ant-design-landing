@@ -117,7 +117,7 @@ class PublishModal extends React.Component {
         headers: {
           'Content-Type': 'application/json',
         },
-      }).then(res => res.json()).then((res) => {
+      }).then((res) => res.json()).then((res) => {
         const { url, lambdas: [item] } = res;
         if (item) {
           switch (item.readyState) {
@@ -194,7 +194,7 @@ class PublishModal extends React.Component {
             ...data,
           ],
         }),
-      }).then(res => res.json())
+      }).then((res) => res.json())
         .then(({ id }) => {
           // 记录发布状态；
           const currentBuild = store.get(buildId);
@@ -202,7 +202,7 @@ class PublishModal extends React.Component {
           store.set(buildId, currentBuild);
           this.onMonitorPublishState(id);
         })
-        .catch(error => console.error('Error:', error));
+        .catch((error) => console.error('Error:', error));
     }, true);
   }
 

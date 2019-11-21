@@ -25,9 +25,9 @@ class Article extends React.PureComponent {
     }
     this.pingTimer = ping((status) => {
       if (status !== 'timeout' && status !== 'error') {
-        links.forEach(link => (link.style.display = 'block'));
+        links.forEach((link) => (link.style.display = 'block'));
       } else {
-        links.forEach(link => link.parentNode.removeChild(link));
+        links.forEach((link) => link.parentNode.removeChild(link));
       }
     });
   }
@@ -39,7 +39,7 @@ class Article extends React.PureComponent {
     }
   }
 
-  getAnchor = node => React.Children.map(node.props.children, (item) => {
+  getAnchor = (node) => React.Children.map(node.props.children, (item) => {
     const children = item.props.children[0];
     return React.createElement(Anchor.Link, { ...children.props, title: children.props.children }, null);
   });

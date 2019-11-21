@@ -14,7 +14,7 @@
     "autoresponsive-react": "^1.1.31",
     "deep-eql": "^4.0.0",
     "enquire-js": "^0.2.1",
-    "leancloud-storage": "^3.14.0",
+    "leancloud-storage": "^4.0.0",
     "query-string": "^6.8.2",
     "ramda": "^0.26.1",
     "raw-loader": "^3.0.0",
@@ -48,7 +48,7 @@
     "cross-env": "^6.0.2",
     "dragula": "^3.7.2",
     "eslint": "^6.0.0",
-    "eslint-config-airbnb": "^17.0.0",
+    "eslint-config-airbnb": "^18.0.0",
     "eslint-loader": "^3.0.2",
     "eslint-plugin-babel": "^5.1.0",
     "eslint-plugin-compat": "^3.1.1",
@@ -71,7 +71,7 @@
     "react-redux": "^7.0.2",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
-    "stylelint": "^11.1.1",
+    "stylelint": "^12.0.0",
     "stylelint-config-standard": "^19.0.0"
   },
   "pre-commit": [

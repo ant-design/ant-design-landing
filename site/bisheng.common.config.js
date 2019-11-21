@@ -8,7 +8,7 @@ const antdImport = ['import', { libraryName: 'antd', style: true }];
 function alertTheme(rules) {
   rules.forEach((rule) => {
     if (Array.isArray(rule.use) && (rule.use.indexOf('less-loader') >= 0
-      || rule.use.some(c => c.loader && (c.loader.indexOf('less-loader') >= 0 || c.loader === 'less-loader')))) {
+      || rule.use.some((c) => c.loader && (c.loader.indexOf('less-loader') >= 0 || c.loader === 'less-loader')))) {
       rule.use = rule.use.map((item) => {
         if (item.loader && item.loader.indexOf('less-loader') >= 0) {
           item.options = {

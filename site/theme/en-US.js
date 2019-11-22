@@ -47,5 +47,7 @@ module.exports = {
     'app.footer.seeconf': 'Seeking Experience & Engineering Conference',
     'app.footer.xcloud': 'Ant Experience Cloud',
     'app.footer.lang': '中文',
+    'app.layout.notification.title': 'Need Github star',
+    'app.layout.notification.content': 'We need your support, please click the button to help us increase.',
   },
 };

@@ -191,33 +191,9 @@ export function objectEqual(obj1, obj2) {
   }
   // animation 写在标签上的进行判断是否相等， 判断每个参数有没有 function;
   let equalBool = true;
-  if (Array.isArray(obj1) && Array.isArray(obj2)) {
-    if (obj1.length !== obj2.length) {
-      return false;
-    }
-    for (let i = 0; i < obj1.length; i += 1) {
-      const currentObj = obj1[i];
-      const nextObj = obj2[i];
-      for (const p in currentObj) {/* eslint-disable-line */
-        if (currentObj[p] !== nextObj[p]) {
-          if (typeof currentObj[p] === 'object' && typeof nextObj[p] === 'object') {
-            equalBool = objectEqual(currentObj[p], nextObj[p]);
-          } else if (typeof currentObj[p] === 'function' && typeof nextObj[p] === 'function') {
-            if (currentObj[p].toString() !== nextObj[p].toString()) {
-              equalBool = false;
-            }
-          } else {
-            equalBool = false;
-          }
-          if (!equalBool) {
-            return false;
-          }
-        }
-      }
-    }
-  }
-
-  const setEqualBool = (objA, objB) => {
+  const setEqualBool = ($a, $b) => {
+    const objA = getEnumerableKeys($a).length > getEnumerableKeys($b).length ? $a : $b;
+    const objB = getEnumerableKeys($a).length > getEnumerableKeys($b).length ? $b : $a;
     getEnumerableKeys(objA).forEach((key) => {
       // 如果前面有参数匹配不相同则直接返回；
       if (!equalBool) {
@@ -229,7 +205,7 @@ export function objectEqual(obj1, obj2) {
       if (typeof objA[key] === 'object' && typeof objB[key] === 'object') {
         equalBool = objectEqual(objA[key], objB[key]);
       } else if (typeof objA[key] === 'function' && typeof objB[key] === 'function') {
-        if (objA[key].name !== objB[key].name) {
+        if (objA[key].toString().replace(/\s+/g, '') !== objB[key].toString().replace(/\s+/g, '')) {
           equalBool = false;
         }
       } else if (objA[key] !== objB[key]) {
@@ -238,8 +214,16 @@ export function objectEqual(obj1, obj2) {
     });
   };
 
-  setEqualBool(obj1, obj2);
-  setEqualBool(obj2, obj1);
+  if (Array.isArray(obj1) && Array.isArray(obj2)) {
+    if (obj1.length !== obj2.length) {
+      return false;
+    }
+    obj1.forEach((item, i) => {
+      setEqualBool(item, obj2[i]);
+    });
+  } else {
+    setEqualBool(obj1, obj2);
+  }
   return equalBool;
 }
 const getParentRect = (item, parentData) => {

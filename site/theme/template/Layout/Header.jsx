@@ -2,7 +2,8 @@ import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import PropTypes from 'prop-types';
 import { Link } from 'bisheng/router';
-import { Row, Col, Menu } from 'antd';
+import { Row, Col, Menu, notification } from 'antd';
+import GitHubButton from 'react-github-button';
 
 import PhoneNav from './PhoneNav';
 import * as utils from '../utils';
@@ -12,6 +13,25 @@ import { getNewHref } from '../../../utils';
 class Header extends React.Component {
   static contextTypes = {
     router: PropTypes.object.isRequired,
+  }
+
+  componentDidMount() {
+    notification.open({
+      placement: 'bottomLeft',
+      duration: 10000,
+      message: this.props.intl.formatMessage({ id: 'app.layout.notification.title' }),
+      description: (
+        <div>
+          {this.props.intl.formatMessage({ id: 'app.layout.notification.content' })}
+          <GitHubButton
+            type="stargazers"
+            namespace="ant-design"
+            repo="ant-design-landing"
+            style={{ display: 'inline-block', verticalAlign: 'middle', marginLeft: 8 }}
+          />
+        </div>
+      ),
+    });
   }
 
   handleLangChange = () => {

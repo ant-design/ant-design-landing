@@ -47,5 +47,7 @@ module.exports = {
     'app.footer.seeconf': '蚂蚁体验科技大会',
     'app.footer.xcloud': '蚂蚁体验云',
     'app.footer.lang': 'English',
+    'app.layout.notification.title': '关注下 Star 数',
+    'app.layout.notification.content': '网站流量与 star 数不成比，各位给 github 加一下 star 有没有，点击右侧按钮去帮我们增加',
   },
 };

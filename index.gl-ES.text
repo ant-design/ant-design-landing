@@ -19,20 +19,21 @@ export default class Home extends React.Component {
     super(props);
     this.state = {
       isMobile,
-      show: !location.port,// 如果不是 dva 2.0 请删除  
+      show: !location.port, // Se non é dva 2.0, eliminar 
     };
   }
 
   componentDidMount() {
     &scrollScreen-pragma&
-    // 适配手机屏幕;
+    // Adáptase á pantalla do teléfono;
     enquireScreen((b) => {
       this.setState({ isMobile: !!b });
     });
-    // dva 2.0 样式在组件渲染之后动态加载，导致滚动组件不生效；线上不影响；
-    /* 如果不是 dva 2.0 请删除 start */
+    // dva 2.0 - O estilo de efecto cargarase dinámicamente despois de renderizar o compoñente,
+    // o que fai que non se xere o compoñente de desprazamento; non afecta en liña - online；
+    /* De non ser así dva 2.0 elimina start */
     if (location.port) {
-      // 样式 build 时间在 200-300ms 之间;
+      // Estilo build nun tempo entre 200-300ms;
       setTimeout(() => {
         this.setState({
           show: true,
@@ -40,16 +41,16 @@ export default class Home extends React.Component {
         &scrollScreen&
       }, 500);
     }
-    /* 如果不是 dva 2.0 请删除 end */
+    /* De non ser así dva 2.0 elinina end */
   }
 
   render() {
     &children&
     return (
       <div className="templates-wrapper" ref={(d) => { this.dom = d; }}>
-        {/* 如果不是 dva 2.0 替换成 {children} start */}
+        {/* De non ser así dva 2.0 será substituído por {children} start */}
         {this.state.show && children}
-        {/* 如果不是 dva 2.0 替换成 {children} end */}
+        {/* De non ser así dva 2.0 será substituído por {children} end */}
       </div>
     );
   }

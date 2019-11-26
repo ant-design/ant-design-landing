@@ -18,7 +18,7 @@ Landing Pages of Ant Design System
 
 ## Que é Landing?
 
-Landing é un modelo construído cos compoñentes de movemento de Ant Motion. Dispón dun fornecido modelo de páxina de inicio, descargando o paquete de código de modelo pódese empregar rapidamente. Tamén podes usar o editor para crear rapidamente a túa propia páxina dedicada.
+Landing é un modelo construído cos compoñentes animación de Ant Motion. Dispón dun fornecido modelo de páxina de inicio, descargando o paquete de código de modelo pódese empregar rapidamente. Tamén podes usar o editor para crear rapidamente a túa propia páxina dedicada.
 
 <div align="center">
   <a href="https://landing.ant.design/edit">Go Editing 📝</a>

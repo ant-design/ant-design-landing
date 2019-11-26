@@ -2,10 +2,12 @@
 order: 5
 category:
   zh-CN: 设计指引
-  en-US: Guide
-title: 
+  en-US: Guide  
+  gl-ES: Guía
+title:
   zh-CN: 组合示例
-  en-US: Examples
+  en-US: Examples  
+  gl-ES: Exemplos
 ---
 
 ## 示例
@@ -47,7 +49,7 @@ title:
       width: 100%;
       margin: auto;
     }
-    .examples-img { 
+    .examples-img {
       width: 100%;
       padding: 0;
       margin-bottom: 16px;

@@ -1,8 +1,9 @@
 ---
 order: 0
-title: 
+title:
   zh-CN: 介绍
   en-US: Introduce
+  gl-ES: Presentación  
 ---
 
 
@@ -17,60 +18,61 @@ title:
   </div>
 </div>
 
-Ant Design Landing 是针对产品首页的解决方案，我们秉承 [Ant Design](https://ant.design) 的 [设计价值观](https://ant.design/docs/spec/introduce-cn)，延用 [Ant Design](https://ant.design) 的 [设计原则](http://ant.design/docs/spec/proximity-cn)，可以快速搭建出你想要的首页，进一步提升你的工作效率。随着『设计者』的不断反馈，我们将持续迭代，逐步沉淀和总结出更多首页模块的代码实现，阐述首页(Landing page)的最佳实践，也十分期待你的参与和共建。
+Ant Design Landing é unha solución para a páxina de inicio dun produto. Seguimos con [Valoración do deseño] (https://ant.design) (https://ant.design/docs/spec/introduce-cn), estender Con [Ant Design] (https://ant.design) os [Principios de deseño] (http://ant.design/docs/spec/proximity-cn), pode crear rapidamente a páxina de inicio que desexe e mellorala. Eficiencia no traballo. Coa avaliación continua do "diseñador", continuaremos iterando, precipitando e resumindo gradualmente a implementación do código de máis módulos de página de inicio, elaboraremos as mellores prácticas da páxina de inicio (landing page) e agardamos a túa participación e co-construción.
 
-## 作用
+## Función
 
-- 激发用户的探索兴趣，继续深入访问。
-- 引导用户直接购买产品或服务。
-- 用户通过提供个人信息或注册来交换一些试用与服务。
-- 让用户分享、评论或产生其它一些互动。
+- Estimular o interese dos usuarios por explorar e seguir visitando en profundidade.
+- Dirixir aos usuarios a compra de produtos ou servizos directamente.
+- Os usuarios obteñen algúns servizos ou versións de proba proporcionando información persoal ou rexistrándose.
+- Os usuarios comparten, comentan ou xeran outras interaccións.
 
-## 构成元素
+## Elementos constitutivos
 
-- 全局导航
-- 首屏阐述 Banner:
-  > - USP(unique selling proposition) 产品卖点或价值主张: 产品 logo，名称，slogan， 媒体展示(背景，图片，视频)。
-  > - CTA(Call-To-Action): 行动按钮，登录/ 注册。
-- 分点阐述: 
-  > - 产品特色/优势。
-  > - 使用方法 + 核心功能 + 解决方案
-- 合作伙伴/客户: 成功案例，客户展示，客户证言。
-- 价格表
-- 团队展示
-- 联系我们
-- 全局页脚
+- Navegación global
+- Banner explicativo da primeira pantalla:
+   > -USP (unique selling proposition - proposta de venda única) Punto de venda de produto ou proposición de valor: logotipo do produto, nome, slogan, visualización de medios (fondo, imaxe, vídeo).
+   > -CTA (Call-To-Action - Chamada á acción): botón de acción, iniciar sesión / rexistrarse.
+- Punto por punto:
+   > -Características/vantaxes do produto.
+   > -Como empregar + funcións básicas + solucións
+- Socios / Clientes: casos de éxito, presentacións de clientes, testemuños de clientes.
+- Lista de prezos
+- Fichas do equipo
+- Contáctanos
+- Pé de páxina global
 
-### 动效
+### Animación
 
-延用 [Ant Motion](https://motion.ant.design) 动画组件与规范，提供基本的动画组件与 banner 切换效果，以 `scroll-anim` 组件为基本动画框架，随滚动来完成页面的进出场效果。
-
-- [单元素动效执行组件](https://motion.ant.design/components/tween-one)
-- [样式进出场组件](https://motion.ant.design/components/animate)
-- [队列进出场组件](https://motion.ant.design/components/queue-anim)
-- [文字动效组件](https://motion.ant.design/components/texty)
-- [随滚动执行效果组件](https://motion.ant.design/components/scroll-anim)
-- [Banner 切换效果组件](https://motion.ant.design/components/banner-anim)
-
-## 设计资源
-
-我们提供完善的设计规范、最佳实践和设计资源文件 Sketch，来帮助业务快速设计出高质量的产品原型。
+Progresar usando animación [Ant Motion] (https://motion.ant.design) con compoñentes básicos de animación e efectos de transición de banners, usando o compoñente de animación de desprazamento -*'scroll-anim'*- como marco básico de animación -*'basic animation framework'*- e completar os efectos de entrada e saída da páxina co desprazamento -'scrolling'-.
 
 
-## 谁在使用
+- [Compoñente de execución de animación dun único elemento](https://motion.ant.design/components/tween-one)
+- [Compoñentes de entrada e saída de estilo](https://motion.ant.design/components/animate)
+- [Compoñentes de entrada e saída de colas](https://motion.ant.design/components/queue-anim)
+- [Compoñente de animación de textos](https://motion.ant.design/components/texty)
+- [Compoñentes de efecto activados co desprazamento](https://motion.ant.design/components/scroll-anim)
+- [Compoñentes de mudar efecto do Banner](https://motion.ant.design/components/banner-anim)
 
-目前 Ant Design 旗下产品全部使用 Landing 搭建，如果你和你的组织使用了这个产品，欢迎到 Ant Design Landing Users 留言。
+## Recursos de deseño
 
-
-### For 设计者
-
-如果你是产品或设计师，你可以找到相关模板或各模块的 Sketch 设计资源，大幅度提升设计效率和沟通效率。
-
-### For 开发者
-
-如果你是工程师，只需将你下载的以『Home』为名的文件包替换掉你的项目里的首页即可，具体介绍请查看 [使用文档](/docs/use/getting-started)。
+Con especificacións de deseño completas, coas mellores prácticas e con arquivos de recursos gráficos(Sketch) para axudar ás empresas a deseñar rapidamente prototipos de produtos de alta calidade.
 
 
-## 如何贡献
+## Quen o está a empregar
 
-我们欢迎任何形式的贡献，有任何建议或意见，请给我们 [提问]()。
+Na actualidade, todos os produtos de Ant Design están construídos co Landing. Se ti ou a túa organización empregan este produto, benvido aos Ant Design Landing Users. Deixa unha mensaxe. 留言。
+
+
+### Para o deseñador
+
+Se tes un produto ou es deseñador, podes atopar modelos relacionados ou recursos de deseño para cada módulo, o que mellora moito a eficiencia do deseño e a comunicación.
+
+### Para o desenvolvedor
+
+Se es enxeñeiro, só precisas substituír a páxina de inicio do teu proxecto co ficheiro "Home" que acabas de descargar. Para máis detalles, consultar [Traballo con documentos](/docs/use/getting-started)。
+
+
+## Como contribuír
+
+Damos a benvida a calquera forma de aportación. Se tes algunha suxestión ou comentario, envíanola [pregunta] ().。

@@ -3,35 +3,38 @@ order: 0
 category:
   zh-CN: 使用教程
   en-US: Tutorial
-title: 
+  gl-ES: Tutoría
+title:
   zh-CN: 开始使用
   en-US: Getting-started
+  gl-ES: Escomenzar
 ---
 
-Landing 编辑器里下载的文件为 Home 文件包，导出的文件为 [React](https://reactjs.org/) 文件 `.jsx`， 样式采用的为 [less](http://lesscss.org/) 文件 `.less`， 如遇到问题时，建议先学习一下相关的语言特性，再前往 [Landing issues](https://github.com/ant-design/ant-design-landing/issues) 提问。
+Os arquivos descargados no editor Landing son paquetes de inicio. O arquivo exportado é un arquivo [React] (https://reactjs.org/) `.jsx`. O estilo é un arquivo [Less] (http://lesscss.org/) `.less`. Se atopas problemas, recoméndase primeiro aprender as características relevantes da(s) linguaxe(s). Inda así poderás ir a [Landing issues] (https://github.com/ant-design/ant-design-landing/issues) para facer preguntas.
 
-## 目录结构
+## Estrutura do directorio
 
 ```
 |── less
 |   └── index.less              
-|   └── common.less            # 通用样式
-|   └── content.less           # 内容模块通用样式
-|   └── custom.less            # less 变量文件
-|   └── edit.less              # 编辑器里编辑后生成的样式
-|   └── Banner0.less *         # 相关模块样式
+|   └── common.less            # 通用样式 Estilo universal
+|   └── content.less           # 内容模块通用样式 Módulo de contido estilo común
+|   └── custom.less            # less 变量文件 Arquivo variable
+|   └── edit.less              # 编辑器里编辑后生成的样式 Estilo xerado trala edición no editor
+|   └── Banner0.less *         # 相关模块样式 Estilos de módulos relacionados
 |   └── Content0.less *
 |     ...
-|── data.source.js           # 内容数据文件
-|── index.js                 # 主入口
-|── Banner0.jsx *            # 相关模块
+|── data.source.js           # 内容数据文件 Arquivo de datos de contido
+|── index.js                 # 主入口 Entrada principal
+|── Banner0.jsx *            # 相关模块 Módulos relacionados
 |── Content0.jsx *
 |   ...
 ```
 
-> 以上加 * 号为可配置内容，当你在编辑器里选择了哪些模块，那么将对应出现相对的文件。
+> Os * asteriscos anteriores son contido configurable. Cando se seleccionan os módulos no editor, a continuación aparecerá o ficheiro correspondente.
 
-### 数据文件
+
+### Arquivo de datos
 
 - data.source.js
 ```jsx
@@ -98,7 +101,7 @@ npm install babel-plugin-import --save-dev;
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 ```
 
-## 样式
+## Estilo
 
 Ant Design Landing 默认使用 less 作为样式语言，整个文件的 less 没使用 `css-modules` 需直接使用。
 

@@ -2,10 +2,12 @@
 order: 4
 category:
   zh-CN: 设计指引
-  en-US: Guide
-title: 
+  en-US: Guide  
+  gl-ES: Guía
+title:
   zh-CN: 内容区块
   en-US: Content
+  gl-ES: Contido
 ---
 
 内容页一般用来介绍产品的功能、特性以及相关信息。展示型页面中可选择添加内容页（或多个内容页组合），也可以选择不添加。

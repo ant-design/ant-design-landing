@@ -1,11 +1,12 @@
 ---
 order: 4
-title: 
+title:
   zh-CN: 设计资源
   en-US: Download Sketch
+  gl-ES: Descargar bosquexo
 ---
 
-这里提供以 Ant Design 设计规范完成的相关设计资源，更多设计资源正在整理和完善中。
+Aquí están os recursos de deseño relacionados coas especificacións de deseño de **Ant Design**. Máis e mellores recursos de deseño están sendo creados e mellorados.
 
 ```__react
 const downloadData = [

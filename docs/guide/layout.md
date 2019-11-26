@@ -2,10 +2,12 @@
 order: 1
 category:
   zh-CN: 设计指引
-  en-US: Guide
-title: 
+  en-US: Guide  
+  gl-ES: Guía
+title:
   zh-CN: 布局
-  en-US: Layout
+  en-US: Layout  
+  gl-ES: Maquetación
 ---
 
 Ant Design 目前提供了两套布局方案: [Layout](https://ant.design/components/layout-cn/) 和 [Grid](https://ant.design/components/grid-cn/), 同样 Landing 的整体布局也是以 8 的倍数来计算。我们以页面宽度来做整体布局，提供以下两种类型:
@@ -16,7 +18,7 @@ Ant Design 目前提供了两套布局方案: [Layout](https://ant.design/compon
 
 <img class="preview-img" align="right" alt="100% 类型示例" description="两边的距离为 4%" src="https://gw.alipayobjects.com/zos/rmsportal/krTDyBweacvtOdScbhVq.jpg">
 
-100% 类型，内容的宽度为 92%, 左右边距为 4%; 
+100% 类型，内容的宽度为 92%, 左右边距为 4%;
 
 需要注意： 在 banner 使用百分比类型布局后，导航必需也使用百分比类型；
 

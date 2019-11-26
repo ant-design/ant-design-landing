@@ -3,9 +3,11 @@ order: 4
 category:
   zh-CN: 使用教程
   en-US: Tutorial
-title: 
+  gl-ES: Tutoría
+title:
   zh-CN: pro 2.x 里使用
   en-US: Use in pro 2.x
+  gl-ES: Usar en pro 2.x
 ---
 
 [Ant Design pro](https://pro.ant.design) 是 Ant Design 推出的一个开箱即用的中台前端/设计解决方案。

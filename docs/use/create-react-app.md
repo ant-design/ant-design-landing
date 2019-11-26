@@ -3,9 +3,11 @@ order: 1
 category:
   zh-CN: 使用教程
   en-US: Tutorial
-title: 
+  gl-ES: Tutoría
+title:
   zh-CN: create-react-app 里使用
   en-US: Use in create-react-app
+  gl-ES: Usar en create-react-app   
 ---
 
 [create-react-app](https://github.com/facebookincubator/create-react-app) 是业界最优秀的 React 应用开发工具之一，本文会在 create-react-app 创建的工程中使用 Ant Design Landing 的模板。
@@ -172,7 +174,7 @@ npm install react-router-dom --save
 
 > react-router 基本使用方法可参考 [Basic Example](https://reacttraining.com/react-router/web/example/basic);
 
-将上述的 [修改入口文件](#修改入口文件) 更改回原始状态，然后对 `APP.js` 进行修改, 详细参考: 
+将上述的 [修改入口文件](#修改入口文件) 更改回原始状态，然后对 `APP.js` 进行修改, 详细参考:
 
 ##### App.js
 

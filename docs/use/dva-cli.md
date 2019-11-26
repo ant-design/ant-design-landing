@@ -3,9 +3,11 @@ order: 3
 category:
   zh-CN: 使用教程
   en-US: Tutorial
-title: 
+  gl-ES: Tutoría
+title:
   zh-CN: dva-cli 里使用
   en-US: Use in dva
+  gl-ES: Usar en dva
 ---
 [dva](https://github.com/dvajs/dva) 脚手架为 ant design 提供的基于 redux、redux-saga 和 react-router 比较完善的轻量级前端框架，具体教程[请查看](https://github.com/sorrycc/blog/issues/18)。
 

@@ -2,10 +2,12 @@
 order: 2
 category:
   zh-CN: 设计指引
-  en-US: Guide
-title: 
+  en-US: Guide  
+  gl-ES: Guía
+title:
   zh-CN: 页头与页尾
-  en-US: Header and Footer
+  en-US: Header and Footer  
+  gl-ES: Cabezallo e Pé de paxina
 ---
 
 页头承载的是品牌信息与整个网站的结构信息，明确的告知我们网站里最主要的几块内容。

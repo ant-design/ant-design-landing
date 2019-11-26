@@ -3,9 +3,11 @@ order: 0
 category:
   zh-CN: 设计指引
   en-US: Guide
-title: 
+  gl-ES: Guía
+title:
   zh-CN: 类型
   en-US: Type
+  gl-ES: Tipoloxía
 ---
 
 展示类页面（Display Page）一般是指当用户进入某个网站时浏览到的第一个页面，也可以当作着陆页（Landing Page）来吸引用户的注意。在此，我们归纳整理了几种最常见的展示类模板，可以用于灵活的搭配组合。

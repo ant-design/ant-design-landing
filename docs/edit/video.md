@@ -3,9 +3,11 @@ order: 1
 category:
   zh-CN: 编辑器教程
   en-US: Edit-help
-title: 
+  gl-ES: Axuda do editor
+title:
   zh-CN: 视频教程
   en-US: Video help
+  gl-ES: Vídeo Axuda
 ---
 
 ```__react

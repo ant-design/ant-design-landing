@@ -10,22 +10,22 @@ title:
   gl-ES: Exemplos
 ---
 
-## 示例
+## Exemplos
 
-我们将以上模板整合出三个模板，以供参考：
+Integramos os modelos anteriores en tres modelos de referencia:
 
 <div class="examples-wrapper">
   <div class="examples-img">
     <img width="100%" src="https://gw.alipayobjects.com/zos/rmsportal/aniQEcLzAFArUbkPYkyQ.png">
-    <p>示例1</p>
+    <p>Exemplo 1</p>
   </div>
   <div class="examples-img">
     <img width="100%" src="https://gw.alipayobjects.com/zos/rmsportal/HCsgacmIIXZqvicZJDDZ.png">
-    <p>示例2</p>
+    <p>Exemplo 2</p>
   </div>
   <div class="examples-img">
     <img width="100%" src="https://gw.alipayobjects.com/zos/rmsportal/ZrFKiApOqmIjSuYsHrpr.png">
-    <p>示例3</p>
+    <p>Exemplo 3</p>
   </div>
 </div>
 

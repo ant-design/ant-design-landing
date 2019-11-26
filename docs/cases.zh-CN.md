@@ -1,12 +1,11 @@
 ---
 order: 3
-title:
+title: 
   zh-CN: 实践案例
   en-US: Case
-  gl-ES: Caso de estudo
 ---
 
-Actualmente, existen moitos produtos externos creados,  se queres tamén podes mostrar túa páxina aquí,，[Mensaxe de benvida](https://github.com/ant-design/ant-motion/issues/30)。
+目前在外部也有许多产品实践，如果你的页面想在这里展现，[欢迎留言](https://github.com/ant-design/ant-motion/issues/30)。
 
 ```__react
 const casesData = [

@@ -3,11 +3,9 @@ order: 3
 category:
   zh-CN: 设计指引
   en-US: Guide
-  gl-ES: Guía
-title:
+title: 
   zh-CN: Banner 首屏
   en-US: Banner
-  gl-ES: Banner inicial
 ---
 
 Banner 是整个展示页面最重要的组成部分之一，一般介绍产品的名称和简介，并且体现整体产品的风格走向。

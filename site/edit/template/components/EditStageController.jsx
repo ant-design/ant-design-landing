@@ -516,7 +516,6 @@ class EditStateController extends React.Component {
           return item.cid !== key;
         });
         delete config[key];
-        this.removeNavLinkData(templateData, key);
         break;
     }
     if (this.state.openEditText) {
@@ -528,19 +527,6 @@ class EditStateController extends React.Component {
     } else {
       this.props.dispatch(actions.setTemplateData(templateData));
     }
-  }
-
-  removeNavLinkData = (templateData, current) => {
-    const template = templateData.data.template;
-    const nav2Array = template.filter((key) => key.indexOf('Nav2') >= 0);
-    const config = templateData.data.config;
-    nav2Array.forEach((key) => {
-      const menuLink = getDataSourceValue('menuLink', config, [key, 'dataSource']);
-      const menuChild = menuLink.children || [];
-      const index = menuChild.findIndex((item) => item.name === current);
-      menuChild.splice(index, 1);
-      menuLink.children = menuChild;
-    });
   }
 
   getFuncIconChild = (i, dataArray, key) => {

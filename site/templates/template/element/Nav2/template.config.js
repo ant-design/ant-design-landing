@@ -22,7 +22,12 @@ export default {
     LinkMenu: {
       className: 'header2-menu',
       children: [
-
+        {
+          name: 'linkNav',
+          to: '当前页面 ID 地址，参考如上',
+          children: '导航名称',
+          className: 'menu-item',
+        },
       ],
     },
     mobileMenu: {

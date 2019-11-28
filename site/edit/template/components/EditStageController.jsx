@@ -128,7 +128,7 @@ class EditStateController extends React.Component {
       .on('out', (el, source) => {
         if (source === this.stage) {
           if (el.className === 'placeholder') { // || el.className === 'overlay-elem'
-            this.setPropsData(el, Array.prototype.slice.call(source.children), true);
+            this.setPropsData(el, Array.prototype.slice.call(source.children));
           }
         }
       })
@@ -228,40 +228,29 @@ class EditStateController extends React.Component {
   }
 
   receiveDomData = (data, iframe, id) => {
-    const { templateData } = this.props;
-    const { template } = templateData ? templateData.data : { template: [] };
-    let isChange;
-    if (template.some((key) => key.indexOf('Nav2') >= 0)) {
-      isChange = this.addNavLinkData(templateData);
-    }
-    if (isChange) {
-      const { dispatch } = this.props;
-      dispatch(actions.setTemplateData(templateData));
-    } else {
-      Object.keys(id).forEach((key) => {
-        mdId[key] = id[key];
-      });
-      const state = {
-        data,
-        iframe,
-      };
-      const { parentData } = this.currentData || {};
-      if (parentData) {
-        const rectArray = getChildRect(parentData);
-        const isParentNode = this.currentData.dataId === parentData.dataId;
-        this.currentData = isParentNode ? this.currentData : this.refreshCurrentData(rectArray);
-        if (this.currentData) {
-          const currentSelectRect = this.currentData.item.getBoundingClientRect();
-          this.currentData.rect = currentSelectRect;
-          state.currentSelectRect = currentSelectRect;
-          state.currentHoverRect = currentSelectRect;
-          this.setState(state);
-        } else {
-          this.reRect();
-        }
-      } else {
+    Object.keys(id).forEach((key) => {
+      mdId[key] = id[key];
+    });
+    const state = {
+      data,
+      iframe,
+    };
+    const { parentData } = this.currentData || {};
+    if (parentData) {
+      const rectArray = getChildRect(parentData);
+      const isParentNode = this.currentData.dataId === parentData.dataId;
+      this.currentData = isParentNode ? this.currentData : this.refreshCurrentData(rectArray);
+      if (this.currentData) {
+        const currentSelectRect = this.currentData.item.getBoundingClientRect();
+        this.currentData.rect = currentSelectRect;
+        state.currentSelectRect = currentSelectRect;
+        state.currentHoverRect = currentSelectRect;
         this.setState(state);
+      } else {
+        this.reRect();
       }
+    } else {
+      this.setState(state);
     }
   }
 
@@ -435,7 +424,7 @@ class EditStateController extends React.Component {
     this.reEditItemVisibility();
   }
 
-  setPropsData = (el, children, add) => {
+  setPropsData = (el, children) => {
     const template = children.map((item) => item.getAttribute('id')).filter((id) => id);
     const { templateData } = this.props;
     if (el.className === 'placeholder') {
@@ -445,10 +434,6 @@ class EditStateController extends React.Component {
       ...templateData.data,
       template,
     };
-    // 添加 scrollLink 导航的时候，自动添加数据。
-    if (add) {
-      this.addNavLinkData(templateData);
-    }
     const { dispatch } = this.props;
     dispatch(actions.setTemplateData(templateData));
   };
@@ -543,33 +528,6 @@ class EditStateController extends React.Component {
     } else {
       this.props.dispatch(actions.setTemplateData(templateData));
     }
-  }
-
-  addNavLinkData = (templateData) => {
-    const { template } = templateData.data;
-    const nav2Array = template.filter((key) => key.indexOf('Nav2') >= 0);
-    const pageArray = template.filter((key) => !key.match(/Nav|Footer/ig));
-    const config = templateData.data.config;
-    let change = false;
-    nav2Array.forEach((key) => {
-      const menuLink = getDataSourceValue('LinkMenu', config, [key, 'dataSource']);
-      ([].concat(pageArray)).forEach((cKey) => {
-        const menuChild = menuLink.children || [];
-        if (menuChild.findIndex((item) => item.name === cKey) === -1) {
-          const index = pageArray.indexOf(cKey);
-          const obj = {
-            name: cKey,
-            to: cKey,
-            children: cKey,
-            className: 'menu-item',
-          };
-          menuChild.splice(index, 0, obj);
-          menuLink.children = menuChild;
-          change = true;
-        }
-      });
-    });
-    return change;
   }
 
   removeNavLinkData = (templateData, current) => {

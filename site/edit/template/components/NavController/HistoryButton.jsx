@@ -20,9 +20,11 @@ class HistoryButton extends React.Component {
     if ((!currentHistory && num === -1) || (currentHistory >= history.length - 1 && num === 1)) {
       return;
     }
-    dispatch(actions.setCurrentHistoryNum(currentHistory));
     const currentData = history[currentHistory];
-
+    if (!currentData) {
+      return;
+    }
+    dispatch(actions.setCurrentHistoryNum(currentHistory));
     dispatch(actions.setTemplateData({
       data: currentData.attributes,
       uid: currentData.id,

@@ -6,7 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import dragula from 'dragula';
 
 import { getCurrentDom } from '../utils';
-import { isImg, mergeEditDataToDefault, getDataSourceValue, mdId, objectEqual, getChildRect } from '../../../utils';
+import { isImg, mergeEditDataToDefault, deepCopy, getDataSourceValue, mdId, objectEqual, getChildRect } from '../../../utils';
 import * as utils from '../../../theme/template/utils';
 import webData from '../template.config';
 import tempData from '../../../templates/template/element/template.config';
@@ -270,7 +270,7 @@ class EditStateController extends React.Component {
   }
 
   setTemplateConfigData = (text) => {
-    const data = this.props.templateData;
+    const data = deepCopy(this.props.templateData);
     // data.noHistory = noHistory;
     const ids = this.currentData.dataId.split('-');
     const t = getDataSourceValue(ids[1], data.data.config, [ids[0], 'dataSource']);

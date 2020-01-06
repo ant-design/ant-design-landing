@@ -50,7 +50,7 @@ export default class Editor extends React.Component {
     });
     this.medium.subscribe('blur', (e, b) => {
       e.stopPropagation();
-      if (b.innerHTML.match(tagRep)) {
+      if (b.innerHTML.match(tagRep) && e.type === 'click') {
         (this.props.onBlur || noop)(textToString ? b.innerText : b.innerHTML);
       }
     });

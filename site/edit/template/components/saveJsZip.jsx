@@ -266,7 +266,7 @@ export function saveJsZip(templateData, callBack, getJSON) {
           if (startSpanMatch && tagIsSpanMatch.length === 1) {
             return s1;
           } */
-          return `<>${s1}</>`;
+          return `<>${s1.replace(/\{/g, '&#123;').replace(/\}/g, '&#125;')}</>`;
         })
         .replace(/\\"/g, '"')}`;
     promiseObject[`PROPS-${key}`] = { value: props };

@@ -17,7 +17,7 @@
     "leancloud-storage": "^4.0.0",
     "query-string": "^6.8.2",
     "ramda": "^0.26.1",
-    "raw-loader": "^3.0.0",
+    "raw-loader": "^4.0.0",
     "rc-animate": "^2.4.4",
     "rc-banner-anim": "^2.1.0",
     "rc-drawer": "^3.0.2",

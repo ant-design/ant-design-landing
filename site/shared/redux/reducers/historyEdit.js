@@ -3,7 +3,6 @@ import { POST_TYPE } from '../actionTypes';
 export default function historyEdit(state, action) {
   switch (action.type) {
     case POST_TYPE.SET_HISTORY_NUM:
-      console.log('num', action.data);
       return {
         ...state,
         num: action.data,

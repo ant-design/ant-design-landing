@@ -45,7 +45,7 @@
     "codemirror": "^5.36.0",
     "commander": "~4.0.1",
     "concurrently": "^5.0.0",
-    "cross-env": "^6.0.2",
+    "cross-env": "^7.0.0",
     "dragula": "^3.7.2",
     "eslint": "^6.0.0",
     "eslint-config-airbnb": "^18.0.0",

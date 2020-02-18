@@ -151,3 +151,8 @@ ReactDOM.render(<Demo />, mountNode);
 <img class="preview-img" align="right" alt="其它功能" src="https://gw.alipayobjects.com/zos/rmsportal/MoOfsnZzXULUYsIOBNlD.jpg">
 
 主要提供：页面锚点功能（`Link 导航` 与此功能相同）和整屏滚动。
+
+
+### 导入及导出编辑器内容
+
+如果你需要导入，或者导出编辑器内容，可以点击顶部菜单的小扳手图样，在出来的窗口中。点下载JSON，就是导出编辑数据，然后粘贴JSON数据，实际上就是导入（你之前导出的JSON文件）。

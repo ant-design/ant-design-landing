@@ -198,7 +198,7 @@ class Feature6 extends React.PureComponent {
         <div
           /* replace-start */
           data-edit="Carousel" // ant carousel 不带入 props, 模拟个 dom 编辑 carousel
-          data-id={dataSource.Carousel['data-id']}
+          id={dataSource.Carousel.id}
         /* replace-end */
         >
           <OverPack {...dataSource.OverPack}>

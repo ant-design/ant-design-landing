@@ -1,5 +1,6 @@
 import { mergeEditDataToDefault, getTemplateDataAtPath } from '../../utils';
 import tempData from '../../templates/template/element/template.config';
+import elementRegistry from '../../shared/elementRegistry';
 
 // import { createLogger } from 'redux-logger';
 const worker = new Worker('./worker.js');
@@ -46,17 +47,17 @@ export const getCurrentDom = (pos, data) => {
   return t[t.length - 1];
 };
 
-export const getIdsAndCurrentData = (currentEditData, templateData, key) => {
+export const getElementKeyAndCurrentData = (currentEditData, templateData, path) => {
   const { id } = currentEditData;
-  const ids = id.split('-');
-  ids[1] = key;
-  const cid = ids[0].split('_')[0];
-  const tempDataSource = tempData[cid];
-  const newTemplateDataSource = mergeEditDataToDefault(templateData.data.config[ids[0]],
+  const eleKey = elementRegistry.getKey(id);
+  const [componentId] = eleKey.split('-');
+  const [templateId] = componentId.split('_');
+  const tempDataSource = tempData[templateId];
+  const newTemplateDataSource = mergeEditDataToDefault(templateData.data.config[componentId],
     tempDataSource);
   const currentEditTemplateData = getTemplateDataAtPath({
     sourceData: newTemplateDataSource,
-    path: key,
+    path,
   });
-  return { ids, currentEditTemplateData };
+  return { key: [componentId, path].join('-'), currentEditTemplateData };
 };

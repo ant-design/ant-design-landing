@@ -19,6 +19,7 @@ class Iframe extends React.Component {
   getData = () => {
     const { dispatch, templateData } = this.props;
     if (templateData.type === 'success') {
+      debugger;
       this.componentWillReceiveProps(this.props);
     } else {
       dispatch(actions.getUserData());

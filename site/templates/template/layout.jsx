@@ -7,9 +7,9 @@ import { mobileTitle } from 'rc-editor-list/lib/utils';
 import webData from './element/template.config';
 import {
   getEditDomData,
-  setDataIdToDataSource,
+  setIdToDataSource,
 } from './utils';
-import { mergeEditDataToDefault, mdId, getChildRect } from '../../utils';
+import { mergeEditDataToDefault, getChildRect } from '../../utils';
 import { mapStateToProps } from '../../shared/utils';
 import * as actions from '../../shared/redux/actions';
 import * as ls from '../../shared/localStorage';
@@ -92,7 +92,7 @@ class Layout extends React.Component {
     // Uncaught DOMException: Failed to execute 'postMessage' on 'Window': HTMLDivElement object could not be cloned.
     // window.parent.postMessage(editData, '*');
     if (window.parent.receiveDomData) {
-      window.parent.receiveDomData(editData, mdId);
+      window.parent.receiveDomData(editData);
     }
   }
 
@@ -106,6 +106,7 @@ class Layout extends React.Component {
         id: e.data.uid,
         attributes: e.data.data,
       });
+      debugger;
       this.setState({
         templateData: e.data,
       }, this.setScrollToWindow);
@@ -163,6 +164,8 @@ class Layout extends React.Component {
   getDataToChildren = () => {
     const { templateData } = this.state;
     const { data, funcData } = templateData;
+    // eslint-disable-next-line no-debugger
+    // debugger;
     const func = { ...funcData };
     const template = data.template;
     this.setStyleData(data.style);
@@ -173,11 +176,14 @@ class Layout extends React.Component {
       const componentName = keys[0];
       const componentData = webData[componentName];
       const d = configData[key] || {};
-      const dataSource = this.isEdit ? setDataIdToDataSource(mergeEditDataToDefault(d, componentData, true), key)
+      const dataSource = this.isEdit ? setIdToDataSource(mergeEditDataToDefault(d, componentData, true), key)
         : mergeEditDataToDefault(d, componentData, true);
+      // eslint-disable-next-line no-debugger
+      debugger;
       return React.createElement(componentData.component, {
         key,
-        id: key,
+        'data-wrapper': true,
+        'data-element': true,
         dataSource,
         func: func[key],
         isMobile: this.state.isMobile,

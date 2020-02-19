@@ -14,6 +14,7 @@ import { isZhCN } from '../../theme/template/utils';
 import '../static/style';
 import emitter from '../../shared/emitter';
 import iframeManager from '../../shared/iframe';
+import elementRegistry from '../../shared/elementRegistry';
 
 class Edit extends React.Component {
   constructor(props) {
@@ -31,6 +32,8 @@ class Edit extends React.Component {
     window.emitter.on('iframe-rendered', (iframeWindow) => {
       iframeManager.set(iframeWindow);
     });
+
+    window.elementRegistry = elementRegistry;
   }
 
   render() {

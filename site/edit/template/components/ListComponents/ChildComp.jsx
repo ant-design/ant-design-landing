@@ -5,6 +5,8 @@ import { FormattedMessage } from 'react-intl';
 import ListSort from '../StateComponents/ListSort';
 import tempData from '../../../../templates/template/element/template.config';
 import { mergeEditDataToDefault, getTemplateDataAtPath, deepCopy } from '../../../../utils';
+import elementRegistry from '../../../../shared/elementRegistry';
+import iframeManager from '../../../../shared/iframe';
 
 const Panel = Collapse.Panel;
 const Option = Select.Option;
@@ -79,17 +81,18 @@ export default class ChildComp extends React.Component {
     const { edit, currentEditData, templateData } = this.props;
     const currentEditArray = edit ? edit.split(',') : [];
     const isNoShow = currentEditArray.some(c => noChildProps.indexOf(c) >= 0);
-    const { id, parentDom } = currentEditData;
-    const ids = id.split('-');
-    const cid = ids[0].split('_')[0];
-    const tempDataSource = tempData[cid];
-    const newTempDataSource = mergeEditDataToDefault(templateData.data.config[ids[0]],
+    const { id, parentId } = currentEditData;
+    const key = elementRegistry.getKey(id);
+    const [componentId, path] = key.split('-');
+    const [templateId] = componentId.split('_');
+    const tempDataSource = tempData[templateId];
+    const newTempDataSource = mergeEditDataToDefault(templateData.data.config[componentId],
       tempDataSource);
     let currentEditTemplateData = getTemplateDataAtPath({
       sourceData: newTempDataSource,
-      path: ids[1],
+      path,
     });
-    const idChildArray = ids[1].split('&');
+    const idChildArray = path.split('&');
     const childIsArray = currentEditTemplateData && Array.isArray(currentEditTemplateData.children);
     const parentIsArray = idChildArray[idChildArray.length - 1].indexOf('array_name') >= 0;
     if ((!childIsArray && !parentIsArray) || isNoShow) {
@@ -102,10 +105,12 @@ export default class ChildComp extends React.Component {
       idChildArray.splice(idChildArray.length - 1, 1);
       childKey = idChildArray.splice(idChildArray.length - 1, 1)[0];
 
-      if (!parentDom) {
+      const parentEle = parentId ? iframeManager.get().document.getElementById(parentId) : undefined;
+
+      if (!parentEle) {
         return null;
       }
-      const parentEdit = parentDom.getAttribute('data-edit');
+      const parentEdit = parentEle.getAttribute('data-edit');
       if (parentEdit) {
         parentEdit.split(',').forEach((c) => {
           if (addDefault[c.trim()]) {
@@ -120,10 +125,10 @@ export default class ChildComp extends React.Component {
         });
       }
 
-      ids[1] = idChildArray.join('&');
+      const newPath = idChildArray.join('&');
       currentEditTemplateData = getTemplateDataAtPath({
         sourceData: newTempDataSource,
-        path: ids[1],
+        path: newPath,
       });
     } else {
       currentEditArray.forEach((c) => {
@@ -141,7 +146,7 @@ export default class ChildComp extends React.Component {
           <div className="sort-manage-delete">
             <Button
               onClick={() => {
-                this.onSlideDelete(item, ids, currentEditTemplateData, childKey);
+                this.onSlideDelete(item, key, currentEditTemplateData, childKey);
               }}
               size="small"
               shape="circle"
@@ -172,7 +177,7 @@ export default class ChildComp extends React.Component {
                   </div>
                 )}
                 onChange={(e) => {
-                  this.onListChange(e, ids, currentEditTemplateData, childKey);
+                  this.onListChange(e, key, currentEditTemplateData, childKey);
                 }}
               >
                 {childrenToRender}
@@ -205,7 +210,7 @@ export default class ChildComp extends React.Component {
             <Col>
               <a
                 onClick={() => {
-                  this.onAdd(ids, currentEditTemplateData);
+                  this.onAdd(key, currentEditTemplateData);
                 }}
                 className="add-button"
               >

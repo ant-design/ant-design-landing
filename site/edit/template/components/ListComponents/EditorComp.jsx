@@ -13,6 +13,7 @@ import * as actions from '../../../../shared/redux/actions';
 import EditorProps from './PropsComp';
 import EditorChild from './ChildComp';
 import iframeManager from '../../../../shared/iframe';
+import elementRegistry from '../../../../shared/elementRegistry';
 
 const { Panel } = Collapse;
 
@@ -24,24 +25,24 @@ class EditorComp extends React.Component {
     const { cssName, currentEditCssString } = cb;
     const { currentEditData, dispatch, templateData } = this.props;
     const { id } = currentEditData;
-    const ids = id.split('-');
-    const cid = ids[0].split('_')[0];
+    const key = elementRegistry.getKey(id);
+    const [componentId, path] = key.split('-');
+    const [templateId] = componentId.split('_');
     const tempDataSource = mergeEditDataToDefault(
-      templateData.data.config[ids[0]], tempData[cid]);
+      templateData.data.config[componentId], tempData[templateId]);
     const currentEditTemplateData = getTemplateDataAtPath({
       sourceData: tempDataSource,
-      path: ids[1],
+      path,
     });
     const newClassName = `${currentEditTemplateData && currentEditTemplateData.className
       ? currentEditTemplateData.className.split(' ').filter(c => c !== cssName).join(' ')
       : ''} ${cssName}`.trim();
     const newTemplateData = deepCopy(templateData);
-    const [templateId] = ids[0].split('_');
     setTemplateDataAtPath({
       sourceData: newTemplateData.data.config,
-      path: ['className', ids[1]].join('&'),
+      path: ['className', path].join('&'),
       value: newClassName,
-      componentId: ids[0],
+      componentId,
       templateId,
     });
     const data = {
@@ -50,7 +51,7 @@ class EditorComp extends React.Component {
       cssString: currentEditCssString,
       // parentClassName,
       id: cb.id,
-      cid: ids[0],
+      cid: componentId,
     };
     newTemplateData.data.style = (newTemplateData.data.style || []).filter(c => c.id !== cb.id);
     newTemplateData.data.style.push(data);
@@ -60,12 +61,13 @@ class EditorComp extends React.Component {
   onPropsChange = (key, value, func, isGroup) => {
     const { dispatch, templateData, currentEditData } = this.props;
     const { id } = currentEditData;
-    const ids = id.split('-');
+    const eleKey = elementRegistry.getKey(id);
+    const keyParts = eleKey.split('-');
     if (isGroup) {
-      ids.splice(ids.length - 1, 1);
+      keyParts.splice(keyParts.length - 1, 1);
     }
     if (func) {
-      const dataId = currentEditData.id.split('-')[0];
+      const dataId = keyParts[0];
       funcData = {
         ...funcData,
         [dataId]: {
@@ -81,12 +83,12 @@ class EditorComp extends React.Component {
       // this.forceUpdate();
     } else {
       const newTemplateData = deepCopy(templateData);
-      const [templateId] = ids[0].split('_');
+      const [templateId] = keyParts[0].split('_');
       setTemplateDataAtPath({
         sourceData: newTemplateData.data.config,
-        path: [ids[1], key].join('&'),
+        path: [keyParts[1], key].join('&'),
         value,
-        componentId: ids[0],
+        componentId: keyParts[0],
         templateId,
       });
       dispatch(actions.setTemplateData(newTemplateData));
@@ -118,8 +120,10 @@ class EditorComp extends React.Component {
       );
     }
     const { id, currentPopover } = currentEditData;
-    const ids = id.split('-');
-    const edit = currentEditData.dom.getAttribute('data-edit');
+    const key = elementRegistry.getKey(id);
+    const [componentId] = key.split('-');
+    const ele = iframeManager.get().document.getElementById(id);
+    const edit = ele.getAttribute('data-edit');
     const isPopover = currentPopover.some(c => c.dataId === id);
     return (
       [
@@ -135,8 +139,8 @@ class EditorComp extends React.Component {
         <Collapse key="cssList" bordered={false} defaultActiveKey="css" className="collapse-style-list">
           <Panel header={<FormattedMessage id="app.edit.style.header" />} key="css">
             <EditorList
-              rootSelector={!isPopover ? `#${ids[0]}` : null}
-              editorElem={currentEditData.dom}
+              rootSelector={!isPopover ? `#${componentId}` : null}
+              editorElem={ele}
               onChange={this.onChange}
               cssToDom={false} // 避免多次样式。
               locale={!isCN ? editorEn : editorZh}

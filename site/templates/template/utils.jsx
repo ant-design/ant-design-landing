@@ -1,8 +1,7 @@
-import md5 from 'blueimp-md5';
 import React from 'react';
+import invariant from 'invariant';
 import { Button } from 'antd';
-import shortid from 'shortid';
-import { isImg as imgStr, mdId } from '../../utils';
+import { isImg as imgStr } from '../../utils';
 
 import compConfig from '../../edit/template/component.config';
 
@@ -30,34 +29,39 @@ export const getChildrenToRender = (item, i) => {
 };
 
 export function getEditDomData(children) {
+  const elementRegistry = window.parent && window.parent.elementRegistry;
+
   const data = {};
   const doms = Array.prototype.slice.call(children);
   doms.forEach((item) => {
-    // const dataId = item.getAttribute('data-id');
-    const dataId = mdId[item.getAttribute('data-id')];
-    if (!dataId) {
+    // TODO: use dom.dataset.element
+    const key = elementRegistry.getKey(item.id);
+    if (!key) {
       return;
     }
     const comp = item.getAttribute('data-comp');
-    const tempNames = dataId.split('-');
-    let tempData = data[tempNames[0]] || {};
+    const [componentId] = key.split('-');
+    let tempData = data[componentId] || {};
     const rect = item.getBoundingClientRect();
     /* const style = typeof window !== 'undefined' && document.defaultView ?
         document.defaultView.getComputedStyle(child) : {}; */
     tempData = {
       rect,
       // style,
-      dataId,
-      item,
+      id: item.id,
       comp,
+      // key: item.id,
     };
-    data[tempNames[0]] = tempData;
+    data[componentId] = tempData;
   });
   return data;
 }
 
-export const setDataIdToDataSource = (data, dataId) => {
-  let id;
+// Note: `cItem.name` refers to the key of the data in Template dataSource
+export const setIdToDataSource = (data, path) => {
+  const elementRegistry = window.parent && window.parent.elementRegistry;
+  invariant(!!elementRegistry, '`elementRegistry` not found. Please make sure 1. use `setIdToDataSource` only in edit mode; and 2. initialize `elementRegistry` in parent window.');
+
   const objectForEachChild = (item, key) => {
     if (typeof item === 'object') {
       if (Array.isArray(item)) {
@@ -66,14 +70,12 @@ export const setDataIdToDataSource = (data, dataId) => {
             // 数组必需加name;
             const name = cItem.name ? `array_name=${cItem.name}` : i;
             objectForEachChild(cItem, `${key}&${name}`);
-            id = md5(`${dataId}-${key}&${name}`);
-            mdId[id] = `${dataId}-${key}&${name}`;
-            cItem['data-id'] = id;
-            // console.log('cItem', cItem, key);
-            // cItem['data-id'] = `${dataId}-${key}&${name}`;
-            if (!cItem.id) {
-              cItem.id = shortid.generate();
-            }
+
+            const newPath = `${path}-${key}&${name}`;
+            const registeredId = elementRegistry.register(newPath);
+            cItem.id = registeredId;
+            // Note: mark element as an editable element
+            cItem['data-element'] = true;
           }
         });
       } else if (item) {
@@ -90,14 +92,11 @@ export const setDataIdToDataSource = (data, dataId) => {
             item['data-edit'] = 'text';
           }
         }
-        id = md5(`${dataId}-${key}`);
-        mdId[id] = `${dataId}-${key}`;
-        item['data-id'] = id;
-        // console.log('item', item, key);
-        // item['data-id'] = `${dataId}-${key}`;;
-        if (key !== 'wrapper' && !item.id) {
-          item.id = shortid.generate();
-        }
+
+        const newPath = `${path}-${key}`;
+        const registeredId = elementRegistry.register(newPath);
+        item.id = registeredId;
+        item['data-element'] = true;
       }
     }
   };

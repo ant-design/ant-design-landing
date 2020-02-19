@@ -5,6 +5,7 @@ import invariant from 'invariant';
 
 import tempData from './templates/template/element/template.config';
 import { isZhCN, getLocalizedPathname } from './theme/template/utils';
+import iframeManager from './shared/iframe';
 
 export const isImg = /^http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w-./?%&=]*)?/;// /\.(gif|jpg|jpeg|png|svg|JPG|PNG|GIF|JPEG|SVG)$/;
 
@@ -80,9 +81,6 @@ export function mergeEditDataToDefault(newData, defaultData, useDelete) {
   }
   return mergeDataToChild(newData.dataSource, dataSource, useDelete);
 }
-
-export const mdId = {};
-
 
 export function getNewHref(port, hash, remHash, $path = '', setLocal = true) {
   const winLocation = window.location;
@@ -390,14 +388,11 @@ const getParentRect = (item, parentData) => {
     if (!parent) {
       return;
     }
-    const dataId = mdId[parent.getAttribute('data-id')];
-    // const dataId = parent.getAttribute('data-id');
-    if (dataId) {
+    const isTemplateElement = parent.dataset.element;
+    if (isTemplateElement) {
       const rect = parent.getBoundingClientRect();
       p.push({
-        dataId,
         id: parent.id,
-        item: parent,
         rect,
         parent: getParentRect(parent, parentData),
         parentData,
@@ -416,20 +411,17 @@ export const getChildRect = (data) => {
   const array = [];
   function mapChild(child) {
     Array.prototype.slice.call(child).forEach((item) => {
-      const dataId = mdId[item.getAttribute('data-id')];
       const id = item.id;
-      // const dataId = item.getAttribute('data-id');
+      const isTemplateElement = item.dataset.element;
       if (
         item.getAttribute('aria-hidden') === 'true'
       ) {
         return;
       }
-      if (dataId && !array.find(c => c.dataId === dataId)) {
+      if (isTemplateElement && !array.find(c => c.id === id)) {
         const rect = item.getBoundingClientRect();
         array.push({
-          dataId,
           id,
-          item,
           rect,
           parent: getParentRect(item, data),
           parentData: data,
@@ -440,9 +432,12 @@ export const getChildRect = (data) => {
       }
     });
   }
-  const dom = data.item || data;
-  if (dom.children) {
-    mapChild(dom.children);
+  // const dom = data.item || data;
+  // debugger;
+  // TODO: separate use case for site & template
+  const ele = (iframeManager.get() && iframeManager.get().document.getElementById(data.id)) || data;
+  if (ele.children) {
+    mapChild(ele.children);
   }
   return array;
 };

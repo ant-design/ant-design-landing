@@ -2,19 +2,19 @@ import React from 'react';
 import { Input, Row, Col } from 'antd';
 import { connect } from 'react-redux';
 
-import { getIdsAndCurrentData } from '../../../utils';
+import { getElementKeyAndCurrentData } from '../../../utils';
 import { mapStateToProps } from '../../../../../shared/utils';
 import * as actions from '../../../../../shared/redux/actions';
 
 function ContentEditViewItem({ id, currentEditData, templateData, dispatch }) {
-  const { ids, currentEditTemplateData } = getIdsAndCurrentData(currentEditData, templateData, 'Content');
+  const { key, currentEditTemplateData } = getElementKeyAndCurrentData(currentEditData, templateData, 'Content');
 
   const item = currentEditTemplateData.children[id];
 
   const onBlur = React.useCallback((e) => {
     currentEditTemplateData.children[id].children = e.target.value;
-    dispatch(actions.changeChild({ templateData, ids, currentData: currentEditTemplateData }));
-  }, [dispatch, templateData, ids, currentEditTemplateData, id]);
+    dispatch(actions.changeChild({ templateData, key, currentData: currentEditTemplateData }));
+  }, [dispatch, templateData, key, currentEditTemplateData, id]);
 
   return (
     <Row style={{ marginBottom: 16, textAlign: 'right' }}>

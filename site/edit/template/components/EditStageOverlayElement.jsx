@@ -3,6 +3,7 @@ import { Icon, Button } from 'antd';
 import { FormattedMessage } from 'react-intl';
 import SwitchSlideView from './StateComponents/SwitchSlideView';
 import iframeManager from '../../../shared/iframe';
+import elementRegistry from '../../../shared/elementRegistry';
 
 function getFuncCompChild(comp, dataId) {
   const compArray = comp.split('=');
@@ -24,6 +25,7 @@ function getFuncCompChild(comp, dataId) {
   }
 }
 
+// TODO: update id description
 /**
  * id: `${templateId}_${#}`, e.g. Nav0_0, Nav0_1
  */
@@ -33,10 +35,12 @@ export default function EditStageOverlayElement({
   siblingsCount,
   onClickToolbarItem,
 }) {
-  const [templateId] = id.split('_');
+  const key = elementRegistry.getKey(id);
+  // debugger;
+  const [templateId] = key.split('_');
   const iframe = iframeManager.get();
   const ele = React.useMemo(() => iframe.document.getElementById(id), [id]);
-  // console.log(id, ele)
+  // console.log(id, ele, elementRegistry.getId(id), elementRegistry.map);
 
   if (!ele) return null;
 
@@ -45,7 +49,7 @@ export default function EditStageOverlayElement({
 
   return (
     <div
-      key={id}
+      key={key}
       id={id}
       data-key={templateId}
       style={{

@@ -5,6 +5,7 @@ import { objectEqual } from '../utils';
 export const LOCAL_STORAGE_HISTORY_KEY = 'ant-design-landing-record';
 export const LOCAL_STORAGE_CURRENT_DATA_KEY = 'ant-design-landing-current';
 
+window.store = store;
 /**
  * Auth
  */

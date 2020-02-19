@@ -8,6 +8,7 @@ import compConfig from '../../component.config';
 import { mergeEditDataToDefault, getTemplateDataAtPath, deepCopy } from '../../../../utils';
 import CheckboxGroup from './CheckboxGroup';
 import ListSort from '../StateComponents/ListSort';
+import elementRegistry from '../../../../shared/elementRegistry';
 
 const Panel = Collapse.Panel;
 
@@ -340,21 +341,23 @@ export default class PropsComp extends React.Component {
     }
 
     const { id } = currentEditData;
-    const ids = id.split('-');
-    const cid = ids[0].split('_')[0];
-    const tempDataSource = tempData[cid];
-    const newTempDataSource = mergeEditDataToDefault(templateData.data.config[ids[0]],
+    const key = elementRegistry.getKey(id);
+    const keyParts = key.split('-');
+    const [componentId, path] = keyParts;
+    const [templateId] = componentId.split('_');
+    const tempDataSource = tempData[templateId];
+    const newTempDataSource = mergeEditDataToDefault(templateData.data.config[componentId],
       tempDataSource);
     const currentEditTemplateData = getTemplateDataAtPath({
       sourceData: newTempDataSource,
-      path: ids[1],
+      path,
     });
     return editArray.map(($item, i) => {
       if ($item === 'LinkMenu' && !isMobile) {
         return null;
       }
       const item = $item === 'LinkMenu' ? 'Menu' : $item;
-      const childToRender = this.getChildrenToRender(compConfig[item], currentEditTemplateData, ids);
+      const childToRender = this.getChildrenToRender(compConfig[item], currentEditTemplateData, keyParts);
       return (
         <Collapse bordered={false} defaultActiveKey={['1']} key={i.toString()}>
           <Panel

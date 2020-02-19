@@ -14,6 +14,7 @@ import Editor from './MediumEditor';
 import iframeManager from '../../../shared/iframe';
 import EditStageOverlayElement from './EditStageOverlayElement';
 import emitter from '../../../shared/emitter';
+import elementRegistry from '../../../shared/elementRegistry';
 
 class EditStateController extends React.Component {
   static defaultProps = {
@@ -149,7 +150,8 @@ class EditStateController extends React.Component {
 
   reEditItemVisibility = () => {
     if (this.currentData) {
-      this.currentData.item.style.visibility = '';
+      const ele = iframeManager.get().document.getElementById(this.currentData.id);
+      ele.style.visibility = '';
     }
   }
 
@@ -165,7 +167,6 @@ class EditStateController extends React.Component {
     item.dataId === this.currentData.dataId
   ))[0];
 
-
   wrapperMove = (e) => {
     if (this.state.openEditText) {
       return;
@@ -175,10 +176,14 @@ class EditStateController extends React.Component {
     let currentSelectRect = this.state.currentSelectRect;
     if (!this.isDrag && dom.getAttribute('data-key')) {
       const id = dom.getAttribute('id');
-      const currentElemData = data[id];
-      if (id) {
+      const componentId = elementRegistry.getKey(id).split('-')[0];
+      const currentElemData = data[componentId];
+
+      const isWrapper = !!dom.dataset.wrapper;
+      if (isWrapper) {
         // 重置数据里的 rect，滚动条发生变化会随着变化。
-        currentElemData.rect = currentElemData.item.getBoundingClientRect();
+        const ele = iframeManager.get().document.getElementById(currentElemData.id);
+        currentElemData.rect = ele.getBoundingClientRect();
         // 获取子级带 data-id 的 rect; 由于有动画组件，所以时时获取
       }
       const rectArray = currentElemData
@@ -188,7 +193,8 @@ class EditStateController extends React.Component {
       if (this.currentData) {
         // dom 在 queueAnim 删除后将不再是当前 dom; 当前从新获取；
         this.currentData = this.refreshCurrentData(rectArray) || this.currentData;
-        currentSelectRect = this.currentData.item.getBoundingClientRect();
+        const ele = iframeManager.get().document.getElementById(this.currentData.id);
+        currentSelectRect = ele.getBoundingClientRect();
         this.currentData.rect = currentSelectRect;
       }
       const domRect = this.dom.getBoundingClientRect();
@@ -207,7 +213,7 @@ class EditStateController extends React.Component {
     }
   }
 
-  receiveDomData = (data, id) => {
+  receiveDomData = (data) => {
     const { templateData } = this.props;
     const { template } = templateData ? templateData.data : { template: [] };
     let isChange;
@@ -218,9 +224,6 @@ class EditStateController extends React.Component {
       const { dispatch } = this.props;
       dispatch(actions.setTemplateData(templateData));
     } else {
-      Object.keys(id).forEach((key) => {
-        mdId[key] = id[key];
-      });
       const newState = {
         data,
       };
@@ -230,7 +233,8 @@ class EditStateController extends React.Component {
         const isParentNode = this.currentData.dataId === parentData.dataId;
         this.currentData = isParentNode ? this.currentData : this.refreshCurrentData(rectArray);
         if (this.currentData) {
-          const currentSelectRect = this.currentData.item.getBoundingClientRect();
+          const ele = iframeManager.get().document.getElementById(this.currentData.id);
+          const currentSelectRect = ele.getBoundingClientRect();
           this.currentData.rect = currentSelectRect;
           newState.currentSelectRect = currentSelectRect;
           newState.currentHoverRect = currentSelectRect;
@@ -392,7 +396,7 @@ class EditStateController extends React.Component {
     }
   }
 
-  selectSteState = (currentSelectRect, editData, dom, id) => {
+  selectSteState = (currentSelectRect, editData, dom, key) => {
     this.setState({
       currentHoverRect: currentSelectRect,
       currentSelectRect,
@@ -400,11 +404,13 @@ class EditStateController extends React.Component {
       openEditText: false,
     }, () => {
       const { data } = this.state;
+      // eslint-disable-next-line no-debugger
+      debugger;
       this.props.dispatch(actions.setCurrentData(
         {
-          dom,
-          parentDom: dom.parentNode,
-          id,
+          id: dom.id,
+          parentId: dom.parentNode ? dom.parentNode.id : undefined,
+          key,
           currentPopover: data && data.currentPopover,
         }
       ));
@@ -413,7 +419,24 @@ class EditStateController extends React.Component {
   }
 
   setPropsData = (el, children, add) => {
-    const template = children.map(item => item.getAttribute('id')).filter(id => id);
+    const template = children.map((item) => {
+      const id = item.getAttribute('id');
+      if (!id) return undefined;
+
+      const key = elementRegistry.getKey(id);
+      // TODO: create util function
+      // debugger;
+      // Note: when a new template is added,
+      //       key is not inited yet; and id
+      //       is componentName.
+      //       (need to change this)
+      if (!key) {
+        return id;
+      }
+
+      const [componentName] = key.split('-');
+      return componentName;
+    }).filter(id => !!id);
     const { templateData } = this.props;
     if (el.className === 'placeholder') {
       el.remove();
@@ -440,11 +463,24 @@ class EditStateController extends React.Component {
       this.currentData = this.mouseCurrentData;
       // console.log(this.state);
       // console.log(this.mouseCurrentData);
-      const currentDom = this.currentData.item;
+      // eslint-disable-next-line no-debugger
+      // debugger;
+      const currentDom = iframeManager.get().document.getElementById(this.currentData.id);
       const editData = currentDom.getAttribute('data-edit');
+      console.log({
+        currentHoverRect: this.state.currentHoverRect,
+        editData,
+        currentDom,
+        dataId: this.mouseCurrentData.dataId,
+      });
 
       this.selectSteState(this.state.currentHoverRect,
         editData, currentDom, this.mouseCurrentData.dataId);
+
+      // this.selectSteState({
+      //   metadata: this.mouseCurrentData.dataId,
+      //   editData, // TODO: rename
+      // });
     }
     this.isDrag = false;
   }
@@ -465,7 +501,8 @@ class EditStateController extends React.Component {
   }
 
   editTextFunc = () => {
-    this.currentData.item.style.visibility = 'hidden';
+    const ele = iframeManager.get().document.getElementById(this.currentData.id);
+    ele.style.visibility = 'hidden';
     this.isInput = false;
     this.setState({
       openEditText: true,
@@ -476,7 +513,8 @@ class EditStateController extends React.Component {
     const dom = e.target;
     if (dom.getAttribute('data-key') && this.mouseCurrentData) {
       this.currentData = this.mouseCurrentData;
-      const editData = this.currentData.item.getAttribute('data-edit');
+      const ele = iframeManager.get().document.getElementById(this.currentData.id);
+      const editData = ele.getAttribute('data-edit');
       if (editData && editData.indexOf('text') >= 0
         && editData !== 'texty' && editData.indexOf('textAndImage') === -1) {
         this.editTextFunc();
@@ -484,20 +522,29 @@ class EditStateController extends React.Component {
     }
   }
 
-  onFuncClick = (type, key) => {
+  onFuncClick = (type, id) => {
     this.resetRect();
     const { templateData } = this.props;
     const { template, style } = templateData.data;
     const config = templateData.data.config;
+    const key = elementRegistry.getKey(id);
+    debugger;
+    if (!key) {
+      console.error(`Key for ${id} doesn't exist.`);
+      return;
+    }
     const current = template.indexOf(key);
     switch (type) {
       case 'up':
+        debugger;
         template[current] = template.splice(current - 1, 1, template[current])[0];
         break;
       case 'down':
+        debugger;
         template[current] = template.splice(current + 1, 1, template[current])[0];
         break;
       default:
+        debugger;
         template.splice(current, 1);
         templateData.data.style = style.filter((item) => {
           if (item.cid === key) {
@@ -589,7 +636,8 @@ class EditStateController extends React.Component {
     const { className, mediaStateSelect } = this.props;
     const { data, currentHoverRect, currentSelectRect, openEditText } = this.state;
     // 去除弹框的数据
-    const dataArray = data ? Object.keys(data).filter(key => key !== 'currentPopover') : [];
+    const dataArray = data ? Object.entries(data).filter(([key]) => key !== 'currentPopover') : [];
+    // debugger;
     const iframe = iframeManager.get();
     const overlayHeight = iframe && iframe.document.getElementById('react-content').offsetHeight;
     return (
@@ -608,8 +656,8 @@ class EditStateController extends React.Component {
           className="overlay"
           style={{ height: overlayHeight }}
         >
-          {dataArray.map((id, i) => (
-            <EditStageOverlayElement key={id} id={id} idx={i} siblingsCount={dataArray.length} onClickToolbarItem={this.onFuncClick} />
+          {dataArray.map(([key, value], i) => (
+            <EditStageOverlayElement key={key} id={value.id} idx={i} siblingsCount={dataArray.length} onClickToolbarItem={this.onFuncClick} />
           ))}
         </div>
         <div className="mouse-catcher" style={{ height: overlayHeight }}>

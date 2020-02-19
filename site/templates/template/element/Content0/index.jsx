@@ -13,6 +13,7 @@ class Content extends React.PureComponent {
   render() {
     const { dataSource, isMobile, ...props } = this.props;
     const { wrapper, titleWrapper, page, OverPack: overPackData, childWrapper } = dataSource;
+    // console.log('Content0', props, wrapper)
     return (
       <div
         {...props}

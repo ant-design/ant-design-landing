@@ -5,14 +5,14 @@ import { getRandomKey } from 'rc-editor-list/lib/utils';
 import { connect } from 'react-redux';
 
 import { deepCopy } from '../../../../../utils';
-import { getIdsAndCurrentData } from '../../../utils';
+import { getElementKeyAndCurrentData } from '../../../utils';
 import { mapStateToProps } from '../../../../../shared/utils';
 import * as actions from '../../../../../shared/redux/actions';
 
 import ListSort from '../ListSort';
 
 class MenuEditView extends React.PureComponent {
-  onAdd = (ids, currentData) => {
+  onAdd = (eleKey, currentData) => {
     const newData = deepCopy(currentData.children[currentData.children.length - 1]);
     delete newData.delete;
     newData.name = `${newData.name.split('~')[0].replace(/[0-9]/ig, '')}~${getRandomKey()}`;
@@ -21,12 +21,12 @@ class MenuEditView extends React.PureComponent {
     const { dispatch, templateData } = this.props;
     dispatch(actions.changeChild({
       templateData,
-      ids,
+      key: eleKey,
       currentData,
     }));
   }
 
-  onSlideDelete = (e, ids, currentData) => {
+  onSlideDelete = (e, eleKey, currentData) => {
     const children = currentData.children;
     const i = children.indexOf(e);
     children.splice(i, 1);
@@ -36,22 +36,22 @@ class MenuEditView extends React.PureComponent {
     const { dispatch, templateData } = this.props;
     dispatch(actions.changeChild({
       templateData,
-      ids,
+      key: eleKey,
       currentData,
     }));
   }
 
-  onValueChange = (e, i, key, ids, currentData) => {
+  onValueChange = (e, i, key, eleKey, currentData) => {
     currentData.children[i][key] = e;
     const { dispatch, templateData } = this.props;
     dispatch(actions.changeChild({
       templateData,
-      ids,
+      key: eleKey,
       currentData,
     }));
   }
 
-  onListChange = (e, ids, currentData) => {
+  onListChange = (e, eleKey, currentData) => {
     currentData.children = e.map((item) => {
       return currentData.children.filter((node) => {
         return node.name === item.key;
@@ -60,14 +60,14 @@ class MenuEditView extends React.PureComponent {
     const { dispatch, templateData } = this.props;
     dispatch(actions.changeChild({
       templateData,
-      ids,
+      key: eleKey,
       currentData,
     }));
   }
 
   render() {
     const { currentEditData, templateData } = this.props;
-    const { ids, currentEditTemplateData } = getIdsAndCurrentData(currentEditData, templateData, 'LinkMenu');
+    const { key: eleKey, currentEditTemplateData } = getElementKeyAndCurrentData(currentEditData, templateData, 'LinkMenu');
     if (!currentEditTemplateData.children) {
       return null;
     }
@@ -80,7 +80,7 @@ class MenuEditView extends React.PureComponent {
             <Input
               defaultValue={item.children}
               onChange={(e) => {
-                this.onValueChange(e.target.value, i, 'children', ids, currentEditTemplateData);
+                this.onValueChange(e.target.value, i, 'children', eleKey, currentEditTemplateData);
               }}
             />
           </div>
@@ -97,7 +97,7 @@ class MenuEditView extends React.PureComponent {
                     <Col span={16}>
                       <Input
                         onChange={(e) => {
-                          this.onValueChange(e.target.value, i, 'to', ids, currentEditTemplateData);
+                          this.onValueChange(e.target.value, i, 'to', eleKey, currentEditTemplateData);
                         }}
                         defaultValue={item.to}
                       />
@@ -117,7 +117,7 @@ class MenuEditView extends React.PureComponent {
           <div className="sort-manage-delete">
             <Button
               onClick={() => {
-                this.onSlideDelete(item, ids, currentEditTemplateData);
+                this.onSlideDelete(item, eleKey, currentEditTemplateData);
               }}
               size="small"
               shape="circle"
@@ -149,7 +149,7 @@ class MenuEditView extends React.PureComponent {
             </div>
           )}
           onChange={(e) => {
-            this.onListChange(e, ids, currentEditTemplateData);
+            this.onListChange(e, eleKey, currentEditTemplateData);
           }}
         >
           {childrenToRender}
@@ -157,7 +157,7 @@ class MenuEditView extends React.PureComponent {
         <div style={{ marginTop: 16, textAlign: 'center' }}>
           <Button
             onClick={() => {
-              this.onAdd(ids, currentEditTemplateData);
+              this.onAdd(eleKey, currentEditTemplateData);
             }}
             icon="plus"
             type="primary"

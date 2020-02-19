@@ -9,6 +9,7 @@ import MenuComp from './ButtonViewComponent/MenuComp';
 import TextyComp from './ButtonViewComponent/TextyComp';
 import ContentWrapper from './ButtonViewComponent/ContentWrapper';
 import LinkComp from './ButtonViewComponent/LinkComp';
+import iframeManager from '../../../../shared/iframe';
 
 const ButtonGroup = Button.Group;
 
@@ -97,7 +98,8 @@ export default class EditButtonView extends React.PureComponent {
           return null;
       }
     }).filter(c => c);
-    const rect = currentData.item.getBoundingClientRect();
+    const ele = iframeManager.get().document.getElementById(currentData.id);
+    const rect = ele.getBoundingClientRect();
     const top = rect.top;
     const width = rect.width;
     const className = classnames({

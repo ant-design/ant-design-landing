@@ -23,6 +23,7 @@ function* handleGetUserData(action) {
   const { uid: hash, cloneId, previewId } = url.get();
 
   if (previewId) {
+    debugger;
     yield put({
       type: POST_TYPE.POST_SUCCESS,
       templateData: {
@@ -67,6 +68,7 @@ function* handleGetUserData(action) {
 
     xssFunc(config);
 
+    debugger;
     yield put({
       type: POST_TYPE.POST_SUCCESS,
       templateData: localTemplate,
@@ -92,6 +94,7 @@ function* handleGetUserData(action) {
 
     saveTemplateToLocalStorage(DEFAULT_USER_NAME, template);
 
+    debugger;
     yield put({
       type: POST_TYPE.POST_SUCCESS,
       templateData: localTemplate,
@@ -128,6 +131,7 @@ function* handleCreateNewTemplate(action) {
   try {
     const template = yield newTemplate(DEFAULT_USER_NAME, data);
 
+    debugger;
     yield put({
       type: POST_TYPE.POST_SUCCESS,
       templateData: template,

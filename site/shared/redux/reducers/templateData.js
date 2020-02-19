@@ -21,6 +21,7 @@ function resolveTemplateType(actionType) {
 }
 
 export default function templateData(state, action) {
+  // debugger;
   switch (action.type) {
     case POST_TYPE.POST_SUCCESS:
     case POST_TYPE.POST_SET:

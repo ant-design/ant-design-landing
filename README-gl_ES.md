@@ -16,35 +16,35 @@ Landing Pages of Ant Design System
 
 <div align="center">English | <a href="./README-zh_CN.md">简体中文</a></div>
 
-## What is Landing?
+## Que é Landing?
 
-Landing is a template built by Ant Motion's motion components. It has a rich homepage template, downloads the template code package, and can be used quickly. You can also use the editor to quickly build your own dedicated page.
+Landing é un modelo construído cos compoñentes animación de Ant Motion. Dispón dun fornecido modelo de páxina de inicio, descargando o paquete de código de modelo pódese empregar rapidamente. Tamén podes usar o editor para crear rapidamente a túa propia páxina dedicada.
 
 <div align="center">
   <a href="https://landing.ant.design/edit">Go Editing 📝</a>
 </div>
 
-## Features
+## Características
 
-- [Specifications](https://landing.ant.design/docs/introduce)
-- [Download](https://landing.ant.design/docs/download)
-- [Responsive](https://landing.ant.design/docs/guide/layout)
+- [Especificacións](https://landing.ant.design/docs/introduce)
+- [Descarga](https://landing.ant.design/docs/download)
+- [Responsivo](https://landing.ant.design/docs/guide/layout)
 
 ## Templates
 
-Has a wealth of various page templates to provide downloads.
+Hai unha abundante variedade de modelos de páxina para descargar.
 
 [![](https://user-images.githubusercontent.com/6802825/47977555-ac77b080-e0f3-11e8-90f3-6aa04cce5351.jpg)](http://landing.ant.design)
 
-## Modules
+## Módulos
 
-Diverse modules, you can quickly and flexibly configure the page template you want.
+Diversos módulos, para poder configurar de xeito rápido e flexible a plantilla de páxina que desexes.
 
 <div style="max-width: 600px">
   <img src="https://user-images.githubusercontent.com/6802825/47980280-ec459480-e101-11e8-8a94-1ada4ff61faa.jpg" width="100%">
 </div>
 
-## Example in scaffolding
+## Exemplo de angarellos - scaffolding
 
 - [dva-cli-example](https://github.com/ant-motion/ant-motion-dva-cli-example)
 - [umi-example](https://github.com/ant-motion/landing-umi-example)

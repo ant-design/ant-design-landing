@@ -3,9 +3,11 @@ order: 2
 category:
   zh-CN: 使用教程
   en-US: Tutorial
-title: 
+  gl-ES: Tutoría
+title:
   zh-CN: umi 里使用
   en-US: Use in umi
+  gl-ES: Usar en umi
 ---
 
 [umi](https://umijs.org/) 脚手架为 [ant design](https://ant.design) 提供的可插拔的企业级 react 应用框架，具体教程[请查看](https://www.youtube.com/watch?v=vkAUGUlYm24&feature=youtu.be)。
@@ -22,7 +24,7 @@ title:
 
 ```
 │── src
-│ │── Home 
+│ │── Home
 │    │── less
 │    │── index.js
 │    └── ...
@@ -87,7 +89,7 @@ umi 同样使用了 `css-modules`, 同样我们提供了以下几种解决方案
 
 ### 在全局样式里引用
 
-在 `src` 里新建一个 `global.less`; 在 `global.less` 里引入 `Home` 样式: 
+在 `src` 里新建一个 `global.less`; 在 `global.less` 里引入 `Home` 样式:
 
 ```less
 @import './Home/less/antMotionStyle.less';
@@ -135,7 +137,7 @@ export default {
 
 ```diff
 │── src
-│ │── Home 
+│ │── Home
 │    │── less
 │    │── index.js
 │    └── ...
@@ -156,7 +158,7 @@ Home/index.js 更改参考 [index.jsx](https://github.com/ant-motion/landing-umi
 
 ```diff
 │── src
-│ │── Home 
+│ │── Home
 │    │── less
 -    │    │── nav0.less  
 -    │    │── footer0.less  
@@ -178,7 +180,7 @@ Home/index.js 更改参考 [index.jsx](https://github.com/ant-motion/landing-umi
 +    │── data.source.js
 ```
 
-#### 再引入 nav0.less 和 footer0.less 
+#### 再引入 nav0.less 和 footer0.less
 
 如果 `less` 引入是 [在全局样式里引用](#在全局样式里引用) 时，我们需要将 `nav0.less` 和 `footer0.less` 以同样的方法引入;
 
@@ -231,11 +233,11 @@ export default Layout;
 
 ```diff
 │── src
-│ │── Home 
+│ │── Home
 │    │── less
 │    │── index.js
 │    └── ...
-+ │── Page2 
++ │── Page2
 +    │── less
 +    │── index.js
 +    └── ...

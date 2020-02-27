@@ -3,9 +3,11 @@ order: 5
 category:
   zh-CN: 使用教程
   en-US: Tutorial
-title: 
+  gl-ES: Tutoría
+title:
   zh-CN: pro 1.x 里使用
   en-US: Use in pro 1.x
+  gl-ES: Usar en pro 1.x
 ---
 
 > 蚂蚁金服用户同学可直接查看 [Bigfish 的新增页面](https://docs.antfin.com/basement/bigfish/newpage)
@@ -14,7 +16,7 @@ title:
 
 基本配置请查看 [开始使用](docs/use/getting-started);
 
-## 文件路径 
+## 文件路径
 
 [Ant Design pro](https://pro.ant.design) 使用的为 dva 脚手架，文件目录同样为 `src/routes`, 首先我们需要将下载的 Home 文件包直接复制到 routes 文件夹下。
 
@@ -32,7 +34,7 @@ import IndexPage from './routes/Home';
 
 然后在 pro 的路由上添加 Route, 由于 pro 占了 `/` 主路由，我们将 path 设为 `/home` 即可。
 
-```jsx 
+```jsx
 function RouterConfig({ history, app }) {
   const routerData = getRouterData(app);
   const UserLayout = routerData['/user'].component;
@@ -41,7 +43,7 @@ function RouterConfig({ history, app }) {
     <LocaleProvider locale={zhCN}>
       <ConnectedRouter history={history}>
         <Switch>
-+         <Route path="/home" component={IndexPage} />  {/* 增加在此处 */} 
++         <Route path="/home" component={IndexPage} />  {/* 增加在此处 */}
           <Route path="/user" component={UserLayout} />
           <AuthorizedRoute
             path="/"
@@ -113,7 +115,7 @@ const menuData = [
 
 #### login.js
 
-文件地址： `src/models/login.js`; 
+文件地址： `src/models/login.js`;
 
 只需将登录或注册完成后改成 `/dashboards` 即可；
 
@@ -151,14 +153,14 @@ export default class LandingLayout extends React.Component {
   render(){
     return (<Home />);
   }
-} 
+}
 ```
 
 #### router.js
 
 文件地址： `src/router.js`;
 
-将 `AuthorizedRoute` 的 path 改为 `/dashboards`, 新增 `/` 的 `Route` 到自已的 `layout` 文件, 顺便再新增个 404 路由； 
+将 `AuthorizedRoute` 的 path 改为 `/dashboards`, 新增 `/` 的 `Route` 到自已的 `layout` 文件, 顺便再新增个 404 路由；
 
 ```jsx
   ...

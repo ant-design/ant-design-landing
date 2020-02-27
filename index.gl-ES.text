@@ -1,0 +1,57 @@
+/* eslint no-undef: 0 */
+/* eslint arrow-parens: 0 */
+import React from 'react';
+import { enquireScreen } from 'enquire-js';
+&scrollAnim&
+&import&
+&dataSource&
+import './less/antMotionStyle.less';
+
+let isMobile;
+enquireScreen((b) => {
+  isMobile = b;
+});
+
+const { location } = window;
+
+export default class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isMobile,
+      show: !location.port, // Se non é dva 2.0, eliminar 
+    };
+  }
+
+  componentDidMount() {
+    &scrollScreen-pragma&
+    // Adáptase á pantalla do teléfono;
+    enquireScreen((b) => {
+      this.setState({ isMobile: !!b });
+    });
+    // dva 2.0 - O estilo de efecto cargarase dinámicamente despois de renderizar o compoñente,
+    // o que fai que non se xere o compoñente de desprazamento; non afecta en liña - online；
+    /* De non ser así dva 2.0 elimina start */
+    if (location.port) {
+      // Estilo build nun tempo entre 200-300ms;
+      setTimeout(() => {
+        this.setState({
+          show: true,
+        });
+        &scrollScreen&
+      }, 500);
+    }
+    /* De non ser así dva 2.0 elinina end */
+  }
+
+  render() {
+    &children&
+    return (
+      <div className="templates-wrapper" ref={(d) => { this.dom = d; }}>
+        {/* De non ser así dva 2.0 será substituído por {children} start */}
+        {this.state.show && children}
+        {/* De non ser así dva 2.0 será substituído por {children} end */}
+      </div>
+    );
+  }
+}

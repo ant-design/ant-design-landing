@@ -10,7 +10,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "antd": "^3.10.1",
+    "antd": "^4.0.1",
     "autoresponsive-react": "^1.1.31",
     "deep-eql": "^4.0.0",
     "enquire-js": "^0.2.1",

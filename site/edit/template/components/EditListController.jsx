@@ -1,5 +1,6 @@
 import React from 'react';
-import { Tabs, Icon, Tooltip } from 'antd';
+import { Tabs, Tooltip } from 'antd';
+import { EditOutlined, AppstoreOutlined } from '@ant-design/icons';
 import { FormattedMessage } from 'react-intl';
 import { polyfill } from 'react-lifecycles-compat';
 import EditorComp from './ListComponents/EditorComp';
@@ -43,7 +44,7 @@ class EditListController extends React.PureComponent {
           key="1"
           tab={(
             <Tooltip title={<FormattedMessage id="app.header.edit" />}>
-              <Icon type="edit" />
+              <EditOutlined />
             </Tooltip>
           )}
           className="edit-list-tab"
@@ -56,7 +57,7 @@ class EditListController extends React.PureComponent {
           key="2"
           tab={(
             <Tooltip title="通用样式">
-              <Icon type="form" />
+              <FormOutlined/ >
             </Tooltip>
           )}
           className="edit-list-tab"
@@ -67,7 +68,7 @@ class EditListController extends React.PureComponent {
           key="3"
           tab={(
             <Tooltip title={<FormattedMessage id="app.header.other" />}>
-              <Icon type="appstore-o" />
+              <AppstoreOutlined />
             </Tooltip>
           )}
           className="edit-list-tab"

@@ -87,15 +87,15 @@ function* handleGetUserData(action) {
 
     saveTemplateToLocalStorage(DEFAULT_USER_NAME, template);
 
-    yield put({
-      type: UPDATE_HISTORY,
-      data: template,
-    });
 
     yield put({
       type: POST_TYPE.POST_SUCCESS,
       templateData: ls.getTemplate(uid),
       userIsLogin: ls.getUserAuthState(userId),
+    });
+    yield put({
+      type: UPDATE_HISTORY,
+      data: template,
     });
   } catch (error) {
     if (error.code === 101) {
@@ -128,12 +128,12 @@ function* handleCreateNewTemplate(action) {
   try {
     const template = yield newTemplate(DEFAULT_USER_NAME, data);
     yield put({
-      type: UPDATE_HISTORY,
-      data: template,
-    });
-    yield put({
       type: POST_TYPE.POST_SUCCESS,
       templateData: template,
+    });
+    yield put({
+      type: UPDATE_HISTORY,
+      data: template,
     });
   } catch (error) {
     console.error(error);
@@ -144,14 +144,15 @@ function* handleSetTemplateData(action) {
   const { data: { uid: id, data: attributes, noHistory } } = action;
   const data = { id, attributes, noHistory };
   saveTemplateToLocalStorage(DEFAULT_USER_NAME, data);
-  yield put({
-    type: UPDATE_HISTORY,
-    data,
-  });
 
   yield put({
     type: POST_TYPE.SET_TEMPLATE,
     data: attributes,
+  });
+
+  yield put({
+    type: UPDATE_HISTORY,
+    data,
   });
 }
 
@@ -169,15 +170,14 @@ function* handleSetUserAndTemplateData(action) {
     attributes: data.templateData.data,
   };
   saveTemplateToLocalStorage(DEFAULT_USER_NAME, d);
-  yield put({
-    type: UPDATE_HISTORY,
-    data: d,
-  });
-
 
   yield put({
     type: POST_TYPE.SET_USERTEMPLATE,
     data,
+  });
+  yield put({
+    type: UPDATE_HISTORY,
+    data: d,
   });
 }
 

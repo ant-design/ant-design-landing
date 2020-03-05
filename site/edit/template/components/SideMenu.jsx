@@ -1,10 +1,18 @@
 import React from 'react';
-import { Icon, Tooltip, Modal, Form, Button, Input, message } from 'antd';
+import { Tooltip, Modal, Button, Form, Input, message } from 'antd';
+import {
+  ExclamationCircleOutlined,
+  LockOutlined,
+  WarningOutlined,
+  PlusCircleOutlined,
+  UnlockOutlined,
+  FolderOutlined,
+  VideoCameraOutlined,
+} from '@ant-design/icons';
 import DrawerMenu from 'rc-drawer';
 import { FormattedMessage, injectIntl } from 'react-intl';
 
 import webData from '../template.config';
-import { hasErrors } from '../utils';
 import { getNewHref } from '../../../utils';
 import * as utils from '../../../theme/template/utils';
 import * as actions from '../../../shared/redux/actions';
@@ -16,6 +24,8 @@ class SideMenu extends React.PureComponent {
     editMenuOpen: false,
     lockModalShow: false,
   }
+
+  formRef = React.createRef();
 
   getDrawer = (isZhCN) => {
     const children = [];
@@ -94,26 +104,24 @@ class SideMenu extends React.PureComponent {
     });
   }
 
-  onSignUp = (e) => {
-    e.preventDefault();
+  onSignUp = (value) => {
     const { templateData, dispatch } = this.props;
 
     templateData.data.user = templateData.data.user || {
       username: templateData.uid,
       userId: null,
     };
-    templateData.data.user.password = this.password;
+    templateData.data.user.password = value.password;
     delete templateData.data.user.delete;
-
-    dispatch(actions.setUserAndTemplateData({ userIsLogin: true, templateData }));
-
+    if (this.formRef.current) {
+      this.formRef.current.resetFields();
+    }
     this.onLockData();
+    dispatch(actions.setUserAndTemplateData({ userIsLogin: true, templateData }));
 
     message.success(
       this.props.intl.formatMessage({ id: 'app.side.encryption.message' })
     );
-
-    this.props.form.resetFields();
   }
 
   oonUnLockData = () => {
@@ -124,54 +132,50 @@ class SideMenu extends React.PureComponent {
     } else {
       delete templateData.data.user;
     }
-
     dispatch(actions.setUserAndTemplateData({ userIsLogin: false, templateData }));
 
     message.success(
-      this.props.intl.formatMessage({ id: 'app.side.encryption.decrypt' })
+      this.props.intl.formatMessage({ id: 'app.side.decrypt.message' })
     );
   }
 
   getPasswordChild = () => {
-    const { form } = this.props;
-    const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = form;
-    const passwordError = isFieldTouched('password') && getFieldError('password');
     return (
-      <Form onSubmit={this.onSignUp}>
+      <Form ref={this.formRef} onFinish={this.onSignUp}>
         <p style={{ marginBottom: '1em' }}>
-          <Icon type="exclamation-circle" style={{ marginRight: 8 }} />
+          <ExclamationCircleOutlined style={{ marginRight: 8 }} />
           <FormattedMessage id="app.side.encryption.remarks" />
         </p>
         <FormItem
-          validateStatus={passwordError ? 'error' : ''}
-          help={passwordError || ''}
+          name="password"
+          rules={[
+            { required: true, message: 'Password must be at least 6 characters.' },
+            { min: 6, message: 'Password must be at least 6 characters.' },
+          ]}
         >
+          <Input
+            prefix={<LockOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
+            type="password"
+            placeholder="Password"
+          />
+        </FormItem>
+        <FormItem style={{ marginBottom: 0 }} shouldUpdate>
           {
-            getFieldDecorator('password', {
-              rules: [{ min: 6, message: 'Password must be at least 6 characters.' }],
-            })(
-              <Input
-                prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                type="password"
-                placeholder="Password"
-                onChange={(e) => {
-                  this.password = e.target.value;
-                }}
-              />
+            () => (
+              <Button
+                disabled={!this.formRef.current
+                  || !this.formRef.current.isFieldsTouched(true)
+                  || this.formRef.current.getFieldsError().filter(({ errors }) => errors.length).length}
+                type="primary"
+                htmlType="submit"
+              >
+                <FormattedMessage id="app.common.ok" />
+              </Button>
             )
           }
         </FormItem>
-        <FormItem style={{ marginBottom: 0 }}>
-          <Button
-            disabled={hasErrors(getFieldsError()) || !this.password}
-            type="primary"
-            htmlType="submit"
-          >
-            <FormattedMessage id="app.common.ok" />
-          </Button>
-        </FormItem>
         <p>
-          <Icon type="warning" style={{ marginRight: 8 }} />
+          <WarningOutlined style={{ marginRight: 8 }} />
           <FormattedMessage id="app.side.encryption.remarks2" />
         </p>
       </Form>
@@ -223,7 +227,7 @@ class SideMenu extends React.PureComponent {
         </DrawerMenu>
         <div className="edit-side-menu">
           <div className={isZhCN ? 'add add-zh' : 'add'} onMouseEnter={this.showMenu}>
-            <Icon type="plus-circle-o" />
+            <PlusCircleOutlined />
             <FormattedMessage id="app.side.add" />
           </div>
           <ul className="other" onMouseEnter={this.hideMenu}>
@@ -237,27 +241,27 @@ class SideMenu extends React.PureComponent {
               placement="right"
             >
               <li onClick={isLock ? this.oonUnLockData : this.onLockData}>
-                <Icon type={isLock ? 'lock' : 'unlock'} />
+                {isLock ? <LockOutlined /> : <UnlockOutlined />}
               </li>
             </Tooltip>
             <Tooltip title={<FormattedMessage id="app.side.umi-example" />} placement="right">
               <li>
                 <a href="https://github.com/ant-motion/landing-umi-example" target="_blank">
-                  <Icon type="folder" />
+                  <FolderOutlined />
                 </a>
               </li>
             </Tooltip>
             <Tooltip title={<FormattedMessage id="app.side.video-help" />} placement="right">
               <li>
                 <a href={`${getNewHref('7111', '', true, '/docs/edit/video')}`} target="_blank">
-                  <Icon type="video-camera" />
+                  <VideoCameraOutlined />
                 </a>
               </li>
             </Tooltip>
             <Tooltip title={<FormattedMessage id="app.side.help" />} placement="right">
               <li>
                 <a href={`${getNewHref('7111', '', true, '/docs/edit/edit-block')}`} target="_blank">
-                  <Icon type="exclamation-circle-o" />
+                  <ExclamationCircleOutlined />
                 </a>
               </li>
             </Tooltip>
@@ -277,4 +281,4 @@ class SideMenu extends React.PureComponent {
     );
   }
 }
-export default Form.create()(injectIntl(SideMenu));
+export default injectIntl(SideMenu);

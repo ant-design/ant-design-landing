@@ -1,5 +1,6 @@
 import React from 'react';
-import { Icon, Button, Modal } from 'antd';
+import { Button, Modal } from 'antd';
+import { BarsOutlined } from '@ant-design/icons';
 import { FormattedMessage } from 'react-intl';
 import MenuEditView from './MenuEditView';
 
@@ -22,7 +23,7 @@ export default class ImageComp extends React.Component {
     return (
       <div>
         <Button type="primary" size="small" onClick={this.switchEditMenuFunc}>
-          <Icon type="bars" />
+          <BarsOutlined />
         </Button>
         <Modal
           title={<FormattedMessage id="app.state.menu.header" />}

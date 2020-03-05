@@ -1,5 +1,12 @@
 import React from 'react';
-import { Collapse, Row, Col, Button, Tooltip, Icon, Switch, Select, InputNumber } from 'antd';
+import { Collapse, Row, Col, Button, Tooltip, Switch, Select, InputNumber } from 'antd';
+import {
+  BarsOutlined,
+  PlusOutlined,
+  WarningOutlined,
+  QuestionCircleOutlined,
+  DeleteOutlined,
+} from '@ant-design/icons';
 import { FormattedMessage } from 'react-intl';
 import { getRandomKey } from 'rc-editor-list/lib/utils';
 import InputGroup from './InputGroup';
@@ -204,11 +211,12 @@ export default class PropsComp extends React.Component {
   }
 
   getMenuChild = ({ defaultData }, template) => {
-    let value = template && template.subItem;
-    value = value ? value.map((item) => {
+    const value = template && template.subItem;
+    /* value = value ? value.map((item) => {
       item.name = `sub~${getRandomKey()}`;
+      console.log('init menu', item.name);
       return item;
-    }) : value;
+    }) : value; */
     return (
       <div>
         <Switch
@@ -236,7 +244,7 @@ export default class PropsComp extends React.Component {
               }}
               size="small"
               shape="circle"
-              icon="delete"
+              icon={<DeleteOutlined />}
               disabled={value.children.length === 1}
             />
           </div>
@@ -252,7 +260,7 @@ export default class PropsComp extends React.Component {
             key="list"
             dragElement={(
               <div className="sort-manage-icon">
-                <Icon type="bars" />
+                <BarsOutlined />
               </div>
             )}
             onChange={(e) => {
@@ -270,7 +278,7 @@ export default class PropsComp extends React.Component {
               }}
               className="add-button"
             >
-              <Icon type="plus" />
+              <PlusOutlined />
             </a>
           </Col>
         </Row>
@@ -294,7 +302,7 @@ export default class PropsComp extends React.Component {
         return (
           <Row key="remark">
             <Col>
-              <Icon type="warning" style={{ marginRight: 4 }} />
+              <WarningOutlined style={{ marginRight: 4 }} />
               {' '}
               {defaultData}
             </Col>
@@ -312,7 +320,7 @@ export default class PropsComp extends React.Component {
             </span>
           )}
         >
-          <Icon type="question-circle" style={{ marginLeft: 8 }} />
+          <QuestionCircleOutlined style={{ marginLeft: 8 }} />
         </Tooltip>
       );
       return [

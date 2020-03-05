@@ -1,6 +1,6 @@
 import React from 'react';
-import { Select, Icon } from 'antd';
-
+import { Select } from 'antd';
+import { LaptopOutlined, MobileOutlined } from '@ant-design/icons';
 import * as actions from '../../../shared/redux/actions';
 
 const Option = Select.Option;
@@ -18,13 +18,13 @@ class EditInfluence extends React.Component {
         <div className={mediaStateSelect}>
           <Select defaultValue={mediaStateSelect} size="small" onChange={this.onChange}>
             <Option value="Desktop">
-              <Icon type="laptop" style={{ fontSize: '12px' }} />
+              <LaptopOutlined style={{ fontSize: '12px' }} />
               <span style={{ marginLeft: 4 }}>
                 Desktop
               </span>
             </Option>
             <Option value="Mobile">
-              <Icon type="mobile" style={{ fontSize: '12px' }} />
+              <MobileOutlined style={{ fontSize: '12px' }} />
               <span style={{ marginLeft: 4 }}>
                 Mobile
               </span>

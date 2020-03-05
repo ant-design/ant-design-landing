@@ -1,5 +1,8 @@
 import React from 'react';
-import { Popconfirm, Icon } from 'antd';
+import { Popconfirm } from 'antd';
+import Icon, {
+  HomeOutlined,
+} from '@ant-design/icons';
 import { getNewHref, RemoveLocalStorage } from '../../utils';
 import { getURLData } from '../../theme/template/utils';
 
@@ -34,15 +37,15 @@ export default class BottomBar extends React.Component {
               location.href = getNewHref('7111', null, true);
             }}
           >
-            <Icon type="home" />
-              返回首页
+            <HomeOutlined />
+            返回首页
           </li>
           {/* <li
             onClick={() => {
               location.href = `${getNewHref('7112', null, true)}${location.hash}`;
             }}
           >
-            <Icon type="edit" />
+            <EditOutlined />
               返回编辑
           </li> */}
           <li>
@@ -54,7 +57,7 @@ export default class BottomBar extends React.Component {
               overlayStyle={{ width: 320 }}
             >
               <Icon component={() => RemoveLocalStorage('14')} />
-                清除缓存
+              清除缓存
             </Popconfirm>
           </li>
         </ul>

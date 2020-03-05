@@ -1,9 +1,9 @@
 import React from 'react';
-import { Icon, message, Button, Input, Form, notification } from 'antd';
+import { message, Button, Input, Form, notification } from 'antd';
+import { ExclamationCircleOutlined, WarningOutlined, LockOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import { FormattedMessage, injectIntl } from 'react-intl';
 
-import { hasErrors } from './utils';
 import { getNewHref } from '../../utils';
 import { mapStateToProps, logIn } from '../../shared/utils';
 import * as actions from '../../shared/redux/actions';
@@ -23,6 +23,8 @@ class Layout extends React.PureComponent {
   state = {
     loading: false,
   }
+
+  formRef = React.createRef();
 
   constructor(props) {
     super(props);
@@ -45,48 +47,38 @@ class Layout extends React.PureComponent {
         ),
       });
     }
+    this.forceUpdate();
   }
 
-  componentDidUpdate() {
-    if (!this.validateForm && this.props.templateData.data) {
-      this.props.form.validateFields();
-      this.validateForm = true;
-    }
-  }
-
-  onLogin = (event) => {
-    event.preventDefault();
-    const { templateData, dispatch, form } = this.props;
+  onLogin = (values) => {
+    const { templateData, dispatch } = this.props;
     const id = templateData.data.user.userId;
     this.setState({
       loading: true,
     }, () => {
-      form.validateFields((error, values) => {
-        if (!error) {
-          logIn(values.password, id, (succeeded) => {
-            this.setState({
-              loading: false,
-            }, () => {
-              if (succeeded) {
-                dispatch(actions.setUserData(true));
-                message.success('登入成功。');
-              } else {
-                form.setFields({
-                  password: {
-                    value: values.password,
-                    errors: [new Error('password error')],
-                  },
-                });
-              }
-            });
-          });
+      logIn(values.password, id, (succeeded) => {
+        if (succeeded) {
+          dispatch(actions.setUserData(true));
+          message.success('登入成功。');
+        } else {
+          this.formRef.current.setFields([
+            {
+              name: 'password',
+              value: values.password,
+              errors: ['Password error.'],
+            },
+          ]);
         }
+        this.setState({
+          loading: false,
+        });
       });
     });
   }
 
   render() {
-    const { templateData, userIsLogin, form } = this.props;
+    const { templateData, userIsLogin } = this.props;
+
     if (!templateData.data) {
       return (
         <div
@@ -102,9 +94,11 @@ class Layout extends React.PureComponent {
       );
     }
     if (templateData.data.user && templateData.data.user.userId && !templateData.data.user.delete && !userIsLogin) {
-      const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = form;
-      const passwordError = isFieldTouched('password') && getFieldError('password');
-      const passwordNo = (getFieldError('password') || []).indexOf('password error') >= 0;
+      let passwordNo;
+      if (this.formRef.current) {
+        passwordNo = this.formRef.current.getFieldsError(['password'])
+          .filter(({ errors }) => errors.indexOf('Password error.') >= 0).length;
+      }
       return (
         <div className="login-controller" key="1">
           <div className={`login-view${passwordNo ? ' password-no' : ''}`}>
@@ -115,46 +109,45 @@ class Layout extends React.PureComponent {
                 width="20"
               />
             </a>
-            <Form onSubmit={this.onLogin}>
+            <Form onFinish={this.onLogin} ref={this.formRef}>
               <p>
-                <Icon type="exclamation-circle" style={{ marginRight: 8 }} />
+                <ExclamationCircleOutlined style={{ marginRight: 8 }} />
                 <FormattedMessage id="app.login.title" />
               </p>
               <FormItem
-                validateStatus={passwordError ? 'error' : ''}
-                help={passwordError || ''}
+                name="password"
+                rules={[
+                  { required: true, message: 'Password must be at least 6 characters.' },
+                  { min: 6, message: 'Password must be at least 6 characters.' },
+                ]}
               >
+                <Input
+                  prefix={<LockOutlined type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                  type="password"
+                  placeholder="Password"
+                />
+              </FormItem>
+              <FormItem shouldUpdate>
                 {
-                  getFieldDecorator('password', {
-                    rules: [
-                      { required: true, message: 'Password must be at least 6 characters.' },
-                      { min: 6, message: 'Password must be at least 6 characters.' },
-                    ],
-                  })(
-                    <Input
-                      prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                      type="password"
-                      placeholder="Password"
-                    />
+                  () => (
+                    <Button
+                      loading={this.state.loading}
+                      disabled={!this.formRef.current
+                        || !this.formRef.current.isFieldsTouched(true)
+                        || this.formRef.current.getFieldsError().filter(({ errors }) => errors.length).length}
+                      type="primary"
+                      htmlType="submit"
+                      style={{ width: '100%' }}
+                    >
+                      <FormattedMessage id="app.common.ok" />
+                    </Button>
                   )
                 }
-              </FormItem>
-              <FormItem>
-                <Button
-                  loading={this.state.loading}
-                  disabled={hasErrors(getFieldsError())}
-                  type="primary"
-                  htmlType="submit"
-                  style={{ width: '100%' }}
-                >
-                  <FormattedMessage id="app.common.ok" />
-                </Button>
-
               </FormItem>
             </Form>
             <div>
               <p>
-                <Icon type="warning" />
+                <WarningOutlined />
                 {' '}
                 <FormattedMessage id="app.login.noPassword" />
               </p>
@@ -190,4 +183,4 @@ class Layout extends React.PureComponent {
 }
 
 
-export default injectIntl(connect(mapStateToProps)(Form.create()(Layout)));
+export default injectIntl(connect(mapStateToProps)(Layout));

@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'bisheng/router';
 import { injectIntl } from 'react-intl';
-import { Row, Col, Menu, Icon } from 'antd';
+import { Row, Col, Menu } from 'antd';
+import { ExportOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
 import MobileMenu from 'rc-drawer';
 import Animate from 'rc-animate';
 import TweenOne from 'rc-tween-one';
@@ -155,7 +156,7 @@ class MainContent extends React.PureComponent {
         >
           {text}
           {' '}
-          <Icon type="export" />
+          <ExportOutlined />
         </a>
       );
     return (
@@ -289,7 +290,7 @@ class MainContent extends React.PureComponent {
                   ? React.cloneElement(prev.props.children, {
                     className: 'prev-page',
                     children: [
-                      <Icon className="footer-nav-icon-before" type="left" key="left" />,
+                      <LeftOutlined className="footer-nav-icon-before" key="left" />,
                       ...prev.props.children.props.children,
                     ],
                   })
@@ -301,7 +302,7 @@ class MainContent extends React.PureComponent {
                     className: 'next-page',
                     children: [
                       ...next.props.children.props.children,
-                      <Icon className="footer-nav-icon-after" type="right" key="right" />,
+                      <RightOutlined className="footer-nav-icon-after" key="right" />,
                     ],
                   })
                   : null

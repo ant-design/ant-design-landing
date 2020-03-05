@@ -1,5 +1,8 @@
 import React from 'react';
-import { Button, Modal, Icon } from 'antd';
+import { Button, Modal } from 'antd';
+import {
+  FormOutlined,
+} from '@ant-design/icons';
 import { FormattedMessage } from 'react-intl';
 import ContentEditView from './ContentEditView';
 
@@ -18,7 +21,7 @@ export default class ContentWrapper extends React.Component {
     return (
       <div>
         <Button type="primary" size="small" onClick={this.onOpenModal}>
-          <Icon type="form" theme="outlined" />
+          <FormOutlined />
         </Button>
         <Modal
           title={<FormattedMessage id="app.common.edit.content" />}

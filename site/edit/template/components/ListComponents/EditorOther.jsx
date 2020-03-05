@@ -1,5 +1,8 @@
 import React from 'react';
-import { Collapse, Col, Radio, Switch, Row, Tooltip, Icon } from 'antd';
+import { Collapse, Col, Radio, Switch, Row, Tooltip } from 'antd';
+import {
+  QuestionCircleOutlined,
+} from '@ant-design/icons';
 import { FormattedMessage } from 'react-intl';
 import { deepCopy } from '../../../../utils';
 import * as actions from '../../../../shared/redux/actions';
@@ -161,7 +164,7 @@ class EditorOther extends React.PureComponent {
               </span>
             )}
           >
-            <Icon type="question-circle" style={{ marginLeft: 8 }} />
+            <QuestionCircleOutlined style={{ marginLeft: 8 }} />
           </Tooltip>
         );
         return [

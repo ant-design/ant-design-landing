@@ -1,5 +1,8 @@
 import React from 'react';
-import { Icon, Button, Popover, Input } from 'antd';
+import { Button, Popover, Input } from 'antd';
+import {
+  PictureOutlined,
+} from '@ant-design/icons';
 import { FormattedMessage } from 'react-intl';
 
 export default class ImageComp extends React.Component {
@@ -27,7 +30,7 @@ export default class ImageComp extends React.Component {
         trigger="click"
       >
         <Button type="primary" size="small" onClick={this.props.closeEditText}>
-          <Icon type="picture" />
+          <PictureOutlined />
         </Button>
       </Popover>
     );

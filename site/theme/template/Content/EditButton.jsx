@@ -1,5 +1,6 @@
 import React from 'react';
-import { Tooltip, Icon } from 'antd';
+import { Tooltip } from 'antd';
+import { EditOutlined } from '@ant-design/icons';
 
 export default function EditButton({
   title,
@@ -9,7 +10,7 @@ export default function EditButton({
   return (
     <Tooltip title={title}>
       <a className="edit-button" target="_blank" href={`${sourcePath}${filename}`}>
-        <Icon type="edit" />
+        <EditOutlined />
       </a>
     </Tooltip>
   );

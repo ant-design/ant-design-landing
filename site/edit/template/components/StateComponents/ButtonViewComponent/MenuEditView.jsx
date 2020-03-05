@@ -1,5 +1,12 @@
 import React from 'react';
-import { Button, Input, Icon, Popover, Row, Col } from 'antd';
+import { Button, Input, Popover, Row, Col } from 'antd';
+import {
+  ExclamationCircleOutlined,
+  BarsOutlined,
+  LinkOutlined,
+  DeleteOutlined,
+  PlusOutlined,
+} from '@ant-design/icons';
 import { FormattedMessage } from 'react-intl';
 import { getRandomKey } from 'rc-editor-list/lib/utils';
 import { connect } from 'react-redux';
@@ -110,7 +117,7 @@ class MenuEditView extends React.PureComponent {
               <Button
                 size="small"
                 shape="circle"
-                icon="link"
+                icon={<LinkOutlined />}
               />
             </Popover>
           </div>
@@ -121,7 +128,7 @@ class MenuEditView extends React.PureComponent {
               }}
               size="small"
               shape="circle"
-              icon="delete"
+              icon={<DeleteOutlined />}
               disabled={currentEditTemplateData.children.length === 1}
             />
           </div>
@@ -131,7 +138,7 @@ class MenuEditView extends React.PureComponent {
     return (
       <div>
         <div style={{ marginBottom: 16 }}>
-          <Icon type="exclamation-circle" theme="outlined" />
+          <ExclamationCircleOutlined />
           {' '}
           <FormattedMessage id="app.state.menu.type-link.remark" />
           <br />
@@ -145,7 +152,7 @@ class MenuEditView extends React.PureComponent {
           key="list"
           dragElement={(
             <div className="sort-manage-icon">
-              <Icon type="bars" />
+              <BarsOutlined />
             </div>
           )}
           onChange={(e) => {
@@ -159,7 +166,7 @@ class MenuEditView extends React.PureComponent {
             onClick={() => {
               this.onAdd(ids, currentEditTemplateData);
             }}
-            icon="plus"
+            icon={<PlusOutlined />}
             type="primary"
           >
             <FormattedMessage id="app.common.add" />

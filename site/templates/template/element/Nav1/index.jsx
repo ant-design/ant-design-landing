@@ -1,7 +1,8 @@
 import React from 'react';
 import { findDOMNode } from 'react-dom';
 import TweenOne from 'rc-tween-one';
-import { Menu, Icon } from 'antd';
+import { Menu } from 'antd';
+import { QuestionCircleOutlined } from '@ant-design/icons';
 /* replace-start */
 import { polyfill } from 'react-lifecycles-compat';
 import './index.less';
@@ -92,7 +93,7 @@ class Header extends React.Component {
     navChildren.push(
       (
         <Item {...dataSource.help} key="help">
-          <Icon type="question-circle-o" />
+          <QuestionCircleOutlined />
           <span>
             {
               /* replace-start-value = dataSource.help.children */

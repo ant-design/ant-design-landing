@@ -1,5 +1,8 @@
 import React from 'react';
-import { Tooltip, Icon } from 'antd';
+import { Tooltip } from 'antd';
+import {
+  RollbackOutlined,
+} from '@ant-design/icons';
 import { FormattedMessage } from 'react-intl';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
@@ -70,12 +73,12 @@ class HistoryButton extends React.Component {
       <ul className="history-button-wrapper">
         <li className={undoClassName}>
           <Tooltip title={<FormattedMessage id="app.header.undo" />}>
-            <a onClick={(e) => { this.onHistoryClick(-1, e); }}><Icon type="rollback" /></a>
+            <a onClick={(e) => { this.onHistoryClick(-1, e); }}><RollbackOutlined /></a>
           </Tooltip>
         </li>
         <li className={redoClassName}>
           <Tooltip title={<FormattedMessage id="app.header.redo" />}>
-            <a onClick={(e) => { this.onHistoryClick(1, e); }}><Icon type="rollback" /></a>
+            <a onClick={(e) => { this.onHistoryClick(1, e); }}><RollbackOutlined /></a>
           </Tooltip>
         </li>
       </ul>

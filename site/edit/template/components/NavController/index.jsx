@@ -1,6 +1,15 @@
 /* eslint-disable no-console */
 import React from 'react';
-import { Icon, message, Button, Modal, Popconfirm, Tooltip } from 'antd';
+import { message, Button, Modal, Popconfirm, Tooltip } from 'antd';
+import Icon, {
+  LoadingOutlined,
+  SaveOutlined,
+  EyeOutlined,
+  CodeOutlined,
+  CloudUploadOutlined,
+  ToolOutlined,
+  ExclamationCircleOutlined,
+} from '@ant-design/icons';
 import CodeMirror from 'rc-editor-list/lib/components/common/CodeMirror';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import 'codemirror/mode/javascript/javascript.js';
@@ -28,10 +37,6 @@ class NavController extends React.PureComponent {
       code: JSON.stringify(props.templateData.data),
       publishModalShow: false,
     };
-  }
-
-  componentDidMount() {
-    this.props.form.validateFields();
   }
 
   onPreview = () => {
@@ -165,37 +170,40 @@ class NavController extends React.PureComponent {
     const menuChild = [
       {
         name: <FormattedMessage id="app.header.save" key="m" />,
-        icon: saveLoad ? 'loading' : 'save',
+        icon: saveLoad ? <LoadingOutlined /> : <SaveOutlined />,
         onClick: saveLoad ? null : (e) => this.onSave(e, 'menu'),
       },
       {
         name: <FormattedMessage id="app.header.preview" key="m" />,
-        icon: 'eye-o',
+        icon: <EyeOutlined />,
         onClick: this.onPreview,
       },
       {
         name: <FormattedMessage id="app.header.download" key="m" />,
-        icon: downloadLoad ? 'loading' : 'code-o',
+        icon: downloadLoad ? <LoadingOutlined /> : <CodeOutlined />,
         onClick: downloadLoad ? null : this.onSaveCode,
       },
       {
         name: <FormattedMessage id="app.header.publish-cloud" key="m" />,
-        icon: publishLoad ? 'loading' : 'cloud-upload',
+        icon: publishLoad ? <LoadingOutlined /> : <CloudUploadOutlined />,
         onClick: this.onUploadCloud,
       },
-      { name: <FormattedMessage id="app.header.edit-data" key="m" />, icon: 'tool', onClick: this.onChangeDataOpenModal },
+      {
+        name: <FormattedMessage id="app.header.edit-data" key="m" />,
+        icon: <ToolOutlined />,
+        onClick: this.onChangeDataOpenModal,
+      },
       {
         name: <FormattedMessage id="app.header.clear-cache" key="m" />,
-        component: () => RemoveLocalStorage('18'),
+        icon: <Icon component={() => RemoveLocalStorage('18')} />,
         onClick: this.onRemoveAllLocalStorage,
         tooltip: <FormattedMessage id="app.header.clear-exp" key="t" />,
       },
     ].map((item, i) => {
-      const iconProps = item.component ? { component: item.component } : { type: item.icon };
       let children = (
         <Tooltip title={item.name}>
           <a onClick={item.tooltip ? null : item.onClick} disabled={!item.onClick}>
-            <Icon {...iconProps} key="icon" />
+            {item.icon}
           </a>
         </Tooltip>
       );
@@ -242,7 +250,7 @@ class NavController extends React.PureComponent {
           onCancel={this.onChangeDataOpenModal}
         >
           <p style={{ marginBottom: 16 }}>
-            <Icon type="exclamation-circle" style={{ marginRight: 8 }} />
+            <ExclamationCircleOutlined style={{ marginRight: 8 }} />
             <FormattedMessage id="app.header.edit-data.remarks" />
           </p>
           <CodeMirror

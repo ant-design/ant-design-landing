@@ -104,6 +104,13 @@ class PublishModal extends React.Component {
   publishEnd = () => {
     this.setState({
       isLoad: false,
+      explain: [
+        <p key="0"><FormattedMessage id="app.header.publish-cloud.build" /></p>,
+        <p key="1">
+          <FormattedMessage id="app.header.publish-cloud.state" />
+          FORMAT
+        </p>,
+      ],
     });
     const currentBuild = store.get(buildId);
     const { templateData } = this.props;
@@ -203,7 +210,10 @@ class PublishModal extends React.Component {
           ],
         }),
       }).then((res) => res.json())
-        .then(({ id }) => {
+        .then(({ id, error }) => {
+          if (error) {
+            console.error('Error:', error.message);
+          }
           // 记录发布状态；
           const currentBuild = store.get(buildId) || {};
           currentBuild[templateData.uid] = id;

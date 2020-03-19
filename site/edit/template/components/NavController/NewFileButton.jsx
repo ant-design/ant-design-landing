@@ -1,6 +1,10 @@
 /* eslint-disable no-console */
 import React from 'react';
-import { Menu, Button, Icon, Dropdown, message } from 'antd';
+import { Menu, Button, Dropdown, message } from 'antd';
+import Icon, {
+  FileAddOutlined,
+  DeleteOutlined,
+} from '@ant-design/icons';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { polyfill } from 'react-lifecycles-compat';
 
@@ -122,7 +126,7 @@ class NewFileButton extends React.Component {
             }}
             size="small"
             shape="circle"
-            icon="delete"
+            icon={<DeleteOutlined />}
           />
         </span>
       </Item>
@@ -144,7 +148,7 @@ class NewFileButton extends React.Component {
     const menuNewDropdown = this.getNewMenu();
     const newIcon = (
       <a className="new-file-button" onClick={this.onClickNew}>
-        {this.props.children || <Icon type="file-add" />}
+        {this.props.children || <FileAddOutlined />}
       </a>
     );
     return menuNewDropdown ? (

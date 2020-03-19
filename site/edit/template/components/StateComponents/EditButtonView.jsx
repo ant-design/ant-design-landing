@@ -1,5 +1,8 @@
 import React from 'react';
-import { Icon, Button, Dropdown, Menu } from 'antd';
+import { Button, Dropdown, Menu } from 'antd';
+import {
+  DownOutlined,
+} from '@ant-design/icons';
 import classnames from 'classnames';
 
 import ImageComp from './ButtonViewComponent/ImageComp';
@@ -54,7 +57,7 @@ export default class EditButtonView extends React.PureComponent {
         >
           <Button type="primary" size="small" style={{ maxWidth: 150 }}>
             {this.getStr(currentData.dataId)}
-            <Icon type="down" />
+            <DownOutlined type="down" />
           </Button>
         </Dropdown>
       );

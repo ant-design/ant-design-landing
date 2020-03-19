@@ -1,7 +1,8 @@
 import React from 'react';
 import TweenOne from 'rc-tween-one';
 import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';
-import { Tabs, Icon, Row, Col } from 'antd';
+import { Tabs, Row, Col } from 'antd';
+import { Icon } from '@ant-design/compatible';
 /* replace-start-value = import { getChildrenToRender } from './utils'; */
 import { polyfill } from 'react-lifecycles-compat';
 import { getChildrenToRender } from '../../utils';

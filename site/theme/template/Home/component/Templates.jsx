@@ -1,6 +1,7 @@
 import React from 'react';
 import TweenOne, { TweenOneGroup } from 'rc-tween-one';
-import { Row, Col, Pagination, Icon } from 'antd';
+import { Row, Col, Pagination } from 'antd';
+import { EyeOutlined, EditOutlined, DownloadOutlined } from '@ant-design/icons';
 import QueueAnim from 'rc-queue-anim';
 import ScrollOverPack from 'rc-scroll-anim/lib/ScrollOverPack';
 import { FormattedMessage } from 'react-intl';
@@ -62,13 +63,13 @@ class Templates extends React.PureComponent {
               <Row className="handle">
                 <Col span={12}>
                   <a href={typeIsEdit ? getNewHref('7113', item.preview, false, '', false) : item.preview} target="_blank">
-                    <Icon type="eye-o" />
+                    <EyeOutlined />
                     <FormattedMessage id="app.home.preview" />
                   </a>
                 </Col>
                 <Col span={12}>
                   <a href={typeIsEdit ? getNewHref('7112', `cloneId=${item.templateId}`) : item.git} target="_blank">
-                    <Icon type={item.type} />
+                    {item.type === 'edit' ? <EditOutlined /> : <DownloadOutlined />}
                     <FormattedMessage id={`app.home.${item.type}`} />
                   </a>
                 </Col>

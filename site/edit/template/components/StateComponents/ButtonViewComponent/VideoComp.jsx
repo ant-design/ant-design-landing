@@ -1,5 +1,8 @@
 import React from 'react';
-import { Icon, Button, Popover, Input, Row, Col } from 'antd';
+import { Button, Popover, Input, Row, Col } from 'antd';
+import {
+  VideoCameraOutlined,
+} from '@ant-design/icons';
 import { FormattedMessage } from 'react-intl';
 import { isImg } from '../../../../../utils';
 
@@ -47,7 +50,7 @@ export default class VideoComp extends React.Component {
         trigger="click"
       >
         <Button type="primary" size="small">
-          <Icon type="video-camera" />
+          <VideoCameraOutlined />
         </Button>
       </Popover>
     );

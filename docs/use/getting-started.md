@@ -72,7 +72,8 @@ export const Banner00DataSource = {
 
 ```
 npm install antd enquire-js rc-queue-anim rc-scroll-anim rc-tween-one --save;
-npm install rc-banner-anim --save;// 如果用的是多屏滑动型的 banner，加上这条。
+npm install rc-banner-anim --save;// 如果用的是多屏滑动型的 banner，加上这条;
+npm install @ant-design/compatible --save;// 如果使用了 Content7 模块，请加上这条;
 ```
 
 ### 按需加载 ant design

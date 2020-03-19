@@ -26,10 +26,10 @@ export function formatCode({ code, cb, parser = 'babylon', key }) {
   });
 }
 
-export function hasErrors(fieldsError) {
+/* export function hasErrors(fieldsError) {
   return Object.keys(fieldsError).some((field) => fieldsError[field] && fieldsError[field][0] !== 'password error'
   );
-}
+} */
 
 export const getCurrentDom = (pos, data) => {
   const t = data.map((item) => {

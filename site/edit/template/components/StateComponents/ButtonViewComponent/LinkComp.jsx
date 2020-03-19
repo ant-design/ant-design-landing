@@ -1,5 +1,9 @@
 import React from 'react';
-import { Icon, Button, Popover, Input, Row, Col, Switch, Select, Tooltip } from 'antd';
+import { Button, Popover, Input, Row, Col, Switch, Select, Tooltip } from 'antd';
+import {
+  QuestionCircleOutlined,
+  LinkOutlined,
+} from '@ant-design/icons';
 import { FormattedMessage } from 'react-intl';
 
 const { Option } = Select;
@@ -59,7 +63,7 @@ export default class LinkComp extends React.Component {
                 </Col>
                 <Col span={2} style={{ lineHeight: '24px', textAlign: 'center' }}>
                   <Tooltip title={<FormattedMessage id="app.state.link.icon.remarks" />}>
-                    <Icon type="question-circle" />
+                    <QuestionCircleOutlined />
                   </Tooltip>
                 </Col>
               </Row>,
@@ -96,7 +100,7 @@ export default class LinkComp extends React.Component {
         trigger="click"
       >
         <Button type="primary" size="small" onClick={this.props.closeEditText}>
-          <Icon type="link" theme="outlined" />
+          <LinkOutlined />
         </Button>
       </Popover>
     );

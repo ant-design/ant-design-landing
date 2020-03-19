@@ -70,16 +70,21 @@ title:
 
 ```__react
 import React from 'react';
-import { Icon } from 'antd';
+import {
+  PictureOutlined,
+  PaperClipOutlined,
+  BarsOutlined,
+  VideoCameraOutlined,
+} from '@ant-design/icons';
 
 const iconData = [
-  { icon: 'T', isText: true, content: '编辑当前文字内容。' },
-  { icon: 'picture', content: '更改图片' },
-  { icon: 'Ty', isText: true, content: 'rc-texty 专属的编辑当前文字内容。' },
-  { icon: 'Icon', isText: true, content: 'ant deisgn icon 的编辑，只需输入 icon 的 type。' },
-  { icon: 'paper-clip', content: '编辑链接。' },
-  { icon: 'bars', content: '导航 Menu 编辑。' },
-  { icon: 'video-camera', content: 'video 地址编辑。' },
+  { icon: 'T', content: '编辑当前文字内容。' },
+  { icon: <PictureOutlined />, content: '更改图片' },
+  { icon: 'Ty', content: 'rc-texty 专属的编辑当前文字内容。' },
+  { icon: 'Icon', content: 'ant deisgn icon 的编辑，只需输入 icon 的 type。' },
+  { icon: <PaperClipOutlined />, content: '编辑链接。' },
+  { icon: <BarsOutlined />, content: '导航 Menu 编辑。' },
+  { icon: <VideoCameraOutlined />, content: 'video 地址编辑。' },
 ];
 
 function Demo() {
@@ -89,7 +94,7 @@ function Demo() {
         {iconData.map((item, i) => (
           <li key={i.toString()}>
             <span className="edit-icon-demo">
-            {item.isText ? item.icon : <Icon type={item.icon} />}
+            {item.icon}
             </span>
             {' '}
             {item.content}

@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { polyfill } from 'react-lifecycles-compat';
-import { Icon, Button } from 'antd';
+import { Button } from 'antd';
+import { BarsOutlined, DeleteOutlined, UpOutlined, DownOutlined } from '@ant-design/icons';
 import { FormattedMessage } from 'react-intl';
 import dragula from 'dragula';
 
@@ -532,12 +533,15 @@ class EditStateController extends React.Component {
   getFuncIconChild = (i, dataArray, key) => {
     return ['up', 'down', 'delete'].map((type) => {
       let disabled = false;
+      let child = <DeleteOutlined />;
       switch (type) {
         case 'up':
           disabled = !i;
+          child = <UpOutlined />;
           break;
         case 'down':
           disabled = i === dataArray.length - 1;
+          child = <DownOutlined />;
           break;
         default:
           disabled = dataArray.length === 1;
@@ -550,7 +554,7 @@ class EditStateController extends React.Component {
           key={type}
           onClick={(e) => { this.onFuncClick(type, key, e); }}
         >
-          <Icon type={type} />
+          {child}
         </Button>
       );
     });
@@ -602,7 +606,7 @@ class EditStateController extends React.Component {
           className="overlay-elem"
         >
           <div className="drag-hints">
-            <Icon type="bars" />
+            <BarsOutlined />
             {' '}
             <FormattedMessage id="app.state.drag" />
           </div>

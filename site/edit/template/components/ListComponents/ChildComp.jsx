@@ -1,5 +1,11 @@
 import React from 'react';
-import { Collapse, Button, Row, Col, Icon, Select } from 'antd';
+import { Collapse, Button, Row, Col, Select } from 'antd';
+import {
+  ExclamationCircleOutlined,
+  PlusOutlined,
+  BarsOutlined,
+  DeleteOutlined,
+} from '@ant-design/icons';
 import { getRandomKey } from 'rc-editor-list/lib/utils';
 import { FormattedMessage } from 'react-intl';
 import ListSort from '../StateComponents/ListSort';
@@ -139,7 +145,7 @@ export default class ChildComp extends React.Component {
               }}
               size="small"
               shape="circle"
-              icon="delete"
+              icon={<DeleteOutlined />}
               disabled={currentEditTemplateData[childKey].length === 1}
             />
           </div>
@@ -162,7 +168,7 @@ export default class ChildComp extends React.Component {
                 key="list"
                 dragElement={(
                   <div className="sort-manage-icon">
-                    <Icon type="bars" />
+                    <BarsOutlined />
                   </div>
                 )}
                 onChange={(e) => {
@@ -190,7 +196,7 @@ export default class ChildComp extends React.Component {
             </Row>
           ) : (
             <div style={{ margin: '8px 0' }}>
-              <Icon type="exclamation-circle" />
+              <ExclamationCircleOutlined />
               {' '}
               <FormattedMessage id="app.edit.children.remarks" />
             </div>
@@ -203,7 +209,7 @@ export default class ChildComp extends React.Component {
                 }}
                 className="add-button"
               >
-                <Icon type="plus" />
+                <PlusOutlined />
               </a>
             </Col>
           </Row>

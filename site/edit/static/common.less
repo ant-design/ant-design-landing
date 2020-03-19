@@ -4,6 +4,24 @@ body {
   color: @edit-text-color;
 }
 
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}
+
 .gu-mirror {
   position: fixed !important;
   margin: 0 !important;
@@ -11,13 +29,16 @@ body {
   opacity: 0.8;
   background: fade(@primary-color, 70);
   pointer-events: none;
+
   >div,
   >p {
     display: none;
   }
+
   >.img {
     display: block;
   }
+
   &.img-wrapper {
     background: none;
   }
@@ -36,6 +57,7 @@ body {
 
 .gu-transit {
   background: fade(@primary-color, 35);
+
   >p {
     display: none;
   }

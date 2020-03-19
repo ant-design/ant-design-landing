@@ -2,7 +2,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as r from 'ramda';
-import { Icon, Button, Form, Modal, Input, Tooltip, message, notification } from 'antd';
+import { Button, Form, Modal, Input, Tooltip, message, notification } from 'antd';
+import {
+  ProfileOutlined,
+  ExperimentOutlined,
+  ExclamationCircleOutlined,
+  QuestionCircleOutlined,
+  LoadingOutlined,
+  CloudUploadOutlined,
+} from '@ant-design/icons';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import ticker from 'rc-tween-one/lib/ticker';
 import store from 'store';
@@ -48,6 +56,11 @@ const remarks = {
   ),
 };
 
+const layout = {
+  labelCol: { span: 24 },
+  wrapperCol: { span: 24 },
+};
+
 class PublishModal extends React.Component {
   state = {
     isLoad: false,
@@ -55,7 +68,7 @@ class PublishModal extends React.Component {
       <p key="0"><FormattedMessage id="app.header.publish-cloud.build" /></p>,
       <p key="1">
         <FormattedMessage id="app.header.publish-cloud.state" />
-         FORMAT
+        FORMAT
       </p>,
     ],
   };
@@ -72,30 +85,32 @@ class PublishModal extends React.Component {
     }
   }
 
-  onClick = (e) => {
-    e.preventDefault();
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        const { templateData } = this.props;
-        templateData.data.page = values;
-        if (!location.port && window.gtag) {
-          window.gtag('event', 'save_publish');
-        }
-        this.setState({
-          isLoad: true,
-        }, () => {
-          this.props.onSave(e, 'modal', templateData, () => {
-            this.props.changePublishState(true);
-            this.onPublish(templateData, values);
-          });
-        });
-      }
+  onClick = (values) => {
+    const { templateData } = this.props;
+    templateData.data.page = values;
+    if (!location.port && window.gtag) {
+      window.gtag('event', 'save_publish');
+    }
+    this.setState({
+      isLoad: true,
+    }, () => {
+      this.props.onSave(null, 'modal', templateData, () => {
+        this.props.changePublishState(true);
+        this.onPublish(templateData, values);
+      });
     });
   }
 
   publishEnd = () => {
     this.setState({
       isLoad: false,
+      explain: [
+        <p key="0"><FormattedMessage id="app.header.publish-cloud.build" /></p>,
+        <p key="1">
+          <FormattedMessage id="app.header.publish-cloud.state" />
+          FORMAT
+        </p>,
+      ],
     });
     const currentBuild = store.get(buildId);
     const { templateData } = this.props;
@@ -195,9 +210,12 @@ class PublishModal extends React.Component {
           ],
         }),
       }).then((res) => res.json())
-        .then(({ id }) => {
+        .then(({ id, error }) => {
+          if (error) {
+            console.error('Error:', error.message);
+          }
           // 记录发布状态；
-          const currentBuild = store.get(buildId);
+          const currentBuild = store.get(buildId) || {};
           currentBuild[templateData.uid] = id;
           store.set(buildId, currentBuild);
           this.onMonitorPublishState(id);
@@ -207,8 +225,7 @@ class PublishModal extends React.Component {
   }
 
   render() {
-    const { templateData, location, onSave, changePublishState, form, ...props } = this.props;
-    const { getFieldDecorator } = form;
+    const { templateData, location, onSave, changePublishState, ...props } = this.props;
     const { isLoad, explain } = this.state;
     const locale = isZhCN(location.pathname) ? 'zh-CN' : 'en-US';
     const page = templateData.data.page || {};
@@ -236,50 +253,54 @@ class PublishModal extends React.Component {
               <FormattedMessage id="app.header.publish-cloud.explain" />
             </h3>
             <p>
-              <Icon type="profile" />
+              <ProfileOutlined />
               {' '}
               {remarks[locale]}
             </p>
             <p style={{ margin: '8px 0' }}>
-              <Icon type="experiment" />
+              <ExperimentOutlined />
               {' '}
               <FormattedMessage id="app.header.publish-cloud.remarks" />
             </p>
             <p>
-              <Icon type="exclamation-circle" />
+              <ExclamationCircleOutlined />
               {' '}
               <FormattedMessage id="app.header.publish-cloud.remarks2" />
             </p>
             <h3 style={{ marginTop: 16 }}>
               <FormattedMessage id="app.header.publish-cloud.meta" />
             </h3>
-            <Form onSubmit={this.onClick} className="modal-form">
-              <Item label="Title">
-                {getFieldDecorator('title', {
-                  initialValue: page.title,
-                })(<Input />)}
+            <Form
+              {...layout}
+              onFinish={this.onClick}
+              className="modal-form"
+              initialValues={{
+                title: page.title,
+                description: page.description,
+                favicon: page.favicon,
+              }}
+            >
+              <Item label="Title" name="title">
+                <Input />
               </Item>
-              <Item label="Description">
-                {getFieldDecorator('description', {
-                  initialValue: page.description,
-                })(<TextArea />)}
+              <Item label="Description" name="description">
+                <TextArea />
               </Item>
               <Item
                 label={(
                   <span>
-                      Favicon (ico, png or jpg)
+                    Favicon (ico, png or jpg)
                     <Tooltip title={<FormattedMessage id="app.header.publish-cloud.favicon" />}>
-                      <Icon type="question-circle" style={{ margin: '0 8px' }} />
+                      <QuestionCircleOutlined style={{ margin: '0 8px' }} />
                     </Tooltip>
                   </span>
                   )}
+                name="favicon"
               >
-                {getFieldDecorator('favicon', {
-                  initialValue: page.favicon,
-                })(<Input />)}
+                <Input />
               </Item>
               <Item style={{ marginTop: 16 }}>
-                <Button disabled={isLoad} type="primary" icon={isLoad ? 'loading' : 'cloud-upload'} htmlType="submit">
+                <Button disabled={isLoad} type="primary" icon={isLoad ? <LoadingOutlined /> : <CloudUploadOutlined />} htmlType="submit">
                   <FormattedMessage id="app.header.publish-cloud.button" />
                 </Button>
 
@@ -300,5 +321,4 @@ class PublishModal extends React.Component {
 
 export default r.compose(
   connect(),
-  Form.create({ name: 'form_modal' }),
 )(injectIntl(PublishModal));

@@ -35,12 +35,7 @@ export const getChildrenToRender = (item, i) => {
 };
 `;
 
-const publishJSON = [
-  {
-    file: 'pages/index.js',
-    data: 'import React from \'react\';\nimport Home from \'../components/index\';\n\nexport default () => <Home />;',
-  },
-];
+let publishJSON;
 
 const setScrollScreen = () => {
   const str = `// 实现整屏滚动
@@ -241,6 +236,12 @@ export function saveJsZip(templateData, callBack, getJSON) {
       documentation: otherComp.documentation,
     },
   };
+  publishJSON = [
+    {
+      file: 'pages/index.js',
+      data: 'import React from \'react\';\nimport Home from \'../components/index\';\n\nexport default () => <Home />;',
+    },
+  ];
   const { data } = templateData;
   const { config, style, template, other } = data;
   templateStrObj.TEMPLATE = template;
@@ -266,7 +267,7 @@ export function saveJsZip(templateData, callBack, getJSON) {
           if (startSpanMatch && tagIsSpanMatch.length === 1) {
             return s1;
           } */
-          return `<>${s1.replace(/\{/g, '&#123;').replace(/\}/g, '&#125;')}</>`;
+          return `${s1.replace(/\{/g, '&#123;').replace(/\}/g, '&#125;')}`;
         })
         .replace(/\\"/g, '"')}`;
     promiseObject[`PROPS-${key}`] = { value: props };

@@ -101,10 +101,12 @@ class Layout extends React.Component {
 
   messageHandle = (e) => {
     // FIXME: need much better assert condition
+    console.log('预览页接收:', e.data);
     if (e.data.type && e.data.type.indexOf('webpack') === -1 && e.data.uid) {
       /* Object.keys(localStorage).forEach((key) => {
         localStorage.removeItem(key);
       }); */
+      console.log('预览页接收成功:', e.data);
       ls.saveTemplate({
         id: e.data.uid,
         attributes: e.data.data,

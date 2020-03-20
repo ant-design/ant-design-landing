@@ -29,6 +29,7 @@ class Iframe extends React.Component {
       && this.iframe.contentWindow
       && this.iframe.contentWindow.postMessage) {
       // 与 iframe 通信；
+      console.log('与 iframe 通信成功', templateData);
       this.iframe.contentWindow.postMessage(templateData, '*');
     }
   }

@@ -24,19 +24,19 @@ class Iframe extends React.Component {
 
   updatePost({ templateData }) {
     const { type } = templateData;
-    console.log('数据加载状态:', templateData.type);
+    // console.log('数据加载状态:', templateData.type);
     if (type === 'success'
       && this.iframe.contentWindow
       && this.iframe.contentWindow.postMessage) {
       // 与 iframe 通信；
-      console.log('与 iframe 通信成功', templateData);
+      // console.log('与 iframe 通信成功', templateData);
       this.iframe.contentWindow.postMessage(templateData, '*');
     }
   }
 
   getData = () => {
     const { dispatch, templateData } = this.props;
-    console.log('iframe 加载状态:', templateData.type);
+    // console.log('iframe 加载状态:', templateData.type);
     if (templateData.type === 'success') {
       this.updatePost(this.props);
     } else {

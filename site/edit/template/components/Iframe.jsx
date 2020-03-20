@@ -24,6 +24,7 @@ class Iframe extends React.Component {
 
   updatePost({ templateData }) {
     const { type } = templateData;
+    console.log('数据加载状态:', templateData.type);
     if (type === 'success'
       && this.iframe.contentWindow
       && this.iframe.contentWindow.postMessage) {
@@ -34,6 +35,7 @@ class Iframe extends React.Component {
 
   getData = () => {
     const { dispatch, templateData } = this.props;
+    console.log('iframe 加载状态:', templateData.type);
     if (templateData.type === 'success') {
       this.updatePost(this.props);
     } else {

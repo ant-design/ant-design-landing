@@ -2492,24 +2492,24 @@ h6 {
   line-height: 16px;
   color: #fff;
 }
-.edit-influence .ant-select .ant-select-selector {
+.edit-influence .ant-select.ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
   background: transparent;
   border: none;
   border-radius: 0;
 }
-.edit-influence .ant-select .ant-select-selector:focus {
+.edit-influence .ant-select.ant-select-single:not(.ant-select-customize-input) .ant-select-selector:focus {
   box-shadow: none;
 }
-.edit-influence .ant-select .ant-select-selector--single {
+.edit-influence .ant-select.ant-select-single:not(.ant-select-customize-input) .ant-select-selector--single {
   height: 16px;
 }
-.edit-influence .ant-select .ant-select-selector__rendered {
+.edit-influence .ant-select.ant-select-single:not(.ant-select-customize-input) .ant-select-selector__rendered {
   line-height: 16px;
 }
-.edit-influence .ant-select .ant-select-selector-selected-value {
+.edit-influence .ant-select.ant-select-single:not(.ant-select-customize-input) .ant-select-selector-selected-value {
   padding-right: 16px;
 }
-.edit-influence .ant-select .ant-select-selector-selected-value span {
+.edit-influence .ant-select.ant-select-single:not(.ant-select-customize-input) .ant-select-selector-selected-value span {
   font-size: 12px;
 }
 .edit-influence .ant-select-arrow {

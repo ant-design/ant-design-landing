@@ -15,7 +15,9 @@ import ListSort from './ListSort';
 
 export default class SwitchSlideView extends React.Component {
   componentDidUpdate() {
-    this.pop.tooltip.tooltip.trigger.forcePopupAlign();
+    if (this.pop.tooltip.tooltip.trigger && this.pop.tooltip.tooltip.trigger.forcePopupAlign) {
+      this.pop.tooltip.tooltip.trigger.forcePopupAlign();
+    }
   }
 
   getCurrentDataSource = (props) => {

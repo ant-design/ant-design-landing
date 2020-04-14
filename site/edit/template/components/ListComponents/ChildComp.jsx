@@ -161,7 +161,7 @@ export default class ChildComp extends React.Component {
           key="1"
         >
           <Row gutter={8}>
-            <Col>
+            <Col span={24}>
               <ListSort
                 dragClassName="list-drag-selected"
                 className="sort-manage-list"
@@ -202,7 +202,7 @@ export default class ChildComp extends React.Component {
             </div>
           )}
           <Row gutter={8}>
-            <Col>
+            <Col span={24}>
               <a
                 onClick={() => {
                   this.onAdd(ids, currentEditTemplateData, childKey);

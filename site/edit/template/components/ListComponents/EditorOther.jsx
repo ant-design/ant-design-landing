@@ -169,14 +169,14 @@ class EditorOther extends React.PureComponent {
         );
         return [
           <Row gutter={8} key={`${item.name}-1`}>
-            <Col>
+            <Col span={24}>
               {item.name}
               {' '}
               {tip}
             </Col>
           </Row>,
           <Row gutter={8} key={`${item.name}-2`}>
-            <Col>
+            <Col span={24}>
               {compChild}
             </Col>
           </Row>,
@@ -189,7 +189,7 @@ class EditorOther extends React.PureComponent {
           {getDataChildren(item.children, item.type, item.key)}
           {item.demo && (
             <Row gutter={8} key={`${item.name}-3`}>
-              <Col>
+              <Col span={24}>
                 <div className="other-demo">
                   {
                     item.demo.match(/\.(mp4|webm|ogg)$/)

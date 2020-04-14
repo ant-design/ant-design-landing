@@ -1,6 +1,5 @@
 .@{editorList} .ant-collapse,
 .editor-list-popover .ant-popover-inner {
-
   .icon {
     font-size: 16px;
     height: 22px;
@@ -36,7 +35,7 @@
   .ant-input-number,
   .ant-input {
     width: 100%;
-    background: transparent;
+    background: @bgColor;
     border-color: @input-line-color;
     color: @edit-list-text-color;
 
@@ -46,7 +45,7 @@
     }
 
     input {
-      background: transparent !important;
+      background: @bgColor !important;
       color: @edit-list-text-color;
       border-color: @input-line-color;
     }
@@ -83,45 +82,57 @@
 
   .ant-select {
     width: 100%;
+  }
+  .ant-select-single.ant-select-sm:not(.ant-select-customize-input).ant-select-show-arrow .ant-select-selection-item {
+    padding-left: 8px;
+  }
+  .ant-select-single:not(.ant-select-customize-input) .ant-select-selector,
+  .ant-select,
+  .ant-select-selection, .ant-select-auto-complete.ant-select {
+    background: @bgColor;
+    color: @edit-list-text-color;
+    border-color: @input-line-color;
 
-    &-selection {
+    &:hover,
+    &:focus {
+      border-color: @input-line-color-hover;
+    }
+
+    .ant-select-selection-selected-value {
+      padding-right: 8px;
+    }
+
+    .ant-select-arrow {
+      right: 4px;
+      color: @edit-list-text-color;
+    }
+
+    input {
+      padding: 0 7px;
+
+      &:hover,
+      &:focus,
+      &-focused {
+        box-shadow: none;
+      }
+    }
+
+    &__choice {
       background: transparent;
       color: @edit-list-text-color;
       border-color: @input-line-color;
 
-      &:hover,
-      &:focus {
-        border-color: @input-line-color-hover;
-      }
-
-      .ant-select-selection-selected-value {
-        padding-right: 8px;
-      }
-
-      .ant-select-arrow {
-        right: 4px;
+      &__remove {
         color: @edit-list-text-color;
       }
+    }
+  }
 
-      input {
-        padding: 1px 7px;
-
-        &:hover,
-        &:focus,
-        &-focused {
-          box-shadow: none;
-        }
-      }
-
-      &__choice {
-        background: transparent;
-        color: @edit-list-text-color;
-        border-color: @input-line-color;
-
-        &__remove {
-          color: @edit-list-text-color;
-        }
-      }
+  .ant-select-single .ant-select-selector {
+    padding: 0;
+    .ant-select-selection-search {
+      left: 0;
+      right: 0;
     }
   }
 
@@ -143,7 +154,6 @@
     background: transparent;
 
     .ant-input-number-handler {
-
       .ant-input-number-handler-up-inner,
       .ant-input-number-handler-down-inner {
         color: @edit-list-text-color;
@@ -167,7 +177,7 @@
     color: @input-line-color-hover !important;
     background: @heiColor;
     border-color: @input-line-color-hover !important;
-    box-shadow: -1px 0 0 0 @input-line-color-hover;
+    // box-shadow: -1px 0 0 0 @input-line-color-hover;
   }
 
   .ant-radio-button-wrapper:not(:first-child)::before {
@@ -207,7 +217,8 @@
     color: @edit-list-text-color;
     font-size: 24px;
     box-shadow: 0 0 0 fade(#000, 0);
-    transition: transform .3s @ease-out, box-shadow .3s @ease-out, color .3s @ease-out, background .3s @ease-out;
+    transition: transform 0.3s @ease-out, box-shadow 0.3s @ease-out,
+      color 0.3s @ease-out, background 0.3s @ease-out;
 
     &:hover {
       transform: translateY(-2px) scale(1.01);

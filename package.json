@@ -22,7 +22,7 @@
     "rc-animate": "^2.4.4",
     "rc-banner-anim": "^2.1.0",
     "rc-drawer": "^3.0.2",
-    "rc-editor-list": "^1.6.0",
+    "rc-editor-list": "^2.0.1",
     "rc-queue-anim": "^1.6.0",
     "rc-scroll-anim": "^2.5.0",
     "rc-texty": "^0.2.0",
@@ -36,7 +36,7 @@
   "devDependencies": {
     "antd-tools": "^7.0.0",
     "babel-eslint": "^10.0.1",
-    "bisheng": "^1.0.1",
+    "bisheng": "~1.4.0",
     "bisheng-plugin-antd": "^1.0.0",
     "bisheng-plugin-description": "^0.1.4",
     "bisheng-plugin-react": "^1.0.0",

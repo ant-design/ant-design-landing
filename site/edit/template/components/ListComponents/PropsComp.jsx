@@ -253,7 +253,7 @@ export default class PropsComp extends React.Component {
     });
     return (
       <Row className="child-wrapper">
-        <Col>
+        <Col span={24}>
           <ListSort
             dragClassName="list-drag-selected"
             className="sort-manage-list"
@@ -271,7 +271,7 @@ export default class PropsComp extends React.Component {
           </ListSort>
         </Col>
         <Row gutter={8} style={{ marginTop: 8 }}>
-          <Col>
+          <Col span={24}>
             <a
               onClick={() => {
                 this.onAdd(value, key, func, { template, join, parentKey });
@@ -301,7 +301,7 @@ export default class PropsComp extends React.Component {
       if (key === 'remark') {
         return (
           <Row key="remark">
-            <Col>
+            <Col span={24}>
               <WarningOutlined style={{ marginRight: 4 }} />
               {' '}
               {defaultData}
@@ -325,13 +325,13 @@ export default class PropsComp extends React.Component {
       );
       return [
         <Row gutter={8} key={`${defaultData.name}-1`}>
-          <Col>
+          <Col span={24}>
             {defaultData.name}
             {tip}
           </Col>
         </Row>,
         <Row gutter={8} key={`${defaultData.name}-2`}>
-          <Col>
+          <Col span={24}>
             {compChild}
           </Col>
         </Row>,

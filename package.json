@@ -19,7 +19,7 @@
     "query-string": "^6.8.2",
     "ramda": "^0.27.0",
     "raw-loader": "^4.0.0",
-    "rc-animate": "^2.4.4",
+    "rc-animate": "^3.0.0",
     "rc-banner-anim": "^2.1.0",
     "rc-drawer": "^3.0.2",
     "rc-editor-list": "^2.0.1",

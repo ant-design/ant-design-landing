@@ -11,28 +11,40 @@ import './index.less';
 
 class Pricing1 extends React.PureComponent {
   getChildrenToRender = (item) => {
-    const { wrapper, topWrapper, name, buttonWrapper, line, content, money } = item.children;
+    const {
+      wrapper,
+      topWrapper,
+      name,
+      buttonWrapper,
+      line,
+      content,
+      money,
+    } = item.children;
     return (
       <Col
         key={item.name}
         {...item}
         /* replace-start */
         data-edit="Col"
-      /* replace-end */
+        /* replace-end */
       >
         <QueueAnim type="bottom" {...wrapper}>
           <div {...topWrapper}>
             <div {...name} key="name">
               {
                 /* replace-start-value = name.children */
-                React.createElement('span', { dangerouslySetInnerHTML: { __html: name.children } })
+                React.createElement('span', {
+                  dangerouslySetInnerHTML: { __html: name.children },
+                })
                 /* replace-end-value */
               }
             </div>
             <h1 {...money} key="money">
               {
                 /* replace-start-value = money.children */
-                React.createElement('span', { dangerouslySetInnerHTML: { __html: money.children } })
+                React.createElement('span', {
+                  dangerouslySetInnerHTML: { __html: money.children },
+                })
                 /* replace-end-value */
               }
             </h1>
@@ -40,7 +52,9 @@ class Pricing1 extends React.PureComponent {
           <div {...content} key="content">
             {
               /* replace-start-value = content.children */
-              React.createElement('span', { dangerouslySetInnerHTML: { __html: content.children } })
+              React.createElement('span', {
+                dangerouslySetInnerHTML: { __html: content.children },
+              })
               /* replace-end-value */
             }
           </div>
@@ -50,13 +64,21 @@ class Pricing1 extends React.PureComponent {
               {...buttonWrapper.children.a}
               /* replace-start */
               data-edit="link,text"
-            /* replace-end */
-            />
+              /* replace-end */
+            >
+              {
+                /* replace-start-value = buttonWrapper.children.a.children */
+                React.createElement('span', {
+                  dangerouslySetInnerHTML: { __html: buttonWrapper.children.a.children },
+                })
+                /* replace-end-value */
+              }
+            </Button>
           </div>
         </QueueAnim>
       </Col>
     );
-  }
+  };
 
   render() {
     const { ...props } = this.props;
@@ -66,21 +88,16 @@ class Pricing1 extends React.PureComponent {
     const { block } = dataSource;
     const childrenToRender = block.children.map(this.getChildrenToRender);
     return (
-      <div
-        {...props}
-        {...dataSource.wrapper}
-      >
+      <div {...props} {...dataSource.wrapper}>
         <div {...dataSource.page}>
           <div
             key="title"
             {...dataSource.titleWrapper}
             /* replace-start */
             data-edit="titleWrapper"
-          /* replace-end */
+            /* replace-end */
           >
-            {
-              dataSource.titleWrapper.children.map(getChildrenToRender)
-            }
+            {dataSource.titleWrapper.children.map(getChildrenToRender)}
           </div>
           <OverPack {...dataSource.OverPack}>
             <QueueAnim
@@ -91,7 +108,7 @@ class Pricing1 extends React.PureComponent {
               key="content"
               /* replace-start */
               data-edit="Row"
-            /* replace-end */
+              /* replace-end */
             >
               {childrenToRender}
             </QueueAnim>

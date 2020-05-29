@@ -12,14 +12,14 @@ enquireScreen((b) => {
   isMobile = b;
 });
 
-const { location } = window;
+const { location = {} } = typeof window !== 'undefined' ? window : {};
 
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isMobile,
-      show: !location.port,// 如果不是 dva 2.0 请删除  
+      show: !location.port,// 如果不是 dva 2.0 请删除
     };
   }
 

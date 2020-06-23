@@ -133,17 +133,18 @@ class Feature6 extends React.PureComponent {
         );
       });
       return (
-        <QueueAnim
-          type="bottom"
-          component={Row}
-          {...itemProps}
-          /* replace-start */
-          data-edit="Row"
-          /* replace-end */
-          key={ii.toString()}
-        >
-          {childrenItem}
-        </QueueAnim>
+        <div key={ii.toString()}>
+          <QueueAnim
+            type="bottom"
+            component={Row}
+            {...itemProps}
+            /* replace-start */
+            data-edit="Row"
+            /* replace-end */
+          >
+            {childrenItem}
+          </QueueAnim>
+        </div>
       );
     });
 

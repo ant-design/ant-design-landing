@@ -1,9 +1,7 @@
 ---
 order: 1
-category:
-  en-US: Tutorial
-title:
-  en-US: Use in create-react-app
+category: Tutorial
+title: Use in create-react-app
 ---
 
 [create-react-app](https://github.com/facebookincubator/create-react-app) is one of the best tools for React development in the industry. This article shows how to use Ant Design Landing templates inside a project created with create-react-app.
@@ -192,7 +190,7 @@ class App extends Component {
     };
   }
   componentDidMount() {
-    // 适配手机屏幕;
+    // Support for mobile resolutions
     enquireScreen((b) => {
       this.setState({ isMobile: !!b });
     });

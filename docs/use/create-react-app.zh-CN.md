@@ -1,9 +1,7 @@
 ---
 order: 1
-category:
-  zh-CN: 使用教程
-title:
-  zh-CN: create-react-app 里使用
+category: 使用教程
+title: create-react-app 里使用
 ---
 
 [create-react-app](https://github.com/facebookincubator/create-react-app) 是业界最优秀的 React 应用开发工具之一，本文会在 create-react-app 创建的工程中使用 Ant Design Landing 的模板。

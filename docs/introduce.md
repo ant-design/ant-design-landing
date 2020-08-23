@@ -17,7 +17,7 @@ title:
   </div>
 </div>
 
-Ant Design Landing 是针对产品首页的解决方案，我们秉承 [Ant Design](https://ant.design) 的 [设计价值观](https://ant.design/docs/spec/introduce-cn)，延用 [Ant Design](https://ant.design) 的 [设计原则](http://ant.design/docs/spec/proximity-cn)，可以快速搭建出你想要的首页，进一步提升你的工作效率。随着『设计者』的不断反馈，我们将持续迭代，逐步沉淀和总结出更多首页模块的代码实现，阐述首页(Landing page)的最佳实践，也十分期待你的参与和共建。
+Ant Design Landing is a solution focusing on product homepages. We uphold the [design value](http://ant.design/docs/spec/proximity-cn) and extend the [design principle](https://ant.design/docs/spec/introduce-cn) of [Ant Design](https://ant.design) which allows you to create your desired homepage quickly and improve your work efficiency. With constant feedback from designers, we will continuously improve and iterate and come up with more and better homepage modules, while using the best practices of landing page. We look forward to your participation and collaboration.
 
 ## 作用
 

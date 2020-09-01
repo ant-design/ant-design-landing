@@ -79,5 +79,4 @@ class Content10 extends React.PureComponent {
   }
 }
 
-
 export default Content10;

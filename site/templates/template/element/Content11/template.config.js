@@ -2,7 +2,6 @@ import component from './index';
 import less from '!raw-loader!./index.less';
 import templateStr from '!raw-loader!./index';
 
-
 export default {
   component,
   templateStr,

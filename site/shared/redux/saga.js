@@ -87,7 +87,6 @@ function* handleGetUserData(action) {
 
     saveTemplateToLocalStorage(DEFAULT_USER_NAME, template);
 
-
     yield put({
       type: POST_TYPE.POST_SUCCESS,
       templateData: ls.getTemplate(uid),

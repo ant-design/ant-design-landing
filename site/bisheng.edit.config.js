@@ -1,4 +1,3 @@
-
 const commonConfig = require('./bisheng.common.config');
 
 module.exports = { source: {},

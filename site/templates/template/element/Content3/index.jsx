@@ -115,5 +115,4 @@ class Content3 extends React.PureComponent {
   }
 }
 
-
 export default Content3;

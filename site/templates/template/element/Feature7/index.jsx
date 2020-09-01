@@ -10,7 +10,6 @@ import { getChildrenToRender } from '../../utils';
 import './index.less';
 /* replace-end */
 
-
 function Feature7(props) {
   const { dataSource, isMobile, ...tagProps } = props;
   const { blockWrapper, titleWrapper } = dataSource;

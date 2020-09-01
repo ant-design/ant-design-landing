@@ -74,5 +74,4 @@ class Content12 extends React.PureComponent {
   }
 }
 
-
 export default Content12;

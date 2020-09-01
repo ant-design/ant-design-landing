@@ -34,7 +34,6 @@ class HistoryButton extends React.Component {
       noHistory: 'handle',
     }));
 
-
     if (reRect) {
       reRect();
     }

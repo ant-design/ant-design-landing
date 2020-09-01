@@ -79,5 +79,4 @@ class Teams2 extends React.PureComponent {
   }
 }
 
-
 export default Teams2;

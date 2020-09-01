@@ -67,5 +67,4 @@ class Teams1 extends React.PureComponent {
   }
 }
 
-
 export default Teams1;

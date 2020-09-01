@@ -47,7 +47,6 @@ export function deepCopy(data) {
   return obj;
 }
 
-
 function mergeDataToChild(newData, _data, useDelete) {
   if (!newData) {
     return _data;
@@ -81,7 +80,6 @@ export function mergeEditDataToDefault(newData, defaultData, useDelete) {
 }
 
 export const mdId = {};
-
 
 export function getNewHref(port, hash, remHash, $path = '', setLocal = true) {
   const winLocation = window.location;
@@ -166,7 +164,6 @@ export const setDataSourceValue = (ids, key, value, newData) => {
   const data = getDataSourceValue(ids[1], newData, [ids[0], 'dataSource']);
   data[key] = value;
 };
-
 
 export const RemoveLocalStorage = (width = '18') => (
   <svg viewBox="0 0 1024 1024" width={width} fill="currentColor">

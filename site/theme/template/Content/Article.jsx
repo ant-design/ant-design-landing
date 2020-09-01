@@ -44,7 +44,6 @@ class Article extends React.PureComponent {
     return React.createElement(Anchor.Link, { ...children.props, title: children.props.children }, null);
   });
 
-
   render() {
     const { utils, intl: { locale }, content } = this.props;
     const { meta, description } = content;

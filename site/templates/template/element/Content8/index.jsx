@@ -98,5 +98,4 @@ class Content8 extends React.PureComponent {
   }
 }
 
-
 export default Content8;

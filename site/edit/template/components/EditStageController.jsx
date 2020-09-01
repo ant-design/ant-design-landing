@@ -187,7 +187,6 @@ class EditStateController extends React.Component {
     item.dataId === this.currentData.dataId
   ))[0];
 
-
   wrapperMove = (e) => {
     if (this.state.openEditText) {
       return;

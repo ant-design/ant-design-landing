@@ -48,7 +48,6 @@ const setScrollScreen = () => {
     */`);
 };
 
-
 const getEditCss = (dataArray) => {
   let cssStr = '';
   let mobileCssStr = '';

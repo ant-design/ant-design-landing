@@ -1,4 +1,3 @@
-
 module.exports = {
   locale: 'en-US',
   messages: {
@@ -30,6 +29,7 @@ module.exports = {
     'app.footer.motion': 'Motion Solution',
     'app.footer.kitchen': 'Sketch Toolkit',
     'app.footer.umi': 'React Application Framework',
+    'app.footer.dumi': 'Component doc generator',
     'app.footer.dva': 'Data Flow Framework',
     'app.footer.antd-library': 'Axure library',
     'app.footer.design-platform': 'Ant Financial Design Platform',

@@ -270,7 +270,6 @@ class ListSort extends React.Component {
     const childStyle = this.state.childStyle;
     let animation = this.state.animation;
 
-
     if (this.props.animType === 'x') {
       // 懒得写现在没用。。。做成组件后加
       childStyle[this.index].left = (this.mouseXY.x - this.mouseXY.startX) + this.mouseXY.left;

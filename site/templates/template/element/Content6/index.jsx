@@ -41,7 +41,6 @@ class Content7 extends React.Component {
     );
   });
 
-
   render() {
     const { ...props } = this.props;
     const { dataSource, isMobile } = props;
@@ -113,6 +112,5 @@ class Content7 extends React.Component {
     );
   }
 }
-
 
 export default Content7;

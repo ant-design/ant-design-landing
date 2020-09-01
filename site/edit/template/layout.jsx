@@ -16,7 +16,6 @@ import Iframe from './components/Iframe';
 import EditStageController from './components/EditStageController';
 import EditListController from './components/EditListController';
 
-
 const FormItem = Form.Item;
 
 class Layout extends React.PureComponent {
@@ -181,6 +180,5 @@ class Layout extends React.PureComponent {
     );
   }
 }
-
 
 export default injectIntl(connect(mapStateToProps)(Layout));

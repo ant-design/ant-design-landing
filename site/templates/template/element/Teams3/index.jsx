@@ -107,5 +107,4 @@ class Teams3 extends React.PureComponent {
   }
 }
 
-
 export default Teams3;

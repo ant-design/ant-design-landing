@@ -124,7 +124,6 @@ class MainContent extends React.PureComponent {
     });
   }
 
-
   generateMenuItem(isTop, item) {
     const { locale } = this.props.intl;
     const key = fileNameToPath(item.filename);

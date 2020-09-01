@@ -81,5 +81,4 @@ class Content5 extends React.PureComponent {
   }
 }
 
-
 export default Content5;

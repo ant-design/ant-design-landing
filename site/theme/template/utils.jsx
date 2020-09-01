@@ -1,4 +1,3 @@
-
 export function getMenuItems(moduleData, locale, themeConfig) {
   const menuMeta = moduleData.map((item) => item.meta);
   const menuItems = [];
@@ -98,7 +97,6 @@ export function isLocalStorageNameSupported() {
   }
 }
 
-
 export function getURLData(name, url) {
   if (typeof window === 'undefined') {
     return '';
@@ -127,7 +125,6 @@ export function setURLData(name, value, url) {
   }
   window.location.hash = myUrl;
 }
-
 
 export function getScroll(target, top) {
   if (typeof window === 'undefined') {

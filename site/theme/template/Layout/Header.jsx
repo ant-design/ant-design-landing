@@ -9,7 +9,6 @@ import PhoneNav from './PhoneNav';
 import * as utils from '../utils';
 import { getNewHref } from '../../../utils';
 
-
 class Header extends React.Component {
   static contextTypes = {
     router: PropTypes.object.isRequired,

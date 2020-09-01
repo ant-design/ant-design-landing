@@ -117,5 +117,4 @@ class Content9 extends React.PureComponent {
   }
 }
 
-
 export default Content9;

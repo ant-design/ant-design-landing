@@ -1,4 +1,3 @@
-
 module.exports = {
   locale: 'zh-CN',
   messages: {
@@ -31,6 +30,7 @@ module.exports = {
     'app.footer.kitchen': 'Sketch 工具集',
     'app.footer.antd-library': 'Axure 部件库',
     'app.footer.umi': 'React 应用开发框架',
+    'app.footer.dumi': '组件/文档研发工具',
     'app.footer.dva': '数据流前端框架',
     'app.footer.design-platform': '蚂蚁金服设计平台',
     'app.footer.antux': '页面逻辑素材',

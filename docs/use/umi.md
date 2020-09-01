@@ -35,7 +35,7 @@ title:
 
 安装 `react` 和 `react-dom`, `npm install react react-dom --save`;
 
-详细参考[开始使用里的安装依赖](docs/use/getting-started-cn#安装依赖);
+详细参考[开始使用里的安装依赖](docs/use/getting-started#安装依赖);
 
 这里我们还需要安装 `npm install umi-plugin-react --save-dev`, 再创建 `.umirc.js` 在根目录里, 现在目录结构为：
 
@@ -63,10 +63,10 @@ export default {
     [
       'umi-plugin-react', {
         antd: true,
-      }
+      },
     ],
-  ]
-}
+  ],
+};
 ```
 
 ## 修改入口文件

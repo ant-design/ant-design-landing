@@ -78,6 +78,11 @@ class Footer extends React.PureComponent {
                   <FormattedMessage id="app.footer.umi" />
                 </div>
                 <div>
+                  <a target="_blank" rel="noopener noreferrer" href="http://d.umijs.org/">Dumi</a>
+                  <span> - </span>
+                  <FormattedMessage id="app.footer.dumi" />
+                </div>
+                <div>
                   <a target="_blank" rel="noopener noreferrer" href="https://github.com/dvajs/dva">dva</a>
                   <span> - </span>
                   <FormattedMessage id="app.footer.dva" />

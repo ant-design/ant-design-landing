@@ -50,7 +50,7 @@ function Content4(props) {
           >
             {isMobile
               ? (
-                <video width="100%" loop poster={dataSource.video.children.image}>
+                <video width="100%" loop controls poster={dataSource.video.children.image}>
                   <source src={videoChildren} type={`video/${type}`} />
                   <track kind="captions" />
                 </video>

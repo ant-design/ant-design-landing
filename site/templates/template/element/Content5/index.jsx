@@ -19,7 +19,12 @@ class Content5 extends React.PureComponent {
         data-edit="Col"
       /* replace-end */
       >
-        <div {...item.children.wrapper}>
+        <a
+          {...item.children.wrapper}
+          /* replace-start */
+          data-edit="linkA"
+          /* replace-end */
+        >
           <span {...item.children.img}>
             <img src={item.children.img.children} height="100%" alt="img" />
           </span>
@@ -30,7 +35,7 @@ class Content5 extends React.PureComponent {
               /* replace-end-value */
             }
           </p>
-        </div>
+        </a>
       </Col>
     );
   });

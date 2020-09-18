@@ -13152,6 +13152,7 @@ a.ant-btn-sm {
   transform: translateY(0);
   transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1), box-shadow 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
   border: none;
+  color: #314659;
   transition: box-shadow 0.3s cubic-bezier(0.215, 0.61, 0.355, 1), transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 .content5-wrapper .content5-img-wrapper .block .content5-block-content:hover {

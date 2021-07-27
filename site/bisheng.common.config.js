@@ -1,9 +1,40 @@
 /* eslint no-param-reassign: 0 */
 
+// This config is for building dist files
+const getWebpackConfig = require('antd-tools/lib/getWebpackConfig');
+
+const { webpack } = getWebpackConfig;
+
 const replaceLib = require('antd-tools/lib/replaceLib');
 
 const isDev = process.env.NODE_ENV === 'development';
 const antdImport = ['import', { libraryName: 'antd', style: true }];
+
+// noParse still leave `require('./locale' + name)` in dist files
+// ignore is better: http://stackoverflow.com/q/25384360
+// bisheng webpack module set noParse: [/moment.js/],
+// but at rc-picker has the same file(/node_modules/rc-picker/es/generate/moment.js).
+// that means babel dont compile it. if your js files is at html,the type is not module ,will cause errors.
+// fix issue: https://github.com/ant-design/ant-design-landing/issues/345
+function ignoreMomentLocale(webpackConfig) {
+  delete webpackConfig.module.noParse;
+  webpackConfig.plugins.push(new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/));
+}
+
+function externalMoment(config) {
+  config.externals = config.externals || {};
+  config.externals['react-router-dom'] = 'ReactRouterDOM';
+  /* config.externals = Object.assign({}, config.externals, {
+      react: 'React',
+      'react-dom': 'ReactDOM',
+  }); */
+  config.externals.moment = {
+    root: 'moment',
+    commonjs2: 'moment',
+    commonjs: 'moment',
+    amd: 'moment',
+  };
+}
 
 function alertTheme(rules) {
   rules.forEach((rule) => {
@@ -82,15 +113,12 @@ module.exports = {
   webpackConfig(config) {
     alertTheme(config.module.rules);
     alertBabelConfig(config.module.rules);
+    ignoreMomentLocale(config);
+    externalMoment(config);
     config.resolve.alias = {
       'react-router': 'react-router/umd/ReactRouter',
     };
-    config.externals = config.externals || {};
-    config.externals['react-router-dom'] = 'ReactRouterDOM';
-    /* config.externals = Object.assign({}, config.externals, {
-      react: 'React',
-      'react-dom': 'ReactDOM',
-    }); */
+
     if (isDev) {
       config.devtool = 'source-map';
     }

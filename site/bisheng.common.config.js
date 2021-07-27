@@ -15,6 +15,7 @@ const antdImport = ['import', { libraryName: 'antd', style: true }];
 // bisheng webpack module set noParse: [/moment.js/],
 // but at rc-picker has the same file(/node_modules/rc-picker/es/generate/moment.js).
 // that means babel dont compile it. if your js files is at html,the type is not module ,will cause errors.
+// fix issue: https://github.com/ant-design/ant-design-landing/issues/345
 function ignoreMomentLocale(webpackConfig) {
   delete webpackConfig.module.noParse;
   webpackConfig.plugins.push(new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/));

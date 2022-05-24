@@ -59,7 +59,8 @@ const eslintrc = {
     'import/no-cycle': 0,
     'react/jsx-props-no-spreading': 0,
     'react/state-in-constructor': 0,
-    'react/static-property-placement': 0
+    'react/static-property-placement': 0,
+    'react/no-array-index-key': 0,
   },
 };
 

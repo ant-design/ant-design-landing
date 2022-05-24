@@ -7,6 +7,24 @@ import AV from './leancloud';
 import * as url from './url';
 import * as ls from './localStorage';
 
+export const xssHref = (str) => {
+  if (!(
+    str.substr(0, 7) === 'http://'
+    || str.substr(0, 8) === 'https://'
+    || str.substr(0, 7) === 'mailto:'
+    || str.substr(0, 4) === 'tel:'
+    || str.substr(0, 11) === 'data:image/'
+    || str.substr(0, 6) === 'ftp://'
+    || str.substr(0, 2) === './'
+    || str.substr(0, 3) === '../'
+    || str[0] === '#'
+    || str[0] === '/'
+  )) {
+    return '';
+  }
+  return xss(str);
+};
+
 export const xssFunc = (data) => {
   if (!data) {
     return;
@@ -15,7 +33,11 @@ export const xssFunc = (data) => {
     const item = data[key];
     switch (typeof item) {
       case 'string':
-        data[key] = xss(data[key]);
+        if (key === 'href') {
+          data[key] = xssHref(item);
+        } else {
+          data[key] = xss(data[key]);
+        }
         break;
       case 'object':
         xssFunc(item);

@@ -2,6 +2,7 @@ import React from 'react';
 import deepEql from 'deep-eql';
 import tempData from './templates/template/element/template.config';
 import { isZhCN, getLocalizedPathname } from './theme/template/utils';
+import { xssHref } from './shared/utils';
 
 export const isImg = /^http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w-./?%&=]*)?/;// /\.(gif|jpg|jpeg|png|svg|JPG|PNG|GIF|JPEG|SVG)$/;
 
@@ -62,7 +63,7 @@ function mergeDataToChild(newData, _data, useDelete) {
       data[key] = mergeDataToChild(newData[key], deepCopy(data[key])
         || (Array.isArray(newData[key]) ? [] : {}), useDelete);
     } else {
-      data[key] = newData[key];
+      data[key] = key === 'href' ? xssHref(newData[key] || '') : newData[key];
     }
     if (useDelete && data[key].delete) {
       delete data[key];

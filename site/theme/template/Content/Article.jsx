@@ -60,7 +60,7 @@ class Article extends React.PureComponent {
               type="warning"
               message={(
                 <span>
-                  This article has not been translated yet. Wan&apos;t to help us out?
+                  This article has not been translated yet. Want to help us out?
                   {' '}
                   <a href="https://github.com/ant-design/ant-design-landing/issues/1">
                     See this issue on GitHub.

@@ -54,4 +54,17 @@ module.exports = {
       },
     ],
   },
+  // ========== ADD THIS SECTION ==========
+  webpackConfig(config) {
+    // Add Tailwind CSS to global styles
+    config.entry.index = [
+      path.join(__dirname, 'tailwind.css'), // Add this line
+      ...(Array.isArray(config.entry.index) 
+        ? config.entry.index 
+        : [config.entry.index])
+    ];
+    
+    return config;
+  },
+  // ======================================
 };

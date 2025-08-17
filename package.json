@@ -73,7 +73,10 @@
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
     "stylelint": "^13.0.0",
-    "stylelint-config-standard": "^20.0.0"
+    "stylelint-config-standard": "^20.0.0",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.3"
   },
   "pre-commit": [
     "lint"
